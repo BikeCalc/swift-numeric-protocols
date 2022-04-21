@@ -77,5 +77,5 @@ To be a truly great community, we welcome developers from all walks of life, wit
 Distributed under Apache License v2.0 with Runtime Library Exception. See the `LICENSE.md` file for more information.
 
 [documentation page]: https://alexandrehsaad.github.io/swift-numeric-protocols/documentation/numeric-protocols
-[issue]: https://github.com/alexandrehsaad/swift-extensions/issues
+[issue]: https://github.com/alexandrehsaad/swift-numeric-protocols/issues
 [@alexandrehsaad]: https://github.com/alexandrehsaad
