@@ -10,7 +10,7 @@ public protocol Addable: Equatable {
 	
 	// MARK: - Adding Values
 	
-	/// Returns the sum of adding the two specified value.
+	/// Returns the sum of adding the two specified values.
 	///
 	/// - parameter lhs: The augend.
 	/// - parameter rhs: The addend.

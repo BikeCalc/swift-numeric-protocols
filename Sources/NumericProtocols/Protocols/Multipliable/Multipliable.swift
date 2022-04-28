@@ -10,7 +10,7 @@ public protocol Multipliable: Equatable {
 	
 	// MARK: - Multiplying Values
 	
-	/// Returns the product of multiplying the two specified value.
+	/// Returns the product of multiplying the two specified values.
 	///
 	/// - parameter lhs: The multiplicand.
 	/// - parameter rhs: The multiplicator.
