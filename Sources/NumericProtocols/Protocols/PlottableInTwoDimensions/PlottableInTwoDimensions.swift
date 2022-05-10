@@ -50,7 +50,7 @@ extension PlottableInTwoDimensions {
 	/// - parameter rhs: Another value to compare.
 	/// - returns: A boolean indicating whether this value is highest than the specified value.
 	public func isHighest(than rhs: Self) -> Bool {
-		return self.y < rhs.y
+		return self.y > rhs.y
 	}
 	
 	/// Returns a boolean value indicating whether this value is lowest than the specified value.
@@ -58,7 +58,7 @@ extension PlottableInTwoDimensions {
 	/// - parameter rhs: Another value to compare.
 	/// - returns: A boolean indicating whether this value is lowest than the specified value.
 	public func isLowest(than rhs: Self) -> Bool {
-		return self.y > rhs.y
+		return self.y < rhs.y
 	}
 }
 
