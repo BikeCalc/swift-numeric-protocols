@@ -37,6 +37,6 @@ extension Decreasable {
     ///
     /// - parameter percentage: The subtrahend.
     public mutating func decrease(by percentage: Self) {
-		self.decreasing(by: percentage)
+		self = self.decreasing(by: percentage)
     }
 }
