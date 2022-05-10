@@ -4,7 +4,7 @@ A Swift package decomposing numeric protocols in smaller highly reusable and fle
 
 ## Overview
 
-No overview available
+No overview available.
 
 ## Availability
 

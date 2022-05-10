@@ -4,7 +4,8 @@
 
 ### Instance Properties
 
-- ``reciprocal``
+- ``reciprocal-3lbgu``
+- ``reciprocal-1j168``
 
 ### Inspecting Values
 

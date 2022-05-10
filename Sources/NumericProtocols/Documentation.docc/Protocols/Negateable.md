@@ -11,5 +11,6 @@
 
 ### Negating Values
 
-- ``negating(_:)``
-- ``negate(_:)``
+- ``Negateable/negating()``
+- ``Negateable/negate()-18cbq``
+- ``Negateable/negate()-8zpeu``

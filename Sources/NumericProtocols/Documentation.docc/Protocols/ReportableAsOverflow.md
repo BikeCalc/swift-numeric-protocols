@@ -9,7 +9,8 @@
 - ``multipliedReportingOverflow(by:)``
 - ``dividedReportingOverflow(by:)``
 - ``remainderReportingOverflow(dividingBy:)``
-- ``raisedReportingOverflow(to:)-x166``
+- ``ReportableAsOverflow/raisedReportingOverflow(to:)-1zfpp``
+- ``ReportableAsOverflow/raisedReportingOverflow(to:)-9ua02``
 
 ### Reports
 

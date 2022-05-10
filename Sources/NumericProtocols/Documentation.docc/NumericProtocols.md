@@ -1,10 +1,10 @@
 # ``NumericProtocols``
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+A Swift package decomposing numeric protocols in smaller highly reusable and flexible protocols.
 
 ## Overview
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+No overview available.
 
 ## Topics
 
@@ -52,3 +52,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 - ``RepresentableByInfinity``
 - ``RepresentableByNaN``
 - ``RepresentableByZero``
+
+### Plotting Values
+
+- ``PlottableInTwoDimensions``
+- ``PlottableInThreeDimensions``

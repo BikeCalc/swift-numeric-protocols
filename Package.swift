@@ -12,7 +12,7 @@ let package: Package = .init(
 		.package(url: "https://github.com/apple/swift-docc-plugin.git", .upToNextMinor(from: "1.0.0"))
 	],
 	targets: [
-		.target(name: "NumericProtocols", dependencies: [], path: "Sources"),
+		.target(name: "NumericProtocols", path: "Sources"),
 		.testTarget(name: "NumericProtocolsTests", dependencies: ["NumericProtocols"], path: "Tests")
 	],
 	swiftLanguageVersions: [.v5]
