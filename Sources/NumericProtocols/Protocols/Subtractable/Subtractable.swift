@@ -6,7 +6,7 @@
 //
 
 /// Representing values that can be subtracted.
-public protocol Subtractable: Addable {
+public protocol Subtractable: Equatable {
 	
 	// MARK: - Subtracting Values
 	
@@ -56,6 +56,13 @@ extension Subtractable {
     public mutating func subtract(_ subtrahend: Self) {
         self -= subtrahend
     }
+}
+
+extension Subtractable
+where Self: Addable & Negateable {
+	public static func - (_ lhs: Self, _ rhs: Self) -> Self {
+		return lhs + -rhs
+	}
 }
 
 extension Subtractable

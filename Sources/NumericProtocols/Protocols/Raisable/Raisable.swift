@@ -6,7 +6,7 @@
 //
 
 /// Representing values that can be raised to the power.
-public protocol Raisable: Multipliable {
+public protocol Raisable: Equatable {
 	
 	// MARK: - Raising Values
 	

@@ -6,7 +6,7 @@
 //
 
 /// Representing values that can be divided.
-public protocol Divisible: Multipliable {
+public protocol Divisible: Equatable {
 	
 	// MARK: - Dividing Values
 	

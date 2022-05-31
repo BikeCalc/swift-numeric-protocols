@@ -6,7 +6,7 @@
 //
 
 /// Representing values that can be negating.
-public protocol Negateable: Subtractable {
+public protocol Negateable: Equatable {
 	
 	// MARK: - Negating Values
 	
