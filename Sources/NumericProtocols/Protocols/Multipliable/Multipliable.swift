@@ -101,16 +101,3 @@ extension Multipliable {
         self = self.doubled()
     }
 }
-
-extension Multipliable
-where Self: Addable & FixedWidthInteger {
-	public static func * (lhs: Self, rhs: Self) -> Self {
-		var result: Self = lhs
-		
-		for _ in 1..<rhs {
-			result += lhs
-		}
-		
-		return result
-	}
-}

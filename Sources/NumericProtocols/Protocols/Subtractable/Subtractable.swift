@@ -59,13 +59,6 @@ extension Subtractable {
 }
 
 extension Subtractable
-where Self: Addable & Negateable {
-	public static func - (_ lhs: Self, _ rhs: Self) -> Self {
-		return lhs + -rhs
-	}
-}
-
-extension Subtractable
 where Self: AdditiveArithmetic {
 	public static func -= (lhs: inout Self, rhs: Self) {
 		lhs = lhs - rhs
