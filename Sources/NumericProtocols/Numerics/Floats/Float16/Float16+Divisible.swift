@@ -8,7 +8,7 @@
 #if swift(>=5.3) && !((os(macOS) || targetEnvironment(macCatalyst)) && arch(x86_64))
 @available(iOS 14, macCatalyst 14.5, macOS 11, tvOS 14, watchOS 7, *)
 extension Float16: Divisible {
-	public static func % (lhs: Self, rhs: Self) -> Self {
+	public static func % (_ lhs: Self, _ rhs: Self) -> Self {
 		return lhs.truncatingRemainder(dividingBy: rhs)
 	}
 }

@@ -15,7 +15,7 @@ public protocol Subtractable: Equatable {
 	/// - parameter lhs: The minuend.
 	/// - parameter rhs: The subtrahend.
 	/// - returns: The difference.
-	static func - (lhs: Self, rhs: Self) -> Self
+	static func - (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Subtractable {
@@ -26,7 +26,7 @@ extension Subtractable {
 	///
 	/// - parameter lhs: The minuend.
 	/// - parameter rhs: The subtrahend.
-	public static func -= (lhs: inout Self, rhs: Self) {
+	public static func -= (_ lhs: inout Self, _ rhs: Self) {
 		lhs = lhs - rhs
 	}
 	
@@ -60,7 +60,7 @@ extension Subtractable {
 
 extension Subtractable
 where Self: AdditiveArithmetic {
-	public static func -= (lhs: inout Self, rhs: Self) {
+	public static func -= (_ lhs: inout Self, _ rhs: Self) {
 		lhs = lhs - rhs
 	}
 }

@@ -14,7 +14,7 @@ public protocol Negateable: Equatable {
 	///
 	/// - parameter operand:
 	/// - returns: The additive inverse.
-	prefix static func - (operand: Self) -> Self
+	prefix static func - (_ operand: Self) -> Self
 }
 
 extension Negateable

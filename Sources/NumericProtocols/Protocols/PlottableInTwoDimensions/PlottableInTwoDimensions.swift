@@ -90,7 +90,7 @@ where Self: Divisible {
 }
 
 extension PlottableInTwoDimensions {
-	public static func == (lhs: Self, rhs: Self) -> Bool {
+	public static func == (_ lhs: Self, _ rhs: Self) -> Bool {
 		return lhs.x == rhs.x
 			&& lhs.y == rhs.y
 	}
@@ -108,7 +108,7 @@ where Self: Multipliable {
 
 extension PlottableInTwoDimensions
 where Self: Negateable {
-	public prefix static func - (operand: Self) -> Self {
+	public prefix static func - (_ operand: Self) -> Self {
 		let x: Double = operand.x.negating()
 		let y: Double = operand.y.negating()
 		

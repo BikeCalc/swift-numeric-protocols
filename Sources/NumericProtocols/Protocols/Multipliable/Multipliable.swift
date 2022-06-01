@@ -15,7 +15,7 @@ public protocol Multipliable: Equatable {
 	/// - parameter lhs: The multiplicand.
 	/// - parameter rhs: The multiplicator.
 	/// - returns: The product.
-	static func * (lhs: Self, rhs: Self) -> Self
+	static func * (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Multipliable {
@@ -42,7 +42,7 @@ extension Multipliable {
 	///
 	/// - parameter lhs: The multiplicand.
 	/// - parameter rhs: The multiplicator.
-	public static func *= (lhs: inout Self, rhs: Self) {
+	public static func *= (_ lhs: inout Self, _ rhs: Self) {
 		lhs = lhs * rhs
 	}
 	

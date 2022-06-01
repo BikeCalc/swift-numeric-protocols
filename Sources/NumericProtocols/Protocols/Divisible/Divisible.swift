@@ -15,14 +15,14 @@ public protocol Divisible: Equatable {
 	/// - parameter lhs: The dividend.
 	/// - parameter rhs: The divisor.
 	/// - returns: The quotient.
-	static func / (lhs: Self, rhs: Self) -> Self
+	static func / (_ lhs: Self, _ rhs: Self) -> Self
 	
 	/// Returns the remainder of dividing the first specified value by the second.
 	///
 	/// - parameter lhs: The dividend.
 	/// - parameter rhs: The divisor.
 	/// - returns: The remainder.
-	static func % (lhs: Self, rhs: Self) -> Self
+	static func % (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Divisible
@@ -100,7 +100,7 @@ extension Divisible {
 	///
 	/// - parameter lhs: The dividend.
 	/// - parameter rhs: The divisor.
-    public static func /= (lhs: inout Self, rhs: Self) {
+    public static func /= (_ lhs: inout Self, _ rhs: Self) {
         lhs = lhs / rhs
     }
 	
@@ -108,7 +108,7 @@ extension Divisible {
 	///
 	/// - parameter lhs: The dividend.
 	/// - parameter rhs: The divisor.
-	public static func %= (lhs: inout Self, rhs: Self) {
+	public static func %= (_ lhs: inout Self, _ rhs: Self) {
 		lhs = lhs % rhs
 	}
     

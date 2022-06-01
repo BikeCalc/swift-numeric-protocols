@@ -85,7 +85,7 @@ where Self: Divisible {
 }
 
 extension PlottableInThreeDimensions {
-	public static func == (lhs: Self, rhs: Self) -> Bool {
+	public static func == (_ lhs: Self, _ rhs: Self) -> Bool {
 		return lhs.x == rhs.x
 			&& lhs.y == rhs.y
 			&& lhs.z == rhs.z
@@ -105,7 +105,7 @@ where Self: Multipliable {
 
 extension PlottableInThreeDimensions
 where Self: Negateable {
-	public prefix static func - (operand: Self) -> Self {
+	public prefix static func - (_ operand: Self) -> Self {
 		let x: Double = operand.x.negating()
 		let y: Double = operand.y.negating()
 		let z: Double = operand.z.negating()
