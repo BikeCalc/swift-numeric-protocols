@@ -1,4 +1,4 @@
-// FloatTests+RepresentableByZeroTests.swift
+// IntTests+RepresentableByZeroTests.swift
 // NumericProtocolsTests
 //
 // Copyright © 2021-2022 Alexandre H. Saad
@@ -8,7 +8,7 @@
 import XCTest
 @testable import NumericProtocols
 
-extension FloatTests: RepresentableByZeroTests {
+extension IntTests: RepresentableByZeroTests {
 	func test_isZeroReturnsFalse() {
 		// Given
 		let value: TestSubject = 1
@@ -43,16 +43,8 @@ extension FloatTests: RepresentableByZeroTests {
 		XCTAssertEqual(sum, .zero)
 	}
 	
-	func test_divisionByZeroReturnsNaN() {
-		// Given
-		let dividend: TestSubject = .zero
-		let divisor: TestSubject = .zero
-		
-		// When
-		let quotient: TestSubject = dividend / divisor
-
-		// Then
-		XCTAssertTrue(quotient.isNaN)
+	func test_divisionByZero() {
+		// TODO:
 	}
 	
 	func test_multiplicationReturnsZero() {
