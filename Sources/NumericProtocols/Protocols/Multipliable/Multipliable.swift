@@ -32,8 +32,8 @@ extension Multipliable {
 	/// - parameter other: The value to test.
 	/// - returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
 	public func isMultiple(of other: Self) -> Bool
-	where Self: Divisible & ExpressibleByFloatLiteral {
-		return (self % other) == 0.0
+	where Self: Divisible & ExpressibleByIntegerLiteral {
+		return (self % other) == 0
 	}
 	
 	// MARK: - Multiplying Values
