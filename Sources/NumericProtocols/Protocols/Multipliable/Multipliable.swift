@@ -22,6 +22,25 @@ extension Multipliable {
 	
 	// MARK: - Inspecting Values
 	
+	// FIXME: Ambiguous use of 'isMultiple(of:)'.
+	/// Returns a boolean value indicating whether this value is a multiple of the specified value.
+	///
+	/// ```swift
+	/// print(50.isMultiple(of: 10))
+	/// // Prints "true"
+	/// ```
+	///
+	/// - parameter other: The value to test.
+	/// - returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
+//	public func isMultiple(of other: Self) -> Bool
+//	where Self: Divisible & ExpressibleByIntegerLiteral {
+//		if self == 0 && other == 0 {
+//			return true
+//		}
+//
+//		return (self % other) == 0
+//	}
+	
 	/// Returns a boolean value indicating whether this value is a multiple of the specified value.
 	///
 	/// ```swift
