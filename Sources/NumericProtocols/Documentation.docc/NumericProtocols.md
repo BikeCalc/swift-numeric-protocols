@@ -1,6 +1,6 @@
 # ``NumericProtocols``
 
-A Swift package decomposing numeric protocols in smaller highly reusable and flexible protocols.
+A Swift package decomposing numeric protocols in smaller highly reusable and flexible protocols, for the Swift programming language.
 
 ## Overview
 
