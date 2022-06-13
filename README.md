@@ -1,6 +1,8 @@
+![](Assets/GitHubBanner.png)
+
 # swift-numeric-protocols
 
-A Swift package decomposing numeric protocols in smaller highly reusable and flexible protocols, for the Swift programming language.
+A package containing numeric protocols, for the Swift programming language.
 
 ## Overview
 
