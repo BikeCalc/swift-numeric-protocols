@@ -64,7 +64,7 @@ If you find a bug, please create an [issue].
 
 ### Contacting the maintainers
 
-The current code owner of this repository is Alex ([@alexandrehsaad]). If you want to share your thoughts or feedback on how to improve this repository, you can contact him by writing an email to alexandresaad at icloud dot com.
+If you want to share your thoughts on how to improve this repository, you can contact the code owner. See the `CODE_OWNERS.md` file for more information.
 
 ### Supporting this repository
 
