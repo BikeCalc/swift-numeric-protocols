@@ -52,8 +52,3 @@ No overview available.
 - ``RepresentableByInfinity``
 - ``RepresentableByNaN``
 - ``RepresentableByZero``
-
-### Plotting Values
-
-- ``PlottableInTwoDimensions``
-- ``PlottableInThreeDimensions``
