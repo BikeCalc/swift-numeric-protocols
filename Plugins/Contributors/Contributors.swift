@@ -18,7 +18,7 @@ internal struct Contributors: CommandPlugin {
 	) async throws {
 		let process: Process = .init()
 		process.executableURL = .init(fileURLWithPath: "/usr/bin/git")
-		process.arguments = ["log", "--pretty=format:- %cN <%cE>"]
+		process.arguments = ["log", "--pretty=format:- %aN <%aE>"]
 		
 		let outputPipe: Pipe = .init()
 		process.standardOutput = outputPipe
