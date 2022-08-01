@@ -149,4 +149,3 @@ extension IntTests: DivisibleTests {
 		XCTAssertEqual(half, 0)
 	}
 }
-

@@ -58,13 +58,21 @@ You can read more about this package by visiting the [documentation page].
 
 ## Contribution
 
+Contributions are what makes the open source community such an amazing place to learn, inspire, and create. If you wish to contribute and be part of this project, please fork the repository and create a [pull request].
+
+1. Fork the repository
+2. Create your feature branch `git checkout -b feature/NewFeature`
+3. Commit your changes `git commit -m 'Added a new feature'`
+4. Push to your branch `git push origin feature/NewFeature`
+5. Open a pull request
+
 ### Reporting a bug
 
 If you find a bug, please create an [issue].
 
 ### Contacting the maintainers
 
-If you want to share your thoughts on how to improve this repository, you can contact the code owner. See the `CODE_OWNERS.md` file for more information.
+If you want to share your thoughts on how to improve this repository, you can contact the code owner. See the `CODEOWNERS.txt` file for more information.
 
 ### Supporting this repository
 
@@ -72,12 +80,12 @@ If this repository has been useful to you in some way, show your support by star
 
 ## Code of Conduct
 
-To be a truly great community, we welcome developers from all walks of life, with different backgrounds, and with a wide range of experience. A diverse and friendly community will have more great ideas, more unique perspectives, and produce more great code. We will work diligently to make this community welcoming to everyone. See the `CODE_OF_CONDUCT.md` file for more information.
+To be a truly great community, we welcome developers from all walks of life, with different backgrounds, and with a wide range of experience. A diverse and friendly community will have more great ideas, more unique perspectives, and produce more great code. We will work diligently to make this community welcoming to everyone. See the `CODEOFCONDUCT.md` file for more information.
 
 ## License
 
 Distributed under Apache License v2.0 with Runtime Library Exception. See the `LICENSE.md` file for more information.
 
 [documentation page]: https://alexandrehsaad.github.io/swift-numeric-protocols/documentation/numeric-protocols
+[pull request]: https://github.com/alexandrehsaad/swift-numeric-protocols/pulls
 [issue]: https://github.com/alexandrehsaad/swift-numeric-protocols/issues
-[@alexandrehsaad]: https://github.com/alexandrehsaad

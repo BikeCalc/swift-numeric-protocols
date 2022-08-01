@@ -86,4 +86,3 @@ extension IntTests: NegateableTests {
 		XCTAssertTrue(result)
 	}
 }
-

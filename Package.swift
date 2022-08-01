@@ -9,21 +9,10 @@ let package: Package = .init(
 		.library(name: "NumericProtocols", targets: ["NumericProtocols"])
 	],
 	dependencies: [
+		.package(url: "https://github.com/alexandrehsaad/swift-contributors-plugin", branch: "main"),
 		.package(url: "https://github.com/apple/swift-docc-plugin.git", .upToNextMinor(from: "1.0.0"))
 	],
 	targets: [
-		.plugin(
-			name: "Contributors",
-			capability: .command(
-				intent: .custom(
-					verb: "regenerate-contributors",
-					description: "Generates the CONTRIBUTORS.txt file based on Git logs."
-				),
-				permissions: [
-					.writeToPackageDirectory(reason: "This command writes the new CONTRIBUTORS.txt file.")
-				]
-			)
-		),
 		.target(name: "NumericProtocols", path: "Sources"),
 		.testTarget(name: "NumericProtocolsTests", dependencies: ["NumericProtocols"], path: "Tests")
 	],

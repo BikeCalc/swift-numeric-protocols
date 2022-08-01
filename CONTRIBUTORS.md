@@ -1,3 +1,0 @@
-# Contributors
-
-- Alexandre Saad [@alexandrehsaad]

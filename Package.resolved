@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "swift-contributors-plugin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alexandrehsaad/swift-contributors-plugin",
+      "state" : {
+        "branch" : "main",
+        "revision" : "8f9b0e81f3fe3281a96dcd5d6345d4736cf4b79d"
+      }
+    },
+    {
       "identity" : "swift-docc-plugin",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-docc-plugin.git",

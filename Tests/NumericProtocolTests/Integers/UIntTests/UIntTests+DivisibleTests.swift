@@ -149,4 +149,3 @@ extension UIntTests: DivisibleTests {
 		XCTAssertEqual(half, 0)
 	}
 }
-
