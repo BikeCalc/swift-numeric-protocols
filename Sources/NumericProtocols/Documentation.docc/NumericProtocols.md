@@ -50,5 +50,7 @@ No overview available.
 ### Representing Values
 
 - ``RepresentableByInfinity``
+- ``RepresentableByMax``
+- ``RepresentableByMin``
 - ``RepresentableByNaN``
 - ``RepresentableByZero``

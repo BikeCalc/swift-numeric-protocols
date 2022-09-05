@@ -16,7 +16,7 @@ public protocol RepresentableByInfinity: Equatable {
 	/// A boolean value indicating whether this instance is infinite.
 	var isInfinite: Bool { get }
 	
-	// MARK: - Other Values
+	// MARK: - Infinity Values
 	
 	/// The value representing positive infinity.
 	static var infinity: Self { get }
