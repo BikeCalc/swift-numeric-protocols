@@ -47,6 +47,11 @@ No overview available.
 
 - ``ReportableAsOverflow``
 
+### Rounding Values
+
+- ``Roundable``
+- ``Truncatable``
+
 ### Representing Values
 
 - ``RepresentableByInfinity``
