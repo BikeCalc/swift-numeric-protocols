@@ -1,0 +1,56 @@
+name: Build & Deploy Documentation
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+  
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: macos-14
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Swift Environment
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: "5.9"
+      - name: Get Swift Version
+        run: |
+          swift --version
+      - name: Build Documentation
+        run: |
+          swift package resolve;
+          xcodebuild docbuild \
+            -scheme swift-numeric-protocols \
+            -derivedDataPath /tmp/docbuild \
+            -destination "generic/platform=iOS Simulator";
+          $(xcrun --find docc) process-archive \
+            transform-for-static-hosting /tmp/docbuild/Build/Products/Debug-iphonesimulator/NumericProtocols.doccarchive \
+            --output-path docs \
+            --hosting-base-path "swift-numeric-protocols";
+          echo "<script>window.location.href += \"/documentation/numericprotocols\"</script>" > docs/index.html;
+      - name: Setup GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v3
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: "docs"
+      - name: Deploy Documentation
+        id: deployment
+        uses: actions/deploy-pages@v2
