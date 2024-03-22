@@ -2,10 +2,6 @@
 
 A demonstration on how to install this package.
 
-## Overview
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
 ## Installing this package
 
 The Swift Package Manager is a tool for managing the distribution of Swift code and is integrated into the swift compiler.

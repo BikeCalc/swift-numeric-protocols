@@ -9,8 +9,7 @@ let package: Package = .init(
 		.library(name: "NumericProtocols", targets: ["NumericProtocols"])
 	],
 	dependencies: [
-		.package(url: "https://github.com/alexandrehsaad/swift-contributors-plugin", branch: "main"),
-		.package(url: "https://github.com/apple/swift-docc-plugin.git", .upToNextMinor(from: "1.0.0"))
+		.package(url: "https://github.com/apple/swift-docc-plugin.git", .upToNextMinor(from: "1.3.0"))
 	],
 	targets: [
 		.target(name: "NumericProtocols", path: "Sources"),
