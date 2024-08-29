@@ -10,9 +10,6 @@
 public protocol Roundable: BinaryFloatingPoint {}
 
 extension Roundable {
-    
-    // MARK: - Rounding Values
-    
     /// Returns this instance rounded to the specified decimal place.
     ///
     /// ```swift

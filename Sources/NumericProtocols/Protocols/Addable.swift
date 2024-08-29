@@ -8,9 +8,6 @@
 
 /// Representing values that can be added.
 public protocol Addable: Equatable {
-	
-	// MARK: - Adding Values
-	
 	/// Returns the sum of adding the two specified values.
 	///
 	/// - parameter lhs: The augend.
@@ -20,9 +17,6 @@ public protocol Addable: Equatable {
 }
 
 extension Addable {
-	
-	// MARK: - Adding Values
-	
 	/// Adds the two specified values and stores the sum in the left-hand-side variable.
 	///
 	/// - parameter lhs: The augend.

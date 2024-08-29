@@ -1,5 +1,5 @@
 //
-// Equatable+.swift
+// Equatable.swift
 // NumericProtocols
 //
 // Copyright © 2021-2024 Alexandre H. Saad
@@ -7,9 +7,6 @@
 //
 
 extension Equatable {
-	
-	// MARK: - Inspecting Values
-	
     /// Returns a boolean value indicating whether this value is equal to the specified value.
     ///
     /// - parameter rhs: Another value to compare.
@@ -29,9 +26,6 @@ extension Equatable {
 
 extension Equatable
 where Self: Divisible & ExpressibleByIntegerLiteral {
-	
-	// MARK: - Instance Properties
-	
 	/// A boolean value indicating whether this value is even.
 	///
 	/// ```swift

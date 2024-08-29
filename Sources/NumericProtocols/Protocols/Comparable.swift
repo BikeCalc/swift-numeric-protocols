@@ -1,5 +1,5 @@
 //
-// Comparable+.swift
+// Comparable.swift
 // NumericProtocols
 //
 // Copyright © 2021-2024 Alexandre H. Saad
@@ -7,9 +7,6 @@
 //
 
 extension Comparable {
-	
-	// MARK: - Inspecting Values
-	
     /// Returns a boolean value indicating whether this value is less than the specified value.
     ///
     /// - parameter rhs: Another value to compare.

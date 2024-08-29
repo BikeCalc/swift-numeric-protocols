@@ -8,16 +8,11 @@
 
 /// Representing values that can be represented by infinity.
 public protocol RepresentableByInfinity: Equatable {
-	
-	// MARK: - Inspecting Values
-	
 	/// A boolean value indicating whether this instance is finite.
 	var isFinite: Bool { get }
 	
 	/// A boolean value indicating whether this instance is infinite.
 	var isInfinite: Bool { get }
-	
-	// MARK: - Infinity Values
 	
 	/// The value representing positive infinity.
 	static var infinity: Self { get }
@@ -25,9 +20,6 @@ public protocol RepresentableByInfinity: Equatable {
 
 extension RepresentableByInfinity
 where Self: Negateable {
-	
-	// MARK: - Infinity Values
-	
 	/// The value representing negative infinity.
 	public static var negativeInfinity: Self {
 		return .infinity.negating()

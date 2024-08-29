@@ -1,5 +1,5 @@
 //
-// Float16+.swift
+// Float16.swift
 // NumericProtocols
 //
 // Copyright © 2021-2024 Alexandre H. Saad

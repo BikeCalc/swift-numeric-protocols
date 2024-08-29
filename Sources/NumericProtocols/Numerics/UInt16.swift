@@ -1,5 +1,5 @@
 //
-// Int16+.swift
+// UInt16.swift
 // NumericProtocols
 //
 // Copyright © 2021-2024 Alexandre H. Saad
@@ -8,32 +8,28 @@
 
 // MARK: - Addable
 
-extension Int16: Addable {}
+extension UInt16: Addable {}
 
 // MARK: - Divisible
 
-extension Int16: Divisible {}
+extension UInt16: Divisible {}
 
 // MARK: - Multipliable
 
-extension Int16: Multipliable {}
-
-// MARK: - Negateable
-
-extension Int16: Negateable {}
+extension UInt16: Multipliable {}
 
 // MARK: - Raisable
 
-extension Int16: Raisable {}
+extension UInt16: Raisable {}
 
 // MARK: - ReportableAsOverflow
 
-extension Int16: ReportableAsOverflow {}
+extension UInt16: ReportableAsOverflow {}
 
 // MARK: - RepresentableByZero
 
-extension Int16: RepresentableByZero {}
+extension UInt16: RepresentableByZero {}
 
 // MARK: - Subtractable
 
-extension Int16: Subtractable {}
+extension UInt16: Subtractable {}

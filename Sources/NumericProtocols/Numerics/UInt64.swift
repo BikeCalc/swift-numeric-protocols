@@ -1,5 +1,5 @@
 //
-// UInt64+.swift
+// UInt64.swift
 // NumericProtocols
 //
 // Copyright © 2021-2024 Alexandre H. Saad

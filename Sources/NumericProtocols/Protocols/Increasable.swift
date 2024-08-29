@@ -10,9 +10,6 @@
 public protocol Increasable: BinaryFloatingPoint {}
 
 extension Increasable {
-	
-	// MARK: - Increasing Values
-	
     /// Returns the sum of increasing this value by the specified value.
     ///
     /// ```swift

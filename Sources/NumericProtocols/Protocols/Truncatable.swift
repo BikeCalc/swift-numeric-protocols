@@ -10,9 +10,6 @@
 public protocol Truncatable: BinaryFloatingPoint {}
 
 extension Truncatable {
-    
-    // MARK: - Truncating Values
-    
     /// Returns this instance truncated to the specified decimal place.
     ///
     /// ```swift

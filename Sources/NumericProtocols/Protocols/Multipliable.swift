@@ -8,9 +8,6 @@
 
 /// Representing values that can be multiplied.
 public protocol Multipliable: Equatable {
-	
-	// MARK: - Multiplying Values
-	
 	/// Returns the product of multiplying the two specified values.
 	///
 	/// - parameter lhs: The multiplicand.
@@ -20,9 +17,6 @@ public protocol Multipliable: Equatable {
 }
 
 extension Multipliable {
-	
-	// MARK: - Inspecting Values
-	
 	// FIXME: Ambiguous use of 'isMultiple(of:)'.
 	/// Returns a boolean value indicating whether this value is a multiple of the specified value.
 	///
@@ -60,8 +54,6 @@ extension Multipliable {
 		return (self % other) == 0.0
 	}
 	
-	// MARK: - Multiplying Values
-	
 	/// Multiplies the two specified values and stores the product in the left-hand-side variable.
 	///
 	/// - parameter lhs: The multiplicand.
@@ -96,8 +88,6 @@ extension Multipliable {
     public mutating func multiply(by multiplicator: Self) {
         self *= multiplicator
     }
-	
-	// MARK: - Doubling Values
 	
     /// Returns this value doubled.
     ///

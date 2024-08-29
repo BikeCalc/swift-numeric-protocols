@@ -1,5 +1,5 @@
 //
-// UInt16+.swift
+// UInt.swift
 // NumericProtocols
 //
 // Copyright © 2021-2024 Alexandre H. Saad
@@ -8,28 +8,28 @@
 
 // MARK: - Addable
 
-extension UInt16: Addable {}
+extension UInt: Addable {}
 
 // MARK: - Divisible
 
-extension UInt16: Divisible {}
+extension UInt: Divisible {}
 
 // MARK: - Multipliable
 
-extension UInt16: Multipliable {}
+extension UInt: Multipliable {}
 
 // MARK: - Raisable
 
-extension UInt16: Raisable {}
+extension UInt: Raisable {}
 
 // MARK: - ReportableAsOverflow
 
-extension UInt16: ReportableAsOverflow {}
+extension UInt: ReportableAsOverflow {}
 
 // MARK: - RepresentableByZero
 
-extension UInt16: RepresentableByZero {}
+extension UInt: RepresentableByZero {}
 
 // MARK: - Subtractable
 
-extension UInt16: Subtractable {}
+extension UInt: Subtractable {}

@@ -1,5 +1,5 @@
 //
-// Float64+.swift
+// Float32.swift
 // NumericProtocols
 //
 // Copyright © 2021-2024 Alexandre H. Saad
@@ -8,15 +8,15 @@
 
 // MARK: - Addable
 
-extension Float64: Addable {}
+extension Float32: Addable {}
 
 // MARK: - Decreasable
 
-extension Float64: Decreasable {}
+extension Float32: Decreasable {}
 
 // MARK: - Divisible
 
-extension Float64: Divisible {
+extension Float32: Divisible {
     public static func % (_ lhs: Self, _ rhs: Self) -> Self {
         return lhs.truncatingRemainder(dividingBy: rhs)
     }
@@ -24,32 +24,32 @@ extension Float64: Divisible {
 
 // MARK: - Increasable
 
-extension Float64: Increasable {}
+extension Float32: Increasable {}
 
 // MARK: - Multipliable
 
-extension Float64: Multipliable {}
+extension Float32: Multipliable {}
 
 // MARK: - Negateable
 
-extension Float64: Negateable {}
+extension Float32: Negateable {}
 
 // MARK: - Raisable
 
-extension Float64: Raisable {}
+extension Float32: Raisable {}
 
 // MARK: - RepresentableByInfinity
 
-extension Float64: RepresentableByInfinity {}
+extension Float32: RepresentableByInfinity {}
 
 // MARK: - RepresentableByNaN
 
-extension Float64: RepresentableByNaN {}
+extension Float32: RepresentableByNaN {}
 
 // MARK: - RepresentableByZero
 
-extension Float64: RepresentableByZero {}
+extension Float32: RepresentableByZero {}
 
 // MARK: - Subtractable
 
-extension Float64: Subtractable {}
+extension Float32: Subtractable {}

@@ -1,5 +1,5 @@
 //
-// Int64+.swift
+// Int16.swift
 // NumericProtocols
 //
 // Copyright © 2021-2024 Alexandre H. Saad
@@ -8,32 +8,32 @@
 
 // MARK: - Addable
 
-extension Int64: Addable {}
+extension Int16: Addable {}
 
 // MARK: - Divisible
 
-extension Int64: Divisible {}
+extension Int16: Divisible {}
 
 // MARK: - Multipliable
 
-extension Int64: Multipliable {}
+extension Int16: Multipliable {}
 
 // MARK: - Negateable
 
-extension Int64: Negateable {}
+extension Int16: Negateable {}
 
 // MARK: - Raisable
 
-extension Int64: Raisable {}
+extension Int16: Raisable {}
 
 // MARK: - ReportableAsOverflow
 
-extension Int64: ReportableAsOverflow {}
+extension Int16: ReportableAsOverflow {}
 
 // MARK: - RepresentableByZero
 
-extension Int64: RepresentableByZero {}
+extension Int16: RepresentableByZero {}
 
 // MARK: - Subtractable
 
-extension Int64: Subtractable {}
+extension Int16: Subtractable {}

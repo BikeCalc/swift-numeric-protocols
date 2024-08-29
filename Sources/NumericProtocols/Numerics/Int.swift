@@ -1,5 +1,5 @@
 //
-// Int+.swift
+// Int.swift
 // NumericProtocols
 //
 // Copyright © 2021-2024 Alexandre H. Saad

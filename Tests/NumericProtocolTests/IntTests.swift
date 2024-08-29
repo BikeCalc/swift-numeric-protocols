@@ -9,18 +9,18 @@
 import XCTest
 @testable import NumericProtocols
 
-internal final class IntTests: XCTestCase {
-	typealias TestSubject = Int
-}
+internal final class IntTests: XCTestCase {}
 
-extension IntTests: AddableTests {
+// MARK: - Addable
+
+extension IntTests {
     internal func test_additionSucceeds() {
         // Given
-        let augend: TestSubject = 2
-        let addend: TestSubject = 4
+        let augend: Int = 2
+        let addend: Int = 4
         
         // When
-        let sum: TestSubject = augend + addend
+        let sum: Int = augend + addend
 
         // Then
         XCTAssertEqual(sum, 6)
@@ -28,8 +28,8 @@ extension IntTests: AddableTests {
     
     internal func test_additionEqualSucceeds() {
         // Given
-        var sum: TestSubject = 2
-        let addend: TestSubject = 4
+        var sum: Int = 2
+        let addend: Int = 4
         
         // When
         sum += addend
@@ -40,11 +40,11 @@ extension IntTests: AddableTests {
     
     internal func test_addingSucceeds() {
         // Given
-        let augend: TestSubject = 2
-        let addend: TestSubject = 4
+        let augend: Int = 2
+        let addend: Int = 4
         
         // When
-        let sum: TestSubject = augend.adding(addend)
+        let sum: Int = augend.adding(addend)
 
         // Then
         XCTAssertEqual(sum, 6)
@@ -52,8 +52,8 @@ extension IntTests: AddableTests {
     
     internal func test_addSucceeds() {
         // Given
-        var sum: TestSubject = 2
-        let addend: TestSubject = 4
+        var sum: Int = 2
+        let addend: Int = 4
         
         // When
         sum.add(addend)
@@ -63,11 +63,13 @@ extension IntTests: AddableTests {
     }
 }
 
-extension IntTests: ComparableTests {
+// MARK: - Comparable
+
+extension IntTests {
     internal func test_isLessThanReturnsFalse() {
         // Given
-        let lhs: TestSubject = 2
-        let rhs: TestSubject = 1
+        let lhs: Int = 2
+        let rhs: Int = 1
         
         // When
         let result: Bool = lhs.isLess(than: rhs)
@@ -78,8 +80,8 @@ extension IntTests: ComparableTests {
     
     internal func test_isLessThanReturnsTrue() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 2
+        let lhs: Int = 1
+        let rhs: Int = 2
         
         // When
         let result: Bool = lhs.isLess(than: rhs)
@@ -90,8 +92,8 @@ extension IntTests: ComparableTests {
     
     internal func test_isLessThanOrEqualToReturnsFalse() {
         // Given
-        let lhs: TestSubject = 2
-        let rhs: TestSubject = 1
+        let lhs: Int = 2
+        let rhs: Int = 1
         
         // When
         let result: Bool = lhs.isLessThanOrEqual(to: rhs)
@@ -102,8 +104,8 @@ extension IntTests: ComparableTests {
     
     internal func test_isLessThanOrEqualToReturnsTrue() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 1
+        let lhs: Int = 1
+        let rhs: Int = 1
         
         // When
         let result: Bool = lhs.isLessThanOrEqual(to: rhs)
@@ -114,8 +116,8 @@ extension IntTests: ComparableTests {
     
     internal func test_isGreaterThanReturnsFalse() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 2
+        let lhs: Int = 1
+        let rhs: Int = 2
         
         // When
         let result: Bool = lhs.isGreater(than: rhs)
@@ -126,8 +128,8 @@ extension IntTests: ComparableTests {
     
     internal func test_isGreaterThanReturnsTrue() {
         // Given
-        let lhs: TestSubject = 2
-        let rhs: TestSubject = 1
+        let lhs: Int = 2
+        let rhs: Int = 1
         
         // When
         let result: Bool = lhs.isGreater(than: rhs)
@@ -138,8 +140,8 @@ extension IntTests: ComparableTests {
     
     internal func test_isGreaterThanOrEqualToReturnsFalse() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 2
+        let lhs: Int = 1
+        let rhs: Int = 2
         
         // When
         let result: Bool = lhs.isGreaterThanOrEqual(to: rhs)
@@ -150,8 +152,8 @@ extension IntTests: ComparableTests {
     
     internal func test_isGreaterThanOrEqualToReturnsTrue() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 1
+        let lhs: Int = 1
+        let rhs: Int = 1
         
         // When
         let result: Bool = lhs.isGreaterThanOrEqual(to: rhs)
@@ -162,10 +164,10 @@ extension IntTests: ComparableTests {
     
     internal func test_isWithinClosedRangeReturnsFalse() {
         // Given
-        let value: TestSubject = 4
-        let lowerBound: TestSubject = 1
-        let upperBound: TestSubject = 3
-        let range: ClosedRange<TestSubject> = lowerBound...upperBound
+        let value: Int = 4
+        let lowerBound: Int = 1
+        let upperBound: Int = 3
+        let range: ClosedRange<Int> = lowerBound...upperBound
         
         // Then
         XCTAssertFalse(value.isWithin(range))
@@ -173,10 +175,10 @@ extension IntTests: ComparableTests {
     
     internal func test_isWithinClosedRangeReturnsTrue() {
         // Given
-        let value: TestSubject = 2
-        let lowerBound: TestSubject = 1
-        let upperBound: TestSubject = 3
-        let range: ClosedRange<TestSubject> = lowerBound...upperBound
+        let value: Int = 2
+        let lowerBound: Int = 1
+        let upperBound: Int = 3
+        let range: ClosedRange<Int> = lowerBound...upperBound
         
         // Then
         XCTAssertTrue(value.isWithin(range))
@@ -184,9 +186,9 @@ extension IntTests: ComparableTests {
     
     internal func test_isWithinBoundsReturnsFalse() {
         // Given
-        let value: TestSubject = 4
-        let lowerBound: TestSubject = 1
-        let upperBound: TestSubject = 3
+        let value: Int = 4
+        let lowerBound: Int = 1
+        let upperBound: Int = 3
         
         // Then
         XCTAssertFalse(value.isWithin(lowerBound, to: upperBound))
@@ -194,19 +196,21 @@ extension IntTests: ComparableTests {
     
     internal func test_isWithinBoundsReturnsTrue() {
         // Given
-        let value: TestSubject = 2
-        let lowerBound: TestSubject = 1
-        let upperBound: TestSubject = 3
+        let value: Int = 2
+        let lowerBound: Int = 1
+        let upperBound: Int = 3
         
         // Then
         XCTAssertTrue(value.isWithin(lowerBound, to: upperBound))
     }
 }
 
-extension IntTests: DivisibleTests {
+// MARK: - Divisible
+
+extension IntTests {
     internal func test_isInvertibleReturnsFalse() {
         // Given
-        let value: TestSubject = .zero
+        let value: Int = .zero
         
         // When
         let result: Bool = value.isInvertible
@@ -217,7 +221,7 @@ extension IntTests: DivisibleTests {
     
     internal func test_isInvertibleReturnsTrue() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
         let result: Bool = value.isInvertible
@@ -228,8 +232,8 @@ extension IntTests: DivisibleTests {
     
     internal func test_isDivisibleByReturnsFalse() {
         // Given
-        let dividend: TestSubject = 3
-        let divisor: TestSubject = 0
+        let dividend: Int = 3
+        let divisor: Int = 0
         
         // When
         let result: Bool = dividend.isDivisible(by: divisor)
@@ -240,8 +244,8 @@ extension IntTests: DivisibleTests {
     
     internal func test_isDivisibleByReturnsTrue() {
         // Given
-        let dividend: TestSubject = 3
-        let divisor: TestSubject = 1
+        let dividend: Int = 3
+        let divisor: Int = 1
         
         // When
         let result: Bool = dividend.isDivisible(by: divisor)
@@ -252,8 +256,8 @@ extension IntTests: DivisibleTests {
     
     internal func test_isFactorOfReturnsFalse() {
         // Given
-        let dividend: TestSubject = 2
-        let divisor: TestSubject = 3
+        let dividend: Int = 2
+        let divisor: Int = 3
         
         // When
         let result: Bool = dividend.isFactor(of: divisor)
@@ -264,8 +268,8 @@ extension IntTests: DivisibleTests {
     
     internal func test_isFactorOfReturnsTrue() {
         // Given
-        let dividend: TestSubject = 1
-        let divisor: TestSubject = 2
+        let dividend: Int = 1
+        let divisor: Int = 2
         
         // When
         let result: Bool = dividend.isFactor(of: divisor)
@@ -276,11 +280,11 @@ extension IntTests: DivisibleTests {
     
     internal func test_divisionSucceeds() {
         // Given
-        let dividend: TestSubject = 6
-        let divisor: TestSubject = 2
+        let dividend: Int = 6
+        let divisor: Int = 2
         
         // When
-        let quotient: TestSubject = dividend.dividing(by: divisor)
+        let quotient: Int = dividend.dividing(by: divisor)
         
         // Then
         XCTAssertEqual(quotient, 3)
@@ -288,8 +292,8 @@ extension IntTests: DivisibleTests {
     
     internal func test_divisionEqualSucceeds() {
         // Given
-        var quotient: TestSubject = 6
-        let divisor: TestSubject = 2
+        var quotient: Int = 6
+        let divisor: Int = 2
         
         // When
         quotient.divide(by: divisor)
@@ -300,11 +304,11 @@ extension IntTests: DivisibleTests {
     
     internal func test_dividingBySucceeds() {
         // Given
-        let dividend: TestSubject = 6
-        let divisor: TestSubject = 2
+        let dividend: Int = 6
+        let divisor: Int = 2
         
         // When
-        let quotient: TestSubject = dividend.dividing(by: divisor)
+        let quotient: Int = dividend.dividing(by: divisor)
         
         // Then
         XCTAssertEqual(quotient, 3)
@@ -312,8 +316,8 @@ extension IntTests: DivisibleTests {
     
     internal func test_divideBySucceeds() {
         // Given
-        var quotient: TestSubject = 6
-        let divisor: TestSubject = 2
+        var quotient: Int = 6
+        let divisor: Int = 2
         
         // When
         quotient.divide(by: divisor)
@@ -324,10 +328,10 @@ extension IntTests: DivisibleTests {
     
     internal func test_halvedSucceeds() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
-        let half: TestSubject = value.halved()
+        let half: Int = value.halved()
         
         // Then
         XCTAssertEqual(half, 0)
@@ -335,21 +339,23 @@ extension IntTests: DivisibleTests {
     
     internal func test_halveSucceeds() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
-        let half: TestSubject = value.halved()
+        let half: Int = value.halved()
         
         // Then
         XCTAssertEqual(half, 0)
     }
 }
 
-extension IntTests: EquatableTests {
+// MARK: - Equatable
+
+extension IntTests {
     internal func test_isEqualToReturnsFalse() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 2
+        let lhs: Int = 1
+        let rhs: Int = 2
         
         // When
         let result: Bool = lhs.isEqual(to: rhs)
@@ -360,8 +366,8 @@ extension IntTests: EquatableTests {
     
     internal func test_isEqualToReturnsTrue() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 1
+        let lhs: Int = 1
+        let rhs: Int = 1
         
         // When
         let result: Bool = lhs.isEqual(to: rhs)
@@ -372,8 +378,8 @@ extension IntTests: EquatableTests {
     
     internal func test_isUnequalToReturnsFalse() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 1
+        let lhs: Int = 1
+        let rhs: Int = 1
         
         // When
         let result: Bool = lhs.isUnequal(to: rhs)
@@ -384,8 +390,8 @@ extension IntTests: EquatableTests {
     
     internal func test_isUnequalToReturnsTrue() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 2
+        let lhs: Int = 1
+        let rhs: Int = 2
         
         // When
         let result: Bool = lhs.isUnequal(to: rhs)
@@ -396,7 +402,7 @@ extension IntTests: EquatableTests {
     
     internal func test_isEvenReturnsFalse() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
         let result: Bool = value.isEven
@@ -407,7 +413,7 @@ extension IntTests: EquatableTests {
     
     internal func test_isEvenReturnsTrue() {
         // Given
-        let value: TestSubject = 0
+        let value: Int = 0
         
         // When
         let result: Bool = value.isEven
@@ -418,7 +424,7 @@ extension IntTests: EquatableTests {
     
     internal func test_isOddReturnsFalse() {
         // Given
-        let value: TestSubject = 0
+        let value: Int = 0
         
         // When
         let result: Bool = value.isOdd
@@ -429,7 +435,7 @@ extension IntTests: EquatableTests {
     
     internal func test_isOddReturnsTrue() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
         let result: Bool = value.isOdd
@@ -439,14 +445,16 @@ extension IntTests: EquatableTests {
     }
 }
 
-extension IntTests: MultipliableTests {
+// MARK: - Multipliable
+
+extension IntTests {
     internal func test_muliplicationSucceeds() {
         // Given
-        let multiplicand: TestSubject = 2
-        let multiplier: TestSubject = 3
+        let multiplicand: Int = 2
+        let multiplier: Int = 3
         
         // When
-        let product: TestSubject = multiplicand * multiplier
+        let product: Int = multiplicand * multiplier
         
         // Then
         XCTAssertEqual(product, 6)
@@ -454,8 +462,8 @@ extension IntTests: MultipliableTests {
     
     internal func test_muliplicationEqualSucceeds() {
         // Given
-        var product: TestSubject = 2
-        let multiplier: TestSubject = 3
+        var product: Int = 2
+        let multiplier: Int = 3
         
         // When
         product *= multiplier
@@ -466,11 +474,11 @@ extension IntTests: MultipliableTests {
     
     internal func test_multiplyingBySucceeds() {
         // Given
-        let multiplicand: TestSubject = 2
-        let multiplier: TestSubject = 3
+        let multiplicand: Int = 2
+        let multiplier: Int = 3
         
         // When
-        let product: TestSubject = multiplicand.multiplying(by: multiplier)
+        let product: Int = multiplicand.multiplying(by: multiplier)
         
         // Then
         XCTAssertEqual(product, 6)
@@ -478,8 +486,8 @@ extension IntTests: MultipliableTests {
     
     internal func test_multiplyBySucceeds() {
         // Given
-        var product: TestSubject = 2
-        let multiplier: TestSubject = 3
+        var product: Int = 2
+        let multiplier: Int = 3
         
         // When
         product.multiply(by: multiplier)
@@ -490,10 +498,10 @@ extension IntTests: MultipliableTests {
     
     internal func test_doubledSucceeds() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
-        let double: TestSubject = value.doubled()
+        let double: Int = value.doubled()
         
         // Then
         XCTAssertEqual(double, 2)
@@ -501,7 +509,7 @@ extension IntTests: MultipliableTests {
     
     internal func test_doubleSucceeds() {
         // Given
-        var value: TestSubject = 1
+        var value: Int = 1
         
         // When
         value.double()
@@ -511,10 +519,12 @@ extension IntTests: MultipliableTests {
     }
 }
 
-extension IntTests: NegateableTests {
+// MARK: - Negateable
+
+extension IntTests {
     internal func test_isNegativeReturnsFalse() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
         let result: Bool = value.isNegative
@@ -525,7 +535,7 @@ extension IntTests: NegateableTests {
     
     internal func test_isNegativeReturnsTrue() {
         // Given
-        let value: TestSubject = -1
+        let value: Int = -1
         
         // When
         let result: Bool = value.isNegative
@@ -536,7 +546,7 @@ extension IntTests: NegateableTests {
     
     internal func test_isPositiveReturnsFalse() {
         // Given
-        let value: TestSubject = -1
+        let value: Int = -1
         
         // When
         let result: Bool = value.isPositive
@@ -547,7 +557,7 @@ extension IntTests: NegateableTests {
     
     internal func test_isPositiveReturnsTrue() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
         let result: Bool = value.isPositive
@@ -558,7 +568,7 @@ extension IntTests: NegateableTests {
     
     internal func test_isSignedSucceeds() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
         let result: Bool = value.isSigned
@@ -569,7 +579,7 @@ extension IntTests: NegateableTests {
     
     internal func test_isOppositeReturnsFalse() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
         let result: Bool = value.isOpposite(of: value)
@@ -580,7 +590,7 @@ extension IntTests: NegateableTests {
     
     internal func test_isOppositeReturnsTrue() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
         let result: Bool = value.isOpposite(of: -value)
@@ -590,10 +600,12 @@ extension IntTests: NegateableTests {
     }
 }
 
-extension IntTests: RaisableTests {
+// MARK: - Raisable
+
+extension IntTests {
     internal func test_isPowerOfReturnsFalse() {
         // Given
-        let value: TestSubject = 3
+        let value: Int = 3
         
         // When
         let isPowerOfTwo: Bool = value.isPower(of: 2)
@@ -604,7 +616,7 @@ extension IntTests: RaisableTests {
     
     internal func test_isPowerOfReturnsTrue() {
         // Given
-        let value: TestSubject = 4
+        let value: Int = 4
         
         // When
         let isPowerOfTwo: Bool = value.isPower(of: 2)
@@ -615,11 +627,11 @@ extension IntTests: RaisableTests {
     
     internal func test_exponentiationSucceeds() {
         // Given
-        let base: TestSubject = 2
+        let base: Int = 2
         let exponent: UInt = 2
         
         // When
-        let power: TestSubject = base ** exponent
+        let power: Int = base ** exponent
         
         // Then
         XCTAssertEqual(power, 4)
@@ -627,7 +639,7 @@ extension IntTests: RaisableTests {
     
     internal func test_exponentiationEqualSucceeds() {
         // Given
-        var power: TestSubject = 2
+        var power: Int = 2
         let exponent: UInt = 2
         
         // When
@@ -639,11 +651,11 @@ extension IntTests: RaisableTests {
     
     internal func test_raisingToSucceeds() {
         // Given
-        let base: TestSubject = 2
+        let base: Int = 2
         let exponent: UInt = 2
         
         // When
-        let power: TestSubject = base.raising(to: exponent)
+        let power: Int = base.raising(to: exponent)
         
         // Then
         XCTAssertEqual(power, 4)
@@ -651,7 +663,7 @@ extension IntTests: RaisableTests {
     
     internal func test_raiseToSucceeds() {
         // Given
-        var power: TestSubject = 2
+        var power: Int = 2
         let exponent: UInt = 2
         
         // When
@@ -663,10 +675,10 @@ extension IntTests: RaisableTests {
     
     internal func test_squaredSucceeds() {
         // Given
-        let base: TestSubject = 2
+        let base: Int = 2
         
         // When
-        let power: TestSubject = base.squared()
+        let power: Int = base.squared()
 
         // Then
         XCTAssertEqual(power, 4)
@@ -674,7 +686,7 @@ extension IntTests: RaisableTests {
     
     internal func test_squareSucceeds() {
         // Given
-        var power: TestSubject = 2
+        var power: Int = 2
         
         // When
         power.square()
@@ -685,10 +697,10 @@ extension IntTests: RaisableTests {
     
     internal func test_cubedSucceeds() {
         // Given
-        let base: TestSubject = 2
+        let base: Int = 2
         
         // When
-        let power: TestSubject = base.cubed()
+        let power: Int = base.cubed()
 
         // Then
         XCTAssertEqual(power, 8)
@@ -696,7 +708,7 @@ extension IntTests: RaisableTests {
     
     internal func test_cubeSucceeds() {
         // Given
-        var power: TestSubject = 2
+        var power: Int = 2
         
         // When
         power.cube()
@@ -704,16 +716,14 @@ extension IntTests: RaisableTests {
         // Then
         XCTAssertEqual(power, 8)
     }
-}
-
-extension IntTests {
+    
     internal func test_raisingToNegSucceeds() {
         // Given
-        let base: TestSubject = 2
-        let exponent: TestSubject = -3
+        let base: Int = 2
+        let exponent: Int = -3
         
         // When
-        let power: TestSubject = base.raising(to: exponent)
+        let power: Int = base.raising(to: exponent)
         
         // Then
         XCTAssertEqual(power, 0)
@@ -721,11 +731,11 @@ extension IntTests {
     
     internal func test_raisingToZeroSucceeds() {
         // Given
-        let base: TestSubject = 2
-        let exponent: TestSubject = 0
+        let base: Int = 2
+        let exponent: Int = 0
         
         // When
-        let power: TestSubject = base.raising(to: exponent)
+        let power: Int = base.raising(to: exponent)
 
         // Then
         XCTAssertEqual(power, 1)
@@ -733,25 +743,23 @@ extension IntTests {
     
     internal func test_raisingToOneSucceeds() {
         // Given
-        let base: TestSubject = 2
-        let exponent: TestSubject = 1
+        let base: Int = 2
+        let exponent: Int = 1
         
         // When
-        let power: TestSubject = base.raising(to: exponent)
+        let power: Int = base.raising(to: exponent)
 
         // Then
         XCTAssertEqual(power, base)
     }
-}
-
-extension IntTests {
+    
     internal func test_raisedReportingOverflowToReturnsFalse() {
         // Given
-        let base: TestSubject = -2
-        let exponent: TestSubject = 3
+        let base: Int = -2
+        let exponent: Int = 3
         
         // When
-        let report: TestSubject.Report = base.raisedReportingOverflow(to: exponent)
+        let report: Int.Report = base.raisedReportingOverflow(to: exponent)
         
         // Then
         XCTAssertEqual(report.partialValue, -8)
@@ -760,11 +768,11 @@ extension IntTests {
 
     internal func test_raisedReportingOverflowToReturnsTrue() {
         // Given
-        let base: TestSubject = .max
-        let exponent: TestSubject = 3
+        let base: Int = .max
+        let exponent: Int = 3
         
         // When
-        let report: TestSubject.Report = base.raisedReportingOverflow(to: exponent)
+        let report: Int.Report = base.raisedReportingOverflow(to: exponent)
         
         // Then
         XCTAssertEqual(report.partialValue, 1)
@@ -772,10 +780,12 @@ extension IntTests {
     }
 }
 
-extension IntTests: RepresentableByZeroTests {
+// MARK: - RepresentableByZero
+
+extension IntTests {
     internal func test_isZeroReturnsFalse() {
         // Given
-        let value: TestSubject = 1
+        let value: Int = 1
         
         // When
         let result: Bool = value.isZero
@@ -786,7 +796,7 @@ extension IntTests: RepresentableByZeroTests {
     
     internal func test_isZeroReturnsTrue() {
         // Given
-        let value: TestSubject = .zero
+        let value: Int = .zero
         
         // When
         let result: Bool = value.isZero
@@ -797,11 +807,11 @@ extension IntTests: RepresentableByZeroTests {
     
     internal func test_additionReturnsZero() {
         // Given
-        let augend: TestSubject = .zero
-        let addend: TestSubject = .zero
+        let augend: Int = .zero
+        let addend: Int = .zero
         
         // When
-        let sum: TestSubject = augend + addend
+        let sum: Int = augend + addend
 
         // Then
         XCTAssertEqual(sum, .zero)
@@ -813,11 +823,11 @@ extension IntTests: RepresentableByZeroTests {
     
     internal func test_multiplicationReturnsZero() {
         // Given
-        let multiplicand: TestSubject = .zero
-        let multiplier: TestSubject = .zero
+        let multiplicand: Int = .zero
+        let multiplier: Int = .zero
         
         // When
-        let product: TestSubject = multiplicand * multiplier
+        let product: Int = multiplicand * multiplier
         
         // Then
         XCTAssertEqual(product, .zero)
@@ -825,8 +835,8 @@ extension IntTests: RepresentableByZeroTests {
     
     internal func test_isMultipleOfZeroReturnsTrue() {
         // Given
-        let multiplicand: TestSubject = 0
-        let multiplicator: TestSubject = 0
+        let multiplicand: Int = 0
+        let multiplicator: Int = 0
         
         // When
         let result: Bool = multiplicand.isMultiple(of: multiplicator)
@@ -837,25 +847,27 @@ extension IntTests: RepresentableByZeroTests {
     
     internal func test_subtractionReturnsZero() {
         // Given
-        let minuend: TestSubject = .zero
-        let subtrahend: TestSubject = .zero
+        let minuend: Int = .zero
+        let subtrahend: Int = .zero
         
         // When
-        let difference: TestSubject = minuend - subtrahend
+        let difference: Int = minuend - subtrahend
 
         // Then
         XCTAssertEqual(difference, .zero)
     }
 }
 
-extension IntTests: SubtractableTests {
+// MARK: - Subtractable
+
+extension IntTests {
     internal func test_subtractionSucceeds() {
         // Given
-        let minuend: TestSubject = 6
-        let subtrahend: TestSubject = 4
+        let minuend: Int = 6
+        let subtrahend: Int = 4
         
         // When
-        let difference: TestSubject = minuend - subtrahend
+        let difference: Int = minuend - subtrahend
 
         // Then
         XCTAssertEqual(difference, 2)
@@ -863,8 +875,8 @@ extension IntTests: SubtractableTests {
     
     internal func test_subtractionEqualSucceeds() {
         // Given
-        var difference: TestSubject = 6
-        let subtrahend: TestSubject = 4
+        var difference: Int = 6
+        let subtrahend: Int = 4
         
         // When
         difference -= subtrahend
@@ -875,11 +887,11 @@ extension IntTests: SubtractableTests {
     
     internal func test_subtractingSucceeds() {
         // Given
-        let minuend: TestSubject = 6
-        let subtrahend: TestSubject = 4
+        let minuend: Int = 6
+        let subtrahend: Int = 4
         
         // When
-        let difference: TestSubject = minuend.subtracting(subtrahend)
+        let difference: Int = minuend.subtracting(subtrahend)
 
         // Then
         XCTAssertEqual(difference, 2)
@@ -887,8 +899,8 @@ extension IntTests: SubtractableTests {
     
     internal func test_subtractSucceeds() {
         // Given
-        var difference: TestSubject = 6
-        let subtrahend: TestSubject = 4
+        var difference: Int = 6
+        let subtrahend: Int = 4
         
         // When
         difference.subtract(subtrahend)

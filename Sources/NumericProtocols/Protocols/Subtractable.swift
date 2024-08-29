@@ -8,10 +8,7 @@
 
 /// Representing values that can be subtracted.
 public protocol Subtractable: Equatable {
-	
-	// MARK: - Subtracting Values
-	
-	/// Returns the difference of subracting the second specified value from the first.
+	/// Returns the difference of subtracting the second specified value from the first.
 	///
 	/// - parameter lhs: The minuend.
 	/// - parameter rhs: The subtrahend.
@@ -20,9 +17,6 @@ public protocol Subtractable: Equatable {
 }
 
 extension Subtractable {
-	
-	// MARK: - Subtracting Values
-	
 	/// Subtracts the second specified value from the first and stores the difference in the left-hand-side variable.
 	///
 	/// - parameter lhs: The minuend.

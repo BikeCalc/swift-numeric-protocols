@@ -10,10 +10,7 @@
 public protocol Decreasable: Increasable {}
 
 extension Decreasable {
-	
-	// MARK: - Decreasing Values
-	
-    /// Returns the difference of descreasing this value by the specified value.
+    /// Returns the difference of decreasing this value by the specified value.
 	///
     /// ```swift
     /// let value: Double = Double(10)

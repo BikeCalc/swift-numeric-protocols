@@ -9,18 +9,18 @@
 import XCTest
 @testable import NumericProtocols
 
-internal final class FloatTests: XCTestCase {
-	typealias TestSubject = Float
-}
+internal final class FloatTests: XCTestCase {}
 
-extension FloatTests: AddableTests {
+// MARK: - Addable
+
+extension FloatTests {
     internal func test_additionSucceeds() {
         // Given
-        let augend: TestSubject = 2
-        let addend: TestSubject = 4
+        let augend: Float = 2
+        let addend: Float = 4
         
         // When
-        let sum: TestSubject = augend + addend
+        let sum: Float = augend + addend
 
         // Then
         XCTAssertEqual(sum, 6)
@@ -28,8 +28,8 @@ extension FloatTests: AddableTests {
     
     internal func test_additionEqualSucceeds() {
         // Given
-        var sum: TestSubject = 2
-        let addend: TestSubject = 4
+        var sum: Float = 2
+        let addend: Float = 4
         
         // When
         sum += addend
@@ -40,11 +40,11 @@ extension FloatTests: AddableTests {
     
     internal func test_addingSucceeds() {
         // Given
-        let augend: TestSubject = 2
-        let addend: TestSubject = 4
+        let augend: Float = 2
+        let addend: Float = 4
         
         // When
-        let sum: TestSubject = augend.adding(addend)
+        let sum: Float = augend.adding(addend)
 
         // Then
         XCTAssertEqual(sum, 6)
@@ -52,8 +52,8 @@ extension FloatTests: AddableTests {
     
     internal func test_addSucceeds() {
         // Given
-        var sum: TestSubject = 2
-        let addend: TestSubject = 4
+        var sum: Float = 2
+        let addend: Float = 4
         
         // When
         sum.add(addend)
@@ -63,11 +63,13 @@ extension FloatTests: AddableTests {
     }
 }
 
-extension FloatTests: ComparableTests {
+// MARK: - Comparable
+
+extension FloatTests {
     internal func test_isLessThanReturnsFalse() {
         // Given
-        let lhs: TestSubject = 2
-        let rhs: TestSubject = 1
+        let lhs: Float = 2
+        let rhs: Float = 1
         
         // When
         let result: Bool = lhs.isLess(than: rhs)
@@ -78,8 +80,8 @@ extension FloatTests: ComparableTests {
     
     internal func test_isLessThanReturnsTrue() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 2
+        let lhs: Float = 1
+        let rhs: Float = 2
         
         // When
         let result: Bool = lhs.isLess(than: rhs)
@@ -90,8 +92,8 @@ extension FloatTests: ComparableTests {
     
     internal func test_isLessThanOrEqualToReturnsFalse() {
         // Given
-        let lhs: TestSubject = 2
-        let rhs: TestSubject = 1
+        let lhs: Float = 2
+        let rhs: Float = 1
         
         // When
         let result: Bool = lhs.isLessThanOrEqual(to: rhs)
@@ -102,8 +104,8 @@ extension FloatTests: ComparableTests {
     
     internal func test_isLessThanOrEqualToReturnsTrue() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 1
+        let lhs: Float = 1
+        let rhs: Float = 1
         
         // When
         let result: Bool = lhs.isLessThanOrEqual(to: rhs)
@@ -114,8 +116,8 @@ extension FloatTests: ComparableTests {
     
     internal func test_isGreaterThanReturnsFalse() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 2
+        let lhs: Float = 1
+        let rhs: Float = 2
         
         // When
         let result: Bool = lhs.isGreater(than: rhs)
@@ -126,8 +128,8 @@ extension FloatTests: ComparableTests {
     
     internal func test_isGreaterThanReturnsTrue() {
         // Given
-        let lhs: TestSubject = 2
-        let rhs: TestSubject = 1
+        let lhs: Float = 2
+        let rhs: Float = 1
         
         // When
         let result: Bool = lhs.isGreater(than: rhs)
@@ -138,8 +140,8 @@ extension FloatTests: ComparableTests {
     
     internal func test_isGreaterThanOrEqualToReturnsFalse() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 2
+        let lhs: Float = 1
+        let rhs: Float = 2
         
         // When
         let result: Bool = lhs.isGreaterThanOrEqual(to: rhs)
@@ -150,8 +152,8 @@ extension FloatTests: ComparableTests {
     
     internal func test_isGreaterThanOrEqualToReturnsTrue() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 1
+        let lhs: Float = 1
+        let rhs: Float = 1
         
         // When
         let result: Bool = lhs.isGreaterThanOrEqual(to: rhs)
@@ -162,10 +164,10 @@ extension FloatTests: ComparableTests {
     
     internal func test_isWithinClosedRangeReturnsFalse() {
         // Given
-        let value: TestSubject = 4
-        let lowerBound: TestSubject = 1
-        let upperBound: TestSubject = 3
-        let range: ClosedRange<TestSubject> = lowerBound...upperBound
+        let value: Float = 4
+        let lowerBound: Float = 1
+        let upperBound: Float = 3
+        let range: ClosedRange<Float> = lowerBound...upperBound
         
         // Then
         XCTAssertFalse(value.isWithin(range))
@@ -173,10 +175,10 @@ extension FloatTests: ComparableTests {
     
     internal func test_isWithinClosedRangeReturnsTrue() {
         // Given
-        let value: TestSubject = 2
-        let lowerBound: TestSubject = 1
-        let upperBound: TestSubject = 3
-        let range: ClosedRange<TestSubject> = lowerBound...upperBound
+        let value: Float = 2
+        let lowerBound: Float = 1
+        let upperBound: Float = 3
+        let range: ClosedRange<Float> = lowerBound...upperBound
         
         // Then
         XCTAssertTrue(value.isWithin(range))
@@ -184,9 +186,9 @@ extension FloatTests: ComparableTests {
     
     internal func test_isWithinBoundsReturnsFalse() {
         // Given
-        let value: TestSubject = 4
-        let lowerBound: TestSubject = 1
-        let upperBound: TestSubject = 3
+        let value: Float = 4
+        let lowerBound: Float = 1
+        let upperBound: Float = 3
         
         // Then
         XCTAssertFalse(value.isWithin(lowerBound, to: upperBound))
@@ -194,22 +196,24 @@ extension FloatTests: ComparableTests {
     
     internal func test_isWithinBoundsReturnsTrue() {
         // Given
-        let value: TestSubject = 2
-        let lowerBound: TestSubject = 1
-        let upperBound: TestSubject = 3
+        let value: Float = 2
+        let lowerBound: Float = 1
+        let upperBound: Float = 3
         
         // Then
         XCTAssertTrue(value.isWithin(lowerBound, to: upperBound))
     }
 }
 
-extension FloatTests: DecreasableTests {
+// MARK: - Decreasable
+
+extension FloatTests {
     internal func test_decreasingBySucceeds() {
         // Given
-        let value: TestSubject = 10
+        let value: Float = 10
         
         // When
-        let result: TestSubject = value.decreasing(by: 10)
+        let result: Float = value.decreasing(by: 10)
         
         // Then
         XCTAssertEqual(result, 9)
@@ -217,10 +221,12 @@ extension FloatTests: DecreasableTests {
     }
 }
 
-extension FloatTests: DivisibleTests {
+// MARK: - Divisible
+
+extension FloatTests {
     internal func test_isInvertibleReturnsFalse() {
         // Given
-        let value: TestSubject = .zero
+        let value: Float = .zero
         
         // When
         let result: Bool = value.isInvertible
@@ -231,7 +237,7 @@ extension FloatTests: DivisibleTests {
     
     internal func test_isInvertibleReturnsTrue() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
         let result: Bool = value.isInvertible
@@ -242,8 +248,8 @@ extension FloatTests: DivisibleTests {
     
     internal func test_isDivisibleByReturnsFalse() {
         // Given
-        let dividend: TestSubject = 3
-        let divisor: TestSubject = 0
+        let dividend: Float = 3
+        let divisor: Float = 0
         
         // When
         let result: Bool = dividend.isDivisible(by: divisor)
@@ -254,8 +260,8 @@ extension FloatTests: DivisibleTests {
     
     internal func test_isDivisibleByReturnsTrue() {
         // Given
-        let dividend: TestSubject = 3
-        let divisor: TestSubject = 1
+        let dividend: Float = 3
+        let divisor: Float = 1
         
         // When
         let result: Bool = dividend.isDivisible(by: divisor)
@@ -266,8 +272,8 @@ extension FloatTests: DivisibleTests {
     
     internal func test_isFactorOfReturnsFalse() {
         // Given
-        let dividend: TestSubject = 2
-        let divisor: TestSubject = 3
+        let dividend: Float = 2
+        let divisor: Float = 3
         
         // When
         let result: Bool = dividend.isFactor(of: divisor)
@@ -278,8 +284,8 @@ extension FloatTests: DivisibleTests {
     
     internal func test_isFactorOfReturnsTrue() {
         // Given
-        let dividend: TestSubject = 1
-        let divisor: TestSubject = 2
+        let dividend: Float = 1
+        let divisor: Float = 2
         
         // When
         let result: Bool = dividend.isFactor(of: divisor)
@@ -290,11 +296,11 @@ extension FloatTests: DivisibleTests {
     
     internal func test_divisionSucceeds() {
         // Given
-        let dividend: TestSubject = 6
-        let divisor: TestSubject = 2
+        let dividend: Float = 6
+        let divisor: Float = 2
         
         // When
-        let quotient: TestSubject = dividend.dividing(by: divisor)
+        let quotient: Float = dividend.dividing(by: divisor)
         
         // Then
         XCTAssertEqual(quotient, 3)
@@ -302,8 +308,8 @@ extension FloatTests: DivisibleTests {
     
     internal func test_divisionEqualSucceeds() {
         // Given
-        var quotient: TestSubject = 6
-        let divisor: TestSubject = 2
+        var quotient: Float = 6
+        let divisor: Float = 2
         
         // When
         quotient.divide(by: divisor)
@@ -314,11 +320,11 @@ extension FloatTests: DivisibleTests {
     
     internal func test_dividingBySucceeds() {
         // Given
-        let dividend: TestSubject = 6
-        let divisor: TestSubject = 2
+        let dividend: Float = 6
+        let divisor: Float = 2
         
         // When
-        let quotient: TestSubject = dividend.dividing(by: divisor)
+        let quotient: Float = dividend.dividing(by: divisor)
         
         // Then
         XCTAssertEqual(quotient, 3)
@@ -326,8 +332,8 @@ extension FloatTests: DivisibleTests {
     
     internal func test_divideBySucceeds() {
         // Given
-        var quotient: TestSubject = 6
-        let divisor: TestSubject = 2
+        var quotient: Float = 6
+        let divisor: Float = 2
         
         // When
         quotient.divide(by: divisor)
@@ -338,10 +344,10 @@ extension FloatTests: DivisibleTests {
     
     internal func test_halvedSucceeds() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
-        let half: TestSubject = value.halved()
+        let half: Float = value.halved()
         
         // Then
         XCTAssertEqual(half, 0.5)
@@ -349,21 +355,23 @@ extension FloatTests: DivisibleTests {
     
     internal func test_halveSucceeds() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
-        let half: TestSubject = value.halved()
+        let half: Float = value.halved()
         
         // Then
         XCTAssertEqual(half, 0.5)
     }
 }
 
-extension FloatTests: EquatableTests {
+// MARK: - Equatable
+
+extension FloatTests {
     internal func test_isEqualToReturnsFalse() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 2
+        let lhs: Float = 1
+        let rhs: Float = 2
         
         // When
         let result: Bool = lhs.isEqual(to: rhs)
@@ -374,8 +382,8 @@ extension FloatTests: EquatableTests {
     
     internal func test_isEqualToReturnsTrue() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 1
+        let lhs: Float = 1
+        let rhs: Float = 1
         
         // When
         let result: Bool = lhs.isEqual(to: rhs)
@@ -386,8 +394,8 @@ extension FloatTests: EquatableTests {
     
     internal func test_isUnequalToReturnsFalse() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 1
+        let lhs: Float = 1
+        let rhs: Float = 1
         
         // When
         let result: Bool = lhs.isUnequal(to: rhs)
@@ -398,8 +406,8 @@ extension FloatTests: EquatableTests {
     
     internal func test_isUnequalToReturnsTrue() {
         // Given
-        let lhs: TestSubject = 1
-        let rhs: TestSubject = 2
+        let lhs: Float = 1
+        let rhs: Float = 2
         
         // When
         let result: Bool = lhs.isUnequal(to: rhs)
@@ -410,7 +418,7 @@ extension FloatTests: EquatableTests {
     
     internal func test_isEvenReturnsFalse() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
         let result: Bool = value.isEven
@@ -421,7 +429,7 @@ extension FloatTests: EquatableTests {
     
     internal func test_isEvenReturnsTrue() {
         // Given
-        let value: TestSubject = 0
+        let value: Float = 0
         
         // When
         let result: Bool = value.isEven
@@ -432,7 +440,7 @@ extension FloatTests: EquatableTests {
     
     internal func test_isOddReturnsFalse() {
         // Given
-        let value: TestSubject = 0
+        let value: Float = 0
         
         // When
         let result: Bool = value.isOdd
@@ -443,7 +451,7 @@ extension FloatTests: EquatableTests {
     
     internal func test_isOddReturnsTrue() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
         let result: Bool = value.isOdd
@@ -453,13 +461,15 @@ extension FloatTests: EquatableTests {
     }
 }
 
-extension FloatTests: IncreasableTests {
+// MARK: - Increasable
+
+extension FloatTests {
     internal func test_increasingBySucceeds() {
         // Given
-        let value: TestSubject = 10
+        let value: Float = 10
         
         // When
-        let result: TestSubject = value.increasing(by: 10)
+        let result: Float = value.increasing(by: 10)
         
         // Then
         XCTAssertEqual(result, 11)
@@ -467,11 +477,13 @@ extension FloatTests: IncreasableTests {
     }
 }
 
-extension FloatTests: MultipliableTests {
+// MARK: - Multipliable
+
+extension FloatTests {
     internal func test_isMultipleOfReturnsFalse() {
         // Given
-        let multiplicand: TestSubject = 3
-        let multiplicator: TestSubject = 0
+        let multiplicand: Float = 3
+        let multiplicator: Float = 0
         
         // When
         let result: Bool = multiplicand.isMultiple(of: multiplicator)
@@ -482,8 +494,8 @@ extension FloatTests: MultipliableTests {
     
     internal func test_isMultipleOfReturnsTrue() {
         // Given
-        let multiplicand: TestSubject = 3
-        let multiplicator: TestSubject = 1
+        let multiplicand: Float = 3
+        let multiplicator: Float = 1
         
         // When
         let result: Bool = multiplicand.isMultiple(of: multiplicator)
@@ -494,11 +506,11 @@ extension FloatTests: MultipliableTests {
     
     internal func test_muliplicationSucceeds() {
         // Given
-        let multiplicand: TestSubject = 2
-        let multiplier: TestSubject = 3
+        let multiplicand: Float = 2
+        let multiplier: Float = 3
         
         // When
-        let product: TestSubject = multiplicand * multiplier
+        let product: Float = multiplicand * multiplier
         
         // Then
         XCTAssertEqual(product, 6)
@@ -506,8 +518,8 @@ extension FloatTests: MultipliableTests {
     
     internal func test_muliplicationEqualSucceeds() {
         // Given
-        var product: TestSubject = 2
-        let multiplier: TestSubject = 3
+        var product: Float = 2
+        let multiplier: Float = 3
         
         // When
         product *= multiplier
@@ -518,11 +530,11 @@ extension FloatTests: MultipliableTests {
     
     internal func test_multiplyingBySucceeds() {
         // Given
-        let multiplicand: TestSubject = 2
-        let multiplier: TestSubject = 3
+        let multiplicand: Float = 2
+        let multiplier: Float = 3
         
         // When
-        let product: TestSubject = multiplicand.multiplying(by: multiplier)
+        let product: Float = multiplicand.multiplying(by: multiplier)
         
         // Then
         XCTAssertEqual(product, 6)
@@ -530,8 +542,8 @@ extension FloatTests: MultipliableTests {
     
     internal func test_multiplyBySucceeds() {
         // Given
-        var product: TestSubject = 2
-        let multiplier: TestSubject = 3
+        var product: Float = 2
+        let multiplier: Float = 3
         
         // When
         product.multiply(by: multiplier)
@@ -542,10 +554,10 @@ extension FloatTests: MultipliableTests {
     
     internal func test_doubledSucceeds() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
-        let double: TestSubject = value.doubled()
+        let double: Float = value.doubled()
         
         // Then
         XCTAssertEqual(double, 2)
@@ -553,7 +565,7 @@ extension FloatTests: MultipliableTests {
     
     internal func test_doubleSucceeds() {
         // Given
-        var value: TestSubject = 1
+        var value: Float = 1
         
         // When
         value.double()
@@ -563,10 +575,12 @@ extension FloatTests: MultipliableTests {
     }
 }
 
-extension FloatTests: NegateableTests {
+// MARK: - Negateable
+
+extension FloatTests {
     internal func test_isNegativeReturnsFalse() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
         let result: Bool = value.isNegative
@@ -577,7 +591,7 @@ extension FloatTests: NegateableTests {
     
     internal func test_isNegativeReturnsTrue() {
         // Given
-        let value: TestSubject = -1
+        let value: Float = -1
         
         // When
         let result: Bool = value.isNegative
@@ -588,7 +602,7 @@ extension FloatTests: NegateableTests {
     
     internal func test_isPositiveReturnsFalse() {
         // Given
-        let value: TestSubject = -1
+        let value: Float = -1
         
         // When
         let result: Bool = value.isPositive
@@ -599,7 +613,7 @@ extension FloatTests: NegateableTests {
     
     internal func test_isPositiveReturnsTrue() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
         let result: Bool = value.isPositive
@@ -610,7 +624,7 @@ extension FloatTests: NegateableTests {
     
     internal func test_isSignedSucceeds() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
         let result: Bool = value.isSigned
@@ -621,7 +635,7 @@ extension FloatTests: NegateableTests {
     
     internal func test_isOppositeReturnsFalse() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
         let result: Bool = value.isOpposite(of: value)
@@ -632,7 +646,7 @@ extension FloatTests: NegateableTests {
     
     internal func test_isOppositeReturnsTrue() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
         let result: Bool = value.isOpposite(of: -value)
@@ -642,10 +656,12 @@ extension FloatTests: NegateableTests {
     }
 }
 
-extension FloatTests: RaisableTests {
+// MARK: - Raisable
+
+extension FloatTests {
     internal func test_isPowerOfReturnsFalse() {
         // Given
-        let value: TestSubject = 3
+        let value: Float = 3
         
         // When
         let isPowerOfTwo: Bool = value.isPower(of: 2)
@@ -656,7 +672,7 @@ extension FloatTests: RaisableTests {
     
     internal func test_isPowerOfReturnsTrue() {
         // Given
-        let value: TestSubject = 4
+        let value: Float = 4
         
         // When
         let isPowerOfTwo: Bool = value.isPower(of: 2)
@@ -667,11 +683,11 @@ extension FloatTests: RaisableTests {
     
     internal func test_exponentiationSucceeds() {
         // Given
-        let base: TestSubject = 2
+        let base: Float = 2
         let exponent: UInt = 2
         
         // When
-        let power: TestSubject = base ** exponent
+        let power: Float = base ** exponent
         
         // Then
         XCTAssertEqual(power, 4)
@@ -679,7 +695,7 @@ extension FloatTests: RaisableTests {
     
     internal func test_exponentiationEqualSucceeds() {
         // Given
-        var power: TestSubject = 2
+        var power: Float = 2
         let exponent: UInt = 2
         
         // When
@@ -691,11 +707,11 @@ extension FloatTests: RaisableTests {
     
     internal func test_raisingToSucceeds() {
         // Given
-        let base: TestSubject = 2
+        let base: Float = 2
         let exponent: UInt = 2
         
         // When
-        let power: TestSubject = base.raising(to: exponent)
+        let power: Float = base.raising(to: exponent)
         
         // Then
         XCTAssertEqual(power, 4)
@@ -703,7 +719,7 @@ extension FloatTests: RaisableTests {
     
     internal func test_raiseToSucceeds() {
         // Given
-        var power: TestSubject = 2
+        var power: Float = 2
         let exponent: UInt = 2
         
         // When
@@ -715,10 +731,10 @@ extension FloatTests: RaisableTests {
     
     internal func test_squaredSucceeds() {
         // Given
-        let base: TestSubject = 2
+        let base: Float = 2
         
         // When
-        let power: TestSubject = base.squared()
+        let power: Float = base.squared()
 
         // Then
         XCTAssertEqual(power, 4)
@@ -726,7 +742,7 @@ extension FloatTests: RaisableTests {
     
     internal func test_squareSucceeds() {
         // Given
-        var power: TestSubject = 2
+        var power: Float = 2
         
         // When
         power.square()
@@ -737,10 +753,10 @@ extension FloatTests: RaisableTests {
     
     internal func test_cubedSucceeds() {
         // Given
-        let base: TestSubject = 2
+        let base: Float = 2
         
         // When
-        let power: TestSubject = base.cubed()
+        let power: Float = base.cubed()
 
         // Then
         XCTAssertEqual(power, 8)
@@ -748,7 +764,7 @@ extension FloatTests: RaisableTests {
     
     internal func test_cubeSucceeds() {
         // Given
-        var power: TestSubject = 2
+        var power: Float = 2
         
         // When
         power.cube()
@@ -756,16 +772,14 @@ extension FloatTests: RaisableTests {
         // Then
         XCTAssertEqual(power, 8)
     }
-}
-
-extension FloatTests {
+    
     internal func test_raisingToNegSucceeds() {
         // Given
-        let base: TestSubject = 2
+        let base: Float = 2
         let exponent: Int = -3
         
         // When
-        let power: TestSubject = base.raising(to: exponent)
+        let power: Float = base.raising(to: exponent)
         
         // Then
         XCTAssertEqual(power, 0.125)
@@ -773,11 +787,11 @@ extension FloatTests {
     
     internal func test_raisingToZeroSucceeds() {
         // Given
-        let base: TestSubject = 2
+        let base: Float = 2
         let exponent: UInt = 0
         
         // When
-        let power: TestSubject = base.raising(to: exponent)
+        let power: Float = base.raising(to: exponent)
 
         // Then
         XCTAssertEqual(power, 1)
@@ -785,10 +799,10 @@ extension FloatTests {
     
     internal func test_raisingToNanReturnsNan() {
         // Given
-        let nan: TestSubject = .nan
+        let nan: Float = .nan
         
         // When
-        let power: TestSubject = nan.raising(to: 1)
+        let power: Float = nan.raising(to: 1)
         
         // Then
         XCTAssertTrue(power.isNaN)
@@ -796,8 +810,8 @@ extension FloatTests {
     
     internal func test_raisingToInfSucceeds() {
         // Given
-        let positiveInfinity: TestSubject = .infinity
-        let negativeInfinity: TestSubject = -positiveInfinity
+        let positiveInfinity: Float = .infinity
+        let negativeInfinity: Float = -positiveInfinity
         
         // Then
         XCTAssertEqual(positiveInfinity * 1, positiveInfinity)
@@ -814,10 +828,12 @@ extension FloatTests {
     }
 }
 
-extension FloatTests: RepresentableByInfinityTests {
+// MARK: - RepresentableByInfinity
+
+extension FloatTests {
     internal func test_isFiniteReturnsFalse() {
         // Given
-        let value: TestSubject = .infinity
+        let value: Float = .infinity
         
         // When
         let result: Bool = value.isFinite
@@ -828,7 +844,7 @@ extension FloatTests: RepresentableByInfinityTests {
     
     internal func test_isFiniteReturnsTrue() {
         // Given
-        let value: TestSubject = 1.0
+        let value: Float = 1.0
         
         // When
         let result: Bool = value.isFinite
@@ -839,7 +855,7 @@ extension FloatTests: RepresentableByInfinityTests {
     
     internal func test_isInfiniteReturnsFalse() {
         // Given
-        let value: TestSubject = 1.0
+        let value: Float = 1.0
         
         // When
         let result: Bool = value.isInfinite
@@ -850,7 +866,7 @@ extension FloatTests: RepresentableByInfinityTests {
 
     internal func test_isInfiniteReturnsTrue() {
         // Given
-        let value: TestSubject = .infinity
+        let value: Float = .infinity
         
         // When
         let result: Bool = value.isInfinite
@@ -861,7 +877,7 @@ extension FloatTests: RepresentableByInfinityTests {
     
     internal func test_addingInfinitySucceeds() {
         // Given
-        let infinity: TestSubject = .infinity
+        let infinity: Float = .infinity
         
         // When
         XCTAssertEqual(infinity.adding(infinity), infinity)
@@ -880,8 +896,8 @@ extension FloatTests: RepresentableByInfinityTests {
     
     internal func test_dividingInfinitySucceeds() {
         // Given
-        let infinity: TestSubject = .infinity
-        let zero: TestSubject = .zero
+        let infinity: Float = .infinity
+        let zero: Float = .zero
         
         // Then
         XCTAssertTrue(infinity.dividing(by: infinity).isNaN)
@@ -900,7 +916,7 @@ extension FloatTests: RepresentableByInfinityTests {
 
     internal func test_multiplyingInfinitySucceeds() {
         // Given
-        let infinity: TestSubject = .infinity
+        let infinity: Float = .infinity
         
         // Then
         XCTAssertEqual(infinity.multiplying(by: infinity), infinity)
@@ -919,7 +935,7 @@ extension FloatTests: RepresentableByInfinityTests {
     
     internal func test_subtractingInfinitySucceeds() {
         // Given
-        let infinity: TestSubject = .infinity
+        let infinity: Float = .infinity
         
         // When
         XCTAssertTrue(infinity.subtracting(infinity).isNaN)
@@ -938,7 +954,7 @@ extension FloatTests: RepresentableByInfinityTests {
     
     internal func test_descriptionReturnsInfinity() {
         // Given
-        let value: TestSubject = .infinity
+        let value: Float = .infinity
         
         // Then
         XCTAssertEqual(value.description, "inf")
@@ -946,17 +962,19 @@ extension FloatTests: RepresentableByInfinityTests {
     
     internal func test_descriptionReturnsNegativeInfinity() {
         // Given
-        let value: TestSubject = .negativeInfinity
+        let value: Float = .negativeInfinity
         
         // Then
         XCTAssertEqual(value.description, "-inf")
     }
 }
 
-extension FloatTests: RepresentableByNaNTests {
+// MARK: - RepresentableByNaN
+
+extension FloatTests {
     internal func test_isNaNReturnsFalse() {
         // Given
-        let value: TestSubject = 1.0
+        let value: Float = 1.0
         
         // When
         let result: Bool = value.isNaN
@@ -967,7 +985,7 @@ extension FloatTests: RepresentableByNaNTests {
 
     internal func test_isNaNReturnsTrue() {
         // Given
-        let value: TestSubject = .nan
+        let value: Float = .nan
         
         // When
         let result: Bool = value.isNaN
@@ -978,7 +996,7 @@ extension FloatTests: RepresentableByNaNTests {
     
     internal func test_nanIsEqualToNaNReturnsFalse() {
         // Given
-        let nan: TestSubject = .nan
+        let nan: Float = .nan
         
         // Then
         XCTAssertNotEqual(nan, nan)
@@ -986,11 +1004,11 @@ extension FloatTests: RepresentableByNaNTests {
     
     internal func test_additionReturnsNaN() {
         // Given
-        let augend: TestSubject = .nan
-        let addend: TestSubject = .nan
+        let augend: Float = .nan
+        let addend: Float = .nan
         
         // When
-        let sum: TestSubject = augend + addend
+        let sum: Float = augend + addend
 
         // Then
         XCTAssertTrue(sum.isNaN)
@@ -998,11 +1016,11 @@ extension FloatTests: RepresentableByNaNTests {
     
     internal func test_divisionReturnsNaN() {
         // Given
-        let dividend: TestSubject = .nan
-        let divisor: TestSubject = .nan
+        let dividend: Float = .nan
+        let divisor: Float = .nan
         
         // When
-        let quotient: TestSubject = dividend / divisor
+        let quotient: Float = dividend / divisor
 
         // Then
         XCTAssertTrue(quotient.isNaN)
@@ -1010,11 +1028,11 @@ extension FloatTests: RepresentableByNaNTests {
     
     internal func test_multiplicationReturnsNaN() {
         // Given
-        let multiplicand: TestSubject = .nan
-        let multiplier: TestSubject = .nan
+        let multiplicand: Float = .nan
+        let multiplier: Float = .nan
         
         // When
-        let product: TestSubject = multiplicand * multiplier
+        let product: Float = multiplicand * multiplier
         
         // Then
         XCTAssertTrue(product.isNaN)
@@ -1022,11 +1040,11 @@ extension FloatTests: RepresentableByNaNTests {
     
     internal func test_subtractionReturnsNaN() {
         // Given
-        let minuend: TestSubject = .nan
-        let subtrahend: TestSubject = .nan
+        let minuend: Float = .nan
+        let subtrahend: Float = .nan
         
         // When
-        let difference: TestSubject = minuend - subtrahend
+        let difference: Float = minuend - subtrahend
 
         // Then
         XCTAssertTrue(difference.isNaN)
@@ -1034,17 +1052,19 @@ extension FloatTests: RepresentableByNaNTests {
     
     internal func test_descriptionReturnsNaN() {
         // Given
-        let value: TestSubject = .nan
+        let value: Float = .nan
         
         // Then
         XCTAssertEqual(value.description, "nan")
     }
 }
 
-extension FloatTests: RepresentableByZeroTests {
+// MARK: - RepresentableByZero
+
+extension FloatTests {
     internal func test_isZeroReturnsFalse() {
         // Given
-        let value: TestSubject = 1
+        let value: Float = 1
         
         // When
         let result: Bool = value.isZero
@@ -1055,7 +1075,7 @@ extension FloatTests: RepresentableByZeroTests {
     
     internal func test_isZeroReturnsTrue() {
         // Given
-        let value: TestSubject = .zero
+        let value: Float = .zero
         
         // When
         let result: Bool = value.isZero
@@ -1066,11 +1086,11 @@ extension FloatTests: RepresentableByZeroTests {
     
     internal func test_additionReturnsZero() {
         // Given
-        let augend: TestSubject = .zero
-        let addend: TestSubject = .zero
+        let augend: Float = .zero
+        let addend: Float = .zero
         
         // When
-        let sum: TestSubject = augend + addend
+        let sum: Float = augend + addend
 
         // Then
         XCTAssertEqual(sum, .zero)
@@ -1078,11 +1098,11 @@ extension FloatTests: RepresentableByZeroTests {
     
     internal func test_divisionByZeroReturnsNaN() {
         // Given
-        let dividend: TestSubject = .zero
-        let divisor: TestSubject = .zero
+        let dividend: Float = .zero
+        let divisor: Float = .zero
         
         // When
-        let quotient: TestSubject = dividend / divisor
+        let quotient: Float = dividend / divisor
 
         // Then
         XCTAssertTrue(quotient.isNaN)
@@ -1090,11 +1110,11 @@ extension FloatTests: RepresentableByZeroTests {
     
     internal func test_multiplicationReturnsZero() {
         // Given
-        let multiplicand: TestSubject = .zero
-        let multiplier: TestSubject = .zero
+        let multiplicand: Float = .zero
+        let multiplier: Float = .zero
         
         // When
-        let product: TestSubject = multiplicand * multiplier
+        let product: Float = multiplicand * multiplier
         
         // Then
         XCTAssertEqual(product, .zero)
@@ -1102,8 +1122,8 @@ extension FloatTests: RepresentableByZeroTests {
     
     internal func test_isMultipleOfZeroReturnsTrue() {
         // Given
-        let multiplicand: TestSubject = 0
-        let multiplicator: TestSubject = 0
+        let multiplicand: Float = 0
+        let multiplicator: Float = 0
         
         // When
         let result: Bool = multiplicand.isMultiple(of: multiplicator)
@@ -1114,25 +1134,27 @@ extension FloatTests: RepresentableByZeroTests {
     
     internal func test_subtractionReturnsZero() {
         // Given
-        let minuend: TestSubject = .zero
-        let subtrahend: TestSubject = .zero
+        let minuend: Float = .zero
+        let subtrahend: Float = .zero
         
         // When
-        let difference: TestSubject = minuend - subtrahend
+        let difference: Float = minuend - subtrahend
 
         // Then
         XCTAssertEqual(difference, .zero)
     }
 }
 
-extension FloatTests: SubtractableTests {
+// MARK: - Subtractable
+
+extension FloatTests {
     internal func test_subtractionSucceeds() {
         // Given
-        let minuend: TestSubject = 6
-        let subtrahend: TestSubject = 4
+        let minuend: Float = 6
+        let subtrahend: Float = 4
         
         // When
-        let difference: TestSubject = minuend - subtrahend
+        let difference: Float = minuend - subtrahend
 
         // Then
         XCTAssertEqual(difference, 2)
@@ -1140,8 +1162,8 @@ extension FloatTests: SubtractableTests {
     
     internal func test_subtractionEqualSucceeds() {
         // Given
-        var difference: TestSubject = 6
-        let subtrahend: TestSubject = 4
+        var difference: Float = 6
+        let subtrahend: Float = 4
         
         // When
         difference -= subtrahend
@@ -1152,11 +1174,11 @@ extension FloatTests: SubtractableTests {
     
     internal func test_subtractingSucceeds() {
         // Given
-        let minuend: TestSubject = 6
-        let subtrahend: TestSubject = 4
+        let minuend: Float = 6
+        let subtrahend: Float = 4
         
         // When
-        let difference: TestSubject = minuend.subtracting(subtrahend)
+        let difference: Float = minuend.subtracting(subtrahend)
 
         // Then
         XCTAssertEqual(difference, 2)
@@ -1164,8 +1186,8 @@ extension FloatTests: SubtractableTests {
     
     internal func test_subtractSucceeds() {
         // Given
-        var difference: TestSubject = 6
-        let subtrahend: TestSubject = 4
+        var difference: Float = 6
+        let subtrahend: Float = 4
         
         // When
         difference.subtract(subtrahend)

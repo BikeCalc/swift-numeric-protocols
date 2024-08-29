@@ -9,11 +9,24 @@ let package: Package = .init(
 		.library(name: "NumericProtocols", targets: ["NumericProtocols"])
 	],
 	dependencies: [
-		.package(url: "https://github.com/apple/swift-docc-plugin.git", .upToNextMinor(from: "1.3.0"))
+        .package(url: "https://github.com/swiftlang/swift-docc-plugin.git", .upToNextMajor(from: "1.4.2"))
 	],
 	targets: [
-		.target(name: "NumericProtocols", path: "Sources"),
-		.testTarget(name: "NumericProtocolsTests", dependencies: ["NumericProtocols"], path: "Tests")
+        .target(
+            name: "NumericProtocols",
+            path: "Sources",
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency=complete")
+            ]
+        ),
+        .testTarget(
+            name: "NumericProtocolsTests",
+            dependencies: ["NumericProtocols"],
+            path: "Tests",
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency=complete")
+            ]
+        )
 	],
 	swiftLanguageVersions: [.v5]
 )

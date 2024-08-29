@@ -8,18 +8,12 @@
 
 /// Representing values that can be represented by zero.
 public protocol RepresentableByZero {
-	
-	// MARK: - Zero Values
-	
 	/// The value representing zero.
 	static var zero: Self { get }
 }
 
 extension RepresentableByZero
 where Self: Equatable {
-	
-	// MARK: - Inspecting Values
-	
 	/// A boolean value indicating whether this instance is zero.
 	public var isZero: Bool {
 		return self == .zero

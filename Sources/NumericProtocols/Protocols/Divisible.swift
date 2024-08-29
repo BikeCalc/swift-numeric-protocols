@@ -8,9 +8,6 @@
 
 /// Representing values that can be divided.
 public protocol Divisible: Equatable {
-	
-	// MARK: - Dividing Values
-	
 	/// Returns the quotient of dividing the first specified value by the second.
 	///
 	/// - parameter lhs: The dividend.
@@ -28,9 +25,6 @@ public protocol Divisible: Equatable {
 
 extension Divisible
 where Self: ExpressibleByIntegerLiteral {
-	
-	// MARK: - Instance Properties
-	
 	/// Returns the reciprocal of this instance.
 	public var reciprocal: Self? {
 		return 1 / self
@@ -39,9 +33,6 @@ where Self: ExpressibleByIntegerLiteral {
 
 extension Divisible
 where Self: ExpressibleByIntegerLiteral & RepresentableByZero {
-	
-	// MARK: - Instance Properties
-	
 	/// Returns the reciprocal of this instance.
 	public var reciprocal: Self? {
 		guard self.isInvertible else {
@@ -54,9 +45,6 @@ where Self: ExpressibleByIntegerLiteral & RepresentableByZero {
 
 extension Divisible
 where Self: RepresentableByZero {
-	
-	// MARK: - Inspecting Values
-	
 	/// A boolean value indicating whether this instance is invertible.
 	public var isInvertible: Bool {
 		return self.isZero == false
@@ -64,9 +52,6 @@ where Self: RepresentableByZero {
 }
 
 extension Divisible {
-	
-	// MARK: - Inspecting Values
-	
 	/// Returns a boolean value indicating whether this value is divisible by the specified value.
 	///
 	/// ```swift
@@ -94,8 +79,6 @@ extension Divisible {
 	where Self: ExpressibleByIntegerLiteral {
 		return (other % self) == 0
 	}
-	
-	// MARK: - Dividing Values
 	
 	/// Divides the first specified value by the second and stores the quotient in the left-hand-side variable.
 	///
@@ -140,8 +123,6 @@ extension Divisible {
         self /= divisor
     }
 	
-	// MARK: - Halving Values
-	
 	/// Returns this value halved.
 	///
 	/// ```swift
@@ -171,9 +152,6 @@ extension Divisible {
 
 extension Divisible
 where Self: ExpressibleByFloatLiteral {
-    
-    // MARK: - Other Values
-    
     /// The value representing one tenth.
     public static var tenth: Self {
         return 1e-1

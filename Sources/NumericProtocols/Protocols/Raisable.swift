@@ -8,9 +8,6 @@
 
 /// Representing values that can be raised to the power.
 public protocol Raisable: Equatable {
-	
-	// MARK: - Raising Values
-	
     /// Returns the power of raising the first specified value to the second.
 	///
     /// - parameter lhs: The base.
@@ -21,9 +18,6 @@ public protocol Raisable: Equatable {
 }
 
 extension Raisable {
-	
-	// MARK: - Inspecting Values
-	
 	/// Returns a boolean value indicating whether this value is a power of the specified value.
 	///
 	/// ```swift
@@ -43,8 +37,6 @@ extension Raisable {
 
 		return number == 1
 	}
-	
-	// MARK: - Raising Values
 	
 	/// Raises the first specified value to the second and stores the power in the left-hand-side variable.
     ///
@@ -83,8 +75,6 @@ extension Raisable {
     where Exponent: BinaryInteger, Exponent.Stride: SignedInteger {
         self **= exponent
     }
-	
-	// MARK: - Squaring Values
     
     /// Returns the result of raising this value to its square.
     ///
@@ -109,8 +99,6 @@ extension Raisable {
     public mutating func square() {
         self **= 2
     }
-	
-	// MARK: - Cubing Values
     
 	/// Returns the result of raising this value to its cube.
     ///
@@ -211,12 +199,8 @@ where Self: FloatingPoint {
     }
 }
 
-
 extension Raisable
 where Self: ExpressibleByIntegerLiteral {
-    
-    // MARK: - Other Values
-    
     /// The value representing one vigintillion.
     public static var vigintillion: Self {
         return 1_000_000_000_000_000_000_000_000_000_000_000_000_000_000_000_000_000_000_000_000_000

@@ -1,5 +1,5 @@
 //
-// Int32+.swift
+// UInt32.swift
 // NumericProtocols
 //
 // Copyright © 2021-2024 Alexandre H. Saad
@@ -8,32 +8,28 @@
 
 // MARK: - Addable
 
-extension Int32: Addable {}
+extension UInt32: Addable {}
 
 // MARK: - Divisible
 
-extension Int32: Divisible {}
+extension UInt32: Divisible {}
 
 // MARK: - Multipliable
 
-extension Int32: Multipliable {}
-
-// MARK: - Negateable
-
-extension Int32: Negateable {}
+extension UInt32: Multipliable {}
 
 // MARK: - Raisable
 
-extension Int32: Raisable {}
+extension UInt32: Raisable {}
 
 // MARK: - ReportableAsOverflow
 
-extension Int32: ReportableAsOverflow {}
+extension UInt32: ReportableAsOverflow {}
 
 // MARK: - RepresentableByZero
 
-extension Int32: RepresentableByZero {}
+extension UInt32: RepresentableByZero {}
 
 // MARK: - Subtractable
 
-extension Int32: Subtractable {}
+extension UInt32: Subtractable {}

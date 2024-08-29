@@ -8,9 +8,6 @@
 
 /// Representing values that can be reported as overflow.
 public protocol ReportableAsOverflow: Operatable, Raisable {
-	
-	// MARK: - Reporting Overflow
-	
 	/// Returns the sum after adding the specified value to this instance, along with a boolean value indicating whether overflow occurred in the operation.
 	///
 	/// - parameter rhs: The value to add to this instance.
@@ -49,18 +46,12 @@ public protocol ReportableAsOverflow: Operatable, Raisable {
 }
 
 extension ReportableAsOverflow {
-	
-	// MARK: - Reports
-	
 	/// The overflow report.
 	public typealias Report = (partialValue: Self, overflow: Bool)
 }
 
 extension ReportableAsOverflow
 where Self: FixedWidthInteger {
-	
-	// MARK: - Reporting Overflow
-	
 	/// Returns the power after raising this instance to the specified value, along with a boolean value indicating whether overflow occurred in the operation.
 	///
 	/// - parameter rhs: The value to raise this instance to.

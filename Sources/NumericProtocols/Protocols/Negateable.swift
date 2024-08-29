@@ -8,9 +8,6 @@
 
 /// Representing values that can be negating.
 public protocol Negateable: Equatable {
-	
-	// MARK: - Negating Values
-	
 	/// Returns the additive inverse of the specified value.
 	///
 	/// - parameter operand:
@@ -20,9 +17,6 @@ public protocol Negateable: Equatable {
 
 extension Negateable
 where Self: Comparable & RepresentableByZero {
-	
-	// MARK: - Inspecting Values
-	
 	/// A boolean value indicating whether this value is negative.
 	///
 	/// ```swift
@@ -45,9 +39,6 @@ where Self: Comparable & RepresentableByZero {
 }
 
 extension Negateable {
-	
-	// MARK: - Inspecting Values
-	
 	/// A boolean value indicating whether this value is signed.
 	///
 	/// ```swift
@@ -70,8 +61,6 @@ extension Negateable {
 	public func isOpposite(of other: Self) -> Bool {
 		return self == other.negating()
 	}
-	
-	// MARK: - Negating Values
 	
 	/// Returns the additive inverse of this value.
 	///
