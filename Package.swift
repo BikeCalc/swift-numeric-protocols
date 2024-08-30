@@ -9,7 +9,7 @@ let package: Package = .init(
 		.library(name: "NumericProtocols", targets: ["NumericProtocols"])
 	],
 	dependencies: [
-        .package(url: "https://github.com/swiftlang/swift-docc-plugin.git", .upToNextMajor(from: "1.4.2"))
+        .package(url:  "https://github.com/swiftlang/swift-docc-plugin.git", from: "1.4.2")
 	],
 	targets: [
         .target(
