@@ -26,7 +26,7 @@ The Swift Package Manager is a tool for managing the distribution of Swift code 
     let package: Package = .init(
         ...
         dependencies: [
-            .package(url: "https://github.com/alexandrehsaad/swift-numeric-protocols.git", branch: "main")
+            .package(url: "https://github.com/bikecalc/swift-numeric-protocols.git", branch: "main")
         ],
         ...
     )
@@ -86,6 +86,6 @@ To be a truly great community, we welcome developers from all walks of life, wit
 
 Distributed under Apache License v2.0 with Runtime Library Exception. See the `LICENSE.md` file for more information.
 
-[documentation page]: https://alexandrehsaad.github.io/swift-numeric-protocols/documentation/numeric-protocols
-[pull request]: https://github.com/alexandrehsaad/swift-numeric-protocols/pulls
-[issue]: https://github.com/alexandrehsaad/swift-numeric-protocols/issues
+[documentation page]: https://bikecalc.github.io/swift-numeric-protocols/documentation/numeric-protocols
+[pull request]: https://github.com/bikecalc/swift-numeric-protocols/pulls
+[issue]: https://github.com/bikecalc/swift-numeric-protocols/issues

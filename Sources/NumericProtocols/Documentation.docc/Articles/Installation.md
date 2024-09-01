@@ -12,7 +12,7 @@ The Swift Package Manager is a tool for managing the distribution of Swift code 
 	let package: Package = .init(
 		...
 		dependencies: [
-			.package(url: "https://github.com/alexandrehsaad/swift-numeric-protocols.git", branch: "main")
+			.package(url: "https://github.com/bikecalc/swift-numeric-protocols.git", branch: "main")
 		],
 		...
 	)
