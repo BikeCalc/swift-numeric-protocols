@@ -1,4 +1,4 @@
-name: Build & Deploy Documentation
+name: "Build & Deploy Documentation"
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
