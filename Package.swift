@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.3
 
 import PackageDescription
 
@@ -9,24 +9,19 @@ let package: Package = .init(
 		.library(name: "NumericProtocols", targets: ["NumericProtocols"])
 	],
 	dependencies: [
-        .package(url: "https://github.com/swiftlang/swift-docc-plugin.git", from: "1.4.2")
+        .package(url: "https://github.com/swiftlang/swift-docc-plugin.git", from: "1.5.0")
 	],
 	targets: [
         .target(
             name: "NumericProtocols",
-            path: "Sources",
-            swiftSettings: [
-                .enableExperimentalFeature("StrictConcurrency=complete")
-            ]
+            path: "Sources"
         ),
         .testTarget(
             name: "NumericProtocolsTests",
             dependencies: ["NumericProtocols"],
-            path: "Tests",
-            swiftSettings: [
-                .enableExperimentalFeature("StrictConcurrency=complete")
-            ]
+            path: "Tests"
         )
 	],
-	swiftLanguageVersions: [.v5]
+    swiftLanguageModes: [.v6]
 )
+

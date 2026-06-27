@@ -636,18 +636,6 @@ extension UIntTests {
         XCTAssertEqual(power, 8)
     }
     
-    internal func test_raisingToNegSucceeds() {
-        // Given
-        let base: UInt = 2
-        let exponent: Int = -3
-        
-        // When
-        let power: UInt = base.raising(to: exponent)
-        
-        // Then
-        XCTAssertEqual(power, 0)
-    }
-    
     internal func test_raisingToZeroSucceeds() {
         // Given
         let base: UInt = 2

@@ -684,7 +684,7 @@ extension FloatTests {
     internal func test_exponentiationSucceeds() {
         // Given
         let base: Float = 2
-        let exponent: UInt = 2
+        let exponent: Int = 2
         
         // When
         let power: Float = base ** exponent
@@ -696,7 +696,7 @@ extension FloatTests {
     internal func test_exponentiationEqualSucceeds() {
         // Given
         var power: Float = 2
-        let exponent: UInt = 2
+        let exponent: Int = 2
         
         // When
         power **= exponent
@@ -708,7 +708,7 @@ extension FloatTests {
     internal func test_raisingToSucceeds() {
         // Given
         let base: Float = 2
-        let exponent: UInt = 2
+        let exponent: Int = 2
         
         // When
         let power: Float = base.raising(to: exponent)
@@ -720,7 +720,7 @@ extension FloatTests {
     internal func test_raiseToSucceeds() {
         // Given
         var power: Float = 2
-        let exponent: UInt = 2
+        let exponent: Int = 2
         
         // When
         power.raise(to: exponent)
@@ -788,7 +788,7 @@ extension FloatTests {
     internal func test_raisingToZeroSucceeds() {
         // Given
         let base: Float = 2
-        let exponent: UInt = 0
+        let exponent: Int = 0
         
         // When
         let power: Float = base.raising(to: exponent)
@@ -814,17 +814,16 @@ extension FloatTests {
         let negativeInfinity: Float = -positiveInfinity
         
         // Then
-        XCTAssertEqual(positiveInfinity * 1, positiveInfinity)
         XCTAssertEqual(positiveInfinity.raising(to: 1), positiveInfinity)
-        
-        XCTAssertEqual(positiveInfinity * -1, negativeInfinity)
-        XCTAssertEqual(positiveInfinity.raising(to: -1), negativeInfinity)
-        
-        XCTAssertEqual(negativeInfinity * 1, negativeInfinity)
+        XCTAssertEqual(positiveInfinity.raising(to: 2), positiveInfinity)
+        XCTAssertEqual(positiveInfinity.raising(to: 0), 1)
+        XCTAssertEqual(positiveInfinity.raising(to: -1), 0)
+
         XCTAssertEqual(negativeInfinity.raising(to: 1), negativeInfinity)
-        
-        XCTAssertEqual(negativeInfinity * -1, positiveInfinity)
-        XCTAssertEqual(negativeInfinity.raising(to: -1), positiveInfinity)
+        XCTAssertEqual(negativeInfinity.raising(to: 2), positiveInfinity)
+        XCTAssertEqual(negativeInfinity.raising(to: 0), 1)
+        XCTAssertEqual(negativeInfinity.raising(to: -1), -0)
+        XCTAssertEqual(negativeInfinity.raising(to: -1).sign, .minus)
     }
 }
 

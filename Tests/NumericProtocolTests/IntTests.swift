@@ -628,7 +628,7 @@ extension IntTests {
     internal func test_exponentiationSucceeds() {
         // Given
         let base: Int = 2
-        let exponent: UInt = 2
+        let exponent: Int = 2
         
         // When
         let power: Int = base ** exponent
@@ -640,7 +640,7 @@ extension IntTests {
     internal func test_exponentiationEqualSucceeds() {
         // Given
         var power: Int = 2
-        let exponent: UInt = 2
+        let exponent: Int = 2
         
         // When
         power **= exponent
@@ -652,7 +652,7 @@ extension IntTests {
     internal func test_raisingToSucceeds() {
         // Given
         let base: Int = 2
-        let exponent: UInt = 2
+        let exponent: Int = 2
         
         // When
         let power: Int = base.raising(to: exponent)
@@ -664,7 +664,7 @@ extension IntTests {
     internal func test_raiseToSucceeds() {
         // Given
         var power: Int = 2
-        let exponent: UInt = 2
+        let exponent: Int = 2
         
         // When
         power.raise(to: exponent)
