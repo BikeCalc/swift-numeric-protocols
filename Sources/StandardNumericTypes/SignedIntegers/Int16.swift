@@ -1,0 +1,44 @@
+//
+// Int16.swift
+// NumericsExtended
+//
+// Copyright © 2021-2026 Alexandre H. Saad
+// Licensed under Apache License v2.0 with Runtime Library Exception
+//
+
+import CoreNumericProtocols
+import StandardNumericProtocols
+
+// MARK: - Addable
+
+extension Int16: Addable {}
+
+// MARK: - Divisible
+
+extension Int16: Divisible {}
+
+// MARK: - Multipliable
+
+extension Int16: Multipliable {}
+
+// MARK: - Negateable
+
+extension Int16: Negateable {}
+
+// MARK: - Raisable
+
+extension Int16: Raisable {
+    public typealias Exponent = Self
+}
+
+// MARK: - ReportableAsOverflow
+
+extension Int16: ReportableAsOverflow {}
+
+// MARK: - RepresentableByZero
+
+extension Int16: RepresentableByZero {}
+
+// MARK: - Subtractable
+
+extension Int16: Subtractable {}

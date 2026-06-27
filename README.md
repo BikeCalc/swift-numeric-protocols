@@ -1,6 +1,6 @@
 ![](Assets/GitHubBanner.png)
 
-# swift-numeric-protocols
+# swift-numerics-extended
 
 A package containing numeric protocols, for the Swift programming language.
 
@@ -26,7 +26,7 @@ The Swift Package Manager is a tool for managing the distribution of Swift code 
     let package: Package = .init(
         ...
         dependencies: [
-            .package(url: "https://github.com/bikecalc/swift-numeric-protocols.git", branch: "main")
+            .package(url: "https://github.com/bikecalc/swift-numerics-extended.git", branch: "main")
         ],
         ...
     )
@@ -39,7 +39,7 @@ The Swift Package Manager is a tool for managing the distribution of Swift code 
         ...
         targets: [
             .target(name: "MyTarget", dependencies: [
-                .product(name: "NumericProtocols", package: "swift-numeric-protocols")
+                .product(name: "NumericsExtended", package: "swift-numerics-extended")
             ]),
         ],
         ...
@@ -49,7 +49,7 @@ The Swift Package Manager is a tool for managing the distribution of Swift code 
 3. Import the package in your source code.
 
     ```swift
-    import NumericProtocols
+    import NumericsExtended
     ```
 
 ## Documentation
@@ -86,6 +86,6 @@ To be a truly great community, we welcome developers from all walks of life, wit
 
 Distributed under Apache License v2.0 with Runtime Library Exception. See the `LICENSE.md` file for more information.
 
-[documentation page]: https://bikecalc.github.io/swift-numeric-protocols/documentation/numeric-protocols
-[pull request]: https://github.com/bikecalc/swift-numeric-protocols/pulls
-[issue]: https://github.com/bikecalc/swift-numeric-protocols/issues
+[documentation page]: https://bikecalc.github.io/swift-numerics-extended/documentation/numeric-protocols
+[pull request]: https://github.com/bikecalc/swift-numerics-extended/pulls
+[issue]: https://github.com/bikecalc/swift-numerics-extended/issues

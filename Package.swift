@@ -2,26 +2,68 @@
 
 import PackageDescription
 
-let package: Package = .init(
-	name: "swift-numeric-protocols",
-	defaultLocalization: "en",
-	products: [
-		.library(name: "NumericProtocols", targets: ["NumericProtocols"])
-	],
-	dependencies: [
+let package = Package(
+    name: "swift-numerics-extended",
+    defaultLocalization: "en",
+    products: [
+        .library(name: "NumericsExtended", targets: ["NumericsExtended"])
+    ],
+    dependencies: [
         .package(url: "https://github.com/swiftlang/swift-docc-plugin.git", from: "1.5.0")
-	],
-	targets: [
+    ],
+    targets: [
         .target(
-            name: "NumericProtocols",
-            path: "Sources"
+            name: "CoreNumericOperators"
+        ),
+        .target(
+            name: "CoreNumericProtocols",
+            dependencies: [
+                "CoreNumericOperators"
+            ]
+        ),
+        .target(
+            name: "ExperimentalNumericConstants"
+        ),
+        .target(
+            name: "ExperimentalNumericTypes",
+            dependencies: [
+                "CoreNumericOperators",
+                "CoreNumericProtocols",
+                "StandardNumericProtocols"
+            ]
+        ),
+        .target(
+            name: "NumericsExtended",
+            dependencies: [
+                "CoreNumericOperators",
+                "CoreNumericProtocols",
+                "ExperimentalNumericConstants",
+                "ExperimentalNumericTypes",
+                "StandardNumericProtocols",
+                "StandardNumericTypes"
+            ]
+        ),
+        .target(
+            name: "StandardNumericProtocols",
+            dependencies: [
+                "CoreNumericOperators",
+                "CoreNumericProtocols"
+            ]
+        ),
+        .target(
+            name: "StandardNumericTypes",
+            dependencies: [
+                "CoreNumericOperators",
+                "CoreNumericProtocols",
+                "StandardNumericProtocols"
+            ]
         ),
         .testTarget(
-            name: "NumericProtocolsTests",
-            dependencies: ["NumericProtocols"],
-            path: "Tests"
+            name: "NumericsExtendedTests",
+            dependencies: [
+                "NumericsExtended"
+            ]
         )
-	],
+    ],
     swiftLanguageModes: [.v6]
 )
-
