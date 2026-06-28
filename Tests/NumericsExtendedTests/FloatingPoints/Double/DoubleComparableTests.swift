@@ -9,7 +9,7 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Double Comparable")
+@Suite("Double Comparable Tests")
 internal struct DoubleComparableTests {
     @Test(
         "Is less than",

@@ -9,7 +9,7 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Double Divisible")
+@Suite("Double Divisible Tests")
 internal struct DoubleDivisibleTests {
     @Test(
         "Is invertible",

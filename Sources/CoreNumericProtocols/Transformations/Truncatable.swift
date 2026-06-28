@@ -11,7 +11,11 @@ public protocol Truncatable {
     /// The type used to describe the truncation precision.
     associatedtype DecimalPlace
     
-    /// Returns this instance truncated to the specified decimal place.
+    /// Returns this instance truncated to the specified approximate decimal precision.
+    ///
+    /// This operation uses the type's native binary floating-point representation.
+    /// Values that cannot be represented exactly in binary may produce results that
+    /// differ from exact decimal arithmetic.
     ///
     /// - parameter countPlaces: The number of decimals places.
     /// - returns: This instance truncated.
@@ -19,7 +23,11 @@ public protocol Truncatable {
 }
 
 extension Truncatable {
-    /// Truncates this instance to the specified decimal place.
+    /// Truncates this instance to the specified approximate decimal precision.
+    ///
+    /// This operation uses the type's native binary floating-point representation.
+    /// Values that cannot be represented exactly in binary may produce results that
+    /// differ from exact decimal arithmetic.
     ///
     /// ```swift
     /// var number: Float = 1.2345

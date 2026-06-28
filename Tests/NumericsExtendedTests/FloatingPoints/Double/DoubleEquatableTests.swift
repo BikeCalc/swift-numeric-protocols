@@ -9,7 +9,7 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Double Equatable")
+@Suite("Double Equatable Tests")
 internal struct DoubleEquatableTests {
     @Test(
         "Equality predicates",

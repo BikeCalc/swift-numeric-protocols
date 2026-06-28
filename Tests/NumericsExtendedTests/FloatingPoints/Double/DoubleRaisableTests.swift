@@ -9,7 +9,7 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Double Raisable")
+@Suite("Double Raisable Tests")
 internal struct DoubleRaisableTests {
     @Test(
         "Is power of",

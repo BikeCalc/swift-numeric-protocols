@@ -9,7 +9,7 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Double RepresentableByZero")
+@Suite("Double RepresentableByZero Tests")
 internal struct DoubleRepresentableByZeroTests {
     @Test(
         "Is zero",

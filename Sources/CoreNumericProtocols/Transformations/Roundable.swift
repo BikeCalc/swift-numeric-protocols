@@ -11,7 +11,11 @@ public protocol Roundable {
     /// The type used to describe the rounding precision.
     associatedtype DecimalPlace
     
-    /// Returns this instance rounded to the specified decimal place.
+    /// Returns this instance rounded to the specified approximate decimal precision.
+    ///
+    /// This operation uses the type's native binary floating-point representation.
+    /// Values that cannot be represented exactly in binary may produce results that
+    /// differ from exact decimal arithmetic.
     ///
     /// - parameter decimalPlace: The number of decimals places.
     /// - returns: This instance rounded.
@@ -19,7 +23,11 @@ public protocol Roundable {
 }
 
 extension Roundable {
-    /// Rounds this instance to the specified decimal place.
+    /// Rounds this instance to the specified approximate decimal precision.
+    ///
+    /// This operation uses the type's native binary floating-point representation.
+    /// Values that cannot be represented exactly in binary may produce results that
+    /// differ from exact decimal arithmetic.
     ///
     /// ```swift
     /// var number: Float = 1.2345

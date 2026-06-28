@@ -9,7 +9,7 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Double Decreasable")
+@Suite("Double Decreasable Tests")
 internal struct DoubleDecreasableTests {
     @Test(
         "Decreasing by succeeds",

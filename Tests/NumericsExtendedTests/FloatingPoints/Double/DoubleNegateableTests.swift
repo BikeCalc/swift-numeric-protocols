@@ -9,7 +9,7 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Double Negateable")
+@Suite("Double Negateable Tests")
 internal struct DoubleNegateableTests {
     @Test(
         "Is negative",

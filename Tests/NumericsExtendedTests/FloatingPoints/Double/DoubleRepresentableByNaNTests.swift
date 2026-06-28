@@ -9,7 +9,7 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Double RepresentableByNaN")
+@Suite("Double RepresentableByNaN Tests")
 internal struct DoubleRepresentableByNaNTests {
     @Test(
         "Is NaN",

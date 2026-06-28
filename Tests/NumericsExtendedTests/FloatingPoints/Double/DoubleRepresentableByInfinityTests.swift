@@ -9,7 +9,7 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Double RepresentableByInfinity")
+@Suite("Double RepresentableByInfinity Tests")
 internal struct DoubleRepresentableByInfinityTests {
     @Test(
         "Finite and infinite predicates",

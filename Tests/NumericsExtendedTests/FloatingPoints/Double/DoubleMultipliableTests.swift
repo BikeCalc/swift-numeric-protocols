@@ -9,7 +9,7 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Double Multipliable")
+@Suite("Double Multipliable Tests")
 internal struct DoubleMultipliableTests {
     @Test(
         "Is multiple of",

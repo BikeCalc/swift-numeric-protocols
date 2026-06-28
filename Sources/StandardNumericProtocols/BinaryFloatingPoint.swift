@@ -44,7 +44,11 @@ where Self: Increasable {
 
 extension BinaryFloatingPoint
 where Self: Roundable, Self.DecimalPlace: UnsignedInteger {
-    /// Returns this instance rounded to the specified decimal place.
+    /// Returns this instance rounded to the specified approximate decimal precision.
+    ///
+    /// This operation uses the type's native binary floating-point representation.
+    /// Values that cannot be represented exactly in binary may produce results that
+    /// differ from exact decimal arithmetic.
     ///
     /// ```swift
     /// print(1.2345.rounded(to: 2))
@@ -73,7 +77,11 @@ where Self: Roundable, Self.DecimalPlace: UnsignedInteger {
 
 extension BinaryFloatingPoint
 where Self: Truncatable, Self.DecimalPlace: UnsignedInteger {
-    /// Returns this instance truncated to the specified decimal place.
+    /// Returns this instance truncated to the specified approximate decimal precision.
+    ///
+    /// This operation uses the type's native binary floating-point representation.
+    /// Values that cannot be represented exactly in binary may produce results that
+    /// differ from exact decimal arithmetic.
     ///
     /// ```swift
     /// print(1.2345.truncated(to: 2))
