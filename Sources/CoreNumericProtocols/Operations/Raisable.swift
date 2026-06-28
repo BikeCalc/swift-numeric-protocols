@@ -33,18 +33,66 @@ extension Raisable {
 	/// - returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
 	public func isPower(of other: Self) -> Bool
 	where Self: Comparable & Divisible & ExpressibleByIntegerLiteral {
-        if other == 0 {
+        switch other {
+        case 0:
             return self == 0
+        case 1:
+            return self == 1
+        default:
+            var number: Self = self
+            
+            while number > 1 && number.isDivisible(by: other) {
+                let quotient = number / other
+                
+                guard quotient != number else {
+                    return false
+                }
+                
+                number = quotient
+            }
+            
+            return number == 1
         }
-        
-		var number: Self = self
-
-        while number > 1 && number.isDivisible(by: other) {
-			number /= other
-		}
-
-		return number == 1
 	}
+    
+    /// Returns a boolean value indicating whether this value is a power of the specified value.
+    ///
+    /// ```swift
+    /// print(100.isPower(of: 10))
+    /// // Prints "true"
+    /// ```
+    ///
+    /// - parameter other: The value to test.
+    /// - returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
+    public func isPower(of other: Self) -> Bool
+    where Self: Comparable & Divisible & ExpressibleByIntegerLiteral & Negateable {
+        switch other {
+        case -1:
+            return self == 1 || self == -1
+        case 0:
+            return self == 0
+        case 1:
+            return self == 1
+        default:
+            var number: Self = self
+            
+            while number.isDivisible(by: other) {
+                let quotient = number / other
+                
+                guard quotient != number else {
+                    return false
+                }
+                
+                number = quotient
+                
+                if number == 1 {
+                    return true
+                }
+            }
+            
+            return number == 1
+        }
+    }
 	
 	/// Raises the first specified value to the second and stores the power in the left-hand-side variable.
     ///

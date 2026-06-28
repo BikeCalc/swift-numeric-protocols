@@ -57,7 +57,7 @@ extension Comparable {
 	///
 	/// ```swift
 	/// let number: Int = 2
-	/// print(number.isWithin(1, to: 3))
+	/// print(number.isWithin(1, through: 3))
 	/// // Prints "true"
 	/// ```
 	///
@@ -65,11 +65,29 @@ extension Comparable {
 	/// - parameter upperBound: The upper bound value.
 	/// - returns: A boolean value.
 	/// - Warning: The lower bound value must be smaller than the upper bound value.
-	public func isWithin(_ lowerBound: Self, to upperBound: Self) -> Bool {
+	public func isWithin(_ lowerBound: Self, through upperBound: Self) -> Bool {
 		precondition(lowerBound < upperBound)
 		
 		let closedRange: ClosedRange<Self> = lowerBound...upperBound
 		
 		return self.isWithin(closedRange)
 	}
+    
+    /// Returns a boolean value indicating whether this value is between two specified values.
+    ///
+    /// ```swift
+    /// let number: Int = 2
+    /// print(number.isBetween(1, and: 3))
+    /// // Prints "true"
+    /// ```
+    ///
+    /// - parameter lowerBound: The lower bound value.
+    /// - parameter upperBound: The upper bound value.
+    /// - returns: A boolean value.
+    /// - Warning: The lower bound value must be smaller than the upper bound value.
+    public func isBetween(_ lowerBound: Self, and upperBound: Self) -> Bool {
+        precondition(lowerBound < upperBound)
+        
+        return lowerBound < self && self < upperBound
+    }
 }

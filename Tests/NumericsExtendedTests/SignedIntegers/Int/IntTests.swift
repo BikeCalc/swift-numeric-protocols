@@ -191,7 +191,7 @@ extension IntTests {
         let upperBound: Int = 3
         
         // Then
-        XCTAssertFalse(value.isWithin(lowerBound, to: upperBound))
+        XCTAssertFalse(value.isWithin(lowerBound, through: upperBound))
     }
     
     internal func test_isWithinBoundsReturnsTrue() {
@@ -201,7 +201,7 @@ extension IntTests {
         let upperBound: Int = 3
         
         // Then
-        XCTAssertTrue(value.isWithin(lowerBound, to: upperBound))
+        XCTAssertTrue(value.isWithin(lowerBound, through: upperBound))
     }
 }
 
