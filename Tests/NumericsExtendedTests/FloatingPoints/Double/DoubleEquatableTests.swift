@@ -22,7 +22,11 @@ internal struct DoubleEquatableTests {
             (-0.0, 0.0, true)
         ]
     )
-    internal func equalityPredicates(lhs: Double, rhs: Double, result: Bool) {
+    internal func equalityPredicates(
+        lhs: Double,
+        rhs: Double,
+        result: Bool
+    ) {
         #expect(lhs.isEqual(to: rhs) == result)
         #expect(lhs.isUnequal(to: rhs) == !result)
     }
@@ -37,7 +41,10 @@ internal struct DoubleEquatableTests {
             (-2.0, true)
         ]
     )
-    internal func parityPredicates(value: Double, result: Bool) {
+    internal func parityPredicates(
+        value: Double,
+        result: Bool
+    ) {
         #expect(value.isEven == result)
         #expect(value.isOdd == !result)
     }
@@ -54,7 +61,10 @@ extension DoubleEquatableTests {
             (1.0, Double.nan)
         ]
     )
-    internal func nanEqualityFollowsFloatingPointRules(lhs: Double, rhs: Double) {
+    internal func nanEqualityFollowsFloatingPointRules(
+        lhs: Double,
+        rhs: Double
+    ) {
         #expect((lhs == rhs) == false)
         #expect(lhs.isEqual(to: rhs) == false)
         #expect(lhs.isUnequal(to: rhs) == true)

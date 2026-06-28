@@ -28,7 +28,11 @@ internal struct DoubleRaisableTests {
             (8.0, -2.0, false)
         ]
     )
-    internal func isPowerOf(value: Double, other: Double, result: Bool) {
+    internal func isPowerOf(
+        value: Double,
+        other: Double,
+        result: Bool
+    ) {
         #expect(value.isPower(of: other) == result)
     }
     
@@ -40,7 +44,11 @@ internal struct DoubleRaisableTests {
             (2.0, 2, 4.0)
         ]
     )
-    internal func exponentiationSucceeds(base: Double, exponent: Double.Exponent, power: Double) {
+    internal func exponentiationSucceeds(
+        base: Double,
+        exponent: Double.Exponent,
+        power: Double
+    ) {
         #expect(base ** exponent == power)
     }
     
@@ -52,7 +60,11 @@ internal struct DoubleRaisableTests {
             (2.0, 2, 4.0)
         ]
     )
-    internal func exponentiationEqualSucceeds(base: Double, exponent: Double.Exponent, power: Double) {
+    internal func exponentiationEqualSucceeds(
+        base: Double,
+        exponent: Double.Exponent,
+        power: Double
+    ) {
         var runningPower: Double = base
         runningPower **= exponent
         #expect(runningPower == power)
@@ -66,7 +78,11 @@ internal struct DoubleRaisableTests {
             (2.0, 2, 4.0)
         ]
     )
-    internal func raisingToSucceeds(base: Double, exponent: Double.Exponent, power: Double) {
+    internal func raisingToSucceeds(
+        base: Double,
+        exponent: Double.Exponent,
+        power: Double
+    ) {
         #expect(base.raising(to: exponent) == power)
     }
     
@@ -78,7 +94,11 @@ internal struct DoubleRaisableTests {
             (2.0, 2, 4.0)
         ]
     )
-    internal func raiseToSucceeds(base: Double, exponent: Double.Exponent, power: Double) {
+    internal func raiseToSucceeds(
+        base: Double,
+        exponent: Double.Exponent,
+        power: Double
+    ) {
         var runningPower: Double = base
         runningPower.raise(to: exponent)
         #expect(runningPower == power)
@@ -91,7 +111,10 @@ internal struct DoubleRaisableTests {
             (-2.0, 4.0)
         ]
     )
-    internal func squaredSucceeds(base: Double, power: Double) {
+    internal func squaredSucceeds(
+        base: Double,
+        power: Double
+    ) {
         #expect(base.squared() == power)
     }
     
@@ -102,7 +125,10 @@ internal struct DoubleRaisableTests {
             (-2.0, 4.0)
         ]
     )
-    internal func squareSucceeds(base: Double, power: Double) {
+    internal func squareSucceeds(
+        base: Double,
+        power: Double
+    ) {
         var runningPower: Double = base
         runningPower.square()
         #expect(runningPower == power)
@@ -115,7 +141,10 @@ internal struct DoubleRaisableTests {
             (-2.0, -8.0)
         ]
     )
-    internal func cubedSucceeds(base: Double, power: Double) {
+    internal func cubedSucceeds(
+        base: Double,
+        power: Double
+    ) {
         #expect(base.cubed() == power)
     }
     
@@ -126,7 +155,10 @@ internal struct DoubleRaisableTests {
             (-2.0, -8.0)
         ]
     )
-    internal func cubeSucceeds(base: Double, power: Double) {
+    internal func cubeSucceeds(
+        base: Double,
+        power: Double
+    ) {
         var runningPower: Double = base
         runningPower.cube()
         #expect(runningPower == power)

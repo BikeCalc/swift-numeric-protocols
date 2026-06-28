@@ -24,7 +24,11 @@ internal struct DoubleTruncatableTests {
             (-1.2399, UInt(2), -1.23)
         ]
     )
-    internal func truncatedToSucceeds(value: Double, decimalPlace: Double.DecimalPlace, result: Double) {
+    internal func truncatedToSucceeds(
+        value: Double,
+        decimalPlace: Double.DecimalPlace,
+        result: Double
+    ) {
         #expect(value.truncated(to: decimalPlace) == result)
     }
     
@@ -41,7 +45,11 @@ internal struct DoubleTruncatableTests {
             (-1.2399, UInt(2), -1.23)
         ]
     )
-    internal func truncateToSucceeds(value: Double, decimalPlace: Double.DecimalPlace, result: Double) {
+    internal func truncateToSucceeds(
+        value: Double,
+        decimalPlace: Double.DecimalPlace,
+        result: Double
+    ) {
         var truncatedValue: Double = value
         truncatedValue.truncate(to: decimalPlace)
         #expect(truncatedValue == result)
@@ -60,7 +68,11 @@ extension DoubleTruncatableTests {
             (-1.29, UInt(1), -1.2)
         ]
     )
-    internal func truncatingFollowsTowardZeroRule(value: Double, decimalPlace: Double.DecimalPlace, result: Double) {
+    internal func truncatingFollowsTowardZeroRule(
+        value: Double,
+        decimalPlace: Double.DecimalPlace,
+        result: Double
+    ) {
         #expect(value.truncated(to: decimalPlace) == result)
     }
     
@@ -88,7 +100,10 @@ extension DoubleTruncatableTests {
             (Double.nan, UInt(2))
         ]
     )
-    internal func truncatingNaNReturnsNaN(value: Double, decimalPlace: Double.DecimalPlace) {
+    internal func truncatingNaNReturnsNaN(
+        value: Double,
+        decimalPlace: Double.DecimalPlace
+    ) {
         #expect(value.truncated(to: decimalPlace).isNaN)
     }
     
@@ -99,7 +114,10 @@ extension DoubleTruncatableTests {
             (-0.0, UInt(2))
         ]
     )
-    internal func truncatingZeroPreservesNegativeZeroSign(value: Double, decimalPlace: Double.DecimalPlace) {
+    internal func truncatingZeroPreservesNegativeZeroSign(
+        value: Double,
+        decimalPlace: Double.DecimalPlace
+    ) {
         let truncatedValue: Double = value.truncated(to: decimalPlace)
         
         #expect(truncatedValue == 0.0)

@@ -20,7 +20,11 @@ internal struct DoubleRepresentableByInfinityTests {
             (Double.nan, false, false)
         ]
     )
-    internal func finiteAndInfinitePredicates(value: Double, isFinite: Bool, isInfinite: Bool) {
+    internal func finiteAndInfinitePredicates(
+        value: Double,
+        isFinite: Bool,
+        isInfinite: Bool
+    ) {
         #expect(value.isFinite == isFinite)
         #expect(value.isInfinite == isInfinite)
     }

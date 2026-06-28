@@ -19,7 +19,10 @@ internal struct DoubleRepresentableByZeroTests {
             (1.0, false)
         ]
     )
-    internal func isZero(value: Double, result: Bool) {
+    internal func isZero(
+        value: Double,
+        result: Bool
+    ) {
         #expect(value.isZero == result)
     }
 }

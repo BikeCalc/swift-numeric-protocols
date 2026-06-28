@@ -24,7 +24,11 @@ internal struct DoubleRoundableTests {
             (-1.2355, UInt(2), -1.24)
         ]
     )
-    internal func roundedToSucceeds(value: Double, decimalPlace: Double.DecimalPlace, result: Double) {
+    internal func roundedToSucceeds(
+        value: Double,
+        decimalPlace: Double.DecimalPlace,
+        result: Double
+    ) {
         #expect(value.rounded(to: decimalPlace) == result)
     }
     
@@ -41,7 +45,11 @@ internal struct DoubleRoundableTests {
             (-1.2355, UInt(2), -1.24)
         ]
     )
-    internal func roundToSucceeds(value: Double, decimalPlace: Double.DecimalPlace, result: Double) {
+    internal func roundToSucceeds(
+        value: Double,
+        decimalPlace: Double.DecimalPlace,
+        result: Double
+    ) {
         var roundedValue: Double = value
         roundedValue.round(to: decimalPlace)
         #expect(roundedValue == result)
@@ -60,7 +68,11 @@ extension DoubleRoundableTests {
             (-1.25, UInt(1), -1.3)
         ]
     )
-    internal func roundingMidpointFollowsAwayFromZeroRule(value: Double, decimalPlace: Double.DecimalPlace, result: Double) {
+    internal func roundingMidpointFollowsAwayFromZeroRule(
+        value: Double,
+        decimalPlace: Double.DecimalPlace,
+        result: Double
+    ) {
         #expect(value.rounded(to: decimalPlace) == result)
     }
     
@@ -73,7 +85,11 @@ extension DoubleRoundableTests {
             (Double.negativeInfinity, UInt(2), Double.negativeInfinity)
         ]
     )
-    internal func roundingInfinityFollowsFloatingPointRules(value: Double, decimalPlace: Double.DecimalPlace, result: Double) {
+    internal func roundingInfinityFollowsFloatingPointRules(
+        value: Double,
+        decimalPlace: Double.DecimalPlace,
+        result: Double
+    ) {
         #expect(value.rounded(to: decimalPlace) == result)
     }
     
@@ -84,7 +100,10 @@ extension DoubleRoundableTests {
             (Double.nan, UInt(2))
         ]
     )
-    internal func roundingNaNReturnsNaN(value: Double, decimalPlace: Double.DecimalPlace) {
+    internal func roundingNaNReturnsNaN(
+        value: Double,
+        decimalPlace: Double.DecimalPlace
+    ) {
         #expect(value.rounded(to: decimalPlace).isNaN)
     }
     
@@ -95,7 +114,10 @@ extension DoubleRoundableTests {
             (-0.0, UInt(2))
         ]
     )
-    internal func roundingZeroPreservesNegativeZeroSign(value: Double, decimalPlace: Double.DecimalPlace) {
+    internal func roundingZeroPreservesNegativeZeroSign(
+        value: Double,
+        decimalPlace: Double.DecimalPlace
+    ) {
         let roundedValue: Double = value.rounded(to: decimalPlace)
         
         #expect(roundedValue == 0.0)

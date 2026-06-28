@@ -19,7 +19,11 @@ internal struct DoubleAddableTests {
             (-2.0, 4.0, 2.0)
         ]
     )
-    internal func additionSucceeds(augend: Double, addend: Double, sum: Double) {
+    internal func additionSucceeds(
+        augend: Double,
+        addend: Double,
+        sum: Double
+    ) {
         #expect(augend + addend == sum)
     }
     
@@ -31,7 +35,11 @@ internal struct DoubleAddableTests {
             (-2.0, 4.0, 2.0)
         ]
     )
-    internal func additionEqualSucceeds(augend: Double, addend: Double, sum: Double) {
+    internal func additionEqualSucceeds(
+        augend: Double,
+        addend: Double,
+        sum: Double
+    ) {
         var runningSum: Double = augend
         runningSum += addend
         #expect(runningSum == sum)
@@ -45,7 +53,11 @@ internal struct DoubleAddableTests {
             (-2.0, 4.0, 2.0)
         ]
     )
-    internal func addingSucceeds(augend: Double, addend: Double, sum: Double) {
+    internal func addingSucceeds(
+        augend: Double,
+        addend: Double,
+        sum: Double
+    ) {
         #expect(augend.adding(addend) == sum)
     }
     
@@ -57,7 +69,11 @@ internal struct DoubleAddableTests {
             (-2.0, 4.0, 2.0)
         ]
     )
-    internal func addSucceeds(augend: Double, addend: Double, sum: Double) {
+    internal func addSucceeds(
+        augend: Double,
+        addend: Double,
+        sum: Double
+    ) {
         var runningSum: Double = augend
         runningSum.add(addend)
         #expect(runningSum == sum)
@@ -76,7 +92,11 @@ extension DoubleAddableTests {
             (-1.0, 0.0, -1.0)
         ]
     )
-    internal func addingZeroFollowsFloatingPointRules(augend: Double, addend: Double, sum: Double) {
+    internal func addingZeroFollowsFloatingPointRules(
+        augend: Double,
+        addend: Double,
+        sum: Double
+    ) {
         #expect(augend + addend == sum)
     }
     
@@ -93,7 +113,11 @@ extension DoubleAddableTests {
             (1.0, Double.negativeInfinity, Double.negativeInfinity)
         ]
     )
-    internal func addingInfinityFollowsFloatingPointRules(augend: Double, addend: Double, sum: Double) {
+    internal func addingInfinityFollowsFloatingPointRules(
+        augend: Double,
+        addend: Double,
+        sum: Double
+    ) {
         #expect(augend + addend == sum)
     }
     
@@ -104,7 +128,10 @@ extension DoubleAddableTests {
             (Double.negativeInfinity, Double.infinity)
         ]
     )
-    internal func addingOppositeInfinitiesReturnsNaN(augend: Double, addend: Double) {
+    internal func addingOppositeInfinitiesReturnsNaN(
+        augend: Double,
+        addend: Double
+    ) {
         #expect((augend + addend).isNaN)
     }
     
@@ -117,7 +144,10 @@ extension DoubleAddableTests {
             (Double.nan, Double.infinity)
         ]
     )
-    internal func addingNaNReturnsNaN(augend: Double, addend: Double) {
+    internal func addingNaNReturnsNaN(
+        augend: Double,
+        addend: Double
+    ) {
         #expect((augend + addend).isNaN)
     }
 }

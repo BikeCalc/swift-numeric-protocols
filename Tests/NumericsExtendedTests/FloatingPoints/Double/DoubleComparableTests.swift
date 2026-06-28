@@ -21,7 +21,11 @@ internal struct DoubleComparableTests {
             (-1.0, 1.0, true)
         ]
     )
-    internal func isLessThan(lhs: Double, rhs: Double, result: Bool) {
+    internal func isLessThan(
+        lhs: Double,
+        rhs: Double,
+        result: Bool
+    ) {
         #expect(lhs.isLess(than: rhs) == result)
     }
     
@@ -35,7 +39,11 @@ internal struct DoubleComparableTests {
             (-1.0, 1.0, true)
         ]
     )
-    internal func isLessThanOrEqualTo(lhs: Double, rhs: Double, result: Bool) {
+    internal func isLessThanOrEqualTo(
+        lhs: Double,
+        rhs: Double,
+        result: Bool
+    ) {
         #expect(lhs.isLessThanOrEqual(to: rhs) == result)
     }
     
@@ -49,7 +57,11 @@ internal struct DoubleComparableTests {
             (1.0, -1.0, true)
         ]
     )
-    internal func isGreaterThan(lhs: Double, rhs: Double, result: Bool) {
+    internal func isGreaterThan(
+        lhs: Double,
+        rhs: Double,
+        result: Bool
+    ) {
         #expect(lhs.isGreater(than: rhs) == result)
     }
     
@@ -63,7 +75,11 @@ internal struct DoubleComparableTests {
             (1.0, -1.0, true)
         ]
     )
-    internal func isGreaterThanOrEqualTo(lhs: Double, rhs: Double, result: Bool) {
+    internal func isGreaterThanOrEqualTo(
+        lhs: Double,
+        rhs: Double,
+        result: Bool
+    ) {
         #expect(lhs.isGreaterThanOrEqual(to: rhs) == result)
     }
     
@@ -78,7 +94,11 @@ internal struct DoubleComparableTests {
             (-1.0, -2.0...2.0, true)
         ]
     )
-    internal func isWithinClosedRange(value: Double, range: ClosedRange<Double>, result: Bool) {
+    internal func isWithinClosedRange(
+        value: Double,
+        range: ClosedRange<Double>,
+        result: Bool
+    ) {
         #expect(value.isWithin(range) == result)
     }
     
@@ -93,7 +113,12 @@ internal struct DoubleComparableTests {
             (-1.0, -2.0, 2.0, true)
         ]
     )
-    internal func isWithinBounds(value: Double, lowerBound: Double, upperBound: Double, result: Bool) {
+    internal func isWithinBounds(
+        value: Double,
+        lowerBound: Double,
+        upperBound: Double,
+        result: Bool
+    ) {
         #expect(value.isWithin(lowerBound, through: upperBound) == result)
     }
     
@@ -108,7 +133,12 @@ internal struct DoubleComparableTests {
             (-1.0, -2.0, 2.0, true)
         ]
     )
-    internal func isBetweenBounds(value: Double, lowerBound: Double, upperBound: Double, result: Bool) {
+    internal func isBetweenBounds(
+        value: Double,
+        lowerBound: Double,
+        upperBound: Double,
+        result: Bool
+    ) {
         #expect(value.isBetween(lowerBound, and: upperBound) == result)
     }
 }
@@ -124,7 +154,10 @@ extension DoubleComparableTests {
             (Double.nan, Double.nan)
         ]
     )
-    internal func nanEqualityFollowsFloatingPointRules(lhs: Double, rhs: Double) {
+    internal func nanEqualityFollowsFloatingPointRules(
+        lhs: Double,
+        rhs: Double
+    ) {
         #expect(lhs.isLess(than: rhs) == false)
         #expect(lhs.isLessThanOrEqual(to: rhs) == false)
         #expect(lhs.isGreater(than: rhs) == false)

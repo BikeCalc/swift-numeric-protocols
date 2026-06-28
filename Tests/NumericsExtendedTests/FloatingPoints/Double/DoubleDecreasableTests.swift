@@ -20,7 +20,11 @@ internal struct DoubleDecreasableTests {
             (10.0, -10.0, 11.0)
         ]
     )
-    internal func decreasingBySucceeds(value: Double, percentage: Double, result: Double) {
+    internal func decreasingBySucceeds(
+        value: Double,
+        percentage: Double,
+        result: Double
+    ) {
         let decreasedValue: Double = value.decreasing(by: percentage)
         #expect(decreasedValue == result)
     }

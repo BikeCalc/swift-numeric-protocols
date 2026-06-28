@@ -20,7 +20,10 @@ internal struct DoubleNegateableTests {
             (-1.0, true)
         ]
     )
-    internal func isNegative(value: Double, result: Bool) {
+    internal func isNegative(
+        value: Double,
+        result: Bool
+    ) {
         #expect(value.isNegative == result)
     }
     
@@ -33,7 +36,10 @@ internal struct DoubleNegateableTests {
             (1.0, true)
         ]
     )
-    internal func isPositive(value: Double, result: Bool) {
+    internal func isPositive(
+        value: Double,
+        result: Bool
+    ) {
         #expect(value.isPositive == result)
     }
     
@@ -46,7 +52,10 @@ internal struct DoubleNegateableTests {
             (1.0, true)
         ]
     )
-    internal func isSigned(value: Double, result: Bool) {
+    internal func isSigned(
+        value: Double,
+        result: Bool
+    ) {
         #expect(value.isSigned == result)
     }
     
@@ -60,7 +69,11 @@ internal struct DoubleNegateableTests {
             (1.0, -1.0, true)
         ]
     )
-    internal func isOpposite(value: Double, other: Double, result: Bool) {
+    internal func isOpposite(
+        value: Double,
+        other: Double,
+        result: Bool
+    ) {
         #expect(value.isOpposite(of: other) == result)
     }
 }
@@ -75,7 +88,10 @@ extension DoubleNegateableTests {
             (-0.0, 0.0)
         ]
     )
-    internal func negatingZeroFollowsFloatingPointRules(value: Double, result: Double) {
+    internal func negatingZeroFollowsFloatingPointRules(
+        value: Double,
+        result: Double
+    ) {
         #expect(value.negating() == result)
     }
     
@@ -86,7 +102,10 @@ extension DoubleNegateableTests {
             (-0.0, FloatingPointSign.plus)
         ]
     )
-    internal func negatingZeroFlipsSign(value: Double, sign: FloatingPointSign) {
+    internal func negatingZeroFlipsSign(
+        value: Double,
+        sign: FloatingPointSign
+    ) {
         let negatedValue: Double = value.negating()
         
         #expect(negatedValue == 0.0)
@@ -100,7 +119,10 @@ extension DoubleNegateableTests {
             (Double.negativeInfinity, Double.infinity)
         ]
     )
-    internal func negatingInfinityFollowsFloatingPointRules(value: Double, result: Double) {
+    internal func negatingInfinityFollowsFloatingPointRules(
+        value: Double,
+        result: Double
+    ) {
         #expect(value.negating() == result)
     }
     

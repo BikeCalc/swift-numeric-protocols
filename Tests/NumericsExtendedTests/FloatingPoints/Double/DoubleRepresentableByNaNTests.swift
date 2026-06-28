@@ -19,7 +19,10 @@ internal struct DoubleRepresentableByNaNTests {
             (Double.infinity, false)
         ]
     )
-    internal func isNaN(value: Double, result: Bool) {
+    internal func isNaN(
+        value: Double,
+        result: Bool
+    ) {
         #expect(value.isNaN == result)
     }
 }

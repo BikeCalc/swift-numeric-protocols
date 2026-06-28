@@ -21,7 +21,11 @@ internal struct DoubleMultipliableTests {
             (7.0, 3.0, false)
         ]
     )
-    internal func isMultipleOf(multiplicand: Double, multiplicator: Double, result: Bool) {
+    internal func isMultipleOf(
+        multiplicand: Double,
+        multiplicator: Double,
+        result: Bool
+    ) {
         #expect(multiplicand.isMultiple(of: multiplicator) == result)
     }
     
@@ -35,7 +39,11 @@ internal struct DoubleMultipliableTests {
             (-2.0, -3.0, 6.0)
         ]
     )
-    internal func multiplicationSucceeds(multiplicand: Double, multiplier: Double, product: Double) {
+    internal func multiplicationSucceeds(
+        multiplicand: Double,
+        multiplier: Double,
+        product: Double
+    ) {
         #expect(multiplicand * multiplier == product)
     }
     
@@ -49,7 +57,11 @@ internal struct DoubleMultipliableTests {
             (-2.0, -3.0, 6.0)
         ]
     )
-    internal func multiplicationEqualSucceeds(multiplicand: Double, multiplier: Double, product: Double) {
+    internal func multiplicationEqualSucceeds(
+        multiplicand: Double,
+        multiplier: Double,
+        product: Double
+    ) {
         var runningProduct: Double = multiplicand
         runningProduct *= multiplier
         #expect(runningProduct == product)
@@ -65,7 +77,11 @@ internal struct DoubleMultipliableTests {
             (-2.0, -3.0, 6.0)
         ]
     )
-    internal func multiplyingBySucceeds(multiplicand: Double, multiplier: Double, product: Double) {
+    internal func multiplyingBySucceeds(
+        multiplicand: Double,
+        multiplier: Double,
+        product: Double
+    ) {
         #expect(multiplicand.multiplying(by: multiplier) == product)
     }
     
@@ -79,7 +95,11 @@ internal struct DoubleMultipliableTests {
             (-2.0, -3.0, 6.0)
         ]
     )
-    internal func multiplyBySucceeds(multiplicand: Double, multiplier: Double, product: Double) {
+    internal func multiplyBySucceeds(
+        multiplicand: Double,
+        multiplier: Double,
+        product: Double
+    ) {
         var runningProduct: Double = multiplicand
         runningProduct.multiply(by: multiplier)
         #expect(runningProduct == product)
@@ -93,7 +113,10 @@ internal struct DoubleMultipliableTests {
             (-1.0, -2.0)
         ]
     )
-    internal func doubledSucceeds(multiplicand: Double, product: Double) {
+    internal func doubledSucceeds(
+        multiplicand: Double,
+        product: Double
+    ) {
         #expect(multiplicand.doubled() == product)
     }
     
@@ -105,7 +128,10 @@ internal struct DoubleMultipliableTests {
             (-1.0, -2.0)
         ]
     )
-    internal func doubleSucceeds(multiplicand: Double, product: Double) {
+    internal func doubleSucceeds(
+        multiplicand: Double,
+        product: Double
+    ) {
         var runningProduct: Double = multiplicand
         runningProduct.double()
         #expect(runningProduct == product)
@@ -124,7 +150,11 @@ extension DoubleMultipliableTests {
             (0.0, -1.0, -0.0)
         ]
     )
-    internal func multiplyingByZeroFollowsFloatingPointRules(multiplicand: Double, multiplier: Double, product: Double) {
+    internal func multiplyingByZeroFollowsFloatingPointRules(
+        multiplicand: Double,
+        multiplier: Double,
+        product: Double
+    ) {
         #expect(multiplicand * multiplier == product)
     }
     
@@ -135,7 +165,10 @@ extension DoubleMultipliableTests {
             (0.0, -1.0)
         ]
     )
-    internal func multiplyingByZeroPreservesNegativeZeroSign(multiplicand: Double, multiplier: Double) {
+    internal func multiplyingByZeroPreservesNegativeZeroSign(
+        multiplicand: Double,
+        multiplier: Double
+    ) {
         let product: Double = multiplicand * multiplier
         
         #expect(product == 0.0)
@@ -159,7 +192,11 @@ extension DoubleMultipliableTests {
             (-1.0, Double.negativeInfinity, Double.infinity)
         ]
     )
-    internal func multiplyingInfinityFollowsFloatingPointRules(multiplicand: Double, multiplier: Double, product: Double) {
+    internal func multiplyingInfinityFollowsFloatingPointRules(
+        multiplicand: Double,
+        multiplier: Double,
+        product: Double
+    ) {
         #expect(multiplicand * multiplier == product)
     }
     
@@ -172,7 +209,10 @@ extension DoubleMultipliableTests {
             (0.0, Double.negativeInfinity)
         ]
     )
-    internal func multiplyingInfinityByZeroReturnsNaN(multiplicand: Double, multiplier: Double) {
+    internal func multiplyingInfinityByZeroReturnsNaN(
+        multiplicand: Double,
+        multiplier: Double
+    ) {
         #expect((multiplicand * multiplier).isNaN)
     }
     
@@ -185,7 +225,10 @@ extension DoubleMultipliableTests {
             (Double.nan, Double.infinity)
         ]
     )
-    internal func multiplyingNaNReturnsNaN(multiplicand: Double, multiplier: Double) {
+    internal func multiplyingNaNReturnsNaN(
+        multiplicand: Double,
+        multiplier: Double
+    ) {
         #expect((multiplicand * multiplier).isNaN)
     }
 }

@@ -20,7 +20,11 @@ internal struct DoubleSubtractableTests {
             (6.0, -4.0, 10.0)
         ]
     )
-    internal func subtractionSucceeds(minuend: Double, subtrahend: Double, difference: Double) {
+    internal func subtractionSucceeds(
+        minuend: Double,
+        subtrahend: Double,
+        difference: Double
+    ) {
         #expect(minuend - subtrahend == difference)
     }
     
@@ -33,7 +37,11 @@ internal struct DoubleSubtractableTests {
             (6.0, -4.0, 10.0)
         ]
     )
-    internal func subtractionEqualSucceeds(minuend: Double, subtrahend: Double, difference: Double) {
+    internal func subtractionEqualSucceeds(
+        minuend: Double,
+        subtrahend: Double,
+        difference: Double
+    ) {
         var runningDifference: Double = minuend
         runningDifference -= subtrahend
         #expect(runningDifference == difference)
@@ -48,7 +56,11 @@ internal struct DoubleSubtractableTests {
             (6.0, -4.0, 10.0)
         ]
     )
-    internal func subtractingSucceeds(minuend: Double, subtrahend: Double, difference: Double) {
+    internal func subtractingSucceeds(
+        minuend: Double,
+        subtrahend: Double,
+        difference: Double
+    ) {
         #expect(minuend.subtracting(subtrahend) == difference)
     }
     
@@ -61,7 +73,11 @@ internal struct DoubleSubtractableTests {
             (6.0, -4.0, 10.0)
         ]
     )
-    internal func subtractSucceeds(minuend: Double, subtrahend: Double, difference: Double) {
+    internal func subtractSucceeds(
+        minuend: Double,
+        subtrahend: Double,
+        difference: Double
+    ) {
         var runningDifference: Double = minuend
         runningDifference.subtract(subtrahend)
         #expect(runningDifference == difference)
@@ -80,7 +96,11 @@ extension DoubleSubtractableTests {
             (-1.0, 0.0, -1.0)
         ]
     )
-    internal func subtractingZeroFollowsFloatingPointRules(minuend: Double, subtrahend: Double, difference: Double) {
+    internal func subtractingZeroFollowsFloatingPointRules(
+        minuend: Double,
+        subtrahend: Double,
+        difference: Double
+    ) {
         #expect(minuend - subtrahend == difference)
     }
     
@@ -110,7 +130,10 @@ extension DoubleSubtractableTests {
             (Double.negativeInfinity, Double.negativeInfinity)
         ]
     )
-    internal func subtractingMatchingInfinitiesReturnsNaN(minuend: Double, subtrahend: Double) {
+    internal func subtractingMatchingInfinitiesReturnsNaN(
+        minuend: Double,
+        subtrahend: Double
+    ) {
         #expect((minuend - subtrahend).isNaN)
     }
     
@@ -123,7 +146,10 @@ extension DoubleSubtractableTests {
             (Double.nan, Double.infinity)
         ]
     )
-    internal func subtractingNaNReturnsNaN(minuend: Double, subtrahend: Double) {
+    internal func subtractingNaNReturnsNaN(
+        minuend: Double,
+        subtrahend: Double
+    ) {
         #expect((minuend - subtrahend).isNaN)
     }
 }

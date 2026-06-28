@@ -20,7 +20,11 @@ internal struct DoubleIncreasableTests {
             (10.0, -10.0, 9.0)
         ]
     )
-    internal func increasingBySucceeds(value: Double, percentage: Double, result: Double) {
+    internal func increasingBySucceeds(
+        value: Double,
+        percentage: Double,
+        result: Double
+    ) {
         let increasedValue: Double = value.increasing(by: percentage)
         #expect(increasedValue == result)
     }
