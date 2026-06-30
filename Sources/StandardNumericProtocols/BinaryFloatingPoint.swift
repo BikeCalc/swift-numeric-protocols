@@ -26,6 +26,30 @@ where Self: Decreasable {
 }
 
 extension BinaryFloatingPoint
+where Self: Divisible & Multipliable {
+    /// Returns a boolean value indicating whether this value is a multiple of the specified value.
+    ///
+    /// ```swift
+    /// print(50.isMultiple(of: 10))
+    /// // Prints "true"
+    /// ```
+    ///
+    /// - parameter other: The value to test.
+    /// - returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
+    public func isMultiple(of other: Self) -> Bool {
+        if self == 0 && other == 0 {
+            return true
+        }
+        
+        guard other != 0 else {
+            return false
+        }
+        
+        return (self % other) == 0
+    }
+}
+
+extension BinaryFloatingPoint
 where Self: Increasable {
     /// Returns the sum of increasing this value by the specified value.
     ///

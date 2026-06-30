@@ -253,7 +253,8 @@ extension DoubleRaisableTests {
     @Test(
         "Negative zero exponentiation preserves negative sign",
         arguments: [
-            (-0.0, 1)
+            (-0.0, 1),
+            (-0.0, 3)
         ]
     )
     internal func negativeZeroExponentiationPreservesNegativeSign(

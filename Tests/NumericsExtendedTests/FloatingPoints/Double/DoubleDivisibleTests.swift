@@ -12,6 +12,22 @@ import Testing
 @Suite("Double Divisible Tests")
 internal struct DoubleDivisibleTests {
     @Test(
+        "Reciprocal",
+        arguments: [
+            (1.0, 1.0),
+            (-1.0, -1.0),
+            (2.0, 0.5),
+            (-2.0, -0.5)
+        ]
+    )
+    internal func reciprocal(
+        value: Double,
+        result: Double?
+    ) {
+        #expect(value.reciprocal == result)
+    }
+    
+    @Test(
         "Is invertible",
         arguments: [
             (0.0, false),
@@ -29,6 +45,8 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Is divisible by",
         arguments: [
+            (0.0, 0.0, false),
+            (0.0, 3.0, true),
             (3.0, 0.0, false),
             (3.0, 1.0, true),
             (6.0, 2.0, true),
@@ -176,6 +194,54 @@ internal struct DoubleDivisibleTests {
 // MARK: - Rules
 
 extension DoubleDivisibleTests {
+    @Test(
+        "Reciprocal of infinity follows floating-point rules",
+        arguments: [
+            (Double.infinity, 0.0),
+            (Double.negativeInfinity, -0.0)
+        ]
+    )
+    internal func reciprocalOfInfinityFollowsFloatingPointRules(
+        value: Double,
+        result: Double?
+    ) {
+        #expect(value.reciprocal == result)
+    }
+    
+    @Test("Reciprocal of negative infinity preserves negative zero sign")
+    internal func reciprocalOfNegativeInfinityPreservesNegativeZeroSign() {
+        let reciprocal: Double? = Double.negativeInfinity.reciprocal
+        
+        #expect(reciprocal == 0.0)
+        #expect(reciprocal?.sign == .minus)
+    }
+    
+    @Test(
+        "Reciprocal of zero returns nil",
+        arguments: [
+            0.0,
+            -0.0
+        ]
+    )
+    internal func reciprocalOfZeroReturnsNil(value: Double) {
+        #expect(value.reciprocal == nil)
+    }
+    
+    @Test(
+        "Invertibility follows floating-point rules",
+        arguments: [
+            (Double.infinity, true),
+            (Double.negativeInfinity, true),
+            (Double.nan, true)
+        ]
+    )
+    internal func invertibilityFollowsFloatingPointRules(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isInvertible == result)
+    }
+    
     @Test(
         "Dividing zero follows floating-point rules",
         arguments: [

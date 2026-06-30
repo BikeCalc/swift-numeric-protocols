@@ -14,11 +14,14 @@ internal struct DoubleMultipliableTests {
     @Test(
         "Is multiple of",
         arguments: [
-            (3.0, 0.0, false),
             (0.0, 0.0, true),
+            (3.0, 0.0, false),
+            (0.0, 3.0, true),
             (3.0, 1.0, true),
             (6.0, 3.0, true),
-            (7.0, 3.0, false)
+            (7.0, 3.0, false),
+            (-6.0, 3.0, true),
+            (6.0, -3.0, true)
         ]
     )
     internal func isMultipleOf(

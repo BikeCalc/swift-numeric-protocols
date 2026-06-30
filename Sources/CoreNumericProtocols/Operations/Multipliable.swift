@@ -8,52 +8,21 @@
 
 /// Representing values that can be multiplied.
 public protocol Multipliable: Equatable {
-	/// Returns the product of multiplying the two specified values.
-	///
-	/// - parameter lhs: The multiplicand.
-	/// - parameter rhs: The multiplicator.
-	/// - returns: The product.
-	static func * (_ lhs: Self, _ rhs: Self) -> Self
+    /// Returns a boolean value indicating whether this value is a multiple of the specified value.
+    ///
+    /// - parameter other: The value to test.
+    /// - returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
+    func isMultiple(of other: Self) -> Bool
+    
+    /// Returns the product of multiplying the two specified values.
+    ///
+    /// - parameter lhs: The multiplicand.
+    /// - parameter rhs: The multiplicator.
+    /// - returns: The product.
+    static func * (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Multipliable {
-	// FIXME: Ambiguous use of 'isMultiple(of:)'.
-	/// Returns a boolean value indicating whether this value is a multiple of the specified value.
-	///
-	/// ```swift
-	/// print(50.isMultiple(of: 10))
-	/// // Prints "true"
-	/// ```
-	///
-	/// - parameter other: The value to test.
-	/// - returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
-//	public func isMultiple(of other: Self) -> Bool
-//	where Self: Divisible & ExpressibleByIntegerLiteral {
-//		if self == 0 && other == 0 {
-//			return true
-//		}
-//
-//		return (self % other) == 0
-//	}
-	
-	/// Returns a boolean value indicating whether this value is a multiple of the specified value.
-	///
-	/// ```swift
-	/// print(50.isMultiple(of: 10))
-	/// // Prints "true"
-	/// ```
-	///
-	/// - parameter other: The value to test.
-	/// - returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
-	public func isMultiple(of other: Self) -> Bool
-	where Self: Divisible & ExpressibleByFloatLiteral {
-		if self == 0.0 && other == 0.0 {
-			return true
-		}
-		
-		return (self % other) == 0.0
-	}
-	
 	/// Multiplies the two specified values and stores the product in the left-hand-side variable.
 	///
 	/// - parameter lhs: The multiplicand.
