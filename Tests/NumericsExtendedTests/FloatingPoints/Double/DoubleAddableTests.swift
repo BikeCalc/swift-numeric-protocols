@@ -26,7 +26,7 @@ internal struct DoubleAddableTests {
     ) {
         #expect(augend + addend == sum)
     }
-    
+
     @Test(
         "Addition equal succeeds",
         arguments: [
@@ -44,7 +44,7 @@ internal struct DoubleAddableTests {
         runningSum += addend
         #expect(runningSum == sum)
     }
-    
+
     @Test(
         "Adding succeeds",
         arguments: [
@@ -60,7 +60,7 @@ internal struct DoubleAddableTests {
     ) {
         #expect(augend.adding(addend) == sum)
     }
-    
+
     @Test(
         "Add succeeds",
         arguments: [
@@ -80,7 +80,58 @@ internal struct DoubleAddableTests {
     }
 }
 
-// MARK: - Rules
+// MARK: - Arithmetic Rules
+
+extension DoubleAddableTests {
+    @Test(
+        "Adding zero preserves augend",
+        arguments: [
+            (0.0, 0.0),
+            (1.0, 1.0),
+            (-1.0, -1.0)
+        ]
+    )
+    internal func addingZeroPreservesAugend(
+        augend: Double,
+        sum: Double
+    ) {
+        #expect(augend + 0.0 == sum)
+    }
+
+    @Test(
+        "Adding opposite values returns zero",
+        arguments: [
+            (0.0, 0.0, 0.0),
+            (1.0, -1.0, 0.0),
+            (-1.0, 1.0, 0.0),
+            (5.0, -5.0, 0.0)
+        ]
+    )
+    internal func addingOppositeValuesReturnsZero(
+        augend: Double,
+        addend: Double,
+        sum: Double
+    ) {
+        #expect(augend + addend == sum)
+    }
+
+    @Test(
+        "Addition is commutative",
+        arguments: [
+            (2.0, 4.0),
+            (-2.0, 4.0),
+            (-2.0, -4.0)
+        ]
+    )
+    internal func additionIsCommutative(
+        lhs: Double,
+        rhs: Double
+    ) {
+        #expect(lhs + rhs == rhs + lhs)
+    }
+}
+
+// MARK: - Floating-Point Rules
 
 extension DoubleAddableTests {
     @Test(
@@ -99,14 +150,12 @@ extension DoubleAddableTests {
     ) {
         #expect(augend + addend == sum)
     }
-    
+
     @Test(
         "Adding infinity follows floating-point rules",
         arguments: [
             (Double.infinity, Double.infinity, Double.infinity),
             (Double.negativeInfinity, Double.negativeInfinity, Double.negativeInfinity),
-            (Double.infinity, 1.0, Double.infinity),
-            (Double.negativeInfinity, 1.0, Double.negativeInfinity),
             (Double.infinity, 1.0, Double.infinity),
             (Double.negativeInfinity, 1.0, Double.negativeInfinity),
             (1.0, Double.infinity, Double.infinity),
@@ -120,7 +169,7 @@ extension DoubleAddableTests {
     ) {
         #expect(augend + addend == sum)
     }
-    
+
     @Test(
         "Adding opposite infinities returns NaN",
         arguments: [
@@ -134,7 +183,7 @@ extension DoubleAddableTests {
     ) {
         #expect((augend + addend).isNaN)
     }
-    
+
     @Test(
         "Adding NaN returns NaN",
         arguments: [

@@ -26,7 +26,7 @@ internal struct IntAddableTests {
     ) {
         #expect(augend + addend == sum)
     }
-    
+
     @Test(
         "Addition equal succeeds",
         arguments: [
@@ -44,7 +44,7 @@ internal struct IntAddableTests {
         runningSum += addend
         #expect(runningSum == sum)
     }
-    
+
     @Test(
         "Adding succeeds",
         arguments: [
@@ -60,7 +60,7 @@ internal struct IntAddableTests {
     ) {
         #expect(augend.adding(addend) == sum)
     }
-    
+
     @Test(
         "Add succeeds",
         arguments: [
@@ -77,5 +77,56 @@ internal struct IntAddableTests {
         var runningSum: Int = augend
         runningSum.add(addend)
         #expect(runningSum == sum)
+    }
+}
+
+// MARK: - Arithmetic Rules
+
+extension IntAddableTests {
+    @Test(
+        "Adding zero preserves augend",
+        arguments: [
+            (0, 0),
+            (1, 1),
+            (-1, -1)
+        ]
+    )
+    internal func addingZeroPreservesAugend(
+        augend: Int,
+        sum: Int
+    ) {
+        #expect(augend + 0 == sum)
+    }
+
+    @Test(
+        "Adding opposite values returns zero",
+        arguments: [
+            (0, 0, 0),
+            (1, -1, 0),
+            (-1, 1, 0),
+            (5, -5, 0)
+        ]
+    )
+    internal func addingOppositeValuesReturnsZero(
+        augend: Int,
+        addend: Int,
+        sum: Int
+    ) {
+        #expect(augend + addend == sum)
+    }
+
+    @Test(
+        "Addition is commutative",
+        arguments: [
+            (2, 4),
+            (-2, 4),
+            (-2, -4)
+        ]
+    )
+    internal func additionIsCommutative(
+        lhs: Int,
+        rhs: Int
+    ) {
+        #expect(lhs + rhs == rhs + lhs)
     }
 }

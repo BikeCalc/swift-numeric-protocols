@@ -32,7 +32,7 @@ internal struct DoubleEquatableTests {
     }
 }
 
-// MARK: - Rules
+// MARK: - Floating-Point Rules
 
 extension DoubleEquatableTests {
     @Test(

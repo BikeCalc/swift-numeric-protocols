@@ -14,14 +14,14 @@ internal struct DoubleRoundableTests {
     @Test(
         "Rounded to succeeds",
         arguments: [
-            (0.0, UInt(0), 0.0),
-            (1.0, UInt(0), 1.0),
-            (1.2345, UInt(0), 1.0),
-            (1.2345, UInt(1), 1.2),
-            (1.2345, UInt(2), 1.23),
-            (1.2355, UInt(2), 1.24),
-            (-1.2345, UInt(2), -1.23),
-            (-1.2355, UInt(2), -1.24)
+            (0.0, Double.DecimalPlace(0), 0.0),
+            (1.0, Double.DecimalPlace(0), 1.0),
+            (1.2345, Double.DecimalPlace(0), 1.0),
+            (1.2345, Double.DecimalPlace(1), 1.2),
+            (1.2345, Double.DecimalPlace(2), 1.23),
+            (1.2355, Double.DecimalPlace(2), 1.24),
+            (-1.2345, Double.DecimalPlace(2), -1.23),
+            (-1.2355, Double.DecimalPlace(2), -1.24)
         ]
     )
     internal func roundedToSucceeds(
@@ -31,18 +31,18 @@ internal struct DoubleRoundableTests {
     ) {
         #expect(value.rounded(to: decimalPlace) == result)
     }
-    
+
     @Test(
         "Round to succeeds",
         arguments: [
-            (0.0, UInt(0), 0.0),
-            (1.0, UInt(0), 1.0),
-            (1.2345, UInt(0), 1.0),
-            (1.2345, UInt(1), 1.2),
-            (1.2345, UInt(2), 1.23),
-            (1.2355, UInt(2), 1.24),
-            (-1.2345, UInt(2), -1.23),
-            (-1.2355, UInt(2), -1.24)
+            (0.0, Double.DecimalPlace(0), 0.0),
+            (1.0, Double.DecimalPlace(0), 1.0),
+            (1.2345, Double.DecimalPlace(0), 1.0),
+            (1.2345, Double.DecimalPlace(1), 1.2),
+            (1.2345, Double.DecimalPlace(2), 1.23),
+            (1.2355, Double.DecimalPlace(2), 1.24),
+            (-1.2345, Double.DecimalPlace(2), -1.23),
+            (-1.2355, Double.DecimalPlace(2), -1.24)
         ]
     )
     internal func roundToSucceeds(
@@ -56,16 +56,16 @@ internal struct DoubleRoundableTests {
     }
 }
 
-// MARK: - Rules
+// MARK: - Arithmetic Rules
 
 extension DoubleRoundableTests {
     @Test(
         "Rounding midpoint follows away-from-zero rule",
         arguments: [
-            (1.5, UInt(0), 2.0),
-            (-1.5, UInt(0), -2.0),
-            (1.25, UInt(1), 1.3),
-            (-1.25, UInt(1), -1.3)
+            (1.5, Double.DecimalPlace(0), 2.0),
+            (-1.5, Double.DecimalPlace(0), -2.0),
+            (1.25, Double.DecimalPlace(1), 1.3),
+            (-1.25, Double.DecimalPlace(1), -1.3)
         ]
     )
     internal func roundingMidpointFollowsAwayFromZeroRule(
@@ -75,14 +75,18 @@ extension DoubleRoundableTests {
     ) {
         #expect(value.rounded(to: decimalPlace) == result)
     }
-    
+}
+
+// MARK: - Floating-Point Rules
+
+extension DoubleRoundableTests {
     @Test(
         "Rounding infinity follows floating-point rules",
         arguments: [
-            (Double.infinity, UInt(0), Double.infinity),
-            (Double.infinity, UInt(2), Double.infinity),
-            (Double.negativeInfinity, UInt(0), Double.negativeInfinity),
-            (Double.negativeInfinity, UInt(2), Double.negativeInfinity)
+            (Double.infinity, Double.DecimalPlace(0), Double.infinity),
+            (Double.infinity, Double.DecimalPlace(2), Double.infinity),
+            (Double.negativeInfinity, Double.DecimalPlace(0), Double.negativeInfinity),
+            (Double.negativeInfinity, Double.DecimalPlace(2), Double.negativeInfinity)
         ]
     )
     internal func roundingInfinityFollowsFloatingPointRules(
@@ -92,12 +96,12 @@ extension DoubleRoundableTests {
     ) {
         #expect(value.rounded(to: decimalPlace) == result)
     }
-    
+
     @Test(
         "Rounding NaN returns NaN",
         arguments: [
-            (Double.nan, UInt(0)),
-            (Double.nan, UInt(2))
+            (Double.nan, Double.DecimalPlace(0)),
+            (Double.nan, Double.DecimalPlace(2))
         ]
     )
     internal func roundingNaNReturnsNaN(
@@ -106,12 +110,12 @@ extension DoubleRoundableTests {
     ) {
         #expect(value.rounded(to: decimalPlace).isNaN)
     }
-    
+
     @Test(
         "Rounding zero preserves negative zero sign",
         arguments: [
-            (-0.0, UInt(0)),
-            (-0.0, UInt(2))
+            (-0.0, Double.DecimalPlace(0)),
+            (-0.0, Double.DecimalPlace(2))
         ]
     )
     internal func roundingZeroPreservesNegativeZeroSign(
@@ -119,7 +123,7 @@ extension DoubleRoundableTests {
         decimalPlace: Double.DecimalPlace
     ) {
         let roundedValue: Double = value.rounded(to: decimalPlace)
-        
+
         #expect(roundedValue == 0.0)
         #expect(roundedValue.sign == .minus)
     }

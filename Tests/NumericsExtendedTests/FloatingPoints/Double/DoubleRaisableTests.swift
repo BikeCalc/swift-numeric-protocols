@@ -35,7 +35,7 @@ internal struct DoubleRaisableTests {
     ) {
         #expect(value.isPower(of: other) == result)
     }
-    
+
     @Test(
         "Exponentiation succeeds",
         arguments: [
@@ -51,7 +51,7 @@ internal struct DoubleRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
         "Exponentiation equal succeeds",
         arguments: [
@@ -69,7 +69,7 @@ internal struct DoubleRaisableTests {
         runningPower **= exponent
         #expect(runningPower == power)
     }
-    
+
     @Test(
         "Raising to succeeds",
         arguments: [
@@ -85,7 +85,7 @@ internal struct DoubleRaisableTests {
     ) {
         #expect(base.raising(to: exponent) == power)
     }
-    
+
     @Test(
         "Raise to succeeds",
         arguments: [
@@ -103,7 +103,7 @@ internal struct DoubleRaisableTests {
         runningPower.raise(to: exponent)
         #expect(runningPower == power)
     }
-    
+
     @Test(
         "Squared succeeds",
         arguments: [
@@ -117,7 +117,7 @@ internal struct DoubleRaisableTests {
     ) {
         #expect(base.squared() == power)
     }
-    
+
     @Test(
         "Square succeeds",
         arguments: [
@@ -133,7 +133,7 @@ internal struct DoubleRaisableTests {
         runningPower.square()
         #expect(runningPower == power)
     }
-    
+
     @Test(
         "Cubed succeeds",
         arguments: [
@@ -147,7 +147,7 @@ internal struct DoubleRaisableTests {
     ) {
         #expect(base.cubed() == power)
     }
-    
+
     @Test(
         "Cube succeeds",
         arguments: [
@@ -165,7 +165,7 @@ internal struct DoubleRaisableTests {
     }
 }
 
-// MARK: - Rules
+// MARK: - Arithmetic Rules
 
 extension DoubleRaisableTests {
     @Test(
@@ -183,7 +183,7 @@ extension DoubleRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
         "Negative exponent returns reciprocal power",
         arguments: [
@@ -199,23 +199,27 @@ extension DoubleRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
-        "Negative base with negative exponent follows parity rule",
+        "Negative base with negative exponent follows reciprocal parity rule",
         arguments: [
             (-2.0, -1, -0.5),
             (-2.0, -2, 0.25),
             (-2.0, -3, -0.125)
         ]
     )
-    internal func negativeBaseWithNegativeExponentFollowsParityRule(
+    internal func negativeBaseWithNegativeExponentFollowsReciprocalParityRule(
         base: Double,
         exponent: Double.Exponent,
         power: Double
     ) {
         #expect(base ** exponent == power)
     }
-    
+}
+
+// MARK: - Floating-Point Rules
+
+extension DoubleRaisableTests {
     @Test(
         "Zero base exponentiation follows floating-point rules",
         arguments: [
@@ -231,7 +235,7 @@ extension DoubleRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
         "Negative zero exponentiation follows parity rule",
         arguments: [
@@ -249,24 +253,24 @@ extension DoubleRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
-        "Negative zero exponentiation preserves negative sign",
+        "Negative zero exponentiation preserves negative zero sign",
         arguments: [
             (-0.0, 1),
             (-0.0, 3)
         ]
     )
-    internal func negativeZeroExponentiationPreservesNegativeSign(
+    internal func negativeZeroExponentiationPreservesNegativeZeroSign(
         base: Double,
         exponent: Double.Exponent
     ) {
         let power: Double = base ** exponent
-        
+
         #expect(power == 0.0)
         #expect(power.sign == .minus)
     }
-    
+
     @Test(
         "NaN raised to nonzero exponent returns NaN",
         arguments: [
@@ -281,7 +285,7 @@ extension DoubleRaisableTests {
     ) {
         #expect((base ** exponent).isNaN)
     }
-    
+
     @Test(
         "NaN raised to zero returns one",
         arguments: [
@@ -295,7 +299,7 @@ extension DoubleRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
         "Positive infinity exponentiation follows reciprocal rules",
         arguments: [
@@ -311,7 +315,7 @@ extension DoubleRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
         "Negative infinity exponentiation follows parity rule",
         arguments: [
@@ -329,7 +333,7 @@ extension DoubleRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
         "Negative infinity exponentiation preserves negative zero sign",
         arguments: [
@@ -341,7 +345,7 @@ extension DoubleRaisableTests {
         exponent: Double.Exponent
     ) {
         let power: Double = base ** exponent
-        
+
         #expect(power == 0.0)
         #expect(power.sign == .minus)
     }

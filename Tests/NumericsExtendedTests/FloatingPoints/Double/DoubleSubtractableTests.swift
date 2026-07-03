@@ -27,7 +27,7 @@ internal struct DoubleSubtractableTests {
     ) {
         #expect(minuend - subtrahend == difference)
     }
-    
+
     @Test(
         "Subtraction equal succeeds",
         arguments: [
@@ -46,7 +46,7 @@ internal struct DoubleSubtractableTests {
         runningDifference -= subtrahend
         #expect(runningDifference == difference)
     }
-    
+
     @Test(
         "Subtracting succeeds",
         arguments: [
@@ -63,7 +63,7 @@ internal struct DoubleSubtractableTests {
     ) {
         #expect(minuend.subtracting(subtrahend) == difference)
     }
-    
+
     @Test(
         "Subtract succeeds",
         arguments: [
@@ -84,7 +84,56 @@ internal struct DoubleSubtractableTests {
     }
 }
 
-// MARK: - Rules
+// MARK: - Arithmetic Rules
+
+extension DoubleSubtractableTests {
+    @Test(
+        "Subtracting zero preserves augend",
+        arguments: [
+            (0.0, 0.0),
+            (1.0, 1.0),
+            (-1.0, -1.0)
+        ]
+    )
+    internal func subtractingZeroPreservesAugend(
+        minuend: Double,
+        difference: Double
+    ) {
+        #expect(minuend - 0.0 == difference)
+    }
+
+    @Test(
+        "Subtracting self returns zero",
+        arguments: [
+            0.0,
+            1.0,
+            -1.0,
+            5.0,
+            -5.0
+        ]
+    )
+    internal func subtractingSelfReturnsZero(value: Double) {
+        #expect(value - value == 0.0)
+    }
+
+    @Test(
+        "Subtracting negative value adds opposite",
+        arguments: [
+            (6.0, -4.0, 10.0),
+            (-6.0, -4.0, -2.0),
+            (0.0, -4.0, 4.0)
+        ]
+    )
+    internal func subtractingNegativeValueAddsOpposite(
+        minuend: Double,
+        subtrahend: Double,
+        difference: Double
+    ) {
+        #expect(minuend - subtrahend == difference)
+    }
+}
+
+// MARK: - Floating-Point Rules
 
 extension DoubleSubtractableTests {
     @Test(
@@ -103,7 +152,7 @@ extension DoubleSubtractableTests {
     ) {
         #expect(minuend - subtrahend == difference)
     }
-    
+
     @Test(
         "Subtracting infinity follows floating-point rules",
         arguments: [
@@ -122,7 +171,7 @@ extension DoubleSubtractableTests {
     ) {
         #expect(minuend - subtrahend == difference)
     }
-    
+
     @Test(
         "Subtracting matching infinities returns NaN",
         arguments: [
@@ -136,7 +185,7 @@ extension DoubleSubtractableTests {
     ) {
         #expect((minuend - subtrahend).isNaN)
     }
-    
+
     @Test(
         "Subtracting NaN returns NaN",
         arguments: [

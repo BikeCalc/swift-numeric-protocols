@@ -28,7 +28,7 @@ internal struct IntDivisibleTests {
         #expect(value.isEven == result)
         #expect(value.isOdd == !result)
     }
-    
+
     @Test(
         "Reciprocal",
         arguments: [
@@ -44,7 +44,7 @@ internal struct IntDivisibleTests {
     ) {
         #expect(value.reciprocal == result)
     }
-    
+
     @Test(
         "Is invertible",
         arguments: [
@@ -59,7 +59,7 @@ internal struct IntDivisibleTests {
     ) {
         #expect(value.isInvertible == result)
     }
-    
+
     @Test(
         "Is divisible by",
         arguments: [
@@ -80,7 +80,7 @@ internal struct IntDivisibleTests {
     ) {
         #expect(dividend.isDivisible(by: divisor) == result)
     }
-    
+
     @Test(
         "Is factor of",
         arguments: [
@@ -99,7 +99,7 @@ internal struct IntDivisibleTests {
     ) {
         #expect(factor.isFactor(of: value) == result)
     }
-    
+
     @Test(
         "Division succeeds",
         arguments: [
@@ -117,7 +117,7 @@ internal struct IntDivisibleTests {
     ) {
         #expect(dividend / divisor == quotient)
     }
-    
+
     @Test(
         "Division equal succeeds",
         arguments: [
@@ -137,7 +137,7 @@ internal struct IntDivisibleTests {
         runningQuotient /= divisor
         #expect(runningQuotient == quotient)
     }
-    
+
     @Test(
         "Dividing by succeeds",
         arguments: [
@@ -155,7 +155,7 @@ internal struct IntDivisibleTests {
     ) {
         #expect(dividend.dividing(by: divisor) == quotient)
     }
-    
+
     @Test(
         "Divide by succeeds",
         arguments: [
@@ -175,7 +175,7 @@ internal struct IntDivisibleTests {
         runningQuotient.divide(by: divisor)
         #expect(runningQuotient == quotient)
     }
-    
+
     @Test(
         "Halved succeeds",
         arguments: [
@@ -192,7 +192,7 @@ internal struct IntDivisibleTests {
     ) {
         #expect(dividend.halved() == quotient)
     }
-    
+
     @Test(
         "Halve succeeds",
         arguments: [
@@ -210,5 +210,80 @@ internal struct IntDivisibleTests {
         var runningQuotient: Int = dividend
         runningQuotient.halve()
         #expect(runningQuotient == quotient)
+    }
+}
+
+// MARK: - Arithmetic Rules
+
+extension IntDivisibleTests {
+    @Test(
+        "Dividing zero by nonzero value returns zero",
+        arguments: [
+            (0, 1, 0),
+            (0, -1, 0),
+            (0, 3, 0)
+        ]
+    )
+    internal func dividingZeroByNonzeroValueReturnsZero(
+        dividend: Int,
+        divisor: Int,
+        quotient: Int
+    ) {
+        #expect(dividend / divisor == quotient)
+    }
+
+    @Test(
+        "Dividing by one preserves augend",
+        arguments: [
+            (0, 0),
+            (1, 1),
+            (-1, -1),
+            (5, 5),
+            (-5, -5)
+        ]
+    )
+    internal func dividingByOnePreservesAugend(
+        dividend: Int,
+        quotient: Int
+    ) {
+        #expect(dividend / 1 == quotient)
+    }
+    
+    @Test(
+        "Remainder follows dividend sign",
+        arguments: [
+            (7, 2, 1),
+            (-7, 2, -1),
+            (7, -2, 1),
+            (-7, -2, -1)
+        ]
+    )
+    internal func remainderFollowsDividendSign(
+        dividend: Int,
+        divisor: Int,
+        remainder: Int
+    ) {
+        #expect(dividend % divisor == remainder)
+    }
+}
+
+// MARK: - Integer Rules
+
+extension IntDivisibleTests {
+    @Test(
+        "Integer division truncates toward zero",
+        arguments: [
+            (7, 2, 3),
+            (-7, 2, -3),
+            (7, -2, -3),
+            (-7, -2, 3)
+        ]
+    )
+    internal func integerDivisionTruncatesTowardZero(
+        dividend: Int,
+        divisor: Int,
+        quotient: Int
+    ) {
+        #expect(dividend / divisor == quotient)
     }
 }

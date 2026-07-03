@@ -35,7 +35,7 @@ internal struct IntRaisableTests {
     ) {
         #expect(value.isPower(of: other) == result)
     }
-    
+
     @Test(
         "Exponentiation succeeds",
         arguments: [
@@ -51,7 +51,7 @@ internal struct IntRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
         "Exponentiation equal succeeds",
         arguments: [
@@ -69,7 +69,7 @@ internal struct IntRaisableTests {
         runningPower **= exponent
         #expect(runningPower == power)
     }
-    
+
     @Test(
         "Raising to succeeds",
         arguments: [
@@ -85,7 +85,7 @@ internal struct IntRaisableTests {
     ) {
         #expect(base.raising(to: exponent) == power)
     }
-    
+
     @Test(
         "Raise to succeeds",
         arguments: [
@@ -103,7 +103,7 @@ internal struct IntRaisableTests {
         runningPower.raise(to: exponent)
         #expect(runningPower == power)
     }
-    
+
     @Test(
         "Squared succeeds",
         arguments: [
@@ -117,7 +117,7 @@ internal struct IntRaisableTests {
     ) {
         #expect(base.squared() == power)
     }
-    
+
     @Test(
         "Square succeeds",
         arguments: [
@@ -133,7 +133,7 @@ internal struct IntRaisableTests {
         runningPower.square()
         #expect(runningPower == power)
     }
-    
+
     @Test(
         "Cubed succeeds",
         arguments: [
@@ -147,7 +147,7 @@ internal struct IntRaisableTests {
     ) {
         #expect(base.cubed() == power)
     }
-    
+
     @Test(
         "Cube succeeds",
         arguments: [
@@ -165,7 +165,7 @@ internal struct IntRaisableTests {
     }
 }
 
-// MARK: - Rules
+// MARK: - Arithmetic Rules
 
 extension IntRaisableTests {
     @Test(
@@ -183,7 +183,11 @@ extension IntRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+}
+
+// MARK: - Integer Rules
+
+extension IntRaisableTests {
     @Test(
         "Negative exponent returns zero",
         arguments: [
@@ -199,7 +203,7 @@ extension IntRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
         "Negative base with negative exponent returns zero",
         arguments: [
@@ -215,7 +219,7 @@ extension IntRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
-    
+
     @Test(
         "Zero base exponentiation follows integer rules",
         arguments: [

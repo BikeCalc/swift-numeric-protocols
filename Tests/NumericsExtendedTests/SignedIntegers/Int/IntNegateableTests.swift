@@ -26,7 +26,7 @@ internal struct IntNegateableTests {
     ) {
         #expect(value.isNegative == result)
     }
-    
+
     @Test(
         "Is positive",
         arguments: [
@@ -42,7 +42,7 @@ internal struct IntNegateableTests {
     ) {
         #expect(value.isPositive == result)
     }
-    
+
     @Test(
         "Is signed",
         arguments: [
@@ -58,7 +58,7 @@ internal struct IntNegateableTests {
     ) {
         #expect(value.isSigned == result)
     }
-    
+
     @Test(
         "Is opposite",
         arguments: [
@@ -77,5 +77,48 @@ internal struct IntNegateableTests {
         result: Bool
     ) {
         #expect(value.isOpposite(of: other) == result)
+    }
+}
+
+// MARK: - Arithmetic Rules
+
+extension IntNegateableTests {
+    @Test(
+        "Negating zero returns zero",
+        arguments: [
+            0,
+            -0
+        ]
+    )
+    internal func negatingZeroReturnsZero(value: Int) {
+        #expect(value.negating() == 0)
+    }
+
+    @Test(
+        "Negating twice returns original value",
+        arguments: [
+            0,
+            1,
+            -1,
+            5,
+            -5
+        ]
+    )
+    internal func negatingTwiceReturnsOriginalValue(value: Int) {
+        #expect(value.negating().negating() == value)
+    }
+
+    @Test(
+        "Negating follows additive inverse rule",
+        arguments: [
+            0,
+            1,
+            -1,
+            5,
+            -5
+        ]
+    )
+    internal func negatingFollowsAdditiveInverseRule(value: Int) {
+        #expect(value + value.negating() == 0)
     }
 }

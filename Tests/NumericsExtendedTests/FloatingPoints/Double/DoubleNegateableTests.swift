@@ -26,7 +26,7 @@ internal struct DoubleNegateableTests {
     ) {
         #expect(value.isNegative == result)
     }
-    
+
     @Test(
         "Is positive",
         arguments: [
@@ -42,7 +42,7 @@ internal struct DoubleNegateableTests {
     ) {
         #expect(value.isPositive == result)
     }
-    
+
     @Test(
         "Is signed",
         arguments: [
@@ -58,7 +58,7 @@ internal struct DoubleNegateableTests {
     ) {
         #expect(value.isSigned == result)
     }
-    
+
     @Test(
         "Is opposite",
         arguments: [
@@ -80,7 +80,39 @@ internal struct DoubleNegateableTests {
     }
 }
 
-// MARK: - Rules
+// MARK: - Arithmetic Rules
+
+extension DoubleNegateableTests {
+    @Test(
+        "Negating twice returns original value",
+        arguments: [
+            0.0,
+            1.0,
+            -1.0,
+            5.0,
+            -5.0
+        ]
+    )
+    internal func negatingTwiceReturnsOriginalValue(value: Double) {
+        #expect(value.negating().negating() == value)
+    }
+
+    @Test(
+        "Negating follows additive inverse rule",
+        arguments: [
+            0.0,
+            1.0,
+            -1.0,
+            5.0,
+            -5.0
+        ]
+    )
+    internal func negatingFollowsAdditiveInverseRule(value: Double) {
+        #expect(value + value.negating() == 0.0)
+    }
+}
+
+// MARK: - Floating-Point Rules
 
 extension DoubleNegateableTests {
     @Test(
@@ -96,7 +128,7 @@ extension DoubleNegateableTests {
     ) {
         #expect(value.negating() == result)
     }
-    
+
     @Test(
         "Negating zero flips sign",
         arguments: [
@@ -109,11 +141,11 @@ extension DoubleNegateableTests {
         sign: FloatingPointSign
     ) {
         let negatedValue: Double = value.negating()
-        
+
         #expect(negatedValue == 0.0)
         #expect(negatedValue.sign == sign)
     }
-    
+
     @Test(
         "Negating infinity follows floating-point rules",
         arguments: [
@@ -127,7 +159,7 @@ extension DoubleNegateableTests {
     ) {
         #expect(value.negating() == result)
     }
-    
+
     @Test("Negating NaN returns NaN")
     internal func negatingNaNReturnsNaN() {
         #expect(Double.nan.negating().isNaN)

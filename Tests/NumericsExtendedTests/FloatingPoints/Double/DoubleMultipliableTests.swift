@@ -31,7 +31,7 @@ internal struct DoubleMultipliableTests {
     ) {
         #expect(multiplicand.isMultiple(of: multiplicator) == result)
     }
-    
+
     @Test(
         "Multiplication succeeds",
         arguments: [
@@ -49,7 +49,7 @@ internal struct DoubleMultipliableTests {
     ) {
         #expect(multiplicand * multiplier == product)
     }
-    
+
     @Test(
         "Multiplication equal succeeds",
         arguments: [
@@ -69,7 +69,7 @@ internal struct DoubleMultipliableTests {
         runningProduct *= multiplier
         #expect(runningProduct == product)
     }
-    
+
     @Test(
         "Multiplying by succeeds",
         arguments: [
@@ -87,7 +87,7 @@ internal struct DoubleMultipliableTests {
     ) {
         #expect(multiplicand.multiplying(by: multiplier) == product)
     }
-    
+
     @Test(
         "Multiply by succeeds",
         arguments: [
@@ -107,7 +107,7 @@ internal struct DoubleMultipliableTests {
         runningProduct.multiply(by: multiplier)
         #expect(runningProduct == product)
     }
-    
+
     @Test(
         "Doubled succeeds",
         arguments: [
@@ -122,7 +122,7 @@ internal struct DoubleMultipliableTests {
     ) {
         #expect(multiplicand.doubled() == product)
     }
-    
+
     @Test(
         "Double succeeds",
         arguments: [
@@ -141,7 +141,74 @@ internal struct DoubleMultipliableTests {
     }
 }
 
-// MARK: - Rules
+// MARK: - Arithmetic Rules
+
+extension DoubleMultipliableTests {
+    @Test(
+        "Multiplying by zero returns zero",
+        arguments: [
+            0.0,
+            1.0,
+            -1,
+            5.0,
+            -5
+        ]
+    )
+    internal func multiplyingByZeroReturnsZero(multiplicand: Double) {
+        #expect(multiplicand * 0.0 == 0.0)
+    }
+
+    @Test(
+        "Multiplying by one preserves augend",
+        arguments: [
+            (0.0, 0.0),
+            (1.0, 1.0),
+            (-1.0, -1.0),
+            (5.0, 5.0),
+            (-5.0, -5.0)
+        ]
+    )
+    internal func multiplyingByOnePreservesAugend(
+        multiplicand: Double,
+        product: Double
+    ) {
+        #expect(multiplicand * 1.0 == product)
+    }
+
+    @Test(
+        "Multiplication follows sign rules",
+        arguments: [
+            (2.0, 3.0, 6.0),
+            (-2.0, 3.0, -6.0),
+            (2.0, -3.0, -6.0),
+            (-2.0, -3.0, 6.0)
+        ]
+    )
+    internal func multiplicationFollowsSignRules(
+        multiplicand: Double,
+        multiplier: Double,
+        product: Double
+    ) {
+        #expect(multiplicand * multiplier == product)
+    }
+
+    @Test(
+        "Multiplication is commutative",
+        arguments: [
+            (2.0, 4.0),
+            (-2.0, 4.0),
+            (-2.0, -4.0)
+        ]
+    )
+    internal func multiplicationIsCommutative(
+        lhs: Double,
+        rhs: Double
+    ) {
+        #expect(lhs * rhs == rhs * lhs)
+    }
+}
+
+// MARK: - Floating-Point Rules
 
 extension DoubleMultipliableTests {
     @Test(
@@ -160,7 +227,7 @@ extension DoubleMultipliableTests {
     ) {
         #expect(multiplicand * multiplier == product)
     }
-    
+
     @Test(
         "Multiplying by zero preserves negative zero sign",
         arguments: [
@@ -173,11 +240,11 @@ extension DoubleMultipliableTests {
         multiplier: Double
     ) {
         let product: Double = multiplicand * multiplier
-        
+
         #expect(product == 0.0)
         #expect(product.sign == .minus)
     }
-    
+
     @Test(
         "Multiplying infinity follows floating-point rules",
         arguments: [
@@ -202,7 +269,7 @@ extension DoubleMultipliableTests {
     ) {
         #expect(multiplicand * multiplier == product)
     }
-    
+
     @Test(
         "Multiplying infinity by zero returns NaN",
         arguments: [
@@ -218,7 +285,7 @@ extension DoubleMultipliableTests {
     ) {
         #expect((multiplicand * multiplier).isNaN)
     }
-    
+
     @Test(
         "Multiplying NaN returns NaN",
         arguments: [

@@ -27,7 +27,7 @@ internal struct IntSubtractableTests {
     ) {
         #expect(minuend - subtrahend == difference)
     }
-    
+
     @Test(
         "Subtraction equal succeeds",
         arguments: [
@@ -46,7 +46,7 @@ internal struct IntSubtractableTests {
         runningDifference -= subtrahend
         #expect(runningDifference == difference)
     }
-    
+
     @Test(
         "Subtracting succeeds",
         arguments: [
@@ -63,7 +63,7 @@ internal struct IntSubtractableTests {
     ) {
         #expect(minuend.subtracting(subtrahend) == difference)
     }
-    
+
     @Test(
         "Subtract succeeds",
         arguments: [
@@ -81,5 +81,54 @@ internal struct IntSubtractableTests {
         var runningDifference: Int = minuend
         runningDifference.subtract(subtrahend)
         #expect(runningDifference == difference)
+    }
+}
+
+// MARK: - Arithmetic Rules
+
+extension IntSubtractableTests {
+    @Test(
+        "Subtracting zero preserves augend",
+        arguments: [
+            (0, 0),
+            (1, 1),
+            (-1, -1)
+        ]
+    )
+    internal func subtractingZeroPreservesAugend(
+        minuend: Int,
+        difference: Int
+    ) {
+        #expect(minuend - 0 == difference)
+    }
+
+    @Test(
+        "Subtracting self returns zero",
+        arguments: [
+            0,
+            1,
+            -1,
+            5,
+            -5
+        ]
+    )
+    internal func subtractingSelfReturnsZero(value: Int) {
+        #expect(value - value == 0)
+    }
+
+    @Test(
+        "Subtracting negative value adds opposite",
+        arguments: [
+            (6, -4, 10),
+            (-6, -4, -2),
+            (0, -4, 4)
+        ]
+    )
+    internal func subtractingNegativeValueAddsOpposite(
+        minuend: Int,
+        subtrahend: Int,
+        difference: Int
+    ) {
+        #expect(minuend - subtrahend == difference)
     }
 }

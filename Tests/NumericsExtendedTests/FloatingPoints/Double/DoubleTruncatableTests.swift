@@ -14,14 +14,14 @@ internal struct DoubleTruncatableTests {
     @Test(
         "Truncated to succeeds",
         arguments: [
-            (0.0, UInt(0), 0.0),
-            (1.0, UInt(0), 1.0),
-            (1.2345, UInt(0), 1.0),
-            (1.2345, UInt(1), 1.2),
-            (1.2345, UInt(2), 1.23),
-            (1.2399, UInt(2), 1.23),
-            (-1.2345, UInt(2), -1.23),
-            (-1.2399, UInt(2), -1.23)
+            (0.0, Double.DecimalPlace(0), 0.0),
+            (1.0, Double.DecimalPlace(0), 1.0),
+            (1.2345, Double.DecimalPlace(0), 1.0),
+            (1.2345, Double.DecimalPlace(1), 1.2),
+            (1.2345, Double.DecimalPlace(2), 1.23),
+            (1.2399, Double.DecimalPlace(2), 1.23),
+            (-1.2345, Double.DecimalPlace(2), -1.23),
+            (-1.2399, Double.DecimalPlace(2), -1.23)
         ]
     )
     internal func truncatedToSucceeds(
@@ -31,18 +31,18 @@ internal struct DoubleTruncatableTests {
     ) {
         #expect(value.truncated(to: decimalPlace) == result)
     }
-    
+
     @Test(
         "Truncate to succeeds",
         arguments: [
-            (0.0, UInt(0), 0.0),
-            (1.0, UInt(0), 1.0),
-            (1.2345, UInt(0), 1.0),
-            (1.2345, UInt(1), 1.2),
-            (1.2345, UInt(2), 1.23),
-            (1.2399, UInt(2), 1.23),
-            (-1.2345, UInt(2), -1.23),
-            (-1.2399, UInt(2), -1.23)
+            (0.0, Double.DecimalPlace(0), 0.0),
+            (1.0, Double.DecimalPlace(0), 1.0),
+            (1.2345, Double.DecimalPlace(0), 1.0),
+            (1.2345, Double.DecimalPlace(1), 1.2),
+            (1.2345, Double.DecimalPlace(2), 1.23),
+            (1.2399, Double.DecimalPlace(2), 1.23),
+            (-1.2345, Double.DecimalPlace(2), -1.23),
+            (-1.2399, Double.DecimalPlace(2), -1.23)
         ]
     )
     internal func truncateToSucceeds(
@@ -56,16 +56,16 @@ internal struct DoubleTruncatableTests {
     }
 }
 
-// MARK: - Rules
+// MARK: - Arithmetic Rules
 
 extension DoubleTruncatableTests {
     @Test(
         "Truncating follows toward-zero rule",
         arguments: [
-            (1.9, UInt(0), 1.0),
-            (-1.9, UInt(0), -1.0),
-            (1.29, UInt(1), 1.2),
-            (-1.29, UInt(1), -1.2)
+            (1.9, Double.DecimalPlace(0), 1.0),
+            (-1.9, Double.DecimalPlace(0), -1.0),
+            (1.29, Double.DecimalPlace(1), 1.2),
+            (-1.29, Double.DecimalPlace(1), -1.2)
         ]
     )
     internal func truncatingFollowsTowardZeroRule(
@@ -75,29 +75,33 @@ extension DoubleTruncatableTests {
     ) {
         #expect(value.truncated(to: decimalPlace) == result)
     }
-    
+}
+
+// MARK: - Floating-Point Rules
+
+extension DoubleTruncatableTests {
     @Test(
         "Truncating infinity follows floating-point rules",
         arguments: [
-            (Double.infinity, UInt(0), Double.infinity),
-            (Double.infinity, UInt(2), Double.infinity),
-            (Double.negativeInfinity, UInt(0), Double.negativeInfinity),
-            (Double.negativeInfinity, UInt(2), Double.negativeInfinity)
+            (Double.infinity, Double.DecimalPlace(0), Double.infinity),
+            (Double.infinity, Double.DecimalPlace(2), Double.infinity),
+            (Double.negativeInfinity, Double.DecimalPlace(0), Double.negativeInfinity),
+            (Double.negativeInfinity, Double.DecimalPlace(2), Double.negativeInfinity)
         ]
     )
     internal func truncatingInfinityFollowsFloatingPointRules(
         value: Double,
-        decimalPlace: UInt,
+        decimalPlace: Double.DecimalPlace,
         result: Double
     ) {
         #expect(value.truncated(to: decimalPlace) == result)
     }
-    
+
     @Test(
         "Truncating NaN returns NaN",
         arguments: [
-            (Double.nan, UInt(0)),
-            (Double.nan, UInt(2))
+            (Double.nan, Double.DecimalPlace(0)),
+            (Double.nan, Double.DecimalPlace(2))
         ]
     )
     internal func truncatingNaNReturnsNaN(
@@ -106,12 +110,12 @@ extension DoubleTruncatableTests {
     ) {
         #expect(value.truncated(to: decimalPlace).isNaN)
     }
-    
+
     @Test(
         "Truncating zero preserves negative zero sign",
         arguments: [
-            (-0.0, UInt(0)),
-            (-0.0, UInt(2))
+            (-0.0, Double.DecimalPlace(0)),
+            (-0.0, Double.DecimalPlace(2))
         ]
     )
     internal func truncatingZeroPreservesNegativeZeroSign(
@@ -119,7 +123,7 @@ extension DoubleTruncatableTests {
         decimalPlace: Double.DecimalPlace
     ) {
         let truncatedValue: Double = value.truncated(to: decimalPlace)
-        
+
         #expect(truncatedValue == 0.0)
         #expect(truncatedValue.sign == .minus)
     }

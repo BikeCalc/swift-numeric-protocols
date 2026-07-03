@@ -31,7 +31,7 @@ internal struct IntMultipliableTests {
     ) {
         #expect(multiplicand.isMultiple(of: multiplicator) == result)
     }
-    
+
     @Test(
         "Multiplication succeeds",
         arguments: [
@@ -49,7 +49,7 @@ internal struct IntMultipliableTests {
     ) {
         #expect(multiplicand * multiplier == product)
     }
-    
+
     @Test(
         "Multiplication equal succeeds",
         arguments: [
@@ -69,7 +69,7 @@ internal struct IntMultipliableTests {
         runningProduct *= multiplier
         #expect(runningProduct == product)
     }
-    
+
     @Test(
         "Multiplying by succeeds",
         arguments: [
@@ -87,7 +87,7 @@ internal struct IntMultipliableTests {
     ) {
         #expect(multiplicand.multiplying(by: multiplier) == product)
     }
-    
+
     @Test(
         "Multiply by succeeds",
         arguments: [
@@ -107,7 +107,7 @@ internal struct IntMultipliableTests {
         runningProduct.multiply(by: multiplier)
         #expect(runningProduct == product)
     }
-    
+
     @Test(
         "Doubled succeeds",
         arguments: [
@@ -122,7 +122,7 @@ internal struct IntMultipliableTests {
     ) {
         #expect(multiplicand.doubled() == product)
     }
-    
+
     @Test(
         "Double succeeds",
         arguments: [
@@ -138,5 +138,72 @@ internal struct IntMultipliableTests {
         var runningProduct: Int = multiplicand
         runningProduct.double()
         #expect(runningProduct == product)
+    }
+}
+
+// MARK: - Arithmetic Rules
+
+extension IntMultipliableTests {
+    @Test(
+        "Multiplying by zero returns zero",
+        arguments: [
+            0,
+            1,
+            -1,
+            5,
+            -5
+        ]
+    )
+    internal func multiplyingByZeroReturnsZero(multiplicand: Int) {
+        #expect(multiplicand * 0 == 0)
+    }
+
+    @Test(
+        "Multiplying by one preserves augend",
+        arguments: [
+            (0, 0),
+            (1, 1),
+            (-1, -1),
+            (5, 5),
+            (-5, -5)
+        ]
+    )
+    internal func multiplyingByOnePreservesAugend(
+        multiplicand: Int,
+        product: Int
+    ) {
+        #expect(multiplicand * 1 == product)
+    }
+
+    @Test(
+        "Multiplication follows sign rules",
+        arguments: [
+            (2, 3, 6),
+            (-2, 3, -6),
+            (2, -3, -6),
+            (-2, -3, 6)
+        ]
+    )
+    internal func multiplicationFollowsSignRules(
+        multiplicand: Int,
+        multiplier: Int,
+        product: Int
+    ) {
+        #expect(multiplicand * multiplier == product)
+    }
+
+    @Test(
+        "Multiplication is commutative",
+        arguments: [
+            (2, 4),
+            (-2, 4),
+            (-2, -4)
+        ]
+    )
+    internal func multiplicationIsCommutative(
+        lhs: Int,
+        rhs: Int
+    ) {
+        #expect(lhs * rhs == rhs * lhs)
     }
 }

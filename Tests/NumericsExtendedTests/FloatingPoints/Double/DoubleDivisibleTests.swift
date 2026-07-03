@@ -26,7 +26,7 @@ internal struct DoubleDivisibleTests {
     ) {
         #expect(value.reciprocal == result)
     }
-    
+
     @Test(
         "Is invertible",
         arguments: [
@@ -41,7 +41,7 @@ internal struct DoubleDivisibleTests {
     ) {
         #expect(value.isInvertible == result)
     }
-    
+
     @Test(
         "Is divisible by",
         arguments: [
@@ -62,7 +62,7 @@ internal struct DoubleDivisibleTests {
     ) {
         #expect(dividend.isDivisible(by: divisor) == result)
     }
-    
+
     @Test(
         "Is factor of",
         arguments: [
@@ -81,7 +81,7 @@ internal struct DoubleDivisibleTests {
     ) {
         #expect(factor.isFactor(of: value) == result)
     }
-    
+
     @Test(
         "Division succeeds",
         arguments: [
@@ -99,7 +99,7 @@ internal struct DoubleDivisibleTests {
     ) {
         #expect(dividend / divisor == quotient)
     }
-    
+
     @Test(
         "Division equal succeeds",
         arguments: [
@@ -119,7 +119,7 @@ internal struct DoubleDivisibleTests {
         runningQuotient /= divisor
         #expect(runningQuotient == quotient)
     }
-    
+
     @Test(
         "Dividing by succeeds",
         arguments: [
@@ -137,7 +137,7 @@ internal struct DoubleDivisibleTests {
     ) {
         #expect(dividend.dividing(by: divisor) == quotient)
     }
-    
+
     @Test(
         "Divide by succeeds",
         arguments: [
@@ -157,7 +157,7 @@ internal struct DoubleDivisibleTests {
         runningQuotient.divide(by: divisor)
         #expect(runningQuotient == quotient)
     }
-    
+
     @Test(
         "Halved succeeds",
         arguments: [
@@ -172,7 +172,7 @@ internal struct DoubleDivisibleTests {
     ) {
         #expect(dividend.halved() == quotient)
     }
-    
+
     @Test(
         "Halve succeeds",
         arguments: [
@@ -191,7 +191,61 @@ internal struct DoubleDivisibleTests {
     }
 }
 
-// MARK: - Rules
+// MARK: - Arithmetic Rules
+
+extension DoubleDivisibleTests {
+    @Test(
+        "Dividing zero by nonzero value returns zero",
+        arguments: [
+            (0.0, 1.0, 0.0),
+            (0.0, -1.0, -0.0),
+            (0.0, 3.0, 0.0)
+        ]
+    )
+    internal func dividingZeroByNonzeroValueReturnsZero(
+        dividend: Double,
+        divisor: Double,
+        quotient: Double
+    ) {
+        #expect(dividend / divisor == quotient)
+    }
+
+    @Test(
+        "Dividing by one preserves augend",
+        arguments: [
+            (0.0, 0.0),
+            (1.0, 1.0),
+            (-1.0, -1.0),
+            (5.0, 5.0),
+            (-5.0, -5.0)
+        ]
+    )
+    internal func dividingByOnePreservesAugend(
+        dividend: Double,
+        quotient: Double
+    ) {
+        #expect(dividend / 1.0 == quotient)
+    }
+    
+    @Test(
+        "Remainder follows dividend sign",
+        arguments: [
+            (7.0, 2.0, 1.0),
+            (-7.0, 2.0, -1.0),
+            (7.0, -2.0, 1.0),
+            (-7.0, -2.0, -1.0)
+        ]
+    )
+    internal func remainderFollowsDividendSign(
+        dividend: Double,
+        divisor: Double,
+        remainder: Double
+    ) {
+        #expect(dividend % divisor == remainder)
+    }
+}
+
+// MARK: - Floating-Point Rules
 
 extension DoubleDivisibleTests {
     @Test(
@@ -207,15 +261,15 @@ extension DoubleDivisibleTests {
     ) {
         #expect(value.reciprocal == result)
     }
-    
+
     @Test("Reciprocal of negative infinity preserves negative zero sign")
     internal func reciprocalOfNegativeInfinityPreservesNegativeZeroSign() {
         let reciprocal: Double? = Double.negativeInfinity.reciprocal
-        
+
         #expect(reciprocal == 0.0)
         #expect(reciprocal?.sign == .minus)
     }
-    
+
     @Test(
         "Reciprocal of zero returns nil",
         arguments: [
@@ -226,7 +280,7 @@ extension DoubleDivisibleTests {
     internal func reciprocalOfZeroReturnsNil(value: Double) {
         #expect(value.reciprocal == nil)
     }
-    
+
     @Test(
         "Invertibility follows floating-point rules",
         arguments: [
@@ -241,7 +295,7 @@ extension DoubleDivisibleTests {
     ) {
         #expect(value.isInvertible == result)
     }
-    
+
     @Test(
         "Dividing zero follows floating-point rules",
         arguments: [
@@ -258,7 +312,7 @@ extension DoubleDivisibleTests {
     ) {
         #expect(dividend / divisor == quotient)
     }
-    
+
     @Test(
         "Dividing zero preserves negative zero sign",
         arguments: [
@@ -271,11 +325,11 @@ extension DoubleDivisibleTests {
         divisor: Double
     ) {
         let quotient: Double = dividend / divisor
-        
+
         #expect(quotient == 0.0)
         #expect(quotient.sign == .minus)
     }
-    
+
     @Test(
         "Dividing by zero follows floating-point rules",
         arguments: [
@@ -292,7 +346,7 @@ extension DoubleDivisibleTests {
     ) {
         #expect(dividend / divisor == quotient)
     }
-    
+
     @Test(
         "Dividing zero by zero returns NaN",
         arguments: [
@@ -308,7 +362,7 @@ extension DoubleDivisibleTests {
     ) {
         #expect((dividend / divisor).isNaN)
     }
-    
+
     @Test(
         "Dividing infinity follows floating-point rules",
         arguments: [
@@ -325,7 +379,7 @@ extension DoubleDivisibleTests {
     ) {
         #expect(dividend / divisor == quotient)
     }
-    
+
     @Test(
         "Dividing by infinity follows floating-point rules",
         arguments: [
@@ -342,7 +396,7 @@ extension DoubleDivisibleTests {
     ) {
         #expect(dividend / divisor == quotient)
     }
-    
+
     @Test(
         "Dividing by infinity preserves negative zero sign",
         arguments: [
@@ -355,11 +409,11 @@ extension DoubleDivisibleTests {
         divisor: Double
     ) {
         let quotient: Double = dividend / divisor
-        
+
         #expect(quotient == 0.0)
         #expect(quotient.sign == .minus)
     }
-    
+
     @Test(
         "Dividing infinities returns NaN",
         arguments: [
@@ -375,7 +429,7 @@ extension DoubleDivisibleTests {
     ) {
         #expect((dividend / divisor).isNaN)
     }
-    
+
     @Test(
         "Dividing NaN returns NaN",
         arguments: [
