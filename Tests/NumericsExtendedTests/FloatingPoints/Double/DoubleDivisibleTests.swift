@@ -14,6 +14,8 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Reciprocal",
         arguments: [
+            (0.0, nil),
+            (-0.0, nil),
             (1.0, 1.0),
             (-1.0, -1.0),
             (2.0, 0.5),
@@ -21,25 +23,28 @@ internal struct DoubleDivisibleTests {
         ]
     )
     internal func reciprocal(
-        value: Double,
+        dividend: Double,
         result: Double?
     ) {
-        #expect(value.reciprocal == result)
+        #expect(dividend.reciprocal == result)
     }
 
     @Test(
         "Is invertible",
         arguments: [
             (0.0, false),
+            (-0.0, false),
             (1.0, true),
-            (-1.0, true)
+            (-1.0, true),
+            (2.0, true),
+            (-2.0, true)
         ]
     )
     internal func isInvertible(
-        value: Double,
+        dividend: Double,
         result: Bool
     ) {
-        #expect(value.isInvertible == result)
+        #expect(dividend.isInvertible == result)
     }
 
     @Test(
@@ -286,7 +291,7 @@ extension DoubleDivisibleTests {
         arguments: [
             (Double.infinity, true),
             (Double.negativeInfinity, true),
-            (Double.nan, true)
+            (Double.nan, false)
         ]
     )
     internal func invertibilityFollowsFloatingPointRules(

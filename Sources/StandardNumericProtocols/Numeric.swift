@@ -71,23 +71,6 @@ where Self: Divisible {
 }
 
 extension Numeric
-where Self: Divisible & RepresentableByZero {
-    /// Returns the reciprocal of this instance.
-    public var reciprocal: Self? {
-        guard self.isInvertible else {
-            return nil
-        }
-        
-        return 1 / self
-    }
-    
-    /// A boolean value indicating whether this instance is invertible.
-    public var isInvertible: Bool {
-        return self.isZero == false
-    }
-}
-
-extension Numeric
 where Self: Multipliable {
     /// Returns this value doubled.
     ///

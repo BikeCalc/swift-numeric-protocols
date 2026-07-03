@@ -50,6 +50,24 @@ where Self: Divisible & Multipliable {
 }
 
 extension BinaryFloatingPoint
+where Self: Divisible {
+    /// Returns the reciprocal of this instance.
+    public var reciprocal: Self? {
+        guard self.isInvertible else {
+            return nil
+        }
+        
+        return 1 / self
+    }
+    
+    /// A boolean value indicating whether this instance is invertible.
+    public var isInvertible: Bool {
+        return self.isZero == false
+            && self.isNaN == false
+    }
+}
+
+extension BinaryFloatingPoint
 where Self: Increasable {
     /// Returns the sum of increasing this value by the specified value.
     ///

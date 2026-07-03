@@ -27,7 +27,7 @@ where Self: ReportableAsOverflow {
             var exponent: Self.Exponent = 2
             
             while exponent <= rhs {
-                let report: (partialValue: Self, overflow: Bool) = result.multipliedReportingOverflow(by: self)
+                let report: Self.Report = result.multipliedReportingOverflow(by: self)
                 
                 guard report.overflow == false else {
                     return report

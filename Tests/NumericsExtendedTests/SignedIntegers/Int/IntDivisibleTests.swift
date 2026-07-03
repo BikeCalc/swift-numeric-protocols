@@ -32,32 +32,37 @@ internal struct IntDivisibleTests {
     @Test(
         "Reciprocal",
         arguments: [
+            (0, nil),
+            (-0, nil),
             (1, 1),
             (-1, -1),
-            (2, 0),
-            (-2, 0)
+            (2, nil),
+            (-2, nil)
         ]
     )
     internal func reciprocal(
-        value: Int,
+        dividend: Int,
         result: Int?
     ) {
-        #expect(value.reciprocal == result)
+        #expect(dividend.reciprocal == result)
     }
 
     @Test(
         "Is invertible",
         arguments: [
             (0, false),
+            (-0, false),
             (1, true),
-            (-1, true)
+            (-1, true),
+            (2, false),
+            (-2, false)
         ]
     )
     internal func isInvertible(
-        value: Int,
+        dividend: Int,
         result: Bool
     ) {
-        #expect(value.isInvertible == result)
+        #expect(dividend.isInvertible == result)
     }
 
     @Test(

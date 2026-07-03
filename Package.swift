@@ -29,7 +29,8 @@ let package = Package(
             dependencies: [
                 "CoreNumericOperators",
                 "CoreNumericProtocols",
-                "StandardNumericProtocols"
+                "StandardNumericProtocols",
+                "StandardNumericTypes"
             ]
         ),
         .target(
