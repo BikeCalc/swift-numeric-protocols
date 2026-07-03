@@ -12,6 +12,24 @@ import Testing
 @Suite("Int Divisible Tests")
 internal struct IntDivisibleTests {
     @Test(
+        "Parity predicates",
+        arguments: [
+            (0, true),
+            (1, false),
+            (2, true),
+            (-1, false),
+            (-2, true)
+        ]
+    )
+    internal func parityPredicates(
+        value: Int,
+        result: Bool
+    ) {
+        #expect(value.isEven == result)
+        #expect(value.isOdd == !result)
+    }
+    
+    @Test(
         "Reciprocal",
         arguments: [
             (1, 1),

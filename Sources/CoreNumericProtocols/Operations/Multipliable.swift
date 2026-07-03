@@ -57,30 +57,4 @@ extension Multipliable {
     public mutating func multiply(by multiplicator: Self) {
         self *= multiplicator
     }
-	
-    /// Returns this value doubled.
-    ///
-    /// ```swift
-    /// print(1.doubled())
-    /// // Prints "2"
-    /// ```
-	///
-	///  - returns: The value doubled.
-    public func doubled() -> Self
-	where Self: ExpressibleByIntegerLiteral {
-        return self * 2
-    }
-    
-    /// Doubles this value.
-    ///
-    /// ```swift
-    /// var number: Double = 1
-    /// number.double()
-	/// print(number)
-    /// // Prints "2"
-    /// ```
-    public mutating func double()
-	where Self: ExpressibleByIntegerLiteral {
-        self = self.doubled()
-    }
 }

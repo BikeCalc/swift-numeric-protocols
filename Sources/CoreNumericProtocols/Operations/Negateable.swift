@@ -15,29 +15,6 @@ public protocol Negateable: Equatable {
 	prefix static func - (_ operand: Self) -> Self
 }
 
-extension Negateable
-where Self: Comparable & RepresentableByZero {
-	/// A boolean value indicating whether this value is negative.
-	///
-	/// ```swift
-	/// print(1.isNegative)
-	/// // Prints "false"
-	/// ```
-	public var isNegative: Bool {
-		return self < .zero
-	}
-	
-	/// A boolean value indicating whether this value is positive.
-	///
-	/// ```swift
-	/// print(1.isPositive)
-	/// // Prints "true"
-	/// ```
-	public var isPositive: Bool {
-		return .zero < self
-	}
-}
-
 extension Negateable {
 	/// A boolean value indicating whether this value is signed.
 	///
@@ -85,4 +62,27 @@ extension Negateable {
 	public mutating func negate() {
 		self = self.negating()
 	}
+}
+
+extension Negateable
+where Self: Comparable & RepresentableByZero {
+    /// A boolean value indicating whether this value is negative.
+    ///
+    /// ```swift
+    /// print(1.isNegative)
+    /// // Prints "false"
+    /// ```
+    public var isNegative: Bool {
+        return self < .zero
+    }
+    
+    /// A boolean value indicating whether this value is positive.
+    ///
+    /// ```swift
+    /// print(1.isPositive)
+    /// // Prints "true"
+    /// ```
+    public var isPositive: Bool {
+        return .zero < self
+    }
 }

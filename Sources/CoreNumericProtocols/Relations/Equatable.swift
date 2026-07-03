@@ -23,28 +23,3 @@ extension Equatable {
         return self != rhs
     }
 }
-
-extension Equatable
-where Self: Divisible & ExpressibleByIntegerLiteral {
-	/// A boolean value indicating whether this value is even.
-	///
-	/// ```swift
-	/// print(0.isEven)
-	/// // Prints "true"
-	/// ```
-	public var isEven: Bool {
-		let remainder: Self = self % 2
-		return remainder == 0
-	}
-	
-	/// A boolean value indicating whether this value is odd.
-	///
-	/// ```swift
-	/// print(0.isOdd)
-	/// // Prints "false"
-	/// ```
-	public var isOdd: Bool {
-		let remainder: Self = self % 2
-		return remainder != 0
-	}
-}

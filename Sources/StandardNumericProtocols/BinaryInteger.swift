@@ -10,6 +10,31 @@ import CoreNumericOperators
 import CoreNumericProtocols
 
 extension BinaryInteger
+where Self: Divisible {
+    /// A boolean value indicating whether this value is even.
+    ///
+    /// ```swift
+    /// print(0.isEven)
+    /// // Prints "true"
+    /// ```
+    public var isEven: Bool {
+        let remainder: Self = self % 2
+        return remainder == 0
+    }
+    
+    /// A boolean value indicating whether this value is odd.
+    ///
+    /// ```swift
+    /// print(0.isOdd)
+    /// // Prints "false"
+    /// ```
+    public var isOdd: Bool {
+        let remainder: Self = self % 2
+        return remainder != 0
+    }
+}
+
+extension BinaryInteger
 where Self: Raisable, Self.Exponent: BinaryInteger {
     /// Returns the power of raising the first specified value to the second.
     ///

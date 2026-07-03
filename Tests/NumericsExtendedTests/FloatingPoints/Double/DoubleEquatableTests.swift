@@ -30,24 +30,6 @@ internal struct DoubleEquatableTests {
         #expect(lhs.isEqual(to: rhs) == result)
         #expect(lhs.isUnequal(to: rhs) == !result)
     }
-    
-    @Test(
-        "Parity predicates",
-        arguments: [
-            (0.0, true),
-            (1.0, false),
-            (2.0, true),
-            (-1.0, false),
-            (-2.0, true)
-        ]
-    )
-    internal func parityPredicates(
-        value: Double,
-        result: Bool
-    ) {
-        #expect(value.isEven == result)
-        #expect(value.isOdd == !result)
-    }
 }
 
 // MARK: - Rules
