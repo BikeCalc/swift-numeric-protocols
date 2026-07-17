@@ -8,7 +8,6 @@
 
 import CoreNumericProtocols
 import StandardNumericProtocols
-import StandardNumericTypes
 
 /// A representation of a roman symbol.
 internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
@@ -105,7 +104,12 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
     /// The letters I, X, C and M can be repeated thrice in succession.
     /// The letters N,  L, V and D can not be repeated.
     internal var isRepeatable: Bool {
-        return self.value.isPower(of: 10)
+        switch self {
+        case .I, .X, .C, .M:
+            return true
+        default:
+            return false
+        }
     }
     
     /// The maxium amount of times a repeatable case can be repeated in succession.
