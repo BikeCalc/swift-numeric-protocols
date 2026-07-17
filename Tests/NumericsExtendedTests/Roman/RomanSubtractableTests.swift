@@ -1,5 +1,5 @@
 //
-// IntSubtractableTests.swift
+// RomanSubtractableTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,21 +9,19 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Int Subtractable Tests")
-internal struct IntSubtractableTests {
+@Suite("Roman Subtractable Tests")
+internal struct RomanSubtractableTests {
     @Test(
         "Subtraction succeeds",
         arguments: [
             (0, 0, 0),
-            (6, 4, 2),
-            (-6, 4, -10),
-            (6, -4, 10)
-        ]
+            (6, 4, 2)
+        ] as Array<(Roman, Roman, Roman)>
     )
     internal func subtractionSucceeds(
-        minuend: Int,
-        subtrahend: Int,
-        difference: Int
+        minuend: Roman,
+        subtrahend: Roman,
+        difference: Roman
     ) {
         #expect(minuend - subtrahend == difference)
     }
@@ -32,17 +30,15 @@ internal struct IntSubtractableTests {
         "Subtraction equal succeeds",
         arguments: [
             (0, 0, 0),
-            (6, 4, 2),
-            (-6, 4, -10),
-            (6, -4, 10)
-        ]
+            (6, 4, 2)
+        ] as Array<(Roman, Roman, Roman)>
     )
     internal func subtractionEqualSucceeds(
-        minuend: Int,
-        subtrahend: Int,
-        difference: Int
+        minuend: Roman,
+        subtrahend: Roman,
+        difference: Roman
     ) {
-        var runningDifference: Int = minuend
+        var runningDifference: Roman = minuend
         runningDifference -= subtrahend
         #expect(runningDifference == difference)
     }
@@ -51,15 +47,13 @@ internal struct IntSubtractableTests {
         "Subtracting succeeds",
         arguments: [
             (0, 0, 0),
-            (6, 4, 2),
-            (-6, 4, -10),
-            (6, -4, 10)
-        ]
+            (6, 4, 2)
+        ] as Array<(Roman, Roman, Roman)>
     )
     internal func subtractingSucceeds(
-        minuend: Int,
-        subtrahend: Int,
-        difference: Int
+        minuend: Roman,
+        subtrahend: Roman,
+        difference: Roman
     ) {
         #expect(minuend.subtracting(subtrahend) == difference)
     }
@@ -68,17 +62,15 @@ internal struct IntSubtractableTests {
         "Subtract succeeds",
         arguments: [
             (0, 0, 0),
-            (6, 4, 2),
-            (-6, 4, -10),
-            (6, -4, 10)
-        ]
+            (6, 4, 2)
+        ] as Array<(Roman, Roman, Roman)>
     )
     internal func subtractSucceeds(
-        minuend: Int,
-        subtrahend: Int,
-        difference: Int
+        minuend: Roman,
+        subtrahend: Roman,
+        difference: Roman
     ) {
-        var runningDifference: Int = minuend
+        var runningDifference: Roman = minuend
         runningDifference.subtract(subtrahend)
         #expect(runningDifference == difference)
     }
@@ -86,18 +78,17 @@ internal struct IntSubtractableTests {
 
 // MARK: - Arithmetic Rules
 
-extension IntSubtractableTests {
+extension RomanSubtractableTests {
     @Test(
         "Subtracting zero preserves minuend",
         arguments: [
             (0, 0),
-            (1, 1),
-            (-1, -1)
-        ]
+            (1, 1)
+        ] as Array<(Roman, Roman)>
     )
     internal func subtractingZeroPreservesMinuend(
-        minuend: Int,
-        difference: Int
+        minuend: Roman,
+        difference: Roman
     ) {
         #expect(minuend - 0 == difference)
     }
@@ -107,28 +98,10 @@ extension IntSubtractableTests {
         arguments: [
             0,
             1,
-            -1,
-            5,
-            -5
-        ]
+            5
+        ] as Array<Roman>
     )
-    internal func subtractingSelfReturnsZero(value: Int) {
+    internal func subtractingSelfReturnsZero(value: Roman) {
         #expect(value - value == 0)
-    }
-
-    @Test(
-        "Subtracting negative value adds opposite",
-        arguments: [
-            (6, -4, 10),
-            (-6, -4, -2),
-            (0, -4, 4)
-        ]
-    )
-    internal func subtractingNegativeValueAddsOpposite(
-        minuend: Int,
-        subtrahend: Int,
-        difference: Int
-    ) {
-        #expect(minuend - subtrahend == difference)
     }
 }

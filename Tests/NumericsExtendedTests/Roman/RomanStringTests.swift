@@ -7,7 +7,6 @@
 //
 
 import Testing
-@testable import ExperimentalNumericTypes
 @testable import NumericsExtended
 
 @Suite("Roman String Tests")

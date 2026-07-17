@@ -38,13 +38,13 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
     /// The symbol representing the Arabic numeral ninety.
     case XC
 
-    /// The symbol representing the Arabic numeral one hundred".
+    /// The symbol representing the Arabic numeral one hundred.
     case C
     
     /// The symbol representing the Arabic numeral four hundred.
     case CD
 
-    /// The symbol representing the Arabic numeral five hundred".
+    /// The symbol representing the Arabic numeral five hundred.
     case D
     
     /// The symbol representing the Arabic numeral nine hundred.

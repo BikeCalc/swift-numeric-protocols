@@ -88,14 +88,14 @@ internal struct DoubleSubtractableTests {
 
 extension DoubleSubtractableTests {
     @Test(
-        "Subtracting zero preserves augend",
+        "Subtracting zero preserves minuend",
         arguments: [
             (0.0, 0.0),
             (1.0, 1.0),
             (-1.0, -1.0)
         ]
     )
-    internal func subtractingZeroPreservesAugend(
+    internal func subtractingZeroPreservesMinuend(
         minuend: Double,
         difference: Double
     ) {

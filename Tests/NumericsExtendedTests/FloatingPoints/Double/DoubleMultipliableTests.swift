@@ -159,7 +159,7 @@ extension DoubleMultipliableTests {
     }
 
     @Test(
-        "Multiplying by one preserves augend",
+        "Multiplying by one preserves multiplicand",
         arguments: [
             (0.0, 0.0),
             (1.0, 1.0),
@@ -168,7 +168,7 @@ extension DoubleMultipliableTests {
             (-5.0, -5.0)
         ]
     )
-    internal func multiplyingByOnePreservesAugend(
+    internal func multiplyingByOnePreservesMultiplicand(
         multiplicand: Double,
         product: Double
     ) {

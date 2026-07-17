@@ -202,21 +202,17 @@ extension DoubleDivisibleTests {
     @Test(
         "Dividing zero by nonzero value returns zero",
         arguments: [
-            (0.0, 1.0, 0.0),
-            (0.0, -1.0, -0.0),
-            (0.0, 3.0, 0.0)
+            1.0,
+            -1.0,
+            3.0
         ]
     )
-    internal func dividingZeroByNonzeroValueReturnsZero(
-        dividend: Double,
-        divisor: Double,
-        quotient: Double
-    ) {
-        #expect(dividend / divisor == quotient)
+    internal func dividingZeroByNonzeroValueReturnsZero(divisor: Double) {
+        #expect(0 / divisor == 0)
     }
 
     @Test(
-        "Dividing by one preserves augend",
+        "Dividing by one preserves dividend",
         arguments: [
             (0.0, 0.0),
             (1.0, 1.0),
@@ -225,7 +221,7 @@ extension DoubleDivisibleTests {
             (-5.0, -5.0)
         ]
     )
-    internal func dividingByOnePreservesAugend(
+    internal func dividingByOnePreservesDividend(
         dividend: Double,
         quotient: Double
     ) {
