@@ -15,10 +15,10 @@ import StandardNumericTypes
 public struct Roman {
     /// The underlying value.
     internal typealias Value = UInt16
-    
+
     /// The underlying value.
     internal let value: Self.Value
-    
+
     /// Creates a new instance with the specified value.
     ///
     /// - parameter value: The value of this instance.
@@ -40,7 +40,7 @@ extension Roman {
         let remainder: Self = self % 2
         return remainder == 0
     }
-    
+
     /// A boolean value indicating whether this value is odd.
     ///
     /// ```swift
@@ -51,11 +51,11 @@ extension Roman {
         let remainder: Self = self % 2
         return remainder != 0
     }
-    
+
     public static var max: Self {
         return 3999
     }
-    
+
     public static var min: Self {
         return 0
     }
@@ -103,14 +103,14 @@ extension Roman: CustomStringConvertible {
         }
 
         let symbols: Array<RomanSymbol> = RomanSymbol.allCases.reversed()
-        
+
         var number: Self.Value = self.value
         var result: String = ""
 
         while number > 0 {
             for symbol in symbols {
                 let report: Self.Value.Report = number.subtractingReportingOverflow(symbol.value)
-                
+
                 if report.overflow == false && report.partialValue >= 0 {
                     number -= symbol.value
                     result += symbol.description
@@ -128,17 +128,20 @@ extension Roman: CustomStringConvertible {
 extension Roman: Decodable {
     public init(from decoder: Decoder) throws {
         let container: SingleValueDecodingContainer = try decoder.singleValueContainer()
-        let value: Self.Value = try container.decode(Self.Value.self)
-        
-        guard Self.min.value...Self.max.value ~= value else {
-            let debugDescription: String = "Roman numeral value must be between \(Self.min) and \(Self.max)."
+
+        if let description: String = try? container.decode(String.self),
+           let value: Self = .init(description) {
+            self = value
+        } else if let value: Self.Value = try? container.decode(Self.Value.self),
+           Self.min.value...Self.max.value ~= value {
+            self.init(value: value)
+        } else {
+            let debugDescription: String = "Roman numeral value must be a valid Roman numeral string or an integer between \(Self.min) and \(Self.max)."
             throw DecodingError.dataCorruptedError(
                 in: container,
                 debugDescription: debugDescription
             )
         }
-        
-        self.init(value: value)
     }
 }
 
@@ -156,7 +159,7 @@ extension Roman: Divisible {
     public var isInvertible: Bool {
         return self == 1
     }
-    
+
     /// Returns the quotient of dividing the first specified value by the second.
     ///
     /// ```swift
@@ -173,7 +176,7 @@ extension Roman: Divisible {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
-    
+
     /// Returns the remainder of dividing the first specified value by the second.
     ///
     /// - parameter lhs: The dividend.
@@ -189,7 +192,7 @@ extension Roman: Divisible {
 
 extension Roman: Encodable {
     public func encode(to encoder: Encoder) throws {
-        try self.value.encode(to: encoder)
+        try self.description.encode(to: encoder)
     }
 }
 
@@ -206,9 +209,9 @@ extension Roman: Equatable {
 extension Roman: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: IntegerLiteralType) {
         precondition(0...3999 ~= value)
-        
+
         let newValue: Self.Value = .init(value)
-        
+
         self.init(value: newValue)
     }
 }
@@ -228,12 +231,12 @@ extension Roman: LosslessStringConvertible {
         guard description.isEmpty == false else {
             return nil
         }
-        
+
         if let value: Self.Value = .init(description) {
             guard value <= Self.max.value else {
                 return nil
             }
-            
+
             self.init(value: value)
         } else if let result = RomanNumeralParser(description).parse() {
             self.init(value: result.value)
@@ -250,14 +253,14 @@ extension Roman: Multipliable {
         if self == 0 && other == 0 {
             return true
         }
-        
+
         guard other != 0 else {
             return false
         }
-        
+
         return (self % other) == 0
     }
-    
+
     /// Returns the product of multiplying the two specified value.
     ///
     /// ```swift
@@ -279,17 +282,17 @@ extension Roman: Multipliable {
 
 extension Roman: Numeric {
     public typealias Magnitude = Self
-    
+
     public init?<Source>(exactly source: Source)
     where Source: BinaryInteger {
         guard let value: Self.Value = .init(exactly: source),
                 0...3999 ~= value else {
             return nil
         }
-        
+
         self.init(value: value)
     }
-    
+
     public var magnitude: Roman {
         return self
     }
@@ -338,12 +341,12 @@ extension Roman: ReportableAsOverflow {
     public func subtractingReportingOverflow(_ rhs: Self) -> Self.Report {
         let difference: Int32 = .init(self.value) - .init(rhs.value)
         let modulus: Int32 = .init(Self.max.value) + 1
-        
+
         guard difference >= 0 else {
             let partialValue: Self.Value = .init((difference % modulus + modulus) % modulus)
             return (.init(value: partialValue), true)
         }
-        
+
         return (.init(value: .init(difference)), false)
     }
 
@@ -378,28 +381,28 @@ extension Roman: ReportableAsOverflow {
 
         return (.init(value: remainder), false)
     }
-    
+
     public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.Report {
         switch rhs {
         case ..<2:
             let result: Self = self ** rhs
             return (result, false)
-        
+
         default:
             var result: Self = self
             var exponent: Self.Exponent = 2
-            
+
             while exponent <= rhs {
                 let report: Self.Report = result.multipliedReportingOverflow(by: self)
-                
+
                 guard report.overflow == false else {
                     return report
                 }
-                
+
                 result = report.partialValue
                 exponent += 1
             }
-            
+
             return (result, false)
         }
     }
@@ -421,12 +424,12 @@ extension Roman: Sendable {}
 
 extension Roman: Strideable {
     public typealias Stride = Int
-    
+
     public func advanced(by amount: Self.Stride) -> Self {
         let newValue: Self.Stride = .init(self.value) + amount
         return .init(integerLiteral: newValue)
     }
-    
+
     public func distance(to other: Self) -> Self.Stride {
         return .init(other.value) - .init(self.value)
     }
