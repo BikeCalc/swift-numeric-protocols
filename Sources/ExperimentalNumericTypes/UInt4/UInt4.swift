@@ -24,36 +24,12 @@ public struct UInt4 {
     /// - parameter value: The value of this instance.
     /// - Warning: The value must be between zero and fifteen, inclusive.
     internal init(value: Self.Value) {
-        precondition(0...15 ~= value)
+        precondition(0...15 ~= value, "UInt4 value must be between \(Self.min) and \(Self.max).")
         self.value = value
     }
 
     /// The modulus used by this 4-bit unsigned integer type.
     private static let modulus: UInt16 = 16
-}
-
-extension UInt4 {
-    /// A boolean value indicating whether this value is even.
-    ///
-    /// ```swift
-    /// print(0.isEven)
-    /// // Prints "true"
-    /// ```
-    public var isEven: Bool {
-        let remainder: Self = self % 2
-        return remainder == 0
-    }
-    
-    /// A boolean value indicating whether this value is odd.
-    ///
-    /// ```swift
-    /// print(0.isOdd)
-    /// // Prints "false"
-    /// ```
-    public var isOdd: Bool {
-        let remainder: Self = self % 2
-        return remainder != 0
-    }
 }
 
 // MARK: - Addable
@@ -79,6 +55,93 @@ extension UInt4: Addable {
 // MARK: - AdditiveArithmetic
 
 extension UInt4: AdditiveArithmetic {}
+
+// MARK: - BinaryInteger
+
+extension UInt4: BinaryInteger {
+    /// A collection containing the machine words of a `UInt4` value.
+    public struct Words: RandomAccessCollection, Sendable {
+        public typealias Element = UInt
+        public typealias Index = Int
+
+        private let value: UInt
+
+        internal init(_ value: UInt) {
+            self.value = value
+        }
+
+        public var startIndex: Int {
+            return 0
+        }
+
+        public var endIndex: Int {
+            return 1
+        }
+
+        public subscript(position: Int) -> UInt {
+            precondition(position == self.startIndex, "UInt4 words index must be zero.")
+
+            return self.value
+        }
+
+        public func index(after index: Int) -> Int {
+            precondition(index == self.startIndex, "UInt4 words index must be the start index.")
+
+            return index + 1
+        }
+
+        public func index(before index: Int) -> Int {
+            precondition(index == self.endIndex, "UInt4 words index must be the end index.")
+
+            return index - 1
+        }
+
+        public func index(_ index: Int, offsetBy distance: Int) -> Int {
+            let newIndex: Int = index + distance
+            precondition(self.startIndex...self.endIndex ~= newIndex, "UInt4 words index must be within bounds.")
+
+            return newIndex
+        }
+
+        public func distance(from start: Int, to end: Int) -> Int {
+            return end - start
+        }
+    }
+    
+    public var words: Self.Words {
+        return .init(.init(self.value))
+    }
+
+    public var trailingZeroBitCount: Int {
+        guard self != 0 else {
+            return Self.bitWidth
+        }
+
+        return self.value.trailingZeroBitCount
+    }
+
+    public init<T>(_ source: T)
+    where T: BinaryInteger {
+        guard let value: Self.Value = .init(exactly: source),
+              Self.min.value...Self.max.value ~= value else {
+            preconditionFailure("UInt4 value must be between \(Self.min) and \(Self.max).")
+        }
+
+        self.init(value: value)
+    }
+
+    public static func &= (_ lhs: inout Self, _ rhs: Self) {
+        lhs = .init(value: lhs.value & rhs.value)
+    }
+
+    public static func |= (_ lhs: inout Self, _ rhs: Self) {
+        lhs = .init(value: lhs.value | rhs.value)
+    }
+
+    public static func ^= (_ lhs: inout Self, _ rhs: Self) {
+        lhs = .init(value: lhs.value ^ rhs.value)
+    }
+}
 
 // MARK: - Comparable
 
@@ -118,18 +181,6 @@ extension UInt4: Decodable {
 // MARK: - Divisible
 
 extension UInt4: Divisible {
-    public var reciprocal: Self? {
-        guard self.isInvertible else {
-            return nil
-        }
-
-        return self
-    }
-
-    public var isInvertible: Bool {
-        return self == 1
-    }
-
     /// Returns the quotient of dividing the first specified value by the second.
     ///
     /// ```swift
@@ -178,11 +229,86 @@ extension UInt4: Equatable {
 
 extension UInt4: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: IntegerLiteralType) {
-        precondition(0...15 ~= value)
+        precondition(0...15 ~= value, "UInt4 integer literal must be between \(Self.min) and \(Self.max).")
 
         let newValue: Self.Value = .init(value)
 
         self.init(value: newValue)
+    }
+}
+
+// MARK: - FixedWidthInteger
+
+extension UInt4: FixedWidthInteger {
+    public static var bitWidth: Int {
+        return 4
+    }
+
+    public static var isSigned: Bool {
+        return false
+    }
+
+    public var nonzeroBitCount: Int {
+        return (self.value & 0b1111).nonzeroBitCount
+    }
+
+    public var leadingZeroBitCount: Int {
+        guard self != 0 else {
+            return Self.bitWidth
+        }
+
+        return Self.bitWidth - self.value.bitWidth + self.value.leadingZeroBitCount
+    }
+
+    public var byteSwapped: Self {
+        return self
+    }
+
+    public init<T>(truncatingIfNeeded source: T)
+    where T: BinaryInteger {
+        let value: Self.Value = .init(truncatingIfNeeded: source) & 0b1111
+
+        self.init(value: value)
+    }
+
+    public init(_truncatingBits bits: UInt) {
+        self.init(truncatingIfNeeded: bits)
+    }
+
+    public init<T>(clamping source: T)
+    where T: BinaryInteger {
+        guard let value: Self.Value = .init(exactly: source) else {
+            self = source < 0 ? Self.min : Self.max
+            return
+        }
+
+        if value < Self.min.value {
+            self = Self.min
+        } else if value > Self.max.value {
+            self = Self.max
+        } else {
+            self.init(value: value)
+        }
+    }
+
+    public func multipliedFullWidth(by other: Self) -> (high: Self, low: Self.Magnitude) {
+        let product: Self.Value = self.value * other.value
+        let high: Self = .init(truncatingIfNeeded: product >> Self.bitWidth)
+        let low: Self = .init(truncatingIfNeeded: product)
+
+        return (high, low)
+    }
+
+    public func dividingFullWidth(_ dividend: (high: Self, low: Self.Magnitude)) -> (quotient: Self, remainder: Self) {
+        precondition(self != 0, "Divisor must not be zero.")
+
+        let value: Self.Value = (dividend.high.value << Self.bitWidth) | dividend.low.value
+        let result: (quotient: Self.Value, remainder: Self.Value) = value.quotientAndRemainder(dividingBy: self.value)
+
+        return (
+            quotient: .init(truncatingIfNeeded: result.quotient),
+            remainder: .init(truncatingIfNeeded: result.remainder)
+        )
     }
 }
 
@@ -397,18 +523,7 @@ extension UInt4: Sendable {}
 
 // MARK: - Strideable
 
-extension UInt4: Strideable {
-    public typealias Stride = Int
-
-    public func advanced(by amount: Self.Stride) -> Self {
-        let newValue: Self.Stride = .init(self.value) + amount
-        return .init(integerLiteral: newValue)
-    }
-
-    public func distance(to other: Self) -> Self.Stride {
-        return .init(other.value) - .init(self.value)
-    }
-}
+extension UInt4: Strideable {}
 
 // MARK: - Subtractable
 
@@ -430,3 +545,7 @@ extension UInt4: Subtractable {
         return .init(value: newValue)
     }
 }
+
+// MARK: - UnsignedInteger
+
+extension UInt4: UnsignedInteger {}

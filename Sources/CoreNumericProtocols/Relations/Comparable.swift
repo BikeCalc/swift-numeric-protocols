@@ -66,7 +66,7 @@ extension Comparable {
 	/// - returns: A boolean value.
 	/// - Warning: The lower bound value must be smaller than the upper bound value.
 	public func isWithin(_ lowerBound: Self, through upperBound: Self) -> Bool {
-		precondition(lowerBound < upperBound)
+		precondition(lowerBound < upperBound, "Lower bound must be less than upper bound.")
 		
 		let closedRange: ClosedRange<Self> = lowerBound...upperBound
 		
@@ -86,7 +86,7 @@ extension Comparable {
     /// - returns: A boolean value.
     /// - Warning: The lower bound value must be smaller than the upper bound value.
     public func isBetween(_ lowerBound: Self, and upperBound: Self) -> Bool {
-        precondition(lowerBound < upperBound)
+        precondition(lowerBound < upperBound, "Lower bound must be less than upper bound.")
         
         return lowerBound < self && self < upperBound
     }

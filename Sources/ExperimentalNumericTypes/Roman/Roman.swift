@@ -24,7 +24,7 @@ public struct Roman {
     /// - parameter value: The value of this instance.
     /// - Warning: The value must be in between 0 and 3999.
     private init(value: Self.Value) {
-        precondition(0...3999 ~= value)
+        precondition(0...3999 ~= value, "Roman value must be between \(Self.min) and \(Self.max).")
         self.value = value
     }
 }
@@ -200,7 +200,7 @@ extension Roman: Equatable {
 
 extension Roman: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: IntegerLiteralType) {
-        precondition(0...3999 ~= value)
+        precondition(0...3999 ~= value, "Roman integer literal must be between \(Self.min) and \(Self.max).")
 
         let newValue: Self.Value = .init(value)
 
