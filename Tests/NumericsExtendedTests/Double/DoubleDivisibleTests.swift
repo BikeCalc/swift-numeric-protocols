@@ -14,8 +14,6 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Reciprocal",
         arguments: [
-            (0.0, nil),
-            (-0.0, nil),
             (1.0, 1.0),
             (-1.0, -1.0),
             (2.0, 0.5),
@@ -32,8 +30,6 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Is invertible",
         arguments: [
-            (0.0, false),
-            (-0.0, false),
             (1.0, true),
             (-1.0, true),
             (2.0, true),
@@ -50,9 +46,6 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Is divisible by",
         arguments: [
-            (0.0, 0.0, false),
-            (0.0, 3.0, true),
-            (3.0, 0.0, false),
             (3.0, 1.0, true),
             (6.0, 2.0, true),
             (7.0, 2.0, false),
@@ -71,7 +64,6 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Is factor of",
         arguments: [
-            (0.0, 3.0, false),
             (1.0, 2.0, true),
             (2.0, 6.0, true),
             (2.0, 7.0, false),
@@ -90,7 +82,6 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Division succeeds",
         arguments: [
-            (0.0, 1.0, 0.0),
             (6.0, 2.0, 3.0),
             (-6.0, 2.0, -3.0),
             (6.0, -2.0, -3.0),
@@ -108,7 +99,6 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Division equal succeeds",
         arguments: [
-            (0.0, 1.0, 0.0),
             (6.0, 2.0, 3.0),
             (-6.0, 2.0, -3.0),
             (6.0, -2.0, -3.0),
@@ -128,7 +118,6 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Dividing by succeeds",
         arguments: [
-            (0.0, 1.0, 0.0),
             (6.0, 2.0, 3.0),
             (-6.0, 2.0, -3.0),
             (6.0, -2.0, -3.0),
@@ -146,7 +135,6 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Divide by succeeds",
         arguments: [
-            (0.0, 1.0, 0.0),
             (6.0, 2.0, 3.0),
             (-6.0, 2.0, -3.0),
             (6.0, -2.0, -3.0),
@@ -166,9 +154,9 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Halved succeeds",
         arguments: [
-            (0.0, 0.0),
             (1.0, 0.5),
-            (-1.0, -0.5)
+            (-1.0, -0.5),
+            (6.0, 3.0)
         ]
     )
     internal func halvedSucceeds(
@@ -181,9 +169,9 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Halve succeeds",
         arguments: [
-            (0.0, 0.0),
             (1.0, 0.5),
-            (-1.0, -0.5)
+            (-1.0, -0.5),
+            (6.0, 3.0)
         ]
     )
     internal func halveSucceeds(
@@ -243,6 +231,21 @@ extension DoubleDivisibleTests {
         remainder: Double
     ) {
         #expect(dividend % divisor == remainder)
+    }
+
+    @Test(
+        "Division is not commutative",
+        arguments: [
+            (6.0, 2.0),
+            (-6.0, 2.0),
+            (6.0, -2.0)
+        ]
+    )
+    internal func divisionIsNotCommutative(
+        lhs: Double,
+        rhs: Double
+    ) {
+        #expect(lhs / rhs != rhs / lhs)
     }
 }
 

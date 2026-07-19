@@ -15,8 +15,6 @@ internal struct DoubleNegateableTests {
         "Is negative",
         arguments: [
             (1.0, false),
-            (-0.0, false),
-            (0.0, false),
             (-1.0, true)
         ]
     )
@@ -31,8 +29,6 @@ internal struct DoubleNegateableTests {
         "Is positive",
         arguments: [
             (-1.0, false),
-            (-0.0, false),
-            (0.0, false),
             (1.0, true)
         ]
     )
@@ -47,8 +43,6 @@ internal struct DoubleNegateableTests {
         "Is signed",
         arguments: [
             (-1.0, true),
-            (-0.0, true),
-            (0.0, true),
             (1.0, true)
         ]
     )
@@ -63,10 +57,6 @@ internal struct DoubleNegateableTests {
         "Is opposite",
         arguments: [
             (1.0, 1.0, false),
-            (0.0, 0.0, true),
-            (-0.0, 0.0, true),
-            (0.0, -0.0, true),
-            (-0.0, -0.0, true),
             (-1.0, 1.0, true),
             (1.0, -1.0, true)
         ]
@@ -115,6 +105,41 @@ extension DoubleNegateableTests {
 // MARK: - Floating-Point Rules
 
 extension DoubleNegateableTests {
+    @Test(
+        "Zero sign predicates follow floating-point rules",
+        arguments: [
+            (0.0, false, false, true),
+            (-0.0, false, false, true)
+        ]
+    )
+    internal func zeroSignPredicatesFollowFloatingPointRules(
+        value: Double,
+        isNegative: Bool,
+        isPositive: Bool,
+        isSigned: Bool
+    ) {
+        #expect(value.isNegative == isNegative)
+        #expect(value.isPositive == isPositive)
+        #expect(value.isSigned == isSigned)
+    }
+
+    @Test(
+        "Zero opposite follows floating-point rules",
+        arguments: [
+            (0.0, 0.0, true),
+            (-0.0, 0.0, true),
+            (0.0, -0.0, true),
+            (-0.0, -0.0, true)
+        ]
+    )
+    internal func zeroOppositeFollowsFloatingPointRules(
+        value: Double,
+        other: Double,
+        result: Bool
+    ) {
+        #expect(value.isOpposite(of: other) == result)
+    }
+
     @Test(
         "Negating zero follows floating-point rules",
         arguments: [

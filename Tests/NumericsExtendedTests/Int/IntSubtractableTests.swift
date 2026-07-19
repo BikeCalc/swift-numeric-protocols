@@ -14,7 +14,6 @@ internal struct IntSubtractableTests {
     @Test(
         "Subtraction succeeds",
         arguments: [
-            (0, 0, 0),
             (6, 4, 2),
             (-6, 4, -10),
             (6, -4, 10)
@@ -31,7 +30,6 @@ internal struct IntSubtractableTests {
     @Test(
         "Subtraction equal succeeds",
         arguments: [
-            (0, 0, 0),
             (6, 4, 2),
             (-6, 4, -10),
             (6, -4, 10)
@@ -50,7 +48,6 @@ internal struct IntSubtractableTests {
     @Test(
         "Subtracting succeeds",
         arguments: [
-            (0, 0, 0),
             (6, 4, 2),
             (-6, 4, -10),
             (6, -4, 10)
@@ -67,7 +64,6 @@ internal struct IntSubtractableTests {
     @Test(
         "Subtract succeeds",
         arguments: [
-            (0, 0, 0),
             (6, 4, 2),
             (-6, 4, -10),
             (6, -4, 10)
@@ -130,5 +126,20 @@ extension IntSubtractableTests {
         difference: Int
     ) {
         #expect(minuend - subtrahend == difference)
+    }
+
+    @Test(
+        "Subtraction is not commutative",
+        arguments: [
+            (6, 4),
+            (-6, 4),
+            (6, -4)
+        ]
+    )
+    internal func subtractionIsNotCommutative(
+        lhs: Int,
+        rhs: Int
+    ) {
+        #expect(lhs - rhs != rhs - lhs)
     }
 }

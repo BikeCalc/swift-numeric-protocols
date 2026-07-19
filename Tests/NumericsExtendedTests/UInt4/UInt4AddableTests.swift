@@ -1,5 +1,5 @@
 //
-// IntAddableTests.swift
+// UInt4AddableTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,19 +9,19 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Int Addable Tests")
-internal struct IntAddableTests {
+@Suite("UInt4 Addable Tests")
+internal struct UInt4AddableTests {
     @Test(
         "Addition succeeds",
         arguments: [
             (2, 4, 6),
-            (-2, 4, 2)
-        ]
+            (3, 5, 8)
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func additionSucceeds(
-        augend: Int,
-        addend: Int,
-        sum: Int
+        augend: UInt4,
+        addend: UInt4,
+        sum: UInt4
     ) {
         #expect(augend + addend == sum)
     }
@@ -30,15 +30,15 @@ internal struct IntAddableTests {
         "Addition equal succeeds",
         arguments: [
             (2, 4, 6),
-            (-2, 4, 2)
-        ]
+            (3, 5, 8)
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func additionEqualSucceeds(
-        augend: Int,
-        addend: Int,
-        sum: Int
+        augend: UInt4,
+        addend: UInt4,
+        sum: UInt4
     ) {
-        var runningSum: Int = augend
+        var runningSum: UInt4 = augend
         runningSum += addend
         #expect(runningSum == sum)
     }
@@ -47,13 +47,13 @@ internal struct IntAddableTests {
         "Adding succeeds",
         arguments: [
             (2, 4, 6),
-            (-2, 4, 2)
-        ]
+            (3, 5, 8)
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func addingSucceeds(
-        augend: Int,
-        addend: Int,
-        sum: Int
+        augend: UInt4,
+        addend: UInt4,
+        sum: UInt4
     ) {
         #expect(augend.adding(addend) == sum)
     }
@@ -62,15 +62,15 @@ internal struct IntAddableTests {
         "Add succeeds",
         arguments: [
             (2, 4, 6),
-            (-2, 4, 2)
-        ]
+            (3, 5, 8)
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func addSucceeds(
-        augend: Int,
-        addend: Int,
-        sum: Int
+        augend: UInt4,
+        addend: UInt4,
+        sum: UInt4
     ) {
-        var runningSum: Int = augend
+        var runningSum: UInt4 = augend
         runningSum.add(addend)
         #expect(runningSum == sum)
     }
@@ -78,50 +78,30 @@ internal struct IntAddableTests {
 
 // MARK: - Arithmetic Rules
 
-extension IntAddableTests {
+extension UInt4AddableTests {
     @Test(
         "Adding zero preserves augend",
         arguments: [
             (0, 0),
-            (1, 1),
-            (-1, -1)
-        ]
+            (1, 1)
+        ] as Array<(UInt4, UInt4)>
     )
     internal func addingZeroPreservesAugend(
-        augend: Int,
-        sum: Int
+        augend: UInt4,
+        sum: UInt4
     ) {
         #expect(augend + 0 == sum)
     }
 
     @Test(
-        "Adding opposite values returns zero",
-        arguments: [
-            (0, 0, 0),
-            (1, -1, 0),
-            (-1, 1, 0),
-            (5, -5, 0)
-        ]
-    )
-    internal func addingOppositeValuesReturnsZero(
-        augend: Int,
-        addend: Int,
-        sum: Int
-    ) {
-        #expect(augend + addend == sum)
-    }
-
-    @Test(
         "Addition is commutative",
         arguments: [
-            (2, 4),
-            (-2, 4),
-            (-2, -4)
-        ]
+            (2, 4)
+        ] as Array<(UInt4, UInt4)>
     )
     internal func additionIsCommutative(
-        lhs: Int,
-        rhs: Int
+        lhs: UInt4,
+        rhs: UInt4
     ) {
         #expect(lhs + rhs == rhs + lhs)
     }

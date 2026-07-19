@@ -1,5 +1,5 @@
 //
-// RomanRaisableTests.swift
+// UInt4RaisableTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,8 +9,8 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman Raisable Tests")
-internal struct RomanRaisableTests {
+@Suite("UInt4 Raisable Tests")
+internal struct UInt4RaisableTests {
     @Test(
         "Is power of",
         arguments: [
@@ -19,11 +19,11 @@ internal struct RomanRaisableTests {
             (4, 2, true),
             (8, 2, true),
             (9, 2, false)
-        ] as Array<(Roman, Roman, Bool)>
+        ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func isPowerOf(
-        value: Roman,
-        other: Roman,
+        value: UInt4,
+        other: UInt4,
         result: Bool
     ) {
         #expect(value.isPower(of: other) == result)
@@ -35,12 +35,12 @@ internal struct RomanRaisableTests {
             (2, 1, 2),
             (2, 2, 4),
             (2, 3, 8)
-        ] as Array<(Roman, Roman.Exponent, Roman)>
+        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
     )
     internal func exponentiationSucceeds(
-        base: Roman,
-        exponent: Roman.Exponent,
-        power: Roman
+        base: UInt4,
+        exponent: UInt4.Exponent,
+        power: UInt4
     ) {
         #expect(base ** exponent == power)
     }
@@ -51,14 +51,14 @@ internal struct RomanRaisableTests {
             (2, 1, 2),
             (2, 2, 4),
             (2, 3, 8)
-        ] as Array<(Roman, Roman.Exponent, Roman)>
+        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
     )
     internal func exponentiationEqualSucceeds(
-        base: Roman,
-        exponent: Roman.Exponent,
-        power: Roman
+        base: UInt4,
+        exponent: UInt4.Exponent,
+        power: UInt4
     ) {
-        var runningPower: Roman = base
+        var runningPower: UInt4 = base
         runningPower **= exponent
         #expect(runningPower == power)
     }
@@ -69,12 +69,12 @@ internal struct RomanRaisableTests {
             (2, 1, 2),
             (2, 2, 4),
             (2, 3, 8)
-        ] as Array<(Roman, Roman.Exponent, Roman)>
+        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
     )
     internal func raisingToSucceeds(
-        base: Roman,
-        exponent: Roman.Exponent,
-        power: Roman
+        base: UInt4,
+        exponent: UInt4.Exponent,
+        power: UInt4
     ) {
         #expect(base.raising(to: exponent) == power)
     }
@@ -85,14 +85,14 @@ internal struct RomanRaisableTests {
             (2, 1, 2),
             (2, 2, 4),
             (2, 3, 8)
-        ] as Array<(Roman, Roman.Exponent, Roman)>
+        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
     )
     internal func raiseToSucceeds(
-        base: Roman,
-        exponent: Roman.Exponent,
-        power: Roman
+        base: UInt4,
+        exponent: UInt4.Exponent,
+        power: UInt4
     ) {
-        var runningPower: Roman = base
+        var runningPower: UInt4 = base
         runningPower.raise(to: exponent)
         #expect(runningPower == power)
     }
@@ -102,11 +102,11 @@ internal struct RomanRaisableTests {
         arguments: [
             (2, 4),
             (3, 9)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func squaredSucceeds(
-        base: Roman,
-        power: Roman
+        base: UInt4,
+        power: UInt4
     ) {
         #expect(base.squared() == power)
     }
@@ -116,13 +116,13 @@ internal struct RomanRaisableTests {
         arguments: [
             (2, 4),
             (3, 9)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func squareSucceeds(
-        base: Roman,
-        power: Roman
+        base: UInt4,
+        power: UInt4
     ) {
-        var runningPower: Roman = base
+        var runningPower: UInt4 = base
         runningPower.square()
         #expect(runningPower == power)
     }
@@ -131,11 +131,11 @@ internal struct RomanRaisableTests {
         "Cubed succeeds",
         arguments: [
             (2, 8)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func cubedSucceeds(
-        base: Roman,
-        power: Roman
+        base: UInt4,
+        power: UInt4
     ) {
         #expect(base.cubed() == power)
     }
@@ -144,13 +144,13 @@ internal struct RomanRaisableTests {
         "Cube succeeds",
         arguments: [
             (2, 8)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func cubeSucceeds(
-        base: Roman,
-        power: Roman
+        base: UInt4,
+        power: UInt4
     ) {
-        var runningPower: Roman = base
+        var runningPower: UInt4 = base
         runningPower.cube()
         #expect(runningPower == power)
     }
@@ -158,19 +158,19 @@ internal struct RomanRaisableTests {
 
 // MARK: - Arithmetic Rules
 
-extension RomanRaisableTests {
+extension UInt4RaisableTests {
     @Test(
         "Zero base exponentiation follows unsigned integer rules",
         arguments: [
             (0, 0, 1),
             (0, 1, 0),
             (0, 2, 0)
-        ] as Array<(Roman, Roman.Exponent, Roman)>
+        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
     )
-    internal func zeroBaseExponentiationFollowsRomanRules(
-        base: Roman,
-        exponent: Roman.Exponent,
-        power: Roman
+    internal func zeroBaseExponentiationFollowsUnsignedIntegerRules(
+        base: UInt4,
+        exponent: UInt4.Exponent,
+        power: UInt4
     ) {
         #expect(base ** exponent == power)
     }
@@ -180,14 +180,14 @@ extension RomanRaisableTests {
         arguments: [
             (2, 3),
             (3, 2)
-        ] as Array<(Roman, Roman.Exponent)>
+        ] as Array<(UInt4, UInt4.Exponent)>
     )
     internal func exponentiationIsNotCommutative(
-        base: Roman,
-        exponent: Roman.Exponent
+        base: UInt4,
+        exponent: UInt4.Exponent
     ) {
-        let power: Roman = base ** exponent
-        let reversedPower: Roman = exponent ** base
+        let power: UInt4 = base ** exponent
+        let reversedPower: UInt4 = exponent ** base
         #expect(power != reversedPower)
     }
 }

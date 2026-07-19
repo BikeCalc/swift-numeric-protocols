@@ -1,5 +1,5 @@
 //
-// RomanMultipliableTests.swift
+// UInt4MultipliableTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,19 +9,19 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman Multipliable Tests")
-internal struct RomanMultipliableTests {
+@Suite("UInt4 Multipliable Tests")
+internal struct UInt4MultipliableTests {
     @Test(
         "Is multiple of",
         arguments: [
             (3, 1, true),
             (6, 3, true),
             (7, 3, false)
-        ] as Array<(Roman, Roman, Bool)>
+        ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func isMultipleOf(
-        multiplicand: Roman,
-        multiplicator: Roman,
+        multiplicand: UInt4,
+        multiplicator: UInt4,
         result: Bool
     ) {
         #expect(multiplicand.isMultiple(of: multiplicator) == result)
@@ -32,12 +32,12 @@ internal struct RomanMultipliableTests {
         arguments: [
             (2, 3, 6),
             (3, 4, 12)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func multiplicationSucceeds(
-        multiplicand: Roman,
-        multiplier: Roman,
-        product: Roman
+        multiplicand: UInt4,
+        multiplier: UInt4,
+        product: UInt4
     ) {
         #expect(multiplicand * multiplier == product)
     }
@@ -47,14 +47,14 @@ internal struct RomanMultipliableTests {
         arguments: [
             (2, 3, 6),
             (3, 4, 12)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func multiplicationEqualSucceeds(
-        multiplicand: Roman,
-        multiplier: Roman,
-        product: Roman
+        multiplicand: UInt4,
+        multiplier: UInt4,
+        product: UInt4
     ) {
-        var runningProduct: Roman = multiplicand
+        var runningProduct: UInt4 = multiplicand
         runningProduct *= multiplier
         #expect(runningProduct == product)
     }
@@ -64,12 +64,12 @@ internal struct RomanMultipliableTests {
         arguments: [
             (2, 3, 6),
             (3, 4, 12)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func multiplyingBySucceeds(
-        multiplicand: Roman,
-        multiplier: Roman,
-        product: Roman
+        multiplicand: UInt4,
+        multiplier: UInt4,
+        product: UInt4
     ) {
         #expect(multiplicand.multiplying(by: multiplier) == product)
     }
@@ -79,14 +79,14 @@ internal struct RomanMultipliableTests {
         arguments: [
             (2, 3, 6),
             (3, 4, 12)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func multiplyBySucceeds(
-        multiplicand: Roman,
-        multiplier: Roman,
-        product: Roman
+        multiplicand: UInt4,
+        multiplier: UInt4,
+        product: UInt4
     ) {
-        var runningProduct: Roman = multiplicand
+        var runningProduct: UInt4 = multiplicand
         runningProduct.multiply(by: multiplier)
         #expect(runningProduct == product)
     }
@@ -96,11 +96,11 @@ internal struct RomanMultipliableTests {
         arguments: [
             (1, 2),
             (3, 6)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func doubledSucceeds(
-        multiplicand: Roman,
-        product: Roman
+        multiplicand: UInt4,
+        product: UInt4
     ) {
         #expect(multiplicand.doubled() == product)
     }
@@ -110,13 +110,13 @@ internal struct RomanMultipliableTests {
         arguments: [
             (1, 2),
             (3, 6)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func doubleSucceeds(
-        multiplicand: Roman,
-        product: Roman
+        multiplicand: UInt4,
+        product: UInt4
     ) {
-        var runningProduct: Roman = multiplicand
+        var runningProduct: UInt4 = multiplicand
         runningProduct.double()
         #expect(runningProduct == product)
     }
@@ -124,16 +124,16 @@ internal struct RomanMultipliableTests {
 
 // MARK: - Arithmetic Rules
 
-extension RomanMultipliableTests {
+extension UInt4MultipliableTests {
     @Test(
         "Multiplying by zero returns zero",
         arguments: [
             0,
             1,
             5
-        ] as Array<Roman>
+        ] as Array<UInt4>
     )
-    internal func multiplyingByZeroReturnsZero(multiplicand: Roman) {
+    internal func multiplyingByZeroReturnsZero(multiplicand: UInt4) {
         #expect(multiplicand * 0 == 0)
     }
 
@@ -143,11 +143,11 @@ extension RomanMultipliableTests {
             (0, 0),
             (1, 1),
             (5, 5)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func multiplyingByOnePreservesMultiplicand(
-        multiplicand: Roman,
-        product: Roman
+        multiplicand: UInt4,
+        product: UInt4
     ) {
         #expect(multiplicand * 1 == product)
     }
@@ -156,11 +156,11 @@ extension RomanMultipliableTests {
         "Multiplication is commutative",
         arguments: [
             (2, 4)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func multiplicationIsCommutative(
-        lhs: Roman,
-        rhs: Roman
+        lhs: UInt4,
+        rhs: UInt4
     ) {
         #expect(lhs * rhs == rhs * lhs)
     }

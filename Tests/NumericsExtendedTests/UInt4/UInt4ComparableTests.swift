@@ -1,5 +1,5 @@
 //
-// RomanComparableTests.swift
+// UInt4ComparableTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,19 +9,19 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman Comparable Tests")
-internal struct RomanComparableTests {
+@Suite("UInt4 Comparable Tests")
+internal struct UInt4ComparableTests {
     @Test(
         "Is less than",
         arguments: [
             (1, 1, false),
             (2, 1, false),
             (1, 2, true)
-        ] as Array<(Roman, Roman, Bool)>
+        ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func isLessThan(
-        lhs: Roman,
-        rhs: Roman,
+        lhs: UInt4,
+        rhs: UInt4,
         result: Bool
     ) {
         #expect(lhs.isLess(than: rhs) == result)
@@ -33,11 +33,11 @@ internal struct RomanComparableTests {
             (2, 1, false),
             (1, 1, true),
             (1, 2, true)
-        ] as Array<(Roman, Roman, Bool)>
+        ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func isLessThanOrEqualTo(
-        lhs: Roman,
-        rhs: Roman,
+        lhs: UInt4,
+        rhs: UInt4,
         result: Bool
     ) {
         #expect(lhs.isLessThanOrEqual(to: rhs) == result)
@@ -49,11 +49,11 @@ internal struct RomanComparableTests {
             (1, 1, false),
             (1, 2, false),
             (2, 1, true)
-        ] as Array<(Roman, Roman, Bool)>
+        ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func isGreaterThan(
-        lhs: Roman,
-        rhs: Roman,
+        lhs: UInt4,
+        rhs: UInt4,
         result: Bool
     ) {
         #expect(lhs.isGreater(than: rhs) == result)
@@ -65,11 +65,11 @@ internal struct RomanComparableTests {
             (1, 2, false),
             (1, 1, true),
             (2, 1, true)
-        ] as Array<(Roman, Roman, Bool)>
+        ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func isGreaterThanOrEqualTo(
-        lhs: Roman,
-        rhs: Roman,
+        lhs: UInt4,
+        rhs: UInt4,
         result: Bool
     ) {
         #expect(lhs.isGreaterThanOrEqual(to: rhs) == result)
@@ -82,11 +82,11 @@ internal struct RomanComparableTests {
             (2, 1...3, true),
             (3, 1...3, true),
             (4, 1...3, false)
-        ] as Array<(Roman, ClosedRange<Roman>, Bool)>
+        ] as Array<(UInt4, ClosedRange<UInt4>, Bool)>
     )
     internal func isWithinClosedRange(
-        value: Roman,
-        range: ClosedRange<Roman>,
+        value: UInt4,
+        range: ClosedRange<UInt4>,
         result: Bool
     ) {
         #expect(value.isWithin(range) == result)
@@ -99,12 +99,12 @@ internal struct RomanComparableTests {
             (2, 1, 3, true),
             (3, 1, 3, true),
             (4, 1, 3, false)
-        ] as Array<(Roman, Roman, Roman, Bool)>
+        ] as Array<(UInt4, UInt4, UInt4, Bool)>
     )
     internal func isWithinBounds(
-        value: Roman,
-        lowerBound: Roman,
-        upperBound: Roman,
+        value: UInt4,
+        lowerBound: UInt4,
+        upperBound: UInt4,
         result: Bool
     ) {
         #expect(value.isWithin(lowerBound, through: upperBound) == result)
@@ -117,12 +117,12 @@ internal struct RomanComparableTests {
             (2, 1, 3, true),
             (3, 1, 3, false),
             (4, 1, 3, false)
-        ] as Array<(Roman, Roman, Roman, Bool)>
+        ] as Array<(UInt4, UInt4, UInt4, Bool)>
     )
     internal func isBetweenBounds(
-        value: Roman,
-        lowerBound: Roman,
-        upperBound: Roman,
+        value: UInt4,
+        lowerBound: UInt4,
+        upperBound: UInt4,
         result: Bool
     ) {
         #expect(value.isBetween(lowerBound, and: upperBound) == result)

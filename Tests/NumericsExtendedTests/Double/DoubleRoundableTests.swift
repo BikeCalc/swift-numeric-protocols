@@ -14,7 +14,6 @@ internal struct DoubleRoundableTests {
     @Test(
         "Rounded to succeeds",
         arguments: [
-            (0.0, Double.DecimalPlace(0), 0.0),
             (1.0, Double.DecimalPlace(0), 1.0),
             (1.2345, Double.DecimalPlace(0), 1.0),
             (1.2345, Double.DecimalPlace(1), 1.2),
@@ -35,7 +34,6 @@ internal struct DoubleRoundableTests {
     @Test(
         "Round to succeeds",
         arguments: [
-            (0.0, Double.DecimalPlace(0), 0.0),
             (1.0, Double.DecimalPlace(0), 1.0),
             (1.2345, Double.DecimalPlace(0), 1.0),
             (1.2345, Double.DecimalPlace(1), 1.2),

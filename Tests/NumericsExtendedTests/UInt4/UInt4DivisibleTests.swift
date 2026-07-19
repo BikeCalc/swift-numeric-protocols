@@ -1,5 +1,5 @@
 //
-// RomanDivisibleTests.swift
+// UInt4DivisibleTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,17 +9,17 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman Divisible Tests")
-internal struct RomanDivisibleTests {
+@Suite("UInt4 Divisible Tests")
+internal struct UInt4DivisibleTests {
     @Test(
         "Parity predicates",
         arguments: [
             (1, false),
             (2, true)
-        ] as Array<(Roman, Bool)>
+        ] as Array<(UInt4, Bool)>
     )
     internal func parityPredicates(
-        value: Roman,
+        value: UInt4,
         result: Bool
     ) {
         #expect(value.isEven == result)
@@ -31,11 +31,11 @@ internal struct RomanDivisibleTests {
         arguments: [
             (1, 1),
             (2, nil)
-        ] as Array<(Roman, Roman?)>
+        ] as Array<(UInt4, UInt4?)>
     )
     internal func reciprocal(
-        dividend: Roman,
-        result: Roman?
+        dividend: UInt4,
+        result: UInt4?
     ) {
         #expect(dividend.reciprocal == result)
     }
@@ -45,10 +45,10 @@ internal struct RomanDivisibleTests {
         arguments: [
             (1, true),
             (2, false)
-        ] as Array<(Roman, Bool)>
+        ] as Array<(UInt4, Bool)>
     )
     internal func isInvertible(
-        dividend: Roman,
+        dividend: UInt4,
         result: Bool
     ) {
         #expect(dividend.isInvertible == result)
@@ -60,11 +60,11 @@ internal struct RomanDivisibleTests {
             (3, 1, true),
             (6, 2, true),
             (7, 2, false)
-        ] as Array<(Roman, Roman, Bool)>
+        ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func isDivisibleBy(
-        dividend: Roman,
-        divisor: Roman,
+        dividend: UInt4,
+        divisor: UInt4,
         result: Bool
     ) {
         #expect(dividend.isDivisible(by: divisor) == result)
@@ -76,11 +76,11 @@ internal struct RomanDivisibleTests {
             (1, 2, true),
             (2, 6, true),
             (2, 7, false)
-        ] as Array<(Roman, Roman, Bool)>
+        ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func isFactorOf(
-        factor: Roman,
-        value: Roman,
+        factor: UInt4,
+        value: UInt4,
         result: Bool
     ) {
         #expect(factor.isFactor(of: value) == result)
@@ -91,12 +91,12 @@ internal struct RomanDivisibleTests {
         arguments: [
             (6, 2, 3),
             (7, 2, 3)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func divisionSucceeds(
-        dividend: Roman,
-        divisor: Roman,
-        quotient: Roman
+        dividend: UInt4,
+        divisor: UInt4,
+        quotient: UInt4
     ) {
         #expect(dividend / divisor == quotient)
     }
@@ -106,14 +106,14 @@ internal struct RomanDivisibleTests {
         arguments: [
             (6, 2, 3),
             (7, 2, 3)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func divisionEqualSucceeds(
-        dividend: Roman,
-        divisor: Roman,
-        quotient: Roman
+        dividend: UInt4,
+        divisor: UInt4,
+        quotient: UInt4
     ) {
-        var runningQuotient: Roman = dividend
+        var runningQuotient: UInt4 = dividend
         runningQuotient /= divisor
         #expect(runningQuotient == quotient)
     }
@@ -123,12 +123,12 @@ internal struct RomanDivisibleTests {
         arguments: [
             (6, 2, 3),
             (7, 2, 3)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func dividingBySucceeds(
-        dividend: Roman,
-        divisor: Roman,
-        quotient: Roman
+        dividend: UInt4,
+        divisor: UInt4,
+        quotient: UInt4
     ) {
         #expect(dividend.dividing(by: divisor) == quotient)
     }
@@ -138,14 +138,14 @@ internal struct RomanDivisibleTests {
         arguments: [
             (6, 2, 3),
             (7, 2, 3)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func divideBySucceeds(
-        dividend: Roman,
-        divisor: Roman,
-        quotient: Roman
+        dividend: UInt4,
+        divisor: UInt4,
+        quotient: UInt4
     ) {
-        var runningQuotient: Roman = dividend
+        var runningQuotient: UInt4 = dividend
         runningQuotient.divide(by: divisor)
         #expect(runningQuotient == quotient)
     }
@@ -155,11 +155,11 @@ internal struct RomanDivisibleTests {
         arguments: [
             (2, 1),
             (4, 2)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func halvedSucceeds(
-        dividend: Roman,
-        quotient: Roman
+        dividend: UInt4,
+        quotient: UInt4
     ) {
         #expect(dividend.halved() == quotient)
     }
@@ -169,13 +169,13 @@ internal struct RomanDivisibleTests {
         arguments: [
             (2, 1),
             (4, 2)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func halveSucceeds(
-        dividend: Roman,
-        quotient: Roman
+        dividend: UInt4,
+        quotient: UInt4
     ) {
-        var runningQuotient: Roman = dividend
+        var runningQuotient: UInt4 = dividend
         runningQuotient.halve()
         #expect(runningQuotient == quotient)
     }
@@ -183,14 +183,14 @@ internal struct RomanDivisibleTests {
 
 // MARK: - Arithmetic Rules
 
-extension RomanDivisibleTests {
+extension UInt4DivisibleTests {
     @Test(
         "Halving below two truncates toward zero",
         arguments: [
             1
-        ] as Array<Roman>
+        ] as Array<UInt4>
     )
-    internal func halvingBelowTwoTruncatesTowardZero(dividend: Roman) {
+    internal func halvingBelowTwoTruncatesTowardZero(dividend: UInt4) {
         #expect(dividend.halved() == 0)
     }
 
@@ -198,11 +198,11 @@ extension RomanDivisibleTests {
         "Dividing zero by nonzero value returns zero",
         arguments: [
             1,
-            3
-        ] as Array<Roman>
+            2
+        ] as Array<UInt4>
     )
-    internal func dividingZeroByNonzeroValueReturnsZero(divisor: Roman) {
-        #expect(0 / divisor == 0)
+    internal func dividingZeroByNonzeroValueReturnsZero(divisor: UInt4) {
+        #expect(UInt4.zero / divisor == 0)
     }
 
     @Test(
@@ -210,11 +210,11 @@ extension RomanDivisibleTests {
         arguments: [
             (6, 2),
             (7, 2)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func divisionIsNotCommutative(
-        lhs: Roman,
-        rhs: Roman
+        lhs: UInt4,
+        rhs: UInt4
     ) {
         #expect(lhs / rhs != rhs / lhs)
     }

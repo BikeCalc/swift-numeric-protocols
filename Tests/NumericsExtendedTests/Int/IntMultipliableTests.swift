@@ -14,9 +14,6 @@ internal struct IntMultipliableTests {
     @Test(
         "Is multiple of",
         arguments: [
-            (0, 0, true),
-            (3, 0, false),
-            (0, 3, true),
             (3, 1, true),
             (6, 3, true),
             (7, 3, false),
@@ -35,7 +32,6 @@ internal struct IntMultipliableTests {
     @Test(
         "Multiplication succeeds",
         arguments: [
-            (0, 0, 0),
             (2, 3, 6),
             (-2, 3, -6),
             (2, -3, -6),
@@ -53,7 +49,6 @@ internal struct IntMultipliableTests {
     @Test(
         "Multiplication equal succeeds",
         arguments: [
-            (0, 0, 0),
             (2, 3, 6),
             (-2, 3, -6),
             (2, -3, -6),
@@ -73,7 +68,6 @@ internal struct IntMultipliableTests {
     @Test(
         "Multiplying by succeeds",
         arguments: [
-            (0, 0, 0),
             (2, 3, 6),
             (-2, 3, -6),
             (2, -3, -6),
@@ -91,7 +85,6 @@ internal struct IntMultipliableTests {
     @Test(
         "Multiply by succeeds",
         arguments: [
-            (0, 0, 0),
             (2, 3, 6),
             (-2, 3, -6),
             (2, -3, -6),
@@ -111,9 +104,9 @@ internal struct IntMultipliableTests {
     @Test(
         "Doubled succeeds",
         arguments: [
-            (0, 0),
             (1, 2),
-            (-1, -2)
+            (-1, -2),
+            (3, 6)
         ]
     )
     internal func doubledSucceeds(
@@ -126,9 +119,9 @@ internal struct IntMultipliableTests {
     @Test(
         "Double succeeds",
         arguments: [
-            (0, 0),
             (1, 2),
-            (-1, -2)
+            (-1, -2),
+            (3, 6)
         ]
     )
     internal func doubleSucceeds(

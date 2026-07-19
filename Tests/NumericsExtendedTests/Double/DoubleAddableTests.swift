@@ -14,7 +14,6 @@ internal struct DoubleAddableTests {
     @Test(
         "Addition succeeds",
         arguments: [
-            (0.0, 0.0, 0.0),
             (2.0, 4.0, 6.0),
             (-2.0, 4.0, 2.0)
         ]
@@ -30,7 +29,6 @@ internal struct DoubleAddableTests {
     @Test(
         "Addition equal succeeds",
         arguments: [
-            (0.0, 0.0, 0.0),
             (2.0, 4.0, 6.0),
             (-2.0, 4.0, 2.0)
         ]
@@ -48,7 +46,6 @@ internal struct DoubleAddableTests {
     @Test(
         "Adding succeeds",
         arguments: [
-            (0.0, 0.0, 0.0),
             (2.0, 4.0, 6.0),
             (-2.0, 4.0, 2.0)
         ]
@@ -64,7 +61,6 @@ internal struct DoubleAddableTests {
     @Test(
         "Add succeeds",
         arguments: [
-            (0.0, 0.0, 0.0),
             (2.0, 4.0, 6.0),
             (-2.0, 4.0, 2.0)
         ]

@@ -1,5 +1,5 @@
 //
-// RomanStrideableTests.swift
+// UInt4StrideableTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,19 +9,19 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman Strideable Tests")
-internal struct RomanStrideableTests {
+@Suite("UInt4 Strideable Tests")
+internal struct UInt4StrideableTests {
     @Test(
         "Advanced by succeeds",
         arguments: [
             (1, 3, 4),
             (4, -3, 1)
-        ] as Array<(Roman, Roman.Stride, Roman)>
+        ] as Array<(UInt4, UInt4.Stride, UInt4)>
     )
     internal func advancedBySucceeds(
-        value: Roman,
-        amount: Roman.Stride,
-        result: Roman
+        value: UInt4,
+        amount: UInt4.Stride,
+        result: UInt4
     ) {
         #expect(value.advanced(by: amount) == result)
     }
@@ -31,12 +31,12 @@ internal struct RomanStrideableTests {
         arguments: [
             (1, 4, 3),
             (4, 1, -3)
-        ] as Array<(Roman, Roman, Roman.Stride)>
+        ] as Array<(UInt4, UInt4, UInt4.Stride)>
     )
     internal func distanceToSucceeds(
-        value: Roman,
-        other: Roman,
-        result: Roman.Stride
+        value: UInt4,
+        other: UInt4,
+        result: UInt4.Stride
     ) {
         #expect(value.distance(to: other) == result)
     }

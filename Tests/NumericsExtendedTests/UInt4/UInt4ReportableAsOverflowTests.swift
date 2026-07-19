@@ -1,5 +1,5 @@
 //
-// RomanReportableAsOverflowTests.swift
+// UInt4ReportableAsOverflowTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,24 +9,24 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman ReportableAsOverflow Tests")
-internal struct RomanReportableAsOverflowTests {
+@Suite("UInt4 ReportableAsOverflow Tests")
+internal struct UInt4ReportableAsOverflowTests {
     @Test(
         "Adding reporting overflow",
         arguments: [
             (2, 4, 6, false),
-            (3998, 1, 3999, false),
-            (3999, 1, 0, true),
-            (3999, 2, 1, true)
-        ] as Array<(Roman, Roman, Roman, Bool)>
+            (14, 1, 15, false),
+            (15, 1, 0, true),
+            (15, 2, 1, true)
+        ] as Array<(UInt4, UInt4, UInt4, Bool)>
     )
     internal func addingReportingOverflow(
-        augend: Roman,
-        addend: Roman,
-        partialValue: Roman,
+        augend: UInt4,
+        addend: UInt4,
+        partialValue: UInt4,
         overflow: Bool
     ) {
-        let report: Roman.Report = augend.addingReportingOverflow(addend)
+        let report: UInt4.Report = augend.addingReportingOverflow(addend)
 
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
@@ -37,17 +37,17 @@ internal struct RomanReportableAsOverflowTests {
         arguments: [
             (6, 4, 2, false),
             (1, 1, 0, false),
-            (0, 1, 3999, true),
-            (0, 2, 3998, true)
-        ] as Array<(Roman, Roman, Roman, Bool)>
+            (0, 1, 15, true),
+            (0, 2, 14, true)
+        ] as Array<(UInt4, UInt4, UInt4, Bool)>
     )
     internal func subtractingReportingOverflow(
-        minuend: Roman,
-        subtrahend: Roman,
-        partialValue: Roman,
+        minuend: UInt4,
+        subtrahend: UInt4,
+        partialValue: UInt4,
         overflow: Bool
     ) {
-        let report: Roman.Report = minuend.subtractingReportingOverflow(subtrahend)
+        let report: UInt4.Report = minuend.subtractingReportingOverflow(subtrahend)
 
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
@@ -57,20 +57,20 @@ internal struct RomanReportableAsOverflowTests {
         "Multiplied reporting overflow",
         arguments: [
             (2, 3, 6, false),
-            (3999, 1, 3999, false),
-            (3999, 2, 3998, true),
-            (2000, 2, 0, true),
-            (1000, 4, 0, true),
-            (3999, 3999, 1, true)
-        ] as Array<(Roman, Roman, Roman, Bool)>
+            (15, 1, 15, false),
+            (15, 2, 14, true),
+            (8, 2, 0, true),
+            (4, 4, 0, true),
+            (15, 15, 1, true)
+        ] as Array<(UInt4, UInt4, UInt4, Bool)>
     )
     internal func multipliedReportingOverflow(
-        multiplicand: Roman,
-        multiplier: Roman,
-        partialValue: Roman,
+        multiplicand: UInt4,
+        multiplier: UInt4,
+        partialValue: UInt4,
         overflow: Bool
     ) {
-        let report: Roman.Report = multiplicand.multipliedReportingOverflow(by: multiplier)
+        let report: UInt4.Report = multiplicand.multipliedReportingOverflow(by: multiplier)
 
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
@@ -82,17 +82,17 @@ internal struct RomanReportableAsOverflowTests {
             (0, 1, 0, false),
             (6, 2, 3, false),
             (7, 2, 3, false),
-            (3999, 1, 3999, false),
-            (3999, 0, 3999, true)
-        ] as Array<(Roman, Roman, Roman, Bool)>
+            (15, 1, 15, false),
+            (15, 0, 15, true)
+        ] as Array<(UInt4, UInt4, UInt4, Bool)>
     )
     internal func dividedReportingOverflow(
-        dividend: Roman,
-        divisor: Roman,
-        partialValue: Roman,
+        dividend: UInt4,
+        divisor: UInt4,
+        partialValue: UInt4,
         overflow: Bool
     ) {
-        let report: Roman.Report = dividend.dividedReportingOverflow(by: divisor)
+        let report: UInt4.Report = dividend.dividedReportingOverflow(by: divisor)
 
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
@@ -103,18 +103,18 @@ internal struct RomanReportableAsOverflowTests {
         arguments: [
             (0, 1, 0, false),
             (7, 2, 1, false),
-            (3999, 1, 0, false),
-            (3999, 3999, 0, false),
-            (3999, 0, 3999, true)
-        ] as Array<(Roman, Roman, Roman, Bool)>
+            (15, 1, 0, false),
+            (15, 15, 0, false),
+            (15, 0, 15, true)
+        ] as Array<(UInt4, UInt4, UInt4, Bool)>
     )
     internal func remainderReportingOverflow(
-        dividend: Roman,
-        divisor: Roman,
-        partialValue: Roman,
+        dividend: UInt4,
+        divisor: UInt4,
+        partialValue: UInt4,
         overflow: Bool
     ) {
-        let report: Roman.Report = dividend.remainderReportingOverflow(dividingBy: divisor)
+        let report: UInt4.Report = dividend.remainderReportingOverflow(dividingBy: divisor)
 
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
@@ -129,18 +129,18 @@ internal struct RomanReportableAsOverflowTests {
             (1, 0, 1, false),
             (1, 1, 1, false),
             (2, 3, 8, false),
-            (3999, 2, 1, true),
-            (3999, 3, 1, true),
-            (16, 3, 96, true)
-        ] as Array<(Roman, Roman.Exponent, Roman, Bool)>
+            (15, 2, 1, true),
+            (15, 3, 1, true),
+            (4, 2, 0, true)
+        ] as Array<(UInt4, UInt4.Exponent, UInt4, Bool)>
     )
     internal func raisedReportingOverflow(
-        base: Roman,
-        exponent: Roman.Exponent,
-        partialValue: Roman,
+        base: UInt4,
+        exponent: UInt4.Exponent,
+        partialValue: UInt4,
         overflow: Bool
     ) {
-        let report: Roman.Report = base.raisedReportingOverflow(to: exponent)
+        let report: UInt4.Report = base.raisedReportingOverflow(to: exponent)
 
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)

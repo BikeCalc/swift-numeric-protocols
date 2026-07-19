@@ -14,12 +14,10 @@ internal struct DoubleEquatableTests {
     @Test(
         "Equality predicates",
         arguments: [
-            (0.0, 0.0, true),
             (1.0, 2.0, false),
             (1.0, 1.0, true),
             (-1.0, 1.0, false),
-            (-1.0, -1.0, true),
-            (-0.0, 0.0, true)
+            (-1.0, -1.0, true)
         ]
     )
     internal func equalityPredicates(
@@ -35,6 +33,22 @@ internal struct DoubleEquatableTests {
 // MARK: - Floating-Point Rules
 
 extension DoubleEquatableTests {
+    @Test(
+        "Zero equality follows floating-point rules",
+        arguments: [
+            (0.0, 0.0, true),
+            (-0.0, 0.0, true)
+        ]
+    )
+    internal func zeroEqualityFollowsFloatingPointRules(
+        lhs: Double,
+        rhs: Double,
+        result: Bool
+    ) {
+        #expect(lhs.isEqual(to: rhs) == result)
+        #expect(lhs.isUnequal(to: rhs) == !result)
+    }
+
     @Test(
         "NaN equality follows floating-point rules",
         arguments: [

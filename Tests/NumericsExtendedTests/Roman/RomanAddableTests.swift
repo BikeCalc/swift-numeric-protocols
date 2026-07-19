@@ -14,8 +14,8 @@ internal struct RomanAddableTests {
     @Test(
         "Addition succeeds",
         arguments: [
-            (0, 0, 0),
-            (2, 4, 6)
+            (2, 4, 6),
+            (3, 5, 8)
         ] as Array<(Roman, Roman, Roman)>
     )
     internal func additionSucceeds(
@@ -29,8 +29,8 @@ internal struct RomanAddableTests {
     @Test(
         "Addition equal succeeds",
         arguments: [
-            (0, 0, 0),
-            (2, 4, 6)
+            (2, 4, 6),
+            (3, 5, 8)
         ] as Array<(Roman, Roman, Roman)>
     )
     internal func additionEqualSucceeds(
@@ -46,8 +46,8 @@ internal struct RomanAddableTests {
     @Test(
         "Adding succeeds",
         arguments: [
-            (0, 0, 0),
-            (2, 4, 6)
+            (2, 4, 6),
+            (3, 5, 8)
         ] as Array<(Roman, Roman, Roman)>
     )
     internal func addingSucceeds(
@@ -61,8 +61,8 @@ internal struct RomanAddableTests {
     @Test(
         "Add succeeds",
         arguments: [
-            (0, 0, 0),
-            (2, 4, 6)
+            (2, 4, 6),
+            (3, 5, 8)
         ] as Array<(Roman, Roman, Roman)>
     )
     internal func addSucceeds(
@@ -96,7 +96,6 @@ extension RomanAddableTests {
     @Test(
         "Addition is commutative",
         arguments: [
-            (0, 0),
             (2, 4)
         ] as Array<(Roman, Roman)>
     )

@@ -1,5 +1,5 @@
 //
-// RomanNumericTests.swift
+// UInt4NumericTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,18 +9,18 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman Numeric Tests")
-internal struct RomanNumericTests {
+@Suite("UInt4 Numeric Tests")
+internal struct UInt4NumericTests {
     @Test(
         "Magnitude succeeds",
         arguments: [
             (4, 4),
             (8, 8)
-        ] as Array<(Roman, Roman.Magnitude)>
+        ] as Array<(UInt4, UInt4.Magnitude)>
     )
     internal func magnitudeSucceeds(
-        value: Roman,
-        magnitude: Roman.Magnitude
+        value: UInt4,
+        magnitude: UInt4.Magnitude
     ) {
         #expect(value.magnitude == magnitude)
     }
@@ -30,23 +30,23 @@ internal struct RomanNumericTests {
         arguments: [
             (4, 4),
             (8, 8)
-        ] as Array<(Int, Roman)>
+        ] as Array<(Int, UInt4)>
     )
     internal func initializedExactlySucceeds(
         source: Int,
-        value: Roman
+        value: UInt4
     ) {
-        #expect(Roman(exactly: source) == value)
+        #expect(UInt4(exactly: source) == value)
     }
 
     @Test(
         "Initialized exactly fails",
         arguments: [
             -1,
-            4000
+            16
         ]
     )
     internal func initializedExactlyFails(source: Int) {
-        #expect(Roman(exactly: source) == nil)
+        #expect(UInt4(exactly: source) == nil)
     }
 }

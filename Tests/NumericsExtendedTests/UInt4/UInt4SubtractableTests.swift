@@ -1,5 +1,5 @@
 //
-// RomanSubtractableTests.swift
+// UInt4SubtractableTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,19 +9,19 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman Subtractable Tests")
-internal struct RomanSubtractableTests {
+@Suite("UInt4 Subtractable Tests")
+internal struct UInt4SubtractableTests {
     @Test(
         "Subtraction succeeds",
         arguments: [
             (6, 4, 2),
             (9, 3, 6)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func subtractionSucceeds(
-        minuend: Roman,
-        subtrahend: Roman,
-        difference: Roman
+        minuend: UInt4,
+        subtrahend: UInt4,
+        difference: UInt4
     ) {
         #expect(minuend - subtrahend == difference)
     }
@@ -31,14 +31,14 @@ internal struct RomanSubtractableTests {
         arguments: [
             (6, 4, 2),
             (9, 3, 6)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func subtractionEqualSucceeds(
-        minuend: Roman,
-        subtrahend: Roman,
-        difference: Roman
+        minuend: UInt4,
+        subtrahend: UInt4,
+        difference: UInt4
     ) {
-        var runningDifference: Roman = minuend
+        var runningDifference: UInt4 = minuend
         runningDifference -= subtrahend
         #expect(runningDifference == difference)
     }
@@ -48,12 +48,12 @@ internal struct RomanSubtractableTests {
         arguments: [
             (6, 4, 2),
             (9, 3, 6)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func subtractingSucceeds(
-        minuend: Roman,
-        subtrahend: Roman,
-        difference: Roman
+        minuend: UInt4,
+        subtrahend: UInt4,
+        difference: UInt4
     ) {
         #expect(minuend.subtracting(subtrahend) == difference)
     }
@@ -63,14 +63,14 @@ internal struct RomanSubtractableTests {
         arguments: [
             (6, 4, 2),
             (9, 3, 6)
-        ] as Array<(Roman, Roman, Roman)>
+        ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func subtractSucceeds(
-        minuend: Roman,
-        subtrahend: Roman,
-        difference: Roman
+        minuend: UInt4,
+        subtrahend: UInt4,
+        difference: UInt4
     ) {
-        var runningDifference: Roman = minuend
+        var runningDifference: UInt4 = minuend
         runningDifference.subtract(subtrahend)
         #expect(runningDifference == difference)
     }
@@ -78,17 +78,17 @@ internal struct RomanSubtractableTests {
 
 // MARK: - Arithmetic Rules
 
-extension RomanSubtractableTests {
+extension UInt4SubtractableTests {
     @Test(
         "Subtracting zero preserves minuend",
         arguments: [
             (0, 0),
             (1, 1)
-        ] as Array<(Roman, Roman)>
+        ] as Array<(UInt4, UInt4)>
     )
     internal func subtractingZeroPreservesMinuend(
-        minuend: Roman,
-        difference: Roman
+        minuend: UInt4,
+        difference: UInt4
     ) {
         #expect(minuend - 0 == difference)
     }
@@ -97,11 +97,10 @@ extension RomanSubtractableTests {
         "Subtracting self returns zero",
         arguments: [
             0,
-            1,
-            5
-        ] as Array<Roman>
+            1
+        ] as Array<UInt4>
     )
-    internal func subtractingSelfReturnsZero(value: Roman) {
+    internal func subtractingSelfReturnsZero(value: UInt4) {
         #expect(value - value == 0)
     }
 }

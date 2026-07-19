@@ -14,11 +14,10 @@ internal struct IntRaisableTests {
     @Test(
         "Is power of",
         arguments: [
-            (0, 0, true),
-            (1, 0, false),
             (1, 1, true),
             (4, 1, false),
             (4, 2, true),
+            (8, 2, true),
             (9, 2, false),
             (1, -1, true),
             (-1, -1, true),
@@ -39,9 +38,9 @@ internal struct IntRaisableTests {
     @Test(
         "Exponentiation succeeds",
         arguments: [
-            (2, 0, 1),
             (2, 1, 2),
-            (2, 2, 4)
+            (2, 2, 4),
+            (2, 3, 8)
         ]
     )
     internal func exponentiationSucceeds(
@@ -55,9 +54,9 @@ internal struct IntRaisableTests {
     @Test(
         "Exponentiation equal succeeds",
         arguments: [
-            (2, 0, 1),
             (2, 1, 2),
-            (2, 2, 4)
+            (2, 2, 4),
+            (2, 3, 8)
         ]
     )
     internal func exponentiationEqualSucceeds(
@@ -73,9 +72,9 @@ internal struct IntRaisableTests {
     @Test(
         "Raising to succeeds",
         arguments: [
-            (2, 0, 1),
             (2, 1, 2),
-            (2, 2, 4)
+            (2, 2, 4),
+            (2, 3, 8)
         ]
     )
     internal func raisingToSucceeds(
@@ -89,9 +88,9 @@ internal struct IntRaisableTests {
     @Test(
         "Raise to succeeds",
         arguments: [
-            (2, 0, 1),
             (2, 1, 2),
-            (2, 2, 4)
+            (2, 2, 4),
+            (2, 3, 8)
         ]
     )
     internal func raiseToSucceeds(
@@ -182,6 +181,22 @@ extension IntRaisableTests {
         power: Int
     ) {
         #expect(base ** exponent == power)
+    }
+
+    @Test(
+        "Exponentiation is not commutative",
+        arguments: [
+            (2, 3),
+            (3, 2)
+        ]
+    )
+    internal func exponentiationIsNotCommutative(
+        base: Int,
+        exponent: Int.Exponent
+    ) {
+        let power: Int = base ** exponent
+        let reversedPower: Int = exponent ** base
+        #expect(power != reversedPower)
     }
 }
 

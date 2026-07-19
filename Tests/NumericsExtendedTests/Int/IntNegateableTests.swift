@@ -15,8 +15,6 @@ internal struct IntNegateableTests {
         "Is negative",
         arguments: [
             (1, false),
-            (-0, false),
-            (0, false),
             (-1, true)
         ]
     )
@@ -31,8 +29,6 @@ internal struct IntNegateableTests {
         "Is positive",
         arguments: [
             (-1, false),
-            (-0, false),
-            (0, false),
             (1, true)
         ]
     )
@@ -47,8 +43,6 @@ internal struct IntNegateableTests {
         "Is signed",
         arguments: [
             (-1, true),
-            (-0, true),
-            (0, true),
             (1, true)
         ]
     )
@@ -63,10 +57,6 @@ internal struct IntNegateableTests {
         "Is opposite",
         arguments: [
             (1, 1, false),
-            (0, 0, true),
-            (-0, 0, true),
-            (0, -0, true),
-            (-0, -0, true),
             (-1, 1, true),
             (1, -1, true)
         ]
@@ -83,6 +73,41 @@ internal struct IntNegateableTests {
 // MARK: - Arithmetic Rules
 
 extension IntNegateableTests {
+    @Test(
+        "Zero sign predicates follow integer rules",
+        arguments: [
+            (0, false, false, true),
+            (-0, false, false, true)
+        ]
+    )
+    internal func zeroSignPredicatesFollowIntegerRules(
+        value: Int,
+        isNegative: Bool,
+        isPositive: Bool,
+        isSigned: Bool
+    ) {
+        #expect(value.isNegative == isNegative)
+        #expect(value.isPositive == isPositive)
+        #expect(value.isSigned == isSigned)
+    }
+
+    @Test(
+        "Zero opposite follows integer rules",
+        arguments: [
+            (0, 0, true),
+            (-0, 0, true),
+            (0, -0, true),
+            (-0, -0, true)
+        ]
+    )
+    internal func zeroOppositeFollowsIntegerRules(
+        value: Int,
+        other: Int,
+        result: Bool
+    ) {
+        #expect(value.isOpposite(of: other) == result)
+    }
+
     @Test(
         "Negating zero returns zero",
         arguments: [

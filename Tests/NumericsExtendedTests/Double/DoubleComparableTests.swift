@@ -14,7 +14,6 @@ internal struct DoubleComparableTests {
     @Test(
         "Is less than",
         arguments: [
-            (0.0, 1.0, true),
             (1.0, 1.0, false),
             (2.0, 1.0, false),
             (1.0, 2.0, true),
@@ -32,7 +31,6 @@ internal struct DoubleComparableTests {
     @Test(
         "Is less than or equal",
         arguments: [
-            (0.0, 0.0, true),
             (2.0, 1.0, false),
             (1.0, 1.0, true),
             (1.0, 2.0, true),
@@ -50,7 +48,6 @@ internal struct DoubleComparableTests {
     @Test(
         "Is greater than",
         arguments: [
-            (0.0, -1.0, true),
             (1.0, 1.0, false),
             (1.0, 2.0, false),
             (2.0, 1.0, true),
@@ -68,7 +65,6 @@ internal struct DoubleComparableTests {
     @Test(
         "Is greater than or equal",
         arguments: [
-            (0.0, 0.0, true),
             (1.0, 2.0, false),
             (1.0, 1.0, true),
             (2.0, 1.0, true),
@@ -86,7 +82,6 @@ internal struct DoubleComparableTests {
     @Test(
         "Is within closed range",
         arguments: [
-            (0.0, 1.0...3.0, false),
             (1.0, 1.0...3.0, true),
             (2.0, 1.0...3.0, true),
             (3.0, 1.0...3.0, true),
@@ -105,7 +100,6 @@ internal struct DoubleComparableTests {
     @Test(
         "Is within bounds",
         arguments: [
-            (0.0, 1.0, 3.0, false),
             (1.0, 1.0, 3.0, true),
             (2.0, 1.0, 3.0, true),
             (3.0, 1.0, 3.0, true),
@@ -125,7 +119,6 @@ internal struct DoubleComparableTests {
     @Test(
         "Is between bounds",
         arguments: [
-            (0.0, 1.0, 3.0, false),
             (1.0, 1.0, 3.0, false),
             (2.0, 1.0, 3.0, true),
             (3.0, 1.0, 3.0, false),

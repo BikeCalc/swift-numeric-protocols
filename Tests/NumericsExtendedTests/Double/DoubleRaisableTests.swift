@@ -14,11 +14,10 @@ internal struct DoubleRaisableTests {
     @Test(
         "Is power of",
         arguments: [
-            (0.0, 0.0, true),
-            (1.0, 0.0, false),
             (1.0, 1.0, true),
             (4.0, 1.0, false),
             (4.0, 2.0, true),
+            (8.0, 2.0, true),
             (9.0, 2.0, false),
             (1.0, -1.0, true),
             (-1.0, -1.0, true),
@@ -39,9 +38,9 @@ internal struct DoubleRaisableTests {
     @Test(
         "Exponentiation succeeds",
         arguments: [
-            (2.0, 0, 1.0),
             (2.0, 1, 2.0),
-            (2.0, 2, 4.0)
+            (2.0, 2, 4.0),
+            (2.0, 3, 8.0)
         ]
     )
     internal func exponentiationSucceeds(
@@ -55,9 +54,9 @@ internal struct DoubleRaisableTests {
     @Test(
         "Exponentiation equal succeeds",
         arguments: [
-            (2.0, 0, 1.0),
             (2.0, 1, 2.0),
-            (2.0, 2, 4.0)
+            (2.0, 2, 4.0),
+            (2.0, 3, 8.0)
         ]
     )
     internal func exponentiationEqualSucceeds(
@@ -73,9 +72,9 @@ internal struct DoubleRaisableTests {
     @Test(
         "Raising to succeeds",
         arguments: [
-            (2.0, 0, 1.0),
             (2.0, 1, 2.0),
-            (2.0, 2, 4.0)
+            (2.0, 2, 4.0),
+            (2.0, 3, 8.0)
         ]
     )
     internal func raisingToSucceeds(
@@ -89,9 +88,9 @@ internal struct DoubleRaisableTests {
     @Test(
         "Raise to succeeds",
         arguments: [
-            (2.0, 0, 1.0),
             (2.0, 1, 2.0),
-            (2.0, 2, 4.0)
+            (2.0, 2, 4.0),
+            (2.0, 3, 8.0)
         ]
     )
     internal func raiseToSucceeds(
@@ -214,6 +213,22 @@ extension DoubleRaisableTests {
         power: Double
     ) {
         #expect(base ** exponent == power)
+    }
+
+    @Test(
+        "Exponentiation is not commutative",
+        arguments: [
+            (2.0, 3),
+            (3.0, 2)
+        ]
+    )
+    internal func exponentiationIsNotCommutative(
+        base: Double,
+        exponent: Double.Exponent
+    ) {
+        let power: Double = base ** exponent
+        let reversedPower: Double = Double(exponent) ** Double.Exponent(base)
+        #expect(power != reversedPower)
     }
 }
 

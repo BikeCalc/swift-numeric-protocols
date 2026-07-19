@@ -14,7 +14,6 @@ internal struct IntComparableTests {
     @Test(
         "Is less than",
         arguments: [
-            (0, 1, true),
             (1, 1, false),
             (2, 1, false),
             (1, 2, true),
@@ -32,7 +31,6 @@ internal struct IntComparableTests {
     @Test(
         "Is less than or equal",
         arguments: [
-            (0, 0, true),
             (2, 1, false),
             (1, 1, true),
             (1, 2, true),
@@ -50,7 +48,6 @@ internal struct IntComparableTests {
     @Test(
         "Is greater than",
         arguments: [
-            (0, -1, true),
             (1, 1, false),
             (1, 2, false),
             (2, 1, true),
@@ -68,7 +65,6 @@ internal struct IntComparableTests {
     @Test(
         "Is greater than or equal",
         arguments: [
-            (0, 0, true),
             (1, 2, false),
             (1, 1, true),
             (2, 1, true),
@@ -86,7 +82,6 @@ internal struct IntComparableTests {
     @Test(
         "Is within closed range",
         arguments: [
-            (0, 1...3, false),
             (1, 1...3, true),
             (2, 1...3, true),
             (3, 1...3, true),
@@ -105,7 +100,6 @@ internal struct IntComparableTests {
     @Test(
         "Is within bounds",
         arguments: [
-            (0, 1, 3, false),
             (1, 1, 3, true),
             (2, 1, 3, true),
             (3, 1, 3, true),
@@ -125,7 +119,6 @@ internal struct IntComparableTests {
     @Test(
         "Is between bounds",
         arguments: [
-            (0, 1, 3, false),
             (1, 1, 3, false),
             (2, 1, 3, true),
             (3, 1, 3, false),

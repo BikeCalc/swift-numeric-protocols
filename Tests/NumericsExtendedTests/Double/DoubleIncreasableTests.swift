@@ -14,8 +14,6 @@ internal struct DoubleIncreasableTests {
     @Test(
         "Increasing by succeeds",
         arguments: [
-            (0.0, 10.0, 0.0),
-            (10.0, 0.0, 10.0),
             (10.0, 10.0, 11.0),
             (10.0, -10.0, 9.0)
         ]
@@ -27,5 +25,36 @@ internal struct DoubleIncreasableTests {
     ) {
         let increasedValue: Double = value.increasing(by: percentage)
         #expect(increasedValue == result)
+    }
+}
+
+// MARK: - Arithmetic Rules
+
+extension DoubleIncreasableTests {
+    @Test(
+        "Increasing by zero preserves value",
+        arguments: [
+            (10.0, 10.0),
+            (-10.0, -10.0)
+        ]
+    )
+    internal func increasingByZeroPreservesValue(
+        value: Double,
+        result: Double
+    ) {
+        let increasedValue: Double = value.increasing(by: 0.0)
+        #expect(increasedValue == result)
+    }
+
+    @Test(
+        "Increasing zero returns zero",
+        arguments: [
+            10.0,
+            -10.0
+        ]
+    )
+    internal func increasingZeroReturnsZero(percentage: Double) {
+        let increasedValue: Double = 0.0.increasing(by: percentage)
+        #expect(increasedValue == 0.0)
     }
 }

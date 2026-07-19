@@ -14,7 +14,6 @@ internal struct IntDivisibleTests {
     @Test(
         "Parity predicates",
         arguments: [
-            (0, true),
             (1, false),
             (2, true),
             (-1, false),
@@ -32,8 +31,6 @@ internal struct IntDivisibleTests {
     @Test(
         "Reciprocal",
         arguments: [
-            (0, nil),
-            (-0, nil),
             (1, 1),
             (-1, -1),
             (2, nil),
@@ -50,8 +47,6 @@ internal struct IntDivisibleTests {
     @Test(
         "Is invertible",
         arguments: [
-            (0, false),
-            (-0, false),
             (1, true),
             (-1, true),
             (2, false),
@@ -68,9 +63,6 @@ internal struct IntDivisibleTests {
     @Test(
         "Is divisible by",
         arguments: [
-            (0, 0, false),
-            (0, 3, true),
-            (3, 0, false),
             (3, 1, true),
             (6, 2, true),
             (7, 2, false),
@@ -89,7 +81,6 @@ internal struct IntDivisibleTests {
     @Test(
         "Is factor of",
         arguments: [
-            (0, 3, false),
             (1, 2, true),
             (2, 6, true),
             (2, 7, false),
@@ -108,7 +99,6 @@ internal struct IntDivisibleTests {
     @Test(
         "Division succeeds",
         arguments: [
-            (0, 1, 0),
             (6, 2, 3),
             (-6, 2, -3),
             (6, -2, -3),
@@ -126,7 +116,6 @@ internal struct IntDivisibleTests {
     @Test(
         "Division equal succeeds",
         arguments: [
-            (0, 1, 0),
             (6, 2, 3),
             (-6, 2, -3),
             (6, -2, -3),
@@ -146,7 +135,6 @@ internal struct IntDivisibleTests {
     @Test(
         "Dividing by succeeds",
         arguments: [
-            (0, 1, 0),
             (6, 2, 3),
             (-6, 2, -3),
             (6, -2, -3),
@@ -164,7 +152,6 @@ internal struct IntDivisibleTests {
     @Test(
         "Divide by succeeds",
         arguments: [
-            (0, 1, 0),
             (6, 2, 3),
             (-6, 2, -3),
             (6, -2, -3),
@@ -184,11 +171,10 @@ internal struct IntDivisibleTests {
     @Test(
         "Halved succeeds",
         arguments: [
-            (0, 0),
-            (1, 0),
-            (-1, 0),
             (2, 1),
-            (-2, -1)
+            (-2, -1),
+            (4, 2),
+            (-4, -2)
         ]
     )
     internal func halvedSucceeds(
@@ -201,11 +187,10 @@ internal struct IntDivisibleTests {
     @Test(
         "Halve succeeds",
         arguments: [
-            (0, 0),
-            (1, 0),
-            (-1, 0),
             (2, 1),
-            (-2, -1)
+            (-2, -1),
+            (4, 2),
+            (-4, -2)
         ]
     )
     internal func halveSucceeds(
@@ -221,6 +206,17 @@ internal struct IntDivisibleTests {
 // MARK: - Arithmetic Rules
 
 extension IntDivisibleTests {
+    @Test(
+        "Halving below two truncates toward zero",
+        arguments: [
+            1,
+            -1
+        ]
+    )
+    internal func halvingBelowTwoTruncatesTowardZero(dividend: Int) {
+        #expect(dividend.halved() == 0)
+    }
+
     @Test(
         "Dividing zero by nonzero value returns zero",
         arguments: [
@@ -265,6 +261,21 @@ extension IntDivisibleTests {
         remainder: Int
     ) {
         #expect(dividend % divisor == remainder)
+    }
+
+    @Test(
+        "Division is not commutative",
+        arguments: [
+            (6, 2),
+            (-6, 2),
+            (6, -2)
+        ]
+    )
+    internal func divisionIsNotCommutative(
+        lhs: Int,
+        rhs: Int
+    ) {
+        #expect(lhs / rhs != rhs / lhs)
     }
 }
 
