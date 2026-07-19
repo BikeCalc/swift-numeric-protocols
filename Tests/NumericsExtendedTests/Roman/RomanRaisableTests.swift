@@ -130,7 +130,8 @@ internal struct RomanRaisableTests {
     @Test(
         "Cubed succeeds",
         arguments: [
-            (2, 8)
+            (2, 8),
+            (3, 27)
         ] as Array<(Roman, Roman)>
     )
     internal func cubedSucceeds(
@@ -143,7 +144,8 @@ internal struct RomanRaisableTests {
     @Test(
         "Cube succeeds",
         arguments: [
-            (2, 8)
+            (2, 8),
+            (3, 27)
         ] as Array<(Roman, Roman)>
     )
     internal func cubeSucceeds(

@@ -301,18 +301,11 @@ extension DoubleRaisableTests {
         #expect((base ** exponent).isNaN)
     }
 
-    @Test(
-        "NaN raised to zero returns one",
-        arguments: [
-            (Double.nan, 0, 1.0)
-        ]
-    )
-    internal func nanRaisedToZeroReturnsOne(
-        base: Double,
-        exponent: Double.Exponent,
-        power: Double
-    ) {
-        #expect(base ** exponent == power)
+    @Test("NaN raised to zero returns one")
+    internal func nanRaisedToZeroReturnsOne() {
+        let power: Double = Double.nan ** 0
+
+        #expect(power == 1.0)
     }
 
     @Test(
@@ -352,7 +345,8 @@ extension DoubleRaisableTests {
     @Test(
         "Negative infinity exponentiation preserves negative zero sign",
         arguments: [
-            (Double.negativeInfinity, -1)
+            (Double.negativeInfinity, -1),
+            (Double.negativeInfinity, -3)
         ]
     )
     internal func negativeInfinityExponentiationPreservesNegativeZeroSign(

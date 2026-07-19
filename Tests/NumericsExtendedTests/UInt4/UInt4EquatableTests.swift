@@ -34,12 +34,13 @@ extension UInt4EquatableTests {
     @Test(
         "Zero equality follows integer rules",
         arguments: [
-            (0, 0, true)
-        ]
+            (0, 0, true),
+            (0, 1, false)
+        ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func zeroEqualityFollowsIntegerRules(
-        lhs: Double,
-        rhs: Double,
+        lhs: UInt4,
+        rhs: UInt4,
         result: Bool
     ) {
         #expect(lhs.isEqual(to: rhs) == result)

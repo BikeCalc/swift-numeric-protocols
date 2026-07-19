@@ -37,12 +37,13 @@ extension IntEquatableTests {
         "Zero equality follows integer rules",
         arguments: [
             (0, 0, true),
-            (-0, 0, true)
+            (-0, 0, true),
+            (0, 1, false)
         ]
     )
     internal func zeroEqualityFollowsIntegerRules(
-        lhs: Double,
-        rhs: Double,
+        lhs: Int,
+        rhs: Int,
         result: Bool
     ) {
         #expect(lhs.isEqual(to: rhs) == result)

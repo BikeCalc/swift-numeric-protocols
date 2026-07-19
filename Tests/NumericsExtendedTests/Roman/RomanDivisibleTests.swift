@@ -185,13 +185,18 @@ internal struct RomanDivisibleTests {
 
 extension RomanDivisibleTests {
     @Test(
-        "Halving below two truncates toward zero",
+        "Halving odd values truncates toward zero",
         arguments: [
-            1
-        ] as Array<Roman>
+            (1, 0),
+            (3, 1),
+            (5, 2)
+        ] as Array<(Roman, Roman)>
     )
-    internal func halvingBelowTwoTruncatesTowardZero(dividend: Roman) {
-        #expect(dividend.halved() == 0)
+    internal func halvingOddValuesTruncatesTowardZero(
+        dividend: Roman,
+        quotient: Roman
+    ) {
+        #expect(dividend.halved() == quotient)
     }
 
     @Test(

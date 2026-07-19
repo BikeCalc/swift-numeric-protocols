@@ -207,14 +207,21 @@ internal struct IntDivisibleTests {
 
 extension IntDivisibleTests {
     @Test(
-        "Halving below two truncates toward zero",
+        "Halving odd values truncates toward zero",
         arguments: [
-            1,
-            -1
+            (1, 0),
+            (-1, 0),
+            (3, 1),
+            (-3, -1),
+            (5, 2),
+            (-5, -2)
         ]
     )
-    internal func halvingBelowTwoTruncatesTowardZero(dividend: Int) {
-        #expect(dividend.halved() == 0)
+    internal func halvingOddValuesTruncatesTowardZero(
+        dividend: Int,
+        quotient: Int
+    ) {
+        #expect(dividend.halved() == quotient)
     }
 
     @Test(

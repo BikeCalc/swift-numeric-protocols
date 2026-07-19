@@ -96,7 +96,8 @@ extension RomanAddableTests {
     @Test(
         "Addition is commutative",
         arguments: [
-            (2, 4)
+            (2, 4),
+            (3, 5)
         ] as Array<(Roman, Roman)>
     )
     internal func additionIsCommutative(

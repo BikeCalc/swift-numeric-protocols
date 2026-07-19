@@ -34,12 +34,13 @@ extension RomanEquatableTests {
     @Test(
         "Zero equality follows integer rules",
         arguments: [
-            (0, 0, true)
-        ]
+            (0, 0, true),
+            (0, 1, false)
+        ] as Array<(Roman, Roman, Bool)>
     )
     internal func zeroEqualityFollowsIntegerRules(
-        lhs: Double,
-        rhs: Double,
+        lhs: Roman,
+        rhs: Roman,
         result: Bool
     ) {
         #expect(lhs.isEqual(to: rhs) == result)

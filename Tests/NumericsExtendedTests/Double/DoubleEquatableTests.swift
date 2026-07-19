@@ -37,7 +37,8 @@ extension DoubleEquatableTests {
         "Zero equality follows floating-point rules",
         arguments: [
             (0.0, 0.0, true),
-            (-0.0, 0.0, true)
+            (-0.0, 0.0, true),
+            (0.0, 1.0, false)
         ]
     )
     internal func zeroEqualityFollowsFloatingPointRules(

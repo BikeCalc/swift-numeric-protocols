@@ -96,7 +96,8 @@ extension UInt4AddableTests {
     @Test(
         "Addition is commutative",
         arguments: [
-            (2, 4)
+            (2, 4),
+            (3, 5)
         ] as Array<(UInt4, UInt4)>
     )
     internal func additionIsCommutative(

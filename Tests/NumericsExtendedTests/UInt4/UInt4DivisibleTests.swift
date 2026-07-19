@@ -185,13 +185,18 @@ internal struct UInt4DivisibleTests {
 
 extension UInt4DivisibleTests {
     @Test(
-        "Halving below two truncates toward zero",
+        "Halving odd values truncates toward zero",
         arguments: [
-            1
-        ] as Array<UInt4>
+            (1, 0),
+            (3, 1),
+            (5, 2)
+        ] as Array<(UInt4, UInt4)>
     )
-    internal func halvingBelowTwoTruncatesTowardZero(dividend: UInt4) {
-        #expect(dividend.halved() == 0)
+    internal func halvingOddValuesTruncatesTowardZero(
+        dividend: UInt4,
+        quotient: UInt4
+    ) {
+        #expect(dividend.halved() == quotient)
     }
 
     @Test(

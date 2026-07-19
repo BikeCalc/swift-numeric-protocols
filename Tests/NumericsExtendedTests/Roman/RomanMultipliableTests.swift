@@ -155,7 +155,8 @@ extension RomanMultipliableTests {
     @Test(
         "Multiplication is commutative",
         arguments: [
-            (2, 4)
+            (2, 4),
+            (3, 5)
         ] as Array<(Roman, Roman)>
     )
     internal func multiplicationIsCommutative(
