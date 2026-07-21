@@ -319,66 +319,82 @@ extension Roman: Raisable {
 
 extension Roman: ReportableAsOverflow {
     public func addingReportingOverflow(_ rhs: Self) -> Self.Report {
-        let sum: UInt32 = .init(self.value) + .init(rhs.value)
-        let modulus: UInt32 = .init(Self.max.value) + 1
-        let partialValue: Self.Value = .init(sum % modulus)
+        let sum: Self.Value = self.value + rhs.value
+        let modulus: Self.Value = Self.max.value + 1
+        let partialValue: Self = .init(value: sum % modulus)
 
         guard sum <= Self.max.value else {
-            return (.init(value: partialValue), true)
+            return (partialValue: partialValue, overflow: true)
         }
 
-        return (.init(value: partialValue), false)
+        return (partialValue: partialValue, overflow: false)
     }
 
     public func subtractingReportingOverflow(_ rhs: Self) -> Self.Report {
-        let difference: Int32 = .init(self.value) - .init(rhs.value)
-        let modulus: Int32 = .init(Self.max.value) + 1
+        if self.value >= rhs.value {
+            let difference: Self.Value = self.value - rhs.value
+            let partialValue: Self = .init(value: difference)
 
-        guard difference >= 0 else {
-            let partialValue: Self.Value = .init((difference % modulus + modulus) % modulus)
-            return (.init(value: partialValue), true)
+            return (partialValue: partialValue, overflow: false)
+        } else {
+            let modulus: Self.Value = Self.max.value + 1
+            let distance: Self.Value = rhs.value - self.value
+            let partialValue: Self = .init(value: modulus - distance)
+
+            return (partialValue: partialValue, overflow: true)
         }
 
-        return (.init(value: .init(difference)), false)
     }
 
     public func multipliedReportingOverflow(by rhs: Self) -> Self.Report {
-        let product: UInt32 = .init(self.value) * .init(rhs.value)
-        let modulus: UInt32 = .init(Self.max.value) + 1
-        let partialValue: Self.Value = .init(product % modulus)
+        let overflow: Bool = rhs.value != 0 && self.value > Self.max.value / rhs.value
+        let modulus: Self.Value = Self.max.value + 1
 
-        guard product <= Self.max.value else {
-            return (.init(value: partialValue), true)
+        var product: Self.Value = 0
+        var addend: Self.Value = self.value
+        var multiplier: Self.Value = rhs.value
+
+        while multiplier > 0 {
+            if multiplier % 2 == 1 {
+                product = (product + addend) % modulus
+            }
+
+            multiplier /= 2
+            addend = (addend + addend) % modulus
         }
 
-        return (.init(value: partialValue), false)
+        let partialValue: Self = .init(value: product)
+
+        return (partialValue: partialValue, overflow: overflow)
     }
 
     public func dividedReportingOverflow(by rhs: Self) -> Self.Report {
         guard rhs.value != 0 else {
-            return (self, true)
+            return (partialValue: self, overflow: true)
         }
 
         let quotient: Self.Value = self.value / rhs.value
+        let partialValue: Self = .init(value: quotient)
 
-        return (.init(value: quotient), false)
+        return (partialValue: partialValue, overflow: false)
     }
 
     public func remainderReportingOverflow(dividingBy rhs: Self) -> Self.Report {
         guard rhs.value != 0 else {
-            return (self, true)
+            return (partialValue: self, overflow: true)
         }
 
         let remainder: Self.Value = self.value % rhs.value
+        let partialValue: Self = .init(value: remainder)
 
-        return (.init(value: remainder), false)
+        return (partialValue: partialValue, overflow: false)
     }
 
     public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.Report {
         switch rhs {
         case ..<2:
             let result: Self = self ** rhs
-            return (result, false)
+            return (partialValue: result, overflow: false)
 
         default:
             var result: Self = self
@@ -395,7 +411,7 @@ extension Roman: ReportableAsOverflow {
                 exponent += 1
             }
 
-            return (result, false)
+            return (partialValue: result, overflow: false)
         }
     }
 }

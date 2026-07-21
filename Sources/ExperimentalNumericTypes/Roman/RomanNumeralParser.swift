@@ -18,13 +18,17 @@ internal struct RomanNumeralParser {
             return nil
         }
         
-        let value: UInt32 = symbols.reduce(0, { $0 + .init($1.value) })
-        
-        guard value <= .init(Roman.max.value) else {
-            return nil
+        var value: Roman.Value = 0
+
+        for symbol in symbols {
+            guard value <= Roman.max.value - symbol.value else {
+                return nil
+            }
+
+            value += symbol.value
         }
         
-        return (symbols, .init(value))
+        return (symbols, value)
     }
 
     private func parseSymbols() -> Array<RomanSymbol>? {
