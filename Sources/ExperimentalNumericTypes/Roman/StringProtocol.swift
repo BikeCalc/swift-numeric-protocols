@@ -7,7 +7,7 @@
 //
 
 extension StringProtocol {
-    /// A boolean value indicating whether this instance is a roman symbol.
+    /// A boolean value indicating whether this instance is a Roman symbol.
     public var isRomanSymbol: Bool {
         guard self.isEmpty == false else {
             return false
@@ -18,7 +18,7 @@ extension StringProtocol {
         })
     }
      
-    /// A boolean value indicating whether this instance is a roman numeral.
+    /// A boolean value indicating whether this instance is a Roman numeral.
     public var isRomanNumeral: Bool {
         return RomanNumeralParser(String(self)).parse() != nil
     }

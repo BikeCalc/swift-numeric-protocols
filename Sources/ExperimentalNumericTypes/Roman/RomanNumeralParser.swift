@@ -108,10 +108,10 @@ internal struct RomanNumeralParser {
         }
         
         for index in symbols.indices.dropFirst(3) {
-            let recursion: ArraySlice<RomanSymbol> = symbols[index - 3...index]
-            let repeatedSymbol: RomanSymbol = recursion[recursion.startIndex]
+            let sequence: ArraySlice<RomanSymbol> = symbols[index - 3...index]
+            let repeatedSymbol: RomanSymbol = sequence[sequence.startIndex]
             
-            if recursion.dropFirst().allSatisfy({ $0 == repeatedSymbol }) {
+            if sequence.dropFirst().allSatisfy({ $0 == repeatedSymbol }) {
                 return false
             }
         }

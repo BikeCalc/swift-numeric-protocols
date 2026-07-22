@@ -9,7 +9,7 @@
 import CoreNumericProtocols
 import StandardNumericProtocols
 
-/// A representation of a roman symbol.
+/// A representation of a Roman symbol.
 internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
     /// The symbol representing the Arabic numeral zero, or nulla.
     case N
@@ -112,13 +112,10 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
         }
     }
     
-    /// The maxium amount of times a repeatable case can be repeated in succession.
-    internal static let maxRecursion: Int = 3
-    
     /// Concatenates this case with the specified value.
     ///
     /// - parameter rhs: The value on the right hand side.
-    /// - throws: A roman symbol error if is unconcatenable.
+    /// - throws: A Roman symbol error if is unconcatenable.
     /// - returns: A concatenated value.
     internal func concatenate(with rhs: Self) throws -> Self {
         switch (self, rhs) {
@@ -141,7 +138,7 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
     
     /// Separates this case into an array of cases.
     ///
-    /// - throws: A roman symbol error if is inseparable.
+    /// - throws: A Roman symbol error if is inseparable.
     /// - returns: An array of separated values.
     internal func separate() throws -> [Self] {
         switch self {

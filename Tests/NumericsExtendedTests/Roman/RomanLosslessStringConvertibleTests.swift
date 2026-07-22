@@ -24,11 +24,14 @@ internal struct RomanLosslessStringConvertibleTests {
             ("III", 3),
             ("IV", 4),
             ("IX", 9),
+            ("XXX", 30),
             ("XVI", 16),
             ("XLIV", 44),
             ("XC", 90),
+            ("CCC", 300),
             ("CD", 400),
             ("CM", 900),
+            ("MMM", 3000),
             ("MMMCMXCIX", 3999)
         ] as Array<(String, Roman)>
     )
@@ -50,8 +53,11 @@ internal struct RomanLosslessStringConvertibleTests {
             "NN",
             "IIII",
             "VV",
+            "XXXX",
             "LL",
+            "CCCC",
             "DD",
+            "MMMM",
             "IVIV",
             "IIV",
             "IXI",
@@ -59,11 +65,9 @@ internal struct RomanLosslessStringConvertibleTests {
             "VX",
             "IC",
             "IL",
-            "XXXX",
             "XD",
             "XM",
             "MCMC",
-            "MMMM",
             "ABC",
             "iv"
         ]

@@ -6,11 +6,11 @@
 // Licensed under Apache License v2.0 with Runtime Library Exception
 //
 
-/// A representation of a roman symbol error.
+/// A representation of a Roman symbol error.
 internal enum RomanSymbolError: Error {
-    /// The roman symbol is unconcatenable.
+    /// The Roman symbol is unconcatenable.
     case isUnconcatenable
     
-    /// The roman symbol is inseparable.
+    /// The Roman symbol is inseparable.
     case isInseparable
 }

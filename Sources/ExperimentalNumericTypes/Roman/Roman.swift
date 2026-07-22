@@ -11,7 +11,7 @@ import CoreNumericProtocols
 import StandardNumericProtocols
 import StandardNumericTypes
 
-/// A representation of a roman numeral.
+/// A representation of a Roman numeral.
 public struct Roman {
     /// The underlying value.
     internal typealias Value = UInt16
