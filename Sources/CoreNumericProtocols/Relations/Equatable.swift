@@ -14,7 +14,7 @@ extension Equatable {
     public func isEqual(to rhs: Self) -> Bool {
         return self == rhs
     }
-    
+
     /// Returns a boolean value indicating whether this value is unequal to the specified value.
     ///
     /// - parameter rhs: Another value to compare.

@@ -25,7 +25,7 @@ extension Negateable {
 	public var isSigned: Bool {
 		return true
 	}
-	
+
 	/// Returns a boolean value indicating whether this value is the opposite of the specified value.
 	///
 	/// ```swift
@@ -38,7 +38,7 @@ extension Negateable {
 	public func isOpposite(of other: Self) -> Bool {
 		return self == other.negating()
 	}
-	
+
 	/// Returns the additive inverse of this value.
 	///
 	/// ```swift
@@ -50,7 +50,7 @@ extension Negateable {
 	public func negating() -> Self {
 		return -self
 	}
-	
+
 	/// Replaces this value with its additive inverse.
 	///
 	/// ```swift
@@ -75,7 +75,7 @@ where Self: Comparable & RepresentableByZero {
     public var isNegative: Bool {
         return self < .zero
     }
-    
+
     /// A boolean value indicating whether this value is positive.
     ///
     /// ```swift

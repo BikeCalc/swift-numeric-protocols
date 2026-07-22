@@ -15,10 +15,10 @@ where Self: Divisible {
         guard self.isInvertible else {
             return nil
         }
-        
+
         return self
     }
-    
+
     /// A boolean value indicating whether this instance is invertible.
     public var isInvertible: Bool {
         return self == 1

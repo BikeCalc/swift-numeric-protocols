@@ -37,7 +37,7 @@ extension Addable {
     public func adding(_ addend: Self) -> Self {
         return self + addend
     }
-    
+
 	/// Adds the specified value to this value and produces the sum.
     ///
     /// ```swift

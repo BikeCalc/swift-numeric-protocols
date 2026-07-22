@@ -28,7 +28,7 @@ internal struct DoubleRepresentableByInfinityTests {
         #expect(value.isFinite == isFinite)
         #expect(value.isInfinite == isInfinite)
     }
-    
+
     @Test("Negative infinity equals negated infinity")
     internal func negativeInfinityEqualsNegatedInfinity() {
         #expect(Double.negativeInfinity == -Double.infinity)

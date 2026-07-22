@@ -493,7 +493,7 @@ extension Int4: ReportableAsOverflow {
     public func addingReportingOverflow(_ rhs: Self) -> Self.Report {
         let sum: Self.Value = self.value &+ rhs.value
         let partialValue: Self = .init(truncatingIfNeeded: sum)
-        
+
         let overflow: Bool = if rhs.value > 0 {
             self.value > Self.max.value - rhs.value
         } else if rhs.value < 0 {

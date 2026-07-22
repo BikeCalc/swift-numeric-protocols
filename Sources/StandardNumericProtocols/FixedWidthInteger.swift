@@ -21,22 +21,22 @@ where Self: ReportableAsOverflow {
         case ..<2:
             let result: Self = self ** rhs
             return (result, false)
-        
+
         default:
             var result: Self = self
             var exponent: Self.Exponent = 2
-            
+
             while exponent <= rhs {
                 let report: Self.Report = result.multipliedReportingOverflow(by: self)
-                
+
                 guard report.overflow == false else {
                     return report
                 }
-                
+
                 result = report.partialValue
                 exponent += 1
             }
-            
+
             return (result, false)
         }
     }

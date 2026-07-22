@@ -16,43 +16,43 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
 
     /// The symbol representing the Arabic numeral one.
     case I
-    
+
     /// The symbol representing the Arabic numeral four.
     case IV
 
     /// The symbol representing the Arabic numeral five.
     case V
-    
+
     /// The symbol representing the Arabic numeral nine.
     case IX
 
     /// The symbol representing the Arabic numeral ten.
     case X
-    
+
     /// The symbol representing the Arabic numeral forty.
     case XL
 
     /// The symbol representing the Arabic numeral fifty.
     case L
-    
+
     /// The symbol representing the Arabic numeral ninety.
     case XC
 
     /// The symbol representing the Arabic numeral one hundred.
     case C
-    
+
     /// The symbol representing the Arabic numeral four hundred.
     case CD
 
     /// The symbol representing the Arabic numeral five hundred.
     case D
-    
+
     /// The symbol representing the Arabic numeral nine hundred.
     case CM
 
     /// The symbol representing the Arabic numeral one thousand.
     case M
-    
+
     /// The underlying value of this type.
     internal var value: Roman.Value {
         switch self {
@@ -98,7 +98,7 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
             return 1000
         }
     }
-    
+
     /// A boolean value indicating whether this case is repeatable.
     ///
     /// The letters I, X, C and M can be repeated thrice in succession.
@@ -111,7 +111,7 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
             return false
         }
     }
-    
+
     /// Concatenates this case with the specified value.
     ///
     /// - parameter rhs: The value on the right hand side.
@@ -135,7 +135,7 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
             throw RomanSymbolError.isUnconcatenable
         }
     }
-    
+
     /// Separates this case into an array of cases.
     ///
     /// - throws: A Roman symbol error if is inseparable.
@@ -158,7 +158,7 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
             throw RomanSymbolError.isInseparable
         }
     }
-    
+
     /// Returns a boolean value indicating whether this case is subtractable from the specified value.
     ///
     /// If a lower value digit is written to the left of a higher value digit, it is subtracted.

@@ -21,7 +21,7 @@ where Self: Divisible {
         let remainder: Self = self % 2
         return remainder == 0
     }
-    
+
     /// A boolean value indicating whether this value is odd.
     ///
     /// ```swift
@@ -54,7 +54,7 @@ where Self: Raisable, Self.Exponent: BinaryInteger {
             return 1
         case 1:
             return lhs
-        
+
         default:
             var result: Self = lhs
             var exponent: Self.Exponent = 2

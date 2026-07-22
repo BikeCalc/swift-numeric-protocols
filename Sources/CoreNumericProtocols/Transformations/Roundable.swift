@@ -10,7 +10,7 @@
 public protocol Roundable {
     /// The type used to describe the rounding precision.
     associatedtype DecimalPlace
-    
+
     /// Returns this instance rounded to the specified approximate decimal precision.
     ///
     /// This operation uses the type's native binary floating-point representation.

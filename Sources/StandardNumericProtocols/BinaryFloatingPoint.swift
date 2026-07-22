@@ -40,11 +40,11 @@ where Self: Divisible & Multipliable {
         if self == 0 && other == 0 {
             return true
         }
-        
+
         guard other != 0 else {
             return false
         }
-        
+
         return (self % other) == 0
     }
 }
@@ -56,10 +56,10 @@ where Self: Divisible {
         guard self.isInvertible else {
             return nil
         }
-        
+
         return 1 / self
     }
-    
+
     /// A boolean value indicating whether this instance is invertible.
     public var isInvertible: Bool {
         return self.isZero == false
@@ -112,7 +112,7 @@ where Self: Roundable, Self.DecimalPlace: UnsignedInteger {
             divisor *= 10
             remaining -= 1
         }
-        
+
         return (self * .init(divisor)).rounded(.toNearestOrAwayFromZero) / .init(divisor)
     }
 }
@@ -140,7 +140,7 @@ where Self: Truncatable, Self.DecimalPlace: UnsignedInteger {
             divisor *= 10
             remaining -= 1
         }
-        
+
         return (self * .init(divisor)).rounded(.towardZero) / .init(divisor)
     }
 }

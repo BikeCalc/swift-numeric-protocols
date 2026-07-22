@@ -215,7 +215,7 @@ extension DoubleDivisibleTests {
     ) {
         #expect(dividend / 1.0 == quotient)
     }
-    
+
     @Test(
         "Remainder follows dividend sign",
         arguments: [

@@ -24,10 +24,10 @@ where Self: Divisible {
         guard other != 0 else {
             return false
         }
-        
+
         return self % other == 0
     }
-    
+
     /// Returns a boolean value indicating whether this value is a factor of the specified value.
     ///
     /// ```swift
@@ -41,10 +41,10 @@ where Self: Divisible {
         guard self != 0 else {
             return false
         }
-        
+
         return (other % self) == 0
     }
-    
+
     /// Returns this value halved.
     ///
     /// ```swift
@@ -56,7 +56,7 @@ where Self: Divisible {
     public func halved() -> Self {
         return self / 2
     }
-    
+
     /// Halves this value.
     ///
     /// ```swift
@@ -83,7 +83,7 @@ where Self: Multipliable {
     public func doubled() -> Self {
         return self * 2
     }
-    
+
     /// Doubles this value.
     ///
     /// ```swift
@@ -117,21 +117,21 @@ where Self: Raisable {
             return self == 1
         default:
             var number: Self = self
-            
+
             while number > 1 && number.isDivisible(by: other) {
                 let quotient = number / other
-                
+
                 guard quotient != number else {
                     return false
                 }
-                
+
                 number = quotient
             }
-            
+
             return number == 1
         }
     }
-    
+
     /// Returns a boolean value indicating whether this value is a power of the specified value.
     ///
     /// ```swift
@@ -152,25 +152,25 @@ where Self: Raisable {
             return self == 1
         default:
             var number: Self = self
-            
+
             while number.isDivisible(by: other) {
                 let quotient = number / other
-                
+
                 guard quotient != number else {
                     return false
                 }
-                
+
                 number = quotient
-                
+
                 if number == 1 {
                     return true
                 }
             }
-            
+
             return number == 1
         }
     }
-    
+
     /// Returns the result of raising this value to its square.
     ///
     /// ```swift
@@ -183,7 +183,7 @@ where Self: Raisable {
     where Self.Exponent: ExpressibleByIntegerLiteral {
         return self ** 2
     }
-    
+
     /// Raises this value to its square.
     ///
     /// ```swift
@@ -196,7 +196,7 @@ where Self: Raisable {
     where Self.Exponent: ExpressibleByIntegerLiteral {
         self **= 2
     }
-    
+
     /// Returns the result of raising this value to its cube.
     ///
     /// ```swift
@@ -209,7 +209,7 @@ where Self: Raisable {
     where Self.Exponent: ExpressibleByIntegerLiteral {
         return self ** 3
     }
-    
+
     /// Raises this value to its cube.
     ///
     /// ```swift

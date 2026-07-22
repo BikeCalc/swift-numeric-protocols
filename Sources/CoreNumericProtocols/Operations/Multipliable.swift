@@ -13,7 +13,7 @@ public protocol Multipliable: Equatable {
     /// - parameter other: The value to test.
     /// - returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
     func isMultiple(of other: Self) -> Bool
-    
+
     /// Returns the product of multiplying the two specified values.
     ///
     /// - parameter lhs: The multiplicand.
@@ -30,7 +30,7 @@ extension Multipliable {
 	public static func *= (_ lhs: inout Self, _ rhs: Self) {
 		lhs = lhs * rhs
 	}
-	
+
     /// Returns the product of multiplying this value by the specified value.
     ///
     /// ```swift
@@ -43,7 +43,7 @@ extension Multipliable {
     public func multiplying(by multiplicator: Self) -> Self {
         return self * multiplicator
     }
-    
+
     /// Multiplies this value by the specified value and produces the product.
     ///
     /// ```swift

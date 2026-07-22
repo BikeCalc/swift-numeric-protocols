@@ -12,12 +12,12 @@ extension StringProtocol {
         guard self.isEmpty == false else {
             return false
         }
-        
+
         return RomanSymbol.allCases.contains(where: { (symbol) in
             symbol.rawValue == self
         })
     }
-     
+
     /// A boolean value indicating whether this instance is a Roman numeral.
     public var isRomanNumeral: Bool {
         return RomanNumeralParser(String(self)).parse() != nil

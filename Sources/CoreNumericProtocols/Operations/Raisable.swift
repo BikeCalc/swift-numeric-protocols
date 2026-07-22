@@ -12,13 +12,13 @@ import CoreNumericOperators
 public protocol Raisable: Equatable {
     /// The type used to represent exponents.
     associatedtype Exponent
-    
+
     /// Returns a boolean value indicating whether this value is a power of the specified value.
     ///
     /// - parameter other: The value to test.
     /// - returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
     func isPower(of other: Self) -> Bool
-    
+
     /// Returns the power of raising the first specified value to the second.
 	///
     /// - parameter lhs: The base.
@@ -35,7 +35,7 @@ extension Raisable {
     public static func **= (_ lhs: inout Self, _ rhs: Self.Exponent) {
 		lhs = lhs ** rhs
     }
-    
+
 	/// Returns the power of raising this value to the specified value.
     ///
     /// ```swift
@@ -48,7 +48,7 @@ extension Raisable {
     public func raising(to exponent: Self.Exponent) -> Self {
         return self ** exponent
     }
-    
+
 	/// Raises this value to the specified value and produces the power.
     ///
     /// ```swift

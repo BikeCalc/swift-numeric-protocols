@@ -10,29 +10,29 @@
 public protocol Divisible: Equatable {
     /// Returns the reciprocal of this instance.
     var reciprocal: Self? { get }
-    
+
     /// A boolean value indicating whether this instance is invertible.
     var isInvertible: Bool { get }
-    
+
     /// Returns a boolean value indicating whether this value is divisible by the specified value.
     ///
     /// - parameter other: The value to test.
     /// - returns: Returns `true` if this value is divisible by the specified value, and `false` otherwise.
     func isDivisible(by other: Self) -> Bool
-    
+
     /// Returns a boolean value indicating whether this value is a factor of the specified value.
     ///
     /// - parameter other: The value to test.
     /// - returns: Returns `true` if this value is a factor of the specified value, and `false` otherwise.
     func isFactor(of other: Self) -> Bool
-    
+
 	/// Returns the quotient of dividing the first specified value by the second.
 	///
 	/// - parameter lhs: The dividend.
 	/// - parameter rhs: The divisor.
 	/// - returns: The quotient.
 	static func / (_ lhs: Self, _ rhs: Self) -> Self
-	
+
 	/// Returns the remainder of dividing the first specified value by the second.
 	///
 	/// - parameter lhs: The dividend.
@@ -49,7 +49,7 @@ extension Divisible {
     public static func /= (_ lhs: inout Self, _ rhs: Self) {
         lhs = lhs / rhs
     }
-	
+
 	/// Divides the first specified value by the second and stores the remainder in the left-hand-side variable.
 	///
 	/// - parameter lhs: The dividend.
@@ -57,7 +57,7 @@ extension Divisible {
 	public static func %= (_ lhs: inout Self, _ rhs: Self) {
 		lhs = lhs % rhs
 	}
-    
+
     /// Returns the quotient of dividing this value by the specified value.
     ///
     /// ```swift
@@ -70,7 +70,7 @@ extension Divisible {
     public func dividing(by divisor: Self) -> Self {
         return self / divisor
     }
-    
+
 	/// Divides this value by the specified value and produces the quotient.
     ///
     /// ```swift

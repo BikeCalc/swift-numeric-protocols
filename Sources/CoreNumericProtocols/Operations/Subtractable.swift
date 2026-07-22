@@ -24,7 +24,7 @@ extension Subtractable {
 	public static func -= (_ lhs: inout Self, _ rhs: Self) {
 		lhs = lhs - rhs
 	}
-	
+
     /// Returns the difference of subtracting the specified value from this value.
     ///
     /// ```swift
@@ -37,7 +37,7 @@ extension Subtractable {
     public func subtracting(_ subtrahend: Self) -> Self {
         return self - subtrahend
     }
-    
+
     /// Subtracts the specified value from this value and produces the difference.
     ///
     /// ```swift

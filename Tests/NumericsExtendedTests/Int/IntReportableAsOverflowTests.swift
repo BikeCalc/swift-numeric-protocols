@@ -30,11 +30,11 @@ internal struct IntReportableAsOverflowTests {
         overflow: Bool
     ) {
         let report: Int.Report = augend.addingReportingOverflow(addend)
-        
+
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
     }
-    
+
     @Test(
         "Subtracting reporting overflow",
         arguments: [
@@ -54,11 +54,11 @@ internal struct IntReportableAsOverflowTests {
         overflow: Bool
     ) {
         let report: Int.Report = minuend.subtractingReportingOverflow(subtrahend)
-        
+
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
     }
-    
+
     @Test(
         "Multiplied reporting overflow",
         arguments: [
@@ -77,11 +77,11 @@ internal struct IntReportableAsOverflowTests {
         overflow: Bool
     ) {
         let report: Int.Report = multiplicand.multipliedReportingOverflow(by: multiplier)
-        
+
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
     }
-    
+
     @Test(
         "Divided reporting overflow",
         arguments: [
@@ -100,11 +100,11 @@ internal struct IntReportableAsOverflowTests {
         overflow: Bool
     ) {
         let report: Int.Report = dividend.dividedReportingOverflow(by: divisor)
-        
+
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
     }
-    
+
     @Test(
         "Remainder reporting overflow",
         arguments: [
@@ -123,11 +123,11 @@ internal struct IntReportableAsOverflowTests {
         overflow: Bool
     ) {
         let report: Int.Report = dividend.remainderReportingOverflow(dividingBy: divisor)
-        
+
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
     }
-    
+
     @Test(
         "Raised reporting overflow",
         arguments: [
@@ -150,7 +150,7 @@ internal struct IntReportableAsOverflowTests {
         overflow: Bool
     ) {
         let report: Int.Report = base.raisedReportingOverflow(to: exponent)
-        
+
         #expect(report.partialValue == partialValue)
         #expect(report.overflow == overflow)
     }

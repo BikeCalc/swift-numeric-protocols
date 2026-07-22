@@ -10,7 +10,7 @@
 internal enum RomanSymbolError: Error {
     /// The Roman symbol is unconcatenable.
     case isUnconcatenable
-    
+
     /// The Roman symbol is inseparable.
     case isInseparable
 }

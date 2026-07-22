@@ -10,7 +10,7 @@
 public protocol Truncatable {
     /// The type used to describe the truncation precision.
     associatedtype DecimalPlace
-    
+
     /// Returns this instance truncated to the specified approximate decimal precision.
     ///
     /// This operation uses the type's native binary floating-point representation.

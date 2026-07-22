@@ -252,7 +252,7 @@ extension IntDivisibleTests {
     ) {
         #expect(dividend / 1 == quotient)
     }
-    
+
     @Test(
         "Remainder follows dividend sign",
         arguments: [

@@ -27,7 +27,7 @@ internal struct IntComparableTests {
     ) {
         #expect(lhs.isLess(than: rhs) == result)
     }
-    
+
     @Test(
         "Is less than or equal",
         arguments: [
@@ -44,7 +44,7 @@ internal struct IntComparableTests {
     ) {
         #expect(lhs.isLessThanOrEqual(to: rhs) == result)
     }
-    
+
     @Test(
         "Is greater than",
         arguments: [
@@ -61,7 +61,7 @@ internal struct IntComparableTests {
     ) {
         #expect(lhs.isGreater(than: rhs) == result)
     }
-    
+
     @Test(
         "Is greater than or equal",
         arguments: [
@@ -78,7 +78,7 @@ internal struct IntComparableTests {
     ) {
         #expect(lhs.isGreaterThanOrEqual(to: rhs) == result)
     }
-    
+
     @Test(
         "Is within closed range",
         arguments: [
@@ -96,7 +96,7 @@ internal struct IntComparableTests {
     ) {
         #expect(value.isWithin(range) == result)
     }
-    
+
     @Test(
         "Is within bounds",
         arguments: [
@@ -115,7 +115,7 @@ internal struct IntComparableTests {
     ) {
         #expect(value.isWithin(lowerBound, through: upperBound) == result)
     }
-    
+
     @Test(
         "Is between bounds",
         arguments: [

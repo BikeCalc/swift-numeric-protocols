@@ -14,7 +14,7 @@ extension Comparable {
     public func isLess(than rhs: Self) -> Bool {
         return self < rhs
     }
-    
+
     /// Returns a boolean value indicating whether this value is less than or equal to the specified value.
     ///
     /// - parameter rhs: Another value to compare.
@@ -22,7 +22,7 @@ extension Comparable {
     public func isLessThanOrEqual(to rhs: Self) -> Bool {
         return self <= rhs
     }
-    
+
     /// Returns a boolean value indicating whether this value is greater than the specified value.
     ///
     /// - parameter rhs: Another value to compare.
@@ -30,7 +30,7 @@ extension Comparable {
     public func isGreater(than rhs: Self) -> Bool {
         return self > rhs
     }
-    
+
     /// Returns a boolean value indicating whether this value is greater than or equal to the specified value.
     ///
     /// - parameter rhs: Another value to compare.
@@ -38,7 +38,7 @@ extension Comparable {
     public func isGreaterThanOrEqual(to rhs: Self) -> Bool {
         return self >= rhs
     }
-	
+
 	/// Returns a boolean value indicating whether this value is within a specified closed range.
 	///
 	/// ```swift
@@ -52,7 +52,7 @@ extension Comparable {
 	public func isWithin(_ closedRange: ClosedRange<Self>) -> Bool {
 		return closedRange ~= self
 	}
-	
+
 	/// Returns a boolean value indicating whether this value is within two specified values.
 	///
 	/// ```swift
@@ -67,12 +67,12 @@ extension Comparable {
 	/// - Warning: The lower bound value must be smaller than the upper bound value.
 	public func isWithin(_ lowerBound: Self, through upperBound: Self) -> Bool {
 		precondition(lowerBound < upperBound, "Lower bound must be less than upper bound.")
-		
+
 		let closedRange: ClosedRange<Self> = lowerBound...upperBound
-		
+
 		return self.isWithin(closedRange)
 	}
-    
+
     /// Returns a boolean value indicating whether this value is between two specified values.
     ///
     /// ```swift
@@ -87,7 +87,7 @@ extension Comparable {
     /// - Warning: The lower bound value must be smaller than the upper bound value.
     public func isBetween(_ lowerBound: Self, and upperBound: Self) -> Bool {
         precondition(lowerBound < upperBound, "Lower bound must be less than upper bound.")
-        
+
         return lowerBound < self && self < upperBound
     }
 }

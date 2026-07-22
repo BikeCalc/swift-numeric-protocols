@@ -10,7 +10,7 @@
 public protocol RepresentableByNaN {
 	/// A boolean value indicating whether this instance is not a number.
 	var isNaN: Bool { get }
-    
+
 	/// The representation of not a number.
 	static var nan: Self { get }
 }
