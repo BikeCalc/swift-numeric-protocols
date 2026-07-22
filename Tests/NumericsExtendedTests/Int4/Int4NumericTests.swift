@@ -1,0 +1,55 @@
+//
+// Int4NumericTests.swift
+// NumericsExtendedTests
+//
+// Copyright © 2021-2026 Alexandre H. Saad
+// Licensed under Apache License v2.0 with Runtime Library Exception
+//
+
+import Testing
+@testable import NumericsExtended
+
+@Suite("Int4 Numeric Tests")
+internal struct Int4NumericTests {
+    @Test(
+        "Magnitude succeeds",
+        arguments: [
+            (-8, 8),
+            (-1, 1),
+            (0, 0),
+            (7, 7)
+        ] as Array<(Int4, UInt4)>
+    )
+    internal func magnitudeSucceeds(
+        value: Int4,
+        magnitude: UInt4
+    ) {
+        #expect(value.magnitude == magnitude)
+    }
+
+    @Test(
+        "Initialized exactly succeeds",
+        arguments: [
+            (-8, -8),
+            (0, 0),
+            (7, 7)
+        ] as Array<(Int, Int4)>
+    )
+    internal func initializedExactlySucceeds(
+        source: Int,
+        value: Int4
+    ) {
+        #expect(Int4(exactly: source) == value)
+    }
+
+    @Test(
+        "Initialized exactly fails",
+        arguments: [
+            -9,
+            8
+        ]
+    )
+    internal func initializedExactlyFails(source: Int) {
+        #expect(Int4(exactly: source) == nil)
+    }
+}

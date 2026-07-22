@@ -119,6 +119,38 @@ internal struct RomanDivisibleTests {
     }
 
     @Test(
+        "Remainder succeeds",
+        arguments: [
+            (6, 2, 0),
+            (7, 2, 1)
+        ] as Array<(Roman, Roman, Roman)>
+    )
+    internal func remainderSucceeds(
+        dividend: Roman,
+        divisor: Roman,
+        remainder: Roman
+    ) {
+        #expect(dividend % divisor == remainder)
+    }
+
+    @Test(
+        "Remainder equal succeeds",
+        arguments: [
+            (6, 2, 0),
+            (7, 2, 1)
+        ] as Array<(Roman, Roman, Roman)>
+    )
+    internal func remainderEqualSucceeds(
+        dividend: Roman,
+        divisor: Roman,
+        remainder: Roman
+    ) {
+        var runningRemainder: Roman = dividend
+        runningRemainder %= divisor
+        #expect(runningRemainder == remainder)
+    }
+
+    @Test(
         "Dividing by succeeds",
         arguments: [
             (6, 2, 3),
@@ -208,6 +240,28 @@ extension RomanDivisibleTests {
     )
     internal func dividingZeroByNonzeroValueReturnsZero(divisor: Roman) {
         #expect(0 / divisor == 0)
+    }
+
+    @Test(
+        "Remainder by one returns zero",
+        arguments: [
+            1,
+            5
+        ] as Array<Roman>
+    )
+    internal func remainderByOneReturnsZero(dividend: Roman) {
+        #expect(dividend % 1 == 0)
+    }
+
+    @Test(
+        "Remainder by self returns zero",
+        arguments: [
+            1,
+            5
+        ] as Array<Roman>
+    )
+    internal func remainderBySelfReturnsZero(value: Roman) {
+        #expect(value % value == 0)
     }
 
     @Test(

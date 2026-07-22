@@ -1,5 +1,5 @@
 //
-// IntNegateableTests.swift
+// Int4NegateableTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,19 +9,19 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Int Negateable Tests")
-internal struct IntNegateableTests {
+@Suite("Int4 Negateable Tests")
+internal struct Int4NegateableTests {
     @Test(
         "Negation succeeds",
         arguments: [
             (1, -1),
             (-1, 1),
             (5, -5)
-        ]
+        ] as Array<(Int4, Int4)>
     )
     internal func negationSucceeds(
-        value: Int,
-        negation: Int
+        value: Int4,
+        negation: Int4
     ) {
         #expect(-value == negation)
     }
@@ -32,11 +32,11 @@ internal struct IntNegateableTests {
             (1, -1),
             (-1, 1),
             (5, -5)
-        ]
+        ] as Array<(Int4, Int4)>
     )
     internal func negatingSucceeds(
-        value: Int,
-        negation: Int
+        value: Int4,
+        negation: Int4
     ) {
         #expect(value.negating() == negation)
     }
@@ -47,13 +47,13 @@ internal struct IntNegateableTests {
             (1, -1),
             (-1, 1),
             (5, -5)
-        ]
+        ] as Array<(Int4, Int4)>
     )
     internal func negateSucceeds(
-        value: Int,
-        negation: Int
+        value: Int4,
+        negation: Int4
     ) {
-        var runningValue: Int = value
+        var runningValue: Int4 = value
         runningValue.negate()
         #expect(runningValue == negation)
     }
@@ -63,10 +63,10 @@ internal struct IntNegateableTests {
         arguments: [
             (1, false),
             (-1, true)
-        ]
+        ] as Array<(Int4, Bool)>
     )
     internal func isNegative(
-        value: Int,
+        value: Int4,
         result: Bool
     ) {
         #expect(value.isNegative == result)
@@ -77,10 +77,10 @@ internal struct IntNegateableTests {
         arguments: [
             (-1, false),
             (1, true)
-        ]
+        ] as Array<(Int4, Bool)>
     )
     internal func isPositive(
-        value: Int,
+        value: Int4,
         result: Bool
     ) {
         #expect(value.isPositive == result)
@@ -91,10 +91,10 @@ internal struct IntNegateableTests {
         arguments: [
             (-1, true),
             (1, true)
-        ]
+        ] as Array<(Int4, Bool)>
     )
     internal func isSigned(
-        value: Int,
+        value: Int4,
         result: Bool
     ) {
         #expect(value.isSigned == result)
@@ -106,29 +106,29 @@ internal struct IntNegateableTests {
             (1, 1, false),
             (-1, 1, true),
             (1, -1, true)
-        ]
+        ] as Array<(Int4, Int4, Bool)>
     )
     internal func isOpposite(
-        value: Int,
-        other: Int,
+        value: Int4,
+        other: Int4,
         result: Bool
     ) {
         #expect(value.isOpposite(of: other) == result)
     }
 }
 
-// MARK: - Arithmetic Rules
+// MARK: - Integer Rules
 
-extension IntNegateableTests {
+extension Int4NegateableTests {
     @Test(
         "Zero sign predicates follow integer rules",
         arguments: [
             (0, false, false, true),
             (-0, false, false, true)
-        ]
+        ] as Array<(Int4, Bool, Bool, Bool)>
     )
     internal func zeroSignPredicatesFollowIntegerRules(
-        value: Int,
+        value: Int4,
         isNegative: Bool,
         isPositive: Bool,
         isSigned: Bool
@@ -145,11 +145,11 @@ extension IntNegateableTests {
             (-0, 0, true),
             (0, -0, true),
             (-0, -0, true)
-        ]
+        ] as Array<(Int4, Int4, Bool)>
     )
     internal func zeroOppositeFollowsIntegerRules(
-        value: Int,
-        other: Int,
+        value: Int4,
+        other: Int4,
         result: Bool
     ) {
         #expect(value.isOpposite(of: other) == result)
@@ -160,9 +160,9 @@ extension IntNegateableTests {
         arguments: [
             0,
             -0
-        ]
+        ] as Array<Int4>
     )
-    internal func negatingZeroReturnsZero(value: Int) {
+    internal func negatingZeroReturnsZero(value: Int4) {
         #expect(value.negating() == 0)
     }
 
@@ -174,9 +174,9 @@ extension IntNegateableTests {
             -1,
             5,
             -5
-        ]
+        ] as Array<Int4>
     )
-    internal func negatingTwiceReturnsOriginalValue(value: Int) {
+    internal func negatingTwiceReturnsOriginalValue(value: Int4) {
         #expect(value.negating().negating() == value)
     }
 
@@ -188,9 +188,9 @@ extension IntNegateableTests {
             -1,
             5,
             -5
-        ]
+        ] as Array<Int4>
     )
-    internal func negatingFollowsAdditiveInverseRule(value: Int) {
+    internal func negatingFollowsAdditiveInverseRule(value: Int4) {
         #expect(value + value.negating() == 0)
     }
 }

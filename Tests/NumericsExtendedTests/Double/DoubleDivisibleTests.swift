@@ -116,6 +116,38 @@ internal struct DoubleDivisibleTests {
     }
 
     @Test(
+        "Remainder succeeds",
+        arguments: [
+            (6.0, 2.0, 0.0),
+            (7.0, 2.0, 1.0)
+        ]
+    )
+    internal func remainderSucceeds(
+        dividend: Double,
+        divisor: Double,
+        remainder: Double
+    ) {
+        #expect(dividend % divisor == remainder)
+    }
+
+    @Test(
+        "Remainder equal succeeds",
+        arguments: [
+            (6.0, 2.0, 0.0),
+            (7.0, 2.0, 1.0)
+        ]
+    )
+    internal func remainderEqualSucceeds(
+        dividend: Double,
+        divisor: Double,
+        remainder: Double
+    ) {
+        var runningRemainder: Double = dividend
+        runningRemainder %= divisor
+        #expect(runningRemainder == remainder)
+    }
+
+    @Test(
         "Dividing by succeeds",
         arguments: [
             (6.0, 2.0, 3.0),
@@ -214,6 +246,32 @@ extension DoubleDivisibleTests {
         quotient: Double
     ) {
         #expect(dividend / 1.0 == quotient)
+    }
+
+    @Test(
+        "Remainder by one returns zero",
+        arguments: [
+            1.0,
+            -1.0,
+            5.0,
+            -5.0
+        ]
+    )
+    internal func remainderByOneReturnsZero(dividend: Double) {
+        #expect(dividend % 1.0 == 0.0)
+    }
+
+    @Test(
+        "Remainder by self returns zero",
+        arguments: [
+            1.0,
+            -1.0,
+            5.0,
+            -5.0
+        ]
+    )
+    internal func remainderBySelfReturnsZero(value: Double) {
+        #expect(value % value == 0.0)
     }
 
     @Test(

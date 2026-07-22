@@ -119,6 +119,38 @@ internal struct UInt4DivisibleTests {
     }
 
     @Test(
+        "Remainder succeeds",
+        arguments: [
+            (6, 2, 0),
+            (7, 2, 1)
+        ] as Array<(UInt4, UInt4, UInt4)>
+    )
+    internal func remainderSucceeds(
+        dividend: UInt4,
+        divisor: UInt4,
+        remainder: UInt4
+    ) {
+        #expect(dividend % divisor == remainder)
+    }
+
+    @Test(
+        "Remainder equal succeeds",
+        arguments: [
+            (6, 2, 0),
+            (7, 2, 1)
+        ] as Array<(UInt4, UInt4, UInt4)>
+    )
+    internal func remainderEqualSucceeds(
+        dividend: UInt4,
+        divisor: UInt4,
+        remainder: UInt4
+    ) {
+        var runningRemainder: UInt4 = dividend
+        runningRemainder %= divisor
+        #expect(runningRemainder == remainder)
+    }
+
+    @Test(
         "Dividing by succeeds",
         arguments: [
             (6, 2, 3),
@@ -208,6 +240,28 @@ extension UInt4DivisibleTests {
     )
     internal func dividingZeroByNonzeroValueReturnsZero(divisor: UInt4) {
         #expect(UInt4.zero / divisor == 0)
+    }
+
+    @Test(
+        "Remainder by one returns zero",
+        arguments: [
+            1,
+            5
+        ] as Array<UInt4>
+    )
+    internal func remainderByOneReturnsZero(dividend: UInt4) {
+        #expect(dividend % 1 == 0)
+    }
+
+    @Test(
+        "Remainder by self returns zero",
+        arguments: [
+            1,
+            5
+        ] as Array<UInt4>
+    )
+    internal func remainderBySelfReturnsZero(value: UInt4) {
+        #expect(value % value == 0)
     }
 
     @Test(

@@ -131,9 +131,9 @@ extension DoubleSubtractableTests {
     @Test(
         "Subtraction is not commutative",
         arguments: [
-            (6.0, 4.0),
-            (-6.0, 4.0),
-            (6.0, -4.0)
+            (3.0, 2.0),
+            (-3.0, 2.0),
+            (3.0, -2.0)
         ]
     )
     internal func subtractionIsNotCommutative(

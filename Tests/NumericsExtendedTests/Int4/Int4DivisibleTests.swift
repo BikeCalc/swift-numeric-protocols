@@ -1,5 +1,5 @@
 //
-// IntDivisibleTests.swift
+// Int4DivisibleTests.swift
 // NumericsExtendedTests
 //
 // Copyright © 2021-2026 Alexandre H. Saad
@@ -9,8 +9,8 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Int Divisible Tests")
-internal struct IntDivisibleTests {
+@Suite("Int4 Divisible Tests")
+internal struct Int4DivisibleTests {
     @Test(
         "Parity predicates",
         arguments: [
@@ -18,10 +18,10 @@ internal struct IntDivisibleTests {
             (2, true),
             (-1, false),
             (-2, true)
-        ]
+        ] as Array<(Int4, Bool)>
     )
     internal func parityPredicates(
-        value: Int,
+        value: Int4,
         result: Bool
     ) {
         #expect(value.isEven == result)
@@ -35,11 +35,11 @@ internal struct IntDivisibleTests {
             (-1, -1),
             (2, nil),
             (-2, nil)
-        ]
+        ] as Array<(Int4, Int4?)>
     )
     internal func reciprocal(
-        dividend: Int,
-        result: Int?
+        dividend: Int4,
+        result: Int4?
     ) {
         #expect(dividend.reciprocal == result)
     }
@@ -51,10 +51,10 @@ internal struct IntDivisibleTests {
             (-1, true),
             (2, false),
             (-2, false)
-        ]
+        ] as Array<(Int4, Bool)>
     )
     internal func isInvertible(
-        dividend: Int,
+        dividend: Int4,
         result: Bool
     ) {
         #expect(dividend.isInvertible == result)
@@ -68,11 +68,11 @@ internal struct IntDivisibleTests {
             (7, 2, false),
             (-6, 2, true),
             (6, -2, true)
-        ]
+        ] as Array<(Int4, Int4, Bool)>
     )
     internal func isDivisibleBy(
-        dividend: Int,
-        divisor: Int,
+        dividend: Int4,
+        divisor: Int4,
         result: Bool
     ) {
         #expect(dividend.isDivisible(by: divisor) == result)
@@ -86,11 +86,11 @@ internal struct IntDivisibleTests {
             (2, 7, false),
             (-2, 6, true),
             (2, -6, true)
-        ]
+        ] as Array<(Int4, Int4, Bool)>
     )
     internal func isFactorOf(
-        factor: Int,
-        value: Int,
+        factor: Int4,
+        value: Int4,
         result: Bool
     ) {
         #expect(factor.isFactor(of: value) == result)
@@ -103,12 +103,12 @@ internal struct IntDivisibleTests {
             (-6, 2, -3),
             (6, -2, -3),
             (-6, -2, 3)
-        ]
+        ] as Array<(Int4, Int4, Int4)>
     )
     internal func divisionSucceeds(
-        dividend: Int,
-        divisor: Int,
-        quotient: Int
+        dividend: Int4,
+        divisor: Int4,
+        quotient: Int4
     ) {
         #expect(dividend / divisor == quotient)
     }
@@ -120,48 +120,16 @@ internal struct IntDivisibleTests {
             (-6, 2, -3),
             (6, -2, -3),
             (-6, -2, 3)
-        ]
+        ] as Array<(Int4, Int4, Int4)>
     )
     internal func divisionEqualSucceeds(
-        dividend: Int,
-        divisor: Int,
-        quotient: Int
+        dividend: Int4,
+        divisor: Int4,
+        quotient: Int4
     ) {
-        var runningQuotient: Int = dividend
+        var runningQuotient: Int4 = dividend
         runningQuotient /= divisor
         #expect(runningQuotient == quotient)
-    }
-
-    @Test(
-        "Remainder succeeds",
-        arguments: [
-            (6, 2, 0),
-            (7, 2, 1)
-        ]
-    )
-    internal func remainderSucceeds(
-        dividend: Int,
-        divisor: Int,
-        remainder: Int
-    ) {
-        #expect(dividend % divisor == remainder)
-    }
-
-    @Test(
-        "Remainder equal succeeds",
-        arguments: [
-            (6, 2, 0),
-            (7, 2, 1)
-        ]
-    )
-    internal func remainderEqualSucceeds(
-        dividend: Int,
-        divisor: Int,
-        remainder: Int
-    ) {
-        var runningRemainder: Int = dividend
-        runningRemainder %= divisor
-        #expect(runningRemainder == remainder)
     }
 
     @Test(
@@ -171,12 +139,12 @@ internal struct IntDivisibleTests {
             (-6, 2, -3),
             (6, -2, -3),
             (-6, -2, 3)
-        ]
+        ] as Array<(Int4, Int4, Int4)>
     )
     internal func dividingBySucceeds(
-        dividend: Int,
-        divisor: Int,
-        quotient: Int
+        dividend: Int4,
+        divisor: Int4,
+        quotient: Int4
     ) {
         #expect(dividend.dividing(by: divisor) == quotient)
     }
@@ -188,16 +156,48 @@ internal struct IntDivisibleTests {
             (-6, 2, -3),
             (6, -2, -3),
             (-6, -2, 3)
-        ]
+        ] as Array<(Int4, Int4, Int4)>
     )
     internal func divideBySucceeds(
-        dividend: Int,
-        divisor: Int,
-        quotient: Int
+        dividend: Int4,
+        divisor: Int4,
+        quotient: Int4
     ) {
-        var runningQuotient: Int = dividend
+        var runningQuotient: Int4 = dividend
         runningQuotient.divide(by: divisor)
         #expect(runningQuotient == quotient)
+    }
+
+    @Test(
+        "Remainder succeeds",
+        arguments: [
+            (6, 2, 0),
+            (7, 2, 1)
+        ] as Array<(Int4, Int4, Int4)>
+    )
+    internal func remainderSucceeds(
+        dividend: Int4,
+        divisor: Int4,
+        remainder: Int4
+    ) {
+        #expect(dividend % divisor == remainder)
+    }
+
+    @Test(
+        "Remainder equal succeeds",
+        arguments: [
+            (6, 2, 0),
+            (7, 2, 1)
+        ] as Array<(Int4, Int4, Int4)>
+    )
+    internal func remainderEqualSucceeds(
+        dividend: Int4,
+        divisor: Int4,
+        remainder: Int4
+    ) {
+        var runningRemainder: Int4 = dividend
+        runningRemainder %= divisor
+        #expect(runningRemainder == remainder)
     }
 
     @Test(
@@ -207,11 +207,11 @@ internal struct IntDivisibleTests {
             (-2, -1),
             (4, 2),
             (-4, -2)
-        ]
+        ] as Array<(Int4, Int4)>
     )
     internal func halvedSucceeds(
-        dividend: Int,
-        quotient: Int
+        dividend: Int4,
+        quotient: Int4
     ) {
         #expect(dividend.halved() == quotient)
     }
@@ -223,13 +223,13 @@ internal struct IntDivisibleTests {
             (-2, -1),
             (4, 2),
             (-4, -2)
-        ]
+        ] as Array<(Int4, Int4)>
     )
     internal func halveSucceeds(
-        dividend: Int,
-        quotient: Int
+        dividend: Int4,
+        quotient: Int4
     ) {
-        var runningQuotient: Int = dividend
+        var runningQuotient: Int4 = dividend
         runningQuotient.halve()
         #expect(runningQuotient == quotient)
     }
@@ -237,7 +237,7 @@ internal struct IntDivisibleTests {
 
 // MARK: - Arithmetic Rules
 
-extension IntDivisibleTests {
+extension Int4DivisibleTests {
     @Test(
         "Halving odd values truncates toward zero",
         arguments: [
@@ -247,11 +247,11 @@ extension IntDivisibleTests {
             (-3, -1),
             (5, 2),
             (-5, -2)
-        ]
+        ] as Array<(Int4, Int4)>
     )
     internal func halvingOddValuesTruncatesTowardZero(
-        dividend: Int,
-        quotient: Int
+        dividend: Int4,
+        quotient: Int4
     ) {
         #expect(dividend.halved() == quotient)
     }
@@ -262,10 +262,10 @@ extension IntDivisibleTests {
             1,
             -1,
             3
-        ]
+        ] as Array<Int4>
     )
-    internal func dividingZeroByNonzeroValueReturnsZero(divisor: Int) {
-        #expect(0 / divisor == 0)
+    internal func dividingZeroByNonzeroValueReturnsZero(divisor: Int4) {
+        #expect(Int4.zero / divisor == 0)
     }
 
     @Test(
@@ -276,11 +276,11 @@ extension IntDivisibleTests {
             (-1, -1),
             (5, 5),
             (-5, -5)
-        ]
+        ] as Array<(Int4, Int4)>
     )
     internal func dividingByOnePreservesDividend(
-        dividend: Int,
-        quotient: Int
+        dividend: Int4,
+        quotient: Int4
     ) {
         #expect(dividend / 1 == quotient)
     }
@@ -292,9 +292,9 @@ extension IntDivisibleTests {
             -1,
             5,
             -5
-        ]
+        ] as Array<Int4>
     )
-    internal func remainderByOneReturnsZero(dividend: Int) {
+    internal func remainderByOneReturnsZero(dividend: Int4) {
         #expect(dividend % 1 == 0)
     }
 
@@ -305,9 +305,9 @@ extension IntDivisibleTests {
             -1,
             5,
             -5
-        ]
+        ] as Array<Int4>
     )
-    internal func remainderBySelfReturnsZero(value: Int) {
+    internal func remainderBySelfReturnsZero(value: Int4) {
         #expect(value % value == 0)
     }
 
@@ -318,12 +318,12 @@ extension IntDivisibleTests {
             (-7, 2, -1),
             (7, -2, 1),
             (-7, -2, -1)
-        ]
+        ] as Array<(Int4, Int4, Int4)>
     )
     internal func remainderFollowsDividendSign(
-        dividend: Int,
-        divisor: Int,
-        remainder: Int
+        dividend: Int4,
+        divisor: Int4,
+        remainder: Int4
     ) {
         #expect(dividend % divisor == remainder)
     }
@@ -334,11 +334,11 @@ extension IntDivisibleTests {
             (6, 2),
             (-6, 2),
             (6, -2)
-        ]
+        ] as Array<(Int4, Int4)>
     )
     internal func divisionIsNotCommutative(
-        lhs: Int,
-        rhs: Int
+        lhs: Int4,
+        rhs: Int4
     ) {
         #expect(lhs / rhs != rhs / lhs)
     }
@@ -346,7 +346,7 @@ extension IntDivisibleTests {
 
 // MARK: - Integer Rules
 
-extension IntDivisibleTests {
+extension Int4DivisibleTests {
     @Test(
         "Integer division truncates toward zero",
         arguments: [
@@ -354,12 +354,12 @@ extension IntDivisibleTests {
             (-7, 2, -3),
             (7, -2, -3),
             (-7, -2, 3)
-        ]
+        ] as Array<(Int4, Int4, Int4)>
     )
     internal func integerDivisionTruncatesTowardZero(
-        dividend: Int,
-        divisor: Int,
-        quotient: Int
+        dividend: Int4,
+        divisor: Int4,
+        quotient: Int4
     ) {
         #expect(dividend / divisor == quotient)
     }

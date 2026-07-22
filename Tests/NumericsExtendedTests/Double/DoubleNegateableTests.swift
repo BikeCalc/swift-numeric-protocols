@@ -12,6 +12,53 @@ import Testing
 @Suite("Double Negateable Tests")
 internal struct DoubleNegateableTests {
     @Test(
+        "Negation succeeds",
+        arguments: [
+            (1.0, -1.0),
+            (-1.0, 1.0),
+            (5.0, -5.0)
+        ]
+    )
+    internal func negationSucceeds(
+        value: Double,
+        negation: Double
+    ) {
+        #expect(-value == negation)
+    }
+
+    @Test(
+        "Negating succeeds",
+        arguments: [
+            (1.0, -1.0),
+            (-1.0, 1.0),
+            (5.0, -5.0)
+        ]
+    )
+    internal func negatingSucceeds(
+        value: Double,
+        negation: Double
+    ) {
+        #expect(value.negating() == negation)
+    }
+
+    @Test(
+        "Negate succeeds",
+        arguments: [
+            (1.0, -1.0),
+            (-1.0, 1.0),
+            (5.0, -5.0)
+        ]
+    )
+    internal func negateSucceeds(
+        value: Double,
+        negation: Double
+    ) {
+        var runningValue: Double = value
+        runningValue.negate()
+        #expect(runningValue == negation)
+    }
+
+    @Test(
         "Is negative",
         arguments: [
             (1.0, false),
