@@ -112,7 +112,7 @@ where Self: Raisable {
     where Self: Comparable & Divisible {
         switch other {
         case 0:
-            return self == 0
+            return self == 0 || self == 1
         case 1:
             return self == 1
         default:
@@ -147,7 +147,7 @@ where Self: Raisable {
         case -1:
             return self == 1 || self == -1
         case 0:
-            return self == 0
+            return self == 0 || self == 1
         case 1:
             return self == 1
         default:

@@ -274,7 +274,7 @@ extension Int4RaisableTests {
         arguments: [
             (0, true),
             (-0, true),
-            (1, false),
+            (1, true),
             (2, false)
         ] as Array<(Int4, Bool)>
     )

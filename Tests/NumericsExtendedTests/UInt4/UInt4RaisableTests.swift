@@ -208,7 +208,7 @@ extension UInt4RaisableTests {
         "Zero base power predicate follows unsigned integer rules",
         arguments: [
             (0, true),
-            (1, false),
+            (1, true),
             (2, false)
         ] as Array<(UInt4, Bool)>
     )

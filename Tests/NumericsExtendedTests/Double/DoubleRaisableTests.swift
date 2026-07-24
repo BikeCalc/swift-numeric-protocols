@@ -331,7 +331,7 @@ extension DoubleRaisableTests {
         arguments: [
             (0.0, true),
             (-0.0, true),
-            (1.0, false),
+            (1.0, true),
             (2.0, false)
         ]
     )
