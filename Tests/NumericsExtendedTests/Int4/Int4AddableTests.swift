@@ -11,12 +11,16 @@ import Testing
 
 @Suite("Int4 Addable Tests")
 internal struct Int4AddableTests {
+    private static let additionArguments: [(Int4, Int4, Int4)] = [
+        (2, 3, 5),
+        (3, 4, 7),
+        (-2, 3, 1),
+        (-3, -4, -7)
+    ]
+
     @Test(
         "Addition succeeds",
-        arguments: [
-            (2, 4, 6),
-            (-2, 4, 2)
-        ] as Array<(Int4, Int4, Int4)>
+        arguments: Self.additionArguments
     )
     internal func additionSucceeds(
         augend: Int4,
@@ -28,10 +32,7 @@ internal struct Int4AddableTests {
 
     @Test(
         "Addition equal succeeds",
-        arguments: [
-            (2, 4, 6),
-            (-2, 4, 2)
-        ] as Array<(Int4, Int4, Int4)>
+        arguments: Self.additionArguments
     )
     internal func additionEqualSucceeds(
         augend: Int4,
@@ -45,10 +46,7 @@ internal struct Int4AddableTests {
 
     @Test(
         "Adding succeeds",
-        arguments: [
-            (2, 4, 6),
-            (-2, 4, 2)
-        ] as Array<(Int4, Int4, Int4)>
+        arguments: Self.additionArguments
     )
     internal func addingSucceeds(
         augend: Int4,
@@ -60,10 +58,7 @@ internal struct Int4AddableTests {
 
     @Test(
         "Add succeeds",
-        arguments: [
-            (2, 4, 6),
-            (-2, 4, 2)
-        ] as Array<(Int4, Int4, Int4)>
+        arguments: Self.additionArguments
     )
     internal func addSucceeds(
         augend: Int4,
@@ -82,47 +77,41 @@ extension Int4AddableTests {
     @Test(
         "Adding zero preserves augend",
         arguments: [
-            (0, 0),
-            (1, 1),
-            (-1, -1)
-        ] as Array<(Int4, Int4)>
+            2,
+            3,
+            -2,
+            -3
+        ] as Array<Int4>
     )
-    internal func addingZeroPreservesAugend(
-        augend: Int4,
-        sum: Int4
-    ) {
-        #expect(augend + 0 == sum)
+    internal func addingZeroPreservesAugend(augend: Int4) {
+        #expect(augend + 0 == augend)
     }
 
     @Test(
         "Adding opposite values returns zero",
         arguments: [
-            (0, 0, 0),
-            (1, -1, 0),
-            (-1, 1, 0),
-            (5, -5, 0)
-        ] as Array<(Int4, Int4, Int4)>
+            (2, -2),
+            (3, -3),
+            (-2, 2),
+            (-3, 3)
+        ] as Array<(Int4, Int4)>
     )
     internal func addingOppositeValuesReturnsZero(
         augend: Int4,
-        addend: Int4,
-        sum: Int4
+        addend: Int4
     ) {
-        #expect(augend + addend == sum)
+        #expect(augend + addend == 0)
     }
 
     @Test(
         "Addition is commutative",
-        arguments: [
-            (2, 4),
-            (-2, 4),
-            (-2, -4)
-        ] as Array<(Int4, Int4)>
+        arguments: Self.additionArguments
     )
     internal func additionIsCommutative(
-        lhs: Int4,
-        rhs: Int4
+        augend: Int4,
+        addend: Int4,
+        sum _: Int4
     ) {
-        #expect(lhs + rhs == rhs + lhs)
+        #expect(augend + addend == addend + augend)
     }
 }

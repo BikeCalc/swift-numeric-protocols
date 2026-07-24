@@ -11,20 +11,34 @@ import Testing
 
 @Suite("Int Raisable Tests")
 internal struct IntRaisableTests {
+    private static let exponentiationArguments: [(Int, Int.Exponent, Int)] = [
+        (2, 2, 4),
+        (2, 3, 8),
+        (-2, 2, 4),
+        (-2, 3, -8)
+    ]
+
+    private static let squaringArguments: [(Int, Int)] = [
+        (2, 4),
+        (3, 9),
+        (-2, 4),
+        (-3, 9)
+    ]
+
+    private static let cubingArguments: [(Int, Int)] = [
+        (2, 8),
+        (3, 27),
+        (-2, -8),
+        (-3, -27)
+    ]
+
     @Test(
         "Is power of",
         arguments: [
-            (1, 1, true),
-            (4, 1, false),
             (4, 2, true),
+            (6, 2, false),
             (8, 2, true),
-            (9, 2, false),
-            (1, -1, true),
-            (-1, -1, true),
-            (2, -1, false),
-            (4, -2, true),
-            (-8, -2, true),
-            (8, -2, false)
+            (9, 2, false)
         ]
     )
     internal func isPowerOf(
@@ -37,11 +51,7 @@ internal struct IntRaisableTests {
 
     @Test(
         "Exponentiation succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ]
+        arguments: Self.exponentiationArguments
     )
     internal func exponentiationSucceeds(
         base: Int,
@@ -53,11 +63,7 @@ internal struct IntRaisableTests {
 
     @Test(
         "Exponentiation equal succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ]
+        arguments: Self.exponentiationArguments
     )
     internal func exponentiationEqualSucceeds(
         base: Int,
@@ -71,11 +77,7 @@ internal struct IntRaisableTests {
 
     @Test(
         "Raising to succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ]
+        arguments: Self.exponentiationArguments
     )
     internal func raisingToSucceeds(
         base: Int,
@@ -87,11 +89,7 @@ internal struct IntRaisableTests {
 
     @Test(
         "Raise to succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ]
+        arguments: Self.exponentiationArguments
     )
     internal func raiseToSucceeds(
         base: Int,
@@ -105,10 +103,7 @@ internal struct IntRaisableTests {
 
     @Test(
         "Squared succeeds",
-        arguments: [
-            (2, 4),
-            (-2, 4)
-        ]
+        arguments: Self.squaringArguments
     )
     internal func squaredSucceeds(
         base: Int,
@@ -119,10 +114,7 @@ internal struct IntRaisableTests {
 
     @Test(
         "Square succeeds",
-        arguments: [
-            (2, 4),
-            (-2, 4)
-        ]
+        arguments: Self.squaringArguments
     )
     internal func squareSucceeds(
         base: Int,
@@ -135,10 +127,7 @@ internal struct IntRaisableTests {
 
     @Test(
         "Cubed succeeds",
-        arguments: [
-            (2, 8),
-            (-2, -8)
-        ]
+        arguments: Self.cubingArguments
     )
     internal func cubedSucceeds(
         base: Int,
@@ -149,10 +138,7 @@ internal struct IntRaisableTests {
 
     @Test(
         "Cube succeeds",
-        arguments: [
-            (2, 8),
-            (-2, -8)
-        ]
+        arguments: Self.cubingArguments
     )
     internal func cubeSucceeds(
         base: Int,
@@ -167,6 +153,46 @@ internal struct IntRaisableTests {
 // MARK: - Arithmetic Rules
 
 extension IntRaisableTests {
+    @Test(
+        "Raising to one preserves base",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ]
+    )
+    internal func raisingToOnePreservesBase(base: Int) {
+        #expect(base ** 1 == base)
+    }
+
+    @Test(
+        "One base exponentiation returns one",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ]
+    )
+    internal func oneBaseExponentiationReturnsOne(exponent: Int.Exponent) {
+        #expect(1 ** exponent == 1)
+    }
+
+    @Test(
+        "One base power predicate follows identity rule",
+        arguments: [
+            (1, true),
+            (2, false)
+        ]
+    )
+    internal func oneBasePowerPredicateFollowsIdentityRule(
+        value: Int,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: 1) == result)
+    }
+
     @Test(
         "Negative base exponentiation follows parity rule",
         arguments: [
@@ -184,10 +210,59 @@ extension IntRaisableTests {
     }
 
     @Test(
+        "Negative one base exponentiation follows parity rule",
+        arguments: [
+            (0, 1),
+            (1, -1),
+            (2, 1),
+            (3, -1)
+        ]
+    )
+    internal func negativeOneBaseExponentiationFollowsParityRule(
+        exponent: Int.Exponent,
+        power: Int
+    ) {
+        #expect((-1) ** exponent == power)
+    }
+
+    @Test(
+        "Negative base power predicate follows signed rules",
+        arguments: [
+            (4, -2, true),
+            (-8, -2, true),
+            (6, -2, false)
+        ]
+    )
+    internal func negativeBasePowerPredicateFollowsSignedRules(
+        value: Int,
+        other: Int,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: other) == result)
+    }
+
+    @Test(
+        "Negative one base power predicate follows signed rules",
+        arguments: [
+            (1, true),
+            (-1, true),
+            (2, false)
+        ]
+    )
+    internal func negativeOneBasePowerPredicateFollowsSignedRules(
+        value: Int,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: -1) == result)
+    }
+
+    @Test(
         "Exponentiation is not commutative",
         arguments: [
             (2, 3),
-            (3, 2)
+            (3, 2),
+            (-2, 3),
+            (2, -2)
         ]
     )
     internal func exponentiationIsNotCommutative(
@@ -203,6 +278,22 @@ extension IntRaisableTests {
 // MARK: - Integer Rules
 
 extension IntRaisableTests {
+    @Test(
+        "Zero base power predicate follows integer rules",
+        arguments: [
+            (0, true),
+            (-0, true),
+            (1, false),
+            (2, false)
+        ]
+    )
+    internal func zeroBasePowerPredicateFollowsIntegerRules(
+        value: Int,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: 0) == result)
+    }
+
     @Test(
         "Negative exponent returns zero",
         arguments: [
@@ -239,8 +330,11 @@ extension IntRaisableTests {
         "Zero base exponentiation follows integer rules",
         arguments: [
             (0, 0, 1),
+            (-0, 0, 1),
             (0, 1, 0),
-            (0, -1, 0)
+            (-0, 1, 0),
+            (0, -1, 0),
+            (-0, -1, 0)
         ]
     )
     internal func zeroBaseExponentiationFollowsIntegerRules(

@@ -11,12 +11,14 @@ import Testing
 
 @Suite("UInt4 Subtractable Tests")
 internal struct UInt4SubtractableTests {
+    private static let subtractionArguments: [(UInt4, UInt4, UInt4)] = [
+        (3, 2, 1),
+        (5, 3, 2)
+    ]
+
     @Test(
         "Subtraction succeeds",
-        arguments: [
-            (6, 4, 2),
-            (9, 3, 6)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.subtractionArguments
     )
     internal func subtractionSucceeds(
         minuend: UInt4,
@@ -28,10 +30,7 @@ internal struct UInt4SubtractableTests {
 
     @Test(
         "Subtraction equal succeeds",
-        arguments: [
-            (6, 4, 2),
-            (9, 3, 6)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.subtractionArguments
     )
     internal func subtractionEqualSucceeds(
         minuend: UInt4,
@@ -45,10 +44,7 @@ internal struct UInt4SubtractableTests {
 
     @Test(
         "Subtracting succeeds",
-        arguments: [
-            (6, 4, 2),
-            (9, 3, 6)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.subtractionArguments
     )
     internal func subtractingSucceeds(
         minuend: UInt4,
@@ -60,10 +56,7 @@ internal struct UInt4SubtractableTests {
 
     @Test(
         "Subtract succeeds",
-        arguments: [
-            (6, 4, 2),
-            (9, 3, 6)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.subtractionArguments
     )
     internal func subtractSucceeds(
         minuend: UInt4,
@@ -82,25 +75,38 @@ extension UInt4SubtractableTests {
     @Test(
         "Subtracting zero preserves minuend",
         arguments: [
-            (0, 0),
-            (1, 1)
-        ] as Array<(UInt4, UInt4)>
+            3,
+            5
+        ] as Array<UInt4>
     )
-    internal func subtractingZeroPreservesMinuend(
-        minuend: UInt4,
-        difference: UInt4
-    ) {
-        #expect(minuend - 0 == difference)
+    internal func subtractingZeroPreservesMinuend(minuend: UInt4) {
+        #expect(minuend - 0 == minuend)
     }
 
     @Test(
         "Subtracting self returns zero",
         arguments: [
-            0,
-            1
+            3,
+            5
         ] as Array<UInt4>
     )
     internal func subtractingSelfReturnsZero(value: UInt4) {
         #expect(value - value == 0)
+    }
+
+    @Test(
+        "Subtraction is not commutative",
+        arguments: Self.subtractionArguments
+    )
+    internal func subtractionIsNotCommutative(
+        minuend: UInt4,
+        subtrahend: UInt4,
+        difference: UInt4
+    ) {
+        let reversedDifferenceReport: UInt4.Report = subtrahend.subtractingReportingOverflow(minuend)
+
+        #expect(minuend - subtrahend == difference)
+        #expect(reversedDifferenceReport.partialValue != difference)
+        #expect(reversedDifferenceReport.overflow)
     }
 }

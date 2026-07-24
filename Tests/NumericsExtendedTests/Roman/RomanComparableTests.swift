@@ -11,120 +11,98 @@ import Testing
 
 @Suite("Roman Comparable Tests")
 internal struct RomanComparableTests {
+    private static let comparisonArguments: Array<(lhs: Roman, rhs: Roman)> = [
+        (1, 1),
+        (2, 3),
+        (3, 2)
+    ]
+
+    private static let rangeArguments: Array<(value: Roman, lowerBound: Roman, upperBound: Roman)> = [
+        (1, 2, 4),
+        (2, 2, 4),
+        (3, 2, 4),
+        (4, 2, 4),
+        (5, 2, 4)
+    ]
+
     @Test(
         "Is less than",
-        arguments: [
-            (1, 1, false),
-            (2, 1, false),
-            (1, 2, true)
-        ] as Array<(Roman, Roman, Bool)>
+        arguments: Self.comparisonArguments
     )
     internal func isLessThan(
         lhs: Roman,
-        rhs: Roman,
-        result: Bool
+        rhs: Roman
     ) {
-        #expect(lhs.isLess(than: rhs) == result)
+        #expect(lhs.isLess(than: rhs) == (lhs < rhs))
     }
 
     @Test(
         "Is less than or equal",
-        arguments: [
-            (2, 1, false),
-            (1, 1, true),
-            (1, 2, true)
-        ] as Array<(Roman, Roman, Bool)>
+        arguments: Self.comparisonArguments
     )
     internal func isLessThanOrEqualTo(
         lhs: Roman,
-        rhs: Roman,
-        result: Bool
+        rhs: Roman
     ) {
-        #expect(lhs.isLessThanOrEqual(to: rhs) == result)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == (lhs <= rhs))
     }
 
     @Test(
         "Is greater than",
-        arguments: [
-            (1, 1, false),
-            (1, 2, false),
-            (2, 1, true)
-        ] as Array<(Roman, Roman, Bool)>
+        arguments: Self.comparisonArguments
     )
     internal func isGreaterThan(
         lhs: Roman,
-        rhs: Roman,
-        result: Bool
+        rhs: Roman
     ) {
-        #expect(lhs.isGreater(than: rhs) == result)
+        #expect(lhs.isGreater(than: rhs) == (lhs > rhs))
     }
 
     @Test(
         "Is greater than or equal",
-        arguments: [
-            (1, 2, false),
-            (1, 1, true),
-            (2, 1, true)
-        ] as Array<(Roman, Roman, Bool)>
+        arguments: Self.comparisonArguments
     )
     internal func isGreaterThanOrEqualTo(
         lhs: Roman,
-        rhs: Roman,
-        result: Bool
+        rhs: Roman
     ) {
-        #expect(lhs.isGreaterThanOrEqual(to: rhs) == result)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == (lhs >= rhs))
     }
 
     @Test(
         "Is within closed range",
-        arguments: [
-            (1, 1...3, true),
-            (2, 1...3, true),
-            (3, 1...3, true),
-            (4, 1...3, false)
-        ] as Array<(Roman, ClosedRange<Roman>, Bool)>
+        arguments: Self.rangeArguments
     )
     internal func isWithinClosedRange(
         value: Roman,
-        range: ClosedRange<Roman>,
-        result: Bool
+        lowerBound: Roman,
+        upperBound: Roman
     ) {
-        #expect(value.isWithin(range) == result)
+        let range: ClosedRange<Roman> = lowerBound...upperBound
+        #expect(value.isWithin(range) == range.contains(value))
     }
 
     @Test(
         "Is within bounds",
-        arguments: [
-            (1, 1, 3, true),
-            (2, 1, 3, true),
-            (3, 1, 3, true),
-            (4, 1, 3, false)
-        ] as Array<(Roman, Roman, Roman, Bool)>
+        arguments: Self.rangeArguments
     )
     internal func isWithinBounds(
         value: Roman,
         lowerBound: Roman,
-        upperBound: Roman,
-        result: Bool
+        upperBound: Roman
     ) {
-        #expect(value.isWithin(lowerBound, through: upperBound) == result)
+        #expect(value.isWithin(lowerBound, through: upperBound) == (value >= lowerBound && value <= upperBound))
     }
 
     @Test(
         "Is between bounds",
-        arguments: [
-            (1, 1, 3, false),
-            (2, 1, 3, true),
-            (3, 1, 3, false),
-            (4, 1, 3, false)
-        ] as Array<(Roman, Roman, Roman, Bool)>
+        arguments: Self.rangeArguments
     )
     internal func isBetweenBounds(
         value: Roman,
         lowerBound: Roman,
-        upperBound: Roman,
-        result: Bool
+        upperBound: Roman
     ) {
-        #expect(value.isBetween(lowerBound, and: upperBound) == result)
+        #expect(value.isBetween(lowerBound, and: upperBound) == (value > lowerBound && value < upperBound))
     }
 }

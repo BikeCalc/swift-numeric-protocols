@@ -11,12 +11,14 @@ import Testing
 
 @Suite("Roman Addable Tests")
 internal struct RomanAddableTests {
+    private static let additionArguments: [(Roman, Roman, Roman)] = [
+        (2, 3, 5),
+        (3, 4, 7)
+    ]
+
     @Test(
         "Addition succeeds",
-        arguments: [
-            (2, 4, 6),
-            (3, 5, 8)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.additionArguments
     )
     internal func additionSucceeds(
         augend: Roman,
@@ -28,10 +30,7 @@ internal struct RomanAddableTests {
 
     @Test(
         "Addition equal succeeds",
-        arguments: [
-            (2, 4, 6),
-            (3, 5, 8)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.additionArguments
     )
     internal func additionEqualSucceeds(
         augend: Roman,
@@ -45,10 +44,7 @@ internal struct RomanAddableTests {
 
     @Test(
         "Adding succeeds",
-        arguments: [
-            (2, 4, 6),
-            (3, 5, 8)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.additionArguments
     )
     internal func addingSucceeds(
         augend: Roman,
@@ -60,10 +56,7 @@ internal struct RomanAddableTests {
 
     @Test(
         "Add succeeds",
-        arguments: [
-            (2, 4, 6),
-            (3, 5, 8)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.additionArguments
     )
     internal func addSucceeds(
         augend: Roman,
@@ -82,28 +75,23 @@ extension RomanAddableTests {
     @Test(
         "Adding zero preserves augend",
         arguments: [
-            (0, 0),
-            (1, 1)
-        ] as Array<(Roman, Roman)>
+            2,
+            3
+        ] as Array<Roman>
     )
-    internal func addingZeroPreservesAugend(
-        augend: Roman,
-        sum: Roman
-    ) {
-        #expect(augend + 0 == sum)
+    internal func addingZeroPreservesAugend(augend: Roman) {
+        #expect(augend + 0 == augend)
     }
 
     @Test(
         "Addition is commutative",
-        arguments: [
-            (2, 4),
-            (3, 5)
-        ] as Array<(Roman, Roman)>
+        arguments: Self.additionArguments
     )
     internal func additionIsCommutative(
-        lhs: Roman,
-        rhs: Roman
+        augend: Roman,
+        addend: Roman,
+        sum _: Roman
     ) {
-        #expect(lhs + rhs == rhs + lhs)
+        #expect(augend + addend == addend + augend)
     }
 }

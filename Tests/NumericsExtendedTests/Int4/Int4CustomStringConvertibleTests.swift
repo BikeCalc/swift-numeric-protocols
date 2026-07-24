@@ -17,6 +17,7 @@ internal struct Int4CustomStringConvertibleTests {
             (-8, "-8"),
             (-1, "-1"),
             (0, "0"),
+            (1, "1"),
             (7, "7")
         ] as Array<(Int4, String)>
     )

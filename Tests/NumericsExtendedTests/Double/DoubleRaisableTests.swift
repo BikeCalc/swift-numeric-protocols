@@ -11,20 +11,46 @@ import Testing
 
 @Suite("Double Raisable Tests")
 internal struct DoubleRaisableTests {
+    private static let exponentiationArguments: [(Double, Double.Exponent, Double)] = [
+        (2.0, 2, 4.0),
+        (2.0, 3, 8.0),
+        (-2.0, 2, 4.0),
+        (-2.0, 3, -8.0),
+        (0.5, 2, 0.25),
+        (0.5, 3, 0.125),
+        (-0.5, 2, 0.25),
+        (-0.5, 3, -0.125)
+    ]
+
+    private static let squaringArguments: [(Double, Double)] = [
+        (2.0, 4.0),
+        (3.0, 9.0),
+        (-2.0, 4.0),
+        (-3.0, 9.0),
+        (0.5, 0.25),
+        (1.5, 2.25),
+        (-0.5, 0.25),
+        (-1.5, 2.25)
+    ]
+
+    private static let cubingArguments: [(Double, Double)] = [
+        (2.0, 8.0),
+        (3.0, 27.0),
+        (-2.0, -8.0),
+        (-3.0, -27.0),
+        (0.5, 0.125),
+        (1.5, 3.375),
+        (-0.5, -0.125),
+        (-1.5, -3.375)
+    ]
+
     @Test(
         "Is power of",
         arguments: [
-            (1.0, 1.0, true),
-            (4.0, 1.0, false),
             (4.0, 2.0, true),
+            (6.0, 2.0, false),
             (8.0, 2.0, true),
-            (9.0, 2.0, false),
-            (1.0, -1.0, true),
-            (-1.0, -1.0, true),
-            (2.0, -1.0, false),
-            (4.0, -2.0, true),
-            (-8.0, -2.0, true),
-            (8.0, -2.0, false)
+            (9.0, 2.0, false)
         ]
     )
     internal func isPowerOf(
@@ -37,11 +63,7 @@ internal struct DoubleRaisableTests {
 
     @Test(
         "Exponentiation succeeds",
-        arguments: [
-            (2.0, 1, 2.0),
-            (2.0, 2, 4.0),
-            (2.0, 3, 8.0)
-        ]
+        arguments: Self.exponentiationArguments
     )
     internal func exponentiationSucceeds(
         base: Double,
@@ -53,11 +75,7 @@ internal struct DoubleRaisableTests {
 
     @Test(
         "Exponentiation equal succeeds",
-        arguments: [
-            (2.0, 1, 2.0),
-            (2.0, 2, 4.0),
-            (2.0, 3, 8.0)
-        ]
+        arguments: Self.exponentiationArguments
     )
     internal func exponentiationEqualSucceeds(
         base: Double,
@@ -71,11 +89,7 @@ internal struct DoubleRaisableTests {
 
     @Test(
         "Raising to succeeds",
-        arguments: [
-            (2.0, 1, 2.0),
-            (2.0, 2, 4.0),
-            (2.0, 3, 8.0)
-        ]
+        arguments: Self.exponentiationArguments
     )
     internal func raisingToSucceeds(
         base: Double,
@@ -87,11 +101,7 @@ internal struct DoubleRaisableTests {
 
     @Test(
         "Raise to succeeds",
-        arguments: [
-            (2.0, 1, 2.0),
-            (2.0, 2, 4.0),
-            (2.0, 3, 8.0)
-        ]
+        arguments: Self.exponentiationArguments
     )
     internal func raiseToSucceeds(
         base: Double,
@@ -105,10 +115,7 @@ internal struct DoubleRaisableTests {
 
     @Test(
         "Squared succeeds",
-        arguments: [
-            (2.0, 4.0),
-            (-2.0, 4.0)
-        ]
+        arguments: Self.squaringArguments
     )
     internal func squaredSucceeds(
         base: Double,
@@ -119,10 +126,7 @@ internal struct DoubleRaisableTests {
 
     @Test(
         "Square succeeds",
-        arguments: [
-            (2.0, 4.0),
-            (-2.0, 4.0)
-        ]
+        arguments: Self.squaringArguments
     )
     internal func squareSucceeds(
         base: Double,
@@ -135,10 +139,7 @@ internal struct DoubleRaisableTests {
 
     @Test(
         "Cubed succeeds",
-        arguments: [
-            (2.0, 8.0),
-            (-2.0, -8.0)
-        ]
+        arguments: Self.cubingArguments
     )
     internal func cubedSucceeds(
         base: Double,
@@ -149,10 +150,7 @@ internal struct DoubleRaisableTests {
 
     @Test(
         "Cube succeeds",
-        arguments: [
-            (2.0, 8.0),
-            (-2.0, -8.0)
-        ]
+        arguments: Self.cubingArguments
     )
     internal func cubeSucceeds(
         base: Double,
@@ -168,6 +166,50 @@ internal struct DoubleRaisableTests {
 
 extension DoubleRaisableTests {
     @Test(
+        "Raising to one preserves base",
+        arguments: [
+            2.0,
+            3.0,
+            -2.0,
+            -3.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
+        ]
+    )
+    internal func raisingToOnePreservesBase(base: Double) {
+        #expect(base ** 1 == base)
+    }
+
+    @Test(
+        "One base exponentiation returns one",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ]
+    )
+    internal func oneBaseExponentiationReturnsOne(exponent: Double.Exponent) {
+        #expect(1.0 ** exponent == 1.0)
+    }
+
+    @Test(
+        "One base power predicate follows identity rule",
+        arguments: [
+            (1.0, true),
+            (2.0, false)
+        ]
+    )
+    internal func oneBasePowerPredicateFollowsIdentityRule(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: 1.0) == result)
+    }
+
+    @Test(
         "Negative base exponentiation follows parity rule",
         arguments: [
             (-2.0, 1, -2.0),
@@ -181,6 +223,53 @@ extension DoubleRaisableTests {
         power: Double
     ) {
         #expect(base ** exponent == power)
+    }
+
+    @Test(
+        "Negative one base exponentiation follows parity rule",
+        arguments: [
+            (0, 1.0),
+            (1, -1.0),
+            (2, 1.0),
+            (3, -1.0)
+        ]
+    )
+    internal func negativeOneBaseExponentiationFollowsParityRule(
+        exponent: Double.Exponent,
+        power: Double
+    ) {
+        #expect((-1.0) ** exponent == power)
+    }
+
+    @Test(
+        "Negative base power predicate follows signed rules",
+        arguments: [
+            (4.0, -2.0, true),
+            (-8.0, -2.0, true),
+            (6.0, -2.0, false)
+        ]
+    )
+    internal func negativeBasePowerPredicateFollowsSignedRules(
+        value: Double,
+        other: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: other) == result)
+    }
+
+    @Test(
+        "Negative one base power predicate follows signed rules",
+        arguments: [
+            (1.0, true),
+            (-1.0, true),
+            (2.0, false)
+        ]
+    )
+    internal func negativeOneBasePowerPredicateFollowsSignedRules(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: -1.0) == result)
     }
 
     @Test(
@@ -219,7 +308,9 @@ extension DoubleRaisableTests {
         "Exponentiation is not commutative",
         arguments: [
             (2.0, 3),
-            (3.0, 2)
+            (3.0, 2),
+            (0.5, 2),
+            (2.0, -2)
         ]
     )
     internal func exponentiationIsNotCommutative(
@@ -235,6 +326,22 @@ extension DoubleRaisableTests {
 // MARK: - Floating-Point Rules
 
 extension DoubleRaisableTests {
+    @Test(
+        "Zero base power predicate follows floating-point rules",
+        arguments: [
+            (0.0, true),
+            (-0.0, true),
+            (1.0, false),
+            (2.0, false)
+        ]
+    )
+    internal func zeroBasePowerPredicateFollowsFloatingPointRules(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: 0.0) == result)
+    }
+
     @Test(
         "Zero base exponentiation follows floating-point rules",
         arguments: [

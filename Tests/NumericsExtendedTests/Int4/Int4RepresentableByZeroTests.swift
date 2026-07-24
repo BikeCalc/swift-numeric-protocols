@@ -15,6 +15,7 @@ internal struct Int4RepresentableByZeroTests {
         "Is zero",
         arguments: [
             (0, true),
+            (-0, true),
             (1, false),
             (-1, false)
         ] as Array<(Int4, Bool)>

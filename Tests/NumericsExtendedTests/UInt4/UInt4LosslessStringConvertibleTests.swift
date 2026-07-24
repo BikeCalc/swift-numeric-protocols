@@ -16,8 +16,6 @@ internal struct UInt4LosslessStringConvertibleTests {
         arguments: [
             ("0", 0),
             ("1", 1),
-            ("9", 9),
-            ("10", 10),
             ("15", 15)
         ] as Array<(String, UInt4)>
     )

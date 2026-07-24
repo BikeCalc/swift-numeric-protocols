@@ -24,9 +24,22 @@ internal struct UInt4FixedWidthIntegerTests {
     @Test(
         "Nonzero bit count succeeds",
         arguments: [
-            (0b0000, 0),
-            (0b1010, 2),
-            (0b1111, 4)
+            (UInt4.min, 0),
+            (1, 1),
+            (2, 1),
+            (3, 2),
+            (4, 1),
+            (5, 2),
+            (6, 2),
+            (7, 3),
+            (8, 1),
+            (9, 2),
+            (10, 2),
+            (11, 3),
+            (12, 2),
+            (13, 3),
+            (14, 3),
+            (UInt4.max, 4)
         ] as Array<(UInt4, Int)>
     )
     internal func nonzeroBitCountSucceeds(
@@ -39,10 +52,22 @@ internal struct UInt4FixedWidthIntegerTests {
     @Test(
         "Leading zero bit count succeeds",
         arguments: [
-            (0b0000, 4),
+            (UInt4.min, 4),
             (0b0001, 3),
+            (0b0010, 2),
+            (0b0011, 2),
             (0b0100, 1),
-            (0b1000, 0)
+            (0b0101, 1),
+            (0b0110, 1),
+            (0b0111, 1),
+            (0b1000, 0),
+            (0b1001, 0),
+            (0b1010, 0),
+            (0b1011, 0),
+            (0b1100, 0),
+            (0b1101, 0),
+            (0b1110, 0),
+            (UInt4.max, 0)
         ] as Array<(UInt4, Int)>
     )
     internal func leadingZeroBitCountSucceeds(
@@ -55,9 +80,9 @@ internal struct UInt4FixedWidthIntegerTests {
     @Test(
         "Byte swapped succeeds",
         arguments: [
-            0,
-            5,
-            15
+            UInt4.min,
+            8,
+            UInt4.max
         ] as Array<UInt4>
     )
     internal func byteSwappedSucceeds(value: UInt4) {
@@ -67,10 +92,14 @@ internal struct UInt4FixedWidthIntegerTests {
     @Test(
         "Initialized truncating if needed succeeds",
         arguments: [
-            (-1, 15),
-            (15, 15),
-            (16, 0),
-            (31, 15)
+            (-2, 14),
+            (-1, UInt4.max),
+            (0, UInt4.min),
+            (1, 1),
+            (14, 14),
+            (15, UInt4.max),
+            (16, UInt4.min),
+            (17, 1)
         ] as Array<(Int, UInt4)>
     )
     internal func initializedTruncatingIfNeededSucceeds(
@@ -83,9 +112,12 @@ internal struct UInt4FixedWidthIntegerTests {
     @Test(
         "Initialized clamping succeeds",
         arguments: [
-            (-1, 0),
-            (7, 7),
-            (16, 15)
+            (-1, UInt4.min),
+            (0, UInt4.min),
+            (1, 1),
+            (14, 14),
+            (15, UInt4.max),
+            (16, UInt4.max)
         ] as Array<(Int, UInt4)>
     )
     internal func initializedClampingSucceeds(
@@ -98,8 +130,10 @@ internal struct UInt4FixedWidthIntegerTests {
     @Test(
         "Multiplied full width succeeds",
         arguments: [
-            (3, 5, 0, 15),
-            (15, 15, 14, 1)
+            (2, 3, 0, 6),
+            (3, 4, 0, 12),
+            (4, 4, 1, 0),
+            (7, 7, 3, 1)
         ] as Array<(UInt4, UInt4, UInt4, UInt4)>
     )
     internal func multipliedFullWidthSucceeds(
@@ -117,8 +151,11 @@ internal struct UInt4FixedWidthIntegerTests {
     @Test(
         "Dividing full width succeeds",
         arguments: [
-            (12, 10, 11, 14, 3),
-            (15, 14, 1, 15, 0)
+            (2, 0, 6, 3, 0),
+            (3, 0, 6, 2, 0),
+            (2, 0, 7, 3, 1),
+            (4, 1, 0, 4, 0),
+            (7, 3, 1, 7, 0)
         ] as Array<(UInt4, UInt4, UInt4, UInt4, UInt4)>
     )
     internal func dividingFullWidthSucceeds(

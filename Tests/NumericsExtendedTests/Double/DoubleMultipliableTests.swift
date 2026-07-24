@@ -11,14 +11,39 @@ import Testing
 
 @Suite("Double Multipliable Tests")
 internal struct DoubleMultipliableTests {
+    private static let multiplicationArguments: [(Double, Double, Double)] = [
+        (2.0, 3.0, 6.0),
+        (3.0, 4.0, 12.0),
+        (-2.0, 3.0, -6.0),
+        (-3.0, -4.0, 12.0),
+        (0.5, 1.5, 0.75),
+        (1.5, 2.5, 3.75),
+        (-0.5, 1.5, -0.75),
+        (-1.5, -2.5, 3.75)
+    ]
+
+    private static let doublingArguments: [(Double, Double)] = [
+        (2.0, 4.0),
+        (3.0, 6.0),
+        (-2.0, -4.0),
+        (-3.0, -6.0),
+        (0.5, 1.0),
+        (1.5, 3.0),
+        (-0.5, -1.0),
+        (-1.5, -3.0)
+    ]
+
     @Test(
         "Is multiple of",
         arguments: [
-            (3.0, 1.0, true),
             (6.0, 3.0, true),
             (7.0, 3.0, false),
             (-6.0, 3.0, true),
-            (6.0, -3.0, true)
+            (-7.0, 3.0, false),
+            (1.5, 0.5, true),
+            (1.5, 2.5, false),
+            (-1.5, 0.5, true),
+            (-1.5, 2.5, false)
         ]
     )
     internal func isMultipleOf(
@@ -31,12 +56,7 @@ internal struct DoubleMultipliableTests {
 
     @Test(
         "Multiplication succeeds",
-        arguments: [
-            (2.0, 3.0, 6.0),
-            (-2.0, 3.0, -6.0),
-            (2.0, -3.0, -6.0),
-            (-2.0, -3.0, 6.0)
-        ]
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationSucceeds(
         multiplicand: Double,
@@ -48,12 +68,7 @@ internal struct DoubleMultipliableTests {
 
     @Test(
         "Multiplication equal succeeds",
-        arguments: [
-            (2.0, 3.0, 6.0),
-            (-2.0, 3.0, -6.0),
-            (2.0, -3.0, -6.0),
-            (-2.0, -3.0, 6.0)
-        ]
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationEqualSucceeds(
         multiplicand: Double,
@@ -67,12 +82,7 @@ internal struct DoubleMultipliableTests {
 
     @Test(
         "Multiplying by succeeds",
-        arguments: [
-            (2.0, 3.0, 6.0),
-            (-2.0, 3.0, -6.0),
-            (2.0, -3.0, -6.0),
-            (-2.0, -3.0, 6.0)
-        ]
+        arguments: Self.multiplicationArguments
     )
     internal func multiplyingBySucceeds(
         multiplicand: Double,
@@ -84,12 +94,7 @@ internal struct DoubleMultipliableTests {
 
     @Test(
         "Multiply by succeeds",
-        arguments: [
-            (2.0, 3.0, 6.0),
-            (-2.0, 3.0, -6.0),
-            (2.0, -3.0, -6.0),
-            (-2.0, -3.0, 6.0)
-        ]
+        arguments: Self.multiplicationArguments
     )
     internal func multiplyBySucceeds(
         multiplicand: Double,
@@ -103,11 +108,7 @@ internal struct DoubleMultipliableTests {
 
     @Test(
         "Doubled succeeds",
-        arguments: [
-            (1.0, 2.0),
-            (-1.0, -2.0),
-            (3.0, 6.0)
-        ]
+        arguments: Self.doublingArguments
     )
     internal func doubledSucceeds(
         multiplicand: Double,
@@ -118,11 +119,7 @@ internal struct DoubleMultipliableTests {
 
     @Test(
         "Double succeeds",
-        arguments: [
-            (1.0, 2.0),
-            (-1.0, -2.0),
-            (3.0, 6.0)
-        ]
+        arguments: Self.doublingArguments
     )
     internal func doubleSucceeds(
         multiplicand: Double,
@@ -138,13 +135,33 @@ internal struct DoubleMultipliableTests {
 
 extension DoubleMultipliableTests {
     @Test(
+        "Is multiple of zero returns false",
+        arguments: [
+            2.0,
+            3.0,
+            -2.0,
+            -3.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
+        ]
+    )
+    internal func isMultipleOfZeroReturnsFalse(multiplicand: Double) {
+        #expect(multiplicand.isMultiple(of: 0.0) == false)
+    }
+
+    @Test(
         "Multiplying by zero returns zero",
         arguments: [
-            0.0,
-            1.0,
-            -1,
-            5.0,
-            -5
+            2.0,
+            3.0,
+            -2.0,
+            -3.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
         ]
     )
     internal func multiplyingByZeroReturnsZero(multiplicand: Double) {
@@ -154,73 +171,56 @@ extension DoubleMultipliableTests {
     @Test(
         "Multiplying by one preserves multiplicand",
         arguments: [
-            (0.0, 0.0),
-            (1.0, 1.0),
-            (-1.0, -1.0),
-            (5.0, 5.0),
-            (-5.0, -5.0)
+            2.0,
+            3.0,
+            -2.0,
+            -3.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
         ]
     )
-    internal func multiplyingByOnePreservesMultiplicand(
-        multiplicand: Double,
-        product: Double
-    ) {
-        #expect(multiplicand * 1.0 == product)
+    internal func multiplyingByOnePreservesMultiplicand(multiplicand: Double) {
+        #expect(multiplicand * 1.0 == multiplicand)
     }
 
     @Test(
-        "Multiplication follows sign rules",
+        "Multiplying by negative one returns opposite value",
         arguments: [
-            (2.0, 3.0, 6.0),
-            (-2.0, 3.0, -6.0),
-            (2.0, -3.0, -6.0),
-            (-2.0, -3.0, 6.0)
+            (2.0, -2.0),
+            (3.0, -3.0),
+            (-2.0, 2.0),
+            (-3.0, 3.0),
+            (0.5, -0.5),
+            (1.5, -1.5),
+            (-0.5, 0.5),
+            (-1.5, 1.5)
         ]
     )
-    internal func multiplicationFollowsSignRules(
+    internal func multiplyingByNegativeOneReturnsOppositeValue(
         multiplicand: Double,
-        multiplier: Double,
         product: Double
     ) {
-        #expect(multiplicand * multiplier == product)
+        #expect(multiplicand * -1.0 == product)
     }
 
     @Test(
         "Multiplication is commutative",
-        arguments: [
-            (2.0, 4.0),
-            (-2.0, 4.0),
-            (-2.0, -4.0)
-        ]
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationIsCommutative(
-        lhs: Double,
-        rhs: Double
+        multiplicand: Double,
+        multiplier: Double,
+        product _: Double
     ) {
-        #expect(lhs * rhs == rhs * lhs)
+        #expect(multiplicand * multiplier == multiplier * multiplicand)
     }
 }
 
 // MARK: - Floating-Point Rules
 
 extension DoubleMultipliableTests {
-    @Test(
-        "Multiplying by zero follows floating-point rules",
-        arguments: [
-            (0.0, 0.0, 0.0),
-            (1.0, 0.0, 0.0),
-            (-1.0, 0.0, -0.0),
-            (0.0, -1.0, -0.0)
-        ]
-    )
-    internal func multiplyingByZeroFollowsFloatingPointRules(
-        multiplicand: Double,
-        multiplier: Double,
-        product: Double
-    ) {
-        #expect(multiplicand * multiplier == product)
-    }
-
     @Test(
         "Multiplying by zero preserves negative zero sign",
         arguments: [

@@ -19,6 +19,7 @@ internal struct Int4CodableTests {
             (-8, "-8"),
             (-1, "-1"),
             (0, "0"),
+            (1, "1"),
             (7, "7")
         ] as Array<(Int4, String)>
     )
@@ -39,6 +40,7 @@ internal struct Int4CodableTests {
             ("-8", -8),
             ("-1", -1),
             ("0", 0),
+            ("1", 1),
             ("7", 7)
         ] as Array<(String, Int4)>
     )

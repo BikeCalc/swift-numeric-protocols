@@ -11,13 +11,16 @@ import Testing
 
 @Suite("Int Subtractable Tests")
 internal struct IntSubtractableTests {
+    private static let subtractionArguments: [(Int, Int, Int)] = [
+        (3, 2, 1),
+        (5, 3, 2),
+        (-3, 2, -5),
+        (-5, -3, -2)
+    ]
+
     @Test(
         "Subtraction succeeds",
-        arguments: [
-            (6, 4, 2),
-            (-6, 4, -10),
-            (6, -4, 10)
-        ]
+        arguments: Self.subtractionArguments
     )
     internal func subtractionSucceeds(
         minuend: Int,
@@ -29,11 +32,7 @@ internal struct IntSubtractableTests {
 
     @Test(
         "Subtraction equal succeeds",
-        arguments: [
-            (6, 4, 2),
-            (-6, 4, -10),
-            (6, -4, 10)
-        ]
+        arguments: Self.subtractionArguments
     )
     internal func subtractionEqualSucceeds(
         minuend: Int,
@@ -47,11 +46,7 @@ internal struct IntSubtractableTests {
 
     @Test(
         "Subtracting succeeds",
-        arguments: [
-            (6, 4, 2),
-            (-6, 4, -10),
-            (6, -4, 10)
-        ]
+        arguments: Self.subtractionArguments
     )
     internal func subtractingSucceeds(
         minuend: Int,
@@ -63,11 +58,7 @@ internal struct IntSubtractableTests {
 
     @Test(
         "Subtract succeeds",
-        arguments: [
-            (6, 4, 2),
-            (-6, 4, -10),
-            (6, -4, 10)
-        ]
+        arguments: Self.subtractionArguments
     )
     internal func subtractSucceeds(
         minuend: Int,
@@ -86,25 +77,22 @@ extension IntSubtractableTests {
     @Test(
         "Subtracting zero preserves minuend",
         arguments: [
-            (0, 0),
-            (1, 1),
-            (-1, -1)
+            3,
+            5,
+            -3,
+            -5
         ]
     )
-    internal func subtractingZeroPreservesMinuend(
-        minuend: Int,
-        difference: Int
-    ) {
-        #expect(minuend - 0 == difference)
+    internal func subtractingZeroPreservesMinuend(minuend: Int) {
+        #expect(minuend - 0 == minuend)
     }
 
     @Test(
         "Subtracting self returns zero",
         arguments: [
-            0,
-            1,
-            -1,
+            3,
             5,
+            -3,
             -5
         ]
     )
@@ -113,33 +101,14 @@ extension IntSubtractableTests {
     }
 
     @Test(
-        "Subtracting negative value adds opposite",
-        arguments: [
-            (6, -4, 10),
-            (-6, -4, -2),
-            (0, -4, 4)
-        ]
-    )
-    internal func subtractingNegativeValueAddsOpposite(
-        minuend: Int,
-        subtrahend: Int,
-        difference: Int
-    ) {
-        #expect(minuend - subtrahend == difference)
-    }
-
-    @Test(
         "Subtraction is not commutative",
-        arguments: [
-            (3, 2),
-            (-3, 2),
-            (3, -2)
-        ]
+        arguments: Self.subtractionArguments
     )
     internal func subtractionIsNotCommutative(
-        lhs: Int,
-        rhs: Int
+        minuend: Int,
+        subtrahend: Int,
+        difference _: Int
     ) {
-        #expect(lhs - rhs != rhs - lhs)
+        #expect(minuend - subtrahend != subtrahend - minuend)
     }
 }

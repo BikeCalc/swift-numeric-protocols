@@ -11,11 +11,28 @@ import Testing
 
 @Suite("Roman Divisible Tests")
 internal struct RomanDivisibleTests {
+    private static let divisionArguments: [(Roman, Roman, Roman)] = [
+        (6, 2, 3),
+        (6, 3, 2)
+    ]
+
+    private static let remainderArguments: [(Roman, Roman, Roman)] = [
+        (4, 2, 0),
+        (5, 2, 1)
+    ]
+
+    private static let halvingArguments: [(Roman, Roman)] = [
+        (6, 3),
+        (4, 2)
+    ]
+
     @Test(
         "Parity predicates",
         arguments: [
+            (0, true),
             (1, false),
-            (2, true)
+            (2, true),
+            (3, false)
         ] as Array<(Roman, Bool)>
     )
     internal func parityPredicates(
@@ -41,25 +58,10 @@ internal struct RomanDivisibleTests {
     }
 
     @Test(
-        "Is invertible",
-        arguments: [
-            (1, true),
-            (2, false)
-        ] as Array<(Roman, Bool)>
-    )
-    internal func isInvertible(
-        dividend: Roman,
-        result: Bool
-    ) {
-        #expect(dividend.isInvertible == result)
-    }
-
-    @Test(
         "Is divisible by",
         arguments: [
-            (3, 1, true),
-            (6, 2, true),
-            (7, 2, false)
+            (6, 3, true),
+            (7, 3, false)
         ] as Array<(Roman, Roman, Bool)>
     )
     internal func isDivisibleBy(
@@ -73,9 +75,8 @@ internal struct RomanDivisibleTests {
     @Test(
         "Is factor of",
         arguments: [
-            (1, 2, true),
-            (2, 6, true),
-            (2, 7, false)
+            (3, 6, true),
+            (3, 7, false)
         ] as Array<(Roman, Roman, Bool)>
     )
     internal func isFactorOf(
@@ -88,10 +89,7 @@ internal struct RomanDivisibleTests {
 
     @Test(
         "Division succeeds",
-        arguments: [
-            (6, 2, 3),
-            (7, 2, 3)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.divisionArguments
     )
     internal func divisionSucceeds(
         dividend: Roman,
@@ -103,10 +101,7 @@ internal struct RomanDivisibleTests {
 
     @Test(
         "Division equal succeeds",
-        arguments: [
-            (6, 2, 3),
-            (7, 2, 3)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.divisionArguments
     )
     internal func divisionEqualSucceeds(
         dividend: Roman,
@@ -120,10 +115,7 @@ internal struct RomanDivisibleTests {
 
     @Test(
         "Remainder succeeds",
-        arguments: [
-            (6, 2, 0),
-            (7, 2, 1)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.remainderArguments
     )
     internal func remainderSucceeds(
         dividend: Roman,
@@ -135,10 +127,7 @@ internal struct RomanDivisibleTests {
 
     @Test(
         "Remainder equal succeeds",
-        arguments: [
-            (6, 2, 0),
-            (7, 2, 1)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.remainderArguments
     )
     internal func remainderEqualSucceeds(
         dividend: Roman,
@@ -152,10 +141,7 @@ internal struct RomanDivisibleTests {
 
     @Test(
         "Dividing by succeeds",
-        arguments: [
-            (6, 2, 3),
-            (7, 2, 3)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.divisionArguments
     )
     internal func dividingBySucceeds(
         dividend: Roman,
@@ -167,10 +153,7 @@ internal struct RomanDivisibleTests {
 
     @Test(
         "Divide by succeeds",
-        arguments: [
-            (6, 2, 3),
-            (7, 2, 3)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.divisionArguments
     )
     internal func divideBySucceeds(
         dividend: Roman,
@@ -184,10 +167,7 @@ internal struct RomanDivisibleTests {
 
     @Test(
         "Halved succeeds",
-        arguments: [
-            (2, 1),
-            (4, 2)
-        ] as Array<(Roman, Roman)>
+        arguments: Self.halvingArguments
     )
     internal func halvedSucceeds(
         dividend: Roman,
@@ -198,10 +178,7 @@ internal struct RomanDivisibleTests {
 
     @Test(
         "Halve succeeds",
-        arguments: [
-            (2, 1),
-            (4, 2)
-        ] as Array<(Roman, Roman)>
+        arguments: Self.halvingArguments
     )
     internal func halveSucceeds(
         dividend: Roman,
@@ -216,6 +193,75 @@ internal struct RomanDivisibleTests {
 // MARK: - Arithmetic Rules
 
 extension RomanDivisibleTests {
+    @Test("Zero is not invertible")
+    internal func zeroIsNotInvertible() {
+        let zero: Roman = 0
+        #expect(zero.isInvertible == false)
+    }
+
+    @Test(
+        "Dividing zero by nonzero value returns zero",
+        arguments: [
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func dividingZeroByNonzeroValueReturnsZero(divisor: Roman) {
+        #expect(0 / divisor == 0)
+    }
+
+    @Test(
+        "Dividing by one preserves dividend",
+        arguments: [
+            6,
+            4
+        ] as Array<Roman>
+    )
+    internal func dividingByOnePreservesDividend(dividend: Roman) {
+        #expect(dividend / 1 == dividend)
+    }
+
+    @Test(
+        "Remainder by self returns zero",
+        arguments: [
+            6,
+            4
+        ] as Array<Roman>
+    )
+    internal func remainderBySelfReturnsZero(value: Roman) {
+        #expect(value % value == 0)
+    }
+
+    @Test(
+        "Division is not commutative",
+        arguments: Self.divisionArguments
+    )
+    internal func divisionIsNotCommutative(
+        dividend: Roman,
+        divisor: Roman,
+        quotient _: Roman
+    ) {
+        #expect(dividend / divisor != divisor / dividend)
+    }
+}
+
+// MARK: - Integer Rules
+
+extension RomanDivisibleTests {
+    @Test(
+        "Only one is invertible",
+        arguments: [
+            (1, true),
+            (2, false)
+        ] as Array<(Roman, Bool)>
+    )
+    internal func onlyOneIsInvertible(
+        dividend: Roman,
+        result: Bool
+    ) {
+        #expect(dividend.isInvertible == result)
+    }
+
     @Test(
         "Halving odd values truncates toward zero",
         arguments: [
@@ -232,49 +278,13 @@ extension RomanDivisibleTests {
     }
 
     @Test(
-        "Dividing zero by nonzero value returns zero",
-        arguments: [
-            1,
-            3
-        ] as Array<Roman>
-    )
-    internal func dividingZeroByNonzeroValueReturnsZero(divisor: Roman) {
-        #expect(0 / divisor == 0)
-    }
-
-    @Test(
         "Remainder by one returns zero",
         arguments: [
-            1,
-            5
+            6,
+            4
         ] as Array<Roman>
     )
     internal func remainderByOneReturnsZero(dividend: Roman) {
         #expect(dividend % 1 == 0)
-    }
-
-    @Test(
-        "Remainder by self returns zero",
-        arguments: [
-            1,
-            5
-        ] as Array<Roman>
-    )
-    internal func remainderBySelfReturnsZero(value: Roman) {
-        #expect(value % value == 0)
-    }
-
-    @Test(
-        "Division is not commutative",
-        arguments: [
-            (6, 2),
-            (7, 2)
-        ] as Array<(Roman, Roman)>
-    )
-    internal func divisionIsNotCommutative(
-        lhs: Roman,
-        rhs: Roman
-    ) {
-        #expect(lhs / rhs != rhs / lhs)
     }
 }

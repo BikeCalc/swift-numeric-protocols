@@ -11,13 +11,33 @@ import Testing
 
 @Suite("Double Negateable Tests")
 internal struct DoubleNegateableTests {
+    private static let negationArguments: Array<(value: Double, negation: Double)> = [
+        (1.0, -1.0),
+        (-1.0, 1.0),
+        (5.0, -5.0),
+        (-5.0, 5.0),
+        (0.5, -0.5),
+        (-0.5, 0.5),
+        (1.5, -1.5),
+        (-1.5, 1.5)
+    ]
+
+    private static let additiveInverseArguments: Array<Double> = [
+        0.0,
+        -0.0,
+        1.0,
+        -1.0,
+        5.0,
+        -5.0,
+        0.5,
+        -0.5,
+        1.5,
+        -1.5
+    ]
+
     @Test(
         "Negation succeeds",
-        arguments: [
-            (1.0, -1.0),
-            (-1.0, 1.0),
-            (5.0, -5.0)
-        ]
+        arguments: Self.negationArguments
     )
     internal func negationSucceeds(
         value: Double,
@@ -28,11 +48,7 @@ internal struct DoubleNegateableTests {
 
     @Test(
         "Negating succeeds",
-        arguments: [
-            (1.0, -1.0),
-            (-1.0, 1.0),
-            (5.0, -5.0)
-        ]
+        arguments: Self.negationArguments
     )
     internal func negatingSucceeds(
         value: Double,
@@ -43,11 +59,7 @@ internal struct DoubleNegateableTests {
 
     @Test(
         "Negate succeeds",
-        arguments: [
-            (1.0, -1.0),
-            (-1.0, 1.0),
-            (5.0, -5.0)
-        ]
+        arguments: Self.negationArguments
     )
     internal func negateSucceeds(
         value: Double,
@@ -62,7 +74,13 @@ internal struct DoubleNegateableTests {
         "Is negative",
         arguments: [
             (1.0, false),
-            (-1.0, true)
+            (-1.0, true),
+            (5.0, false),
+            (-5.0, true),
+            (0.5, false),
+            (-0.5, true),
+            (1.5, false),
+            (-1.5, true)
         ]
     )
     internal func isNegative(
@@ -75,8 +93,14 @@ internal struct DoubleNegateableTests {
     @Test(
         "Is positive",
         arguments: [
+            (1.0, true),
             (-1.0, false),
-            (1.0, true)
+            (5.0, true),
+            (-5.0, false),
+            (0.5, true),
+            (-0.5, false),
+            (1.5, true),
+            (-1.5, false)
         ]
     )
     internal func isPositive(
@@ -89,8 +113,14 @@ internal struct DoubleNegateableTests {
     @Test(
         "Is signed",
         arguments: [
+            (1.0, true),
             (-1.0, true),
-            (1.0, true)
+            (5.0, true),
+            (-5.0, true),
+            (0.5, true),
+            (-0.5, true),
+            (1.5, true),
+            (-1.5, true)
         ]
     )
     internal func isSigned(
@@ -104,8 +134,13 @@ internal struct DoubleNegateableTests {
         "Is opposite",
         arguments: [
             (1.0, 1.0, false),
+            (-1.0, -1.0, false),
             (-1.0, 1.0, true),
-            (1.0, -1.0, true)
+            (1.0, -1.0, true),
+            (0.5, 0.5, false),
+            (-0.5, -0.5, false),
+            (-0.5, 0.5, true),
+            (0.5, -0.5, true)
         ]
     )
     internal func isOpposite(
@@ -122,13 +157,7 @@ internal struct DoubleNegateableTests {
 extension DoubleNegateableTests {
     @Test(
         "Negating twice returns original value",
-        arguments: [
-            0.0,
-            1.0,
-            -1.0,
-            5.0,
-            -5.0
-        ]
+        arguments: Self.additiveInverseArguments
     )
     internal func negatingTwiceReturnsOriginalValue(value: Double) {
         #expect(value.negating().negating() == value)
@@ -136,16 +165,18 @@ extension DoubleNegateableTests {
 
     @Test(
         "Negating follows additive inverse rule",
-        arguments: [
-            0.0,
-            1.0,
-            -1.0,
-            5.0,
-            -5.0
-        ]
+        arguments: Self.additiveInverseArguments
     )
     internal func negatingFollowsAdditiveInverseRule(value: Double) {
         #expect(value + value.negating() == 0.0)
+    }
+
+    @Test("One and negative one are opposites")
+    internal func oneAndNegativeOneAreOpposites() {
+        #expect(1.0.isOpposite(of: -1.0))
+        #expect((-1.0).isOpposite(of: 1.0))
+        #expect(1.0.negating() == -1.0)
+        #expect((-1.0).negating() == 1.0)
     }
 }
 

@@ -17,7 +17,9 @@ internal struct DoubleRepresentableByZeroTests {
             (0.0, true),
             (-0.0, true),
             (1.0, false),
-            (-1.0, false)
+            (-1.0, false),
+            (0.5, false),
+            (-0.5, false)
         ]
     )
     internal func isZero(

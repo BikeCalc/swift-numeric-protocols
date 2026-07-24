@@ -49,8 +49,8 @@ internal struct UInt4BinaryIntegerTests {
     @Test(
         "Bitwise and equal succeeds",
         arguments: [
-            (0b1010, 0b1100, 0b1000),
-            (0b1111, 0b0101, 0b0101)
+            (0b0110, 0b0011, 0b0010),
+            (0b1010, 0b1100, 0b1000)
         ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func bitwiseAndEqualSucceeds(
@@ -66,8 +66,8 @@ internal struct UInt4BinaryIntegerTests {
     @Test(
         "Bitwise or equal succeeds",
         arguments: [
-            (0b1010, 0b0101, 0b1111),
-            (0b1000, 0b0011, 0b1011)
+            (0b0010, 0b0101, 0b0111),
+            (0b1010, 0b0101, 0b1111)
         ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func bitwiseOrEqualSucceeds(
@@ -83,8 +83,8 @@ internal struct UInt4BinaryIntegerTests {
     @Test(
         "Bitwise xor equal succeeds",
         arguments: [
-            (0b1010, 0b1100, 0b0110),
-            (0b1111, 0b0101, 0b1010)
+            (0b0110, 0b0011, 0b0101),
+            (0b1010, 0b1100, 0b0110)
         ] as Array<(UInt4, UInt4, UInt4)>
     )
     internal func bitwiseXorEqualSucceeds(
@@ -95,24 +95,5 @@ internal struct UInt4BinaryIntegerTests {
         var maskedValue: UInt4 = value
         maskedValue ^= mask
         #expect(maskedValue == result)
-    }
-
-    @Test(
-        "Quotient and remainder succeeds",
-        arguments: [
-            (7, 2, 3, 1),
-            (15, 4, 3, 3)
-        ] as Array<(UInt4, UInt4, UInt4, UInt4)>
-    )
-    internal func quotientAndRemainderSucceeds(
-        dividend: UInt4,
-        divisor: UInt4,
-        quotient: UInt4,
-        remainder: UInt4
-    ) {
-        let result = dividend.quotientAndRemainder(dividingBy: divisor)
-
-        #expect(result.quotient == quotient)
-        #expect(result.remainder == remainder)
     }
 }

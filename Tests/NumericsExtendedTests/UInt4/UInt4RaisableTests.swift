@@ -11,12 +11,25 @@ import Testing
 
 @Suite("UInt4 Raisable Tests")
 internal struct UInt4RaisableTests {
+    private static let exponentiationArguments: [(UInt4, UInt4.Exponent, UInt4)] = [
+        (2, 2, 4),
+        (2, 3, 8)
+    ]
+
+    private static let squaringArguments: [(UInt4, UInt4)] = [
+        (2, 4),
+        (3, 9)
+    ]
+
+    private static let cubingArguments: [(UInt4, UInt4)] = [
+        (2, 8)
+    ]
+
     @Test(
         "Is power of",
         arguments: [
-            (1, 1, true),
-            (4, 1, false),
             (4, 2, true),
+            (6, 2, false),
             (8, 2, true),
             (9, 2, false)
         ] as Array<(UInt4, UInt4, Bool)>
@@ -31,11 +44,7 @@ internal struct UInt4RaisableTests {
 
     @Test(
         "Exponentiation succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
+        arguments: Self.exponentiationArguments
     )
     internal func exponentiationSucceeds(
         base: UInt4,
@@ -47,11 +56,7 @@ internal struct UInt4RaisableTests {
 
     @Test(
         "Exponentiation equal succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
+        arguments: Self.exponentiationArguments
     )
     internal func exponentiationEqualSucceeds(
         base: UInt4,
@@ -65,11 +70,7 @@ internal struct UInt4RaisableTests {
 
     @Test(
         "Raising to succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
+        arguments: Self.exponentiationArguments
     )
     internal func raisingToSucceeds(
         base: UInt4,
@@ -81,11 +82,7 @@ internal struct UInt4RaisableTests {
 
     @Test(
         "Raise to succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
+        arguments: Self.exponentiationArguments
     )
     internal func raiseToSucceeds(
         base: UInt4,
@@ -99,10 +96,7 @@ internal struct UInt4RaisableTests {
 
     @Test(
         "Squared succeeds",
-        arguments: [
-            (2, 4),
-            (3, 9)
-        ] as Array<(UInt4, UInt4)>
+        arguments: Self.squaringArguments
     )
     internal func squaredSucceeds(
         base: UInt4,
@@ -113,10 +107,7 @@ internal struct UInt4RaisableTests {
 
     @Test(
         "Square succeeds",
-        arguments: [
-            (2, 4),
-            (3, 9)
-        ] as Array<(UInt4, UInt4)>
+        arguments: Self.squaringArguments
     )
     internal func squareSucceeds(
         base: UInt4,
@@ -129,9 +120,7 @@ internal struct UInt4RaisableTests {
 
     @Test(
         "Cubed succeeds",
-        arguments: [
-            (2, 8)
-        ] as Array<(UInt4, UInt4)>
+        arguments: Self.cubingArguments
     )
     internal func cubedSucceeds(
         base: UInt4,
@@ -142,9 +131,7 @@ internal struct UInt4RaisableTests {
 
     @Test(
         "Cube succeeds",
-        arguments: [
-            (2, 8)
-        ] as Array<(UInt4, UInt4)>
+        arguments: Self.cubingArguments
     )
     internal func cubeSucceeds(
         base: UInt4,
@@ -160,19 +147,41 @@ internal struct UInt4RaisableTests {
 
 extension UInt4RaisableTests {
     @Test(
-        "Zero base exponentiation follows unsigned integer rules",
+        "Raising to one preserves base",
         arguments: [
-            (0, 0, 1),
-            (0, 1, 0),
-            (0, 2, 0)
-        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
+            2,
+            3
+        ] as Array<UInt4>
     )
-    internal func zeroBaseExponentiationFollowsUnsignedIntegerRules(
-        base: UInt4,
-        exponent: UInt4.Exponent,
-        power: UInt4
+    internal func raisingToOnePreservesBase(base: UInt4) {
+        #expect(base ** 1 == base)
+    }
+
+    @Test(
+        "One base exponentiation returns one",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ] as Array<UInt4.Exponent>
+    )
+    internal func oneBaseExponentiationReturnsOne(exponent: UInt4.Exponent) {
+        #expect(UInt4(1) ** exponent == 1)
+    }
+
+    @Test(
+        "One base power predicate follows identity rule",
+        arguments: [
+            (1, true),
+            (2, false)
+        ] as Array<(UInt4, Bool)>
+    )
+    internal func oneBasePowerPredicateFollowsIdentityRule(
+        value: UInt4,
+        result: Bool
     ) {
-        #expect(base ** exponent == power)
+        #expect(value.isPower(of: 1) == result)
     }
 
     @Test(
@@ -189,5 +198,40 @@ extension UInt4RaisableTests {
         let power: UInt4 = base ** exponent
         let reversedPower: UInt4 = exponent ** base
         #expect(power != reversedPower)
+    }
+}
+
+// MARK: - Integer Rules
+
+extension UInt4RaisableTests {
+    @Test(
+        "Zero base power predicate follows unsigned integer rules",
+        arguments: [
+            (0, true),
+            (1, false),
+            (2, false)
+        ] as Array<(UInt4, Bool)>
+    )
+    internal func zeroBasePowerPredicateFollowsUnsignedIntegerRules(
+        value: UInt4,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: 0) == result)
+    }
+
+    @Test(
+        "Zero base exponentiation follows unsigned integer rules",
+        arguments: [
+            (0, 0, 1),
+            (0, 1, 0),
+            (0, 2, 0)
+        ] as Array<(UInt4, UInt4.Exponent, UInt4)>
+    )
+    internal func zeroBaseExponentiationFollowsUnsignedIntegerRules(
+        base: UInt4,
+        exponent: UInt4.Exponent,
+        power: UInt4
+    ) {
+        #expect(base ** exponent == power)
     }
 }

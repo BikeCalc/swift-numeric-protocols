@@ -573,13 +573,10 @@ extension Int4: ReportableAsOverflow {
         switch rhs {
         case ..<0:
             return (partialValue: 0, overflow: false)
-
         case 0:
             return (partialValue: 1, overflow: false)
-
         case 1:
             return (partialValue: self, overflow: false)
-
         default:
             var result: Self = self
             var exponent: Self.Exponent = 2

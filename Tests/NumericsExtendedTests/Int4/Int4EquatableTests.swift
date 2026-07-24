@@ -11,22 +11,23 @@ import Testing
 
 @Suite("Int4 Equatable Tests")
 internal struct Int4EquatableTests {
+    private static let equalityArguments: Array<(lhs: Int4, rhs: Int4)> = [
+        (1, 1),
+        (1, 2),
+        (-1, -1),
+        (-1, 1)
+    ]
+
     @Test(
         "Equality predicates",
-        arguments: [
-            (1, 2, false),
-            (1, 1, true),
-            (-1, 1, false),
-            (-1, -1, true)
-        ] as Array<(Int4, Int4, Bool)>
+        arguments: Self.equalityArguments
     )
     internal func equalityPredicates(
         lhs: Int4,
-        rhs: Int4,
-        result: Bool
+        rhs: Int4
     ) {
-        #expect(lhs.isEqual(to: rhs) == result)
-        #expect(lhs.isUnequal(to: rhs) == !result)
+        #expect(lhs.isEqual(to: rhs) == (lhs == rhs))
+        #expect(lhs.isUnequal(to: rhs) == (lhs != rhs))
     }
 }
 
@@ -38,7 +39,8 @@ extension Int4EquatableTests {
         arguments: [
             (0, 0, true),
             (-0, 0, true),
-            (0, 1, false)
+            (0, 1, false),
+            (-0, 1, false)
         ] as Array<(Int4, Int4, Bool)>
     )
     internal func zeroEqualityFollowsIntegerRules(

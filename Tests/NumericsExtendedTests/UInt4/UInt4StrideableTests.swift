@@ -15,7 +15,9 @@ internal struct UInt4StrideableTests {
         "Advanced by succeeds",
         arguments: [
             (1, 3, 4),
-            (4, -3, 1)
+            (2, 3, 5),
+            (4, -3, 1),
+            (5, -3, 2)
         ] as Array<(UInt4, UInt4.Stride, UInt4)>
     )
     internal func advancedBySucceeds(
@@ -30,7 +32,9 @@ internal struct UInt4StrideableTests {
         "Distance to succeeds",
         arguments: [
             (1, 4, 3),
-            (4, 1, -3)
+            (2, 5, 3),
+            (4, 1, -3),
+            (5, 2, -3)
         ] as Array<(UInt4, UInt4, UInt4.Stride)>
     )
     internal func distanceToSucceeds(
@@ -39,5 +43,31 @@ internal struct UInt4StrideableTests {
         result: UInt4.Stride
     ) {
         #expect(value.distance(to: other) == result)
+    }
+}
+
+// MARK: - Stride Rules
+
+extension UInt4StrideableTests {
+    @Test(
+        "Advancing by zero preserves value",
+        arguments: [
+            1,
+            2
+        ] as Array<UInt4>
+    )
+    internal func advancingByZeroPreservesValue(value: UInt4) {
+        #expect(value.advanced(by: 0) == value)
+    }
+
+    @Test(
+        "Distance to self returns zero",
+        arguments: [
+            1,
+            2
+        ] as Array<UInt4>
+    )
+    internal func distanceToSelfReturnsZero(value: UInt4) {
+        #expect(value.distance(to: value) == 0)
     }
 }

@@ -11,12 +11,26 @@ import Testing
 
 @Suite("Roman Raisable Tests")
 internal struct RomanRaisableTests {
+    private static let exponentiationArguments: [(Roman, Roman.Exponent, Roman)] = [
+        (2, 2, 4),
+        (2, 3, 8)
+    ]
+
+    private static let squaringArguments: [(Roman, Roman)] = [
+        (2, 4),
+        (3, 9)
+    ]
+
+    private static let cubingArguments: [(Roman, Roman)] = [
+        (2, 8),
+        (3, 27)
+    ]
+
     @Test(
         "Is power of",
         arguments: [
-            (1, 1, true),
-            (4, 1, false),
             (4, 2, true),
+            (6, 2, false),
             (8, 2, true),
             (9, 2, false)
         ] as Array<(Roman, Roman, Bool)>
@@ -31,11 +45,7 @@ internal struct RomanRaisableTests {
 
     @Test(
         "Exponentiation succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ] as Array<(Roman, Roman.Exponent, Roman)>
+        arguments: Self.exponentiationArguments
     )
     internal func exponentiationSucceeds(
         base: Roman,
@@ -47,11 +57,7 @@ internal struct RomanRaisableTests {
 
     @Test(
         "Exponentiation equal succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ] as Array<(Roman, Roman.Exponent, Roman)>
+        arguments: Self.exponentiationArguments
     )
     internal func exponentiationEqualSucceeds(
         base: Roman,
@@ -65,11 +71,7 @@ internal struct RomanRaisableTests {
 
     @Test(
         "Raising to succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ] as Array<(Roman, Roman.Exponent, Roman)>
+        arguments: Self.exponentiationArguments
     )
     internal func raisingToSucceeds(
         base: Roman,
@@ -81,11 +83,7 @@ internal struct RomanRaisableTests {
 
     @Test(
         "Raise to succeeds",
-        arguments: [
-            (2, 1, 2),
-            (2, 2, 4),
-            (2, 3, 8)
-        ] as Array<(Roman, Roman.Exponent, Roman)>
+        arguments: Self.exponentiationArguments
     )
     internal func raiseToSucceeds(
         base: Roman,
@@ -99,10 +97,7 @@ internal struct RomanRaisableTests {
 
     @Test(
         "Squared succeeds",
-        arguments: [
-            (2, 4),
-            (3, 9)
-        ] as Array<(Roman, Roman)>
+        arguments: Self.squaringArguments
     )
     internal func squaredSucceeds(
         base: Roman,
@@ -113,10 +108,7 @@ internal struct RomanRaisableTests {
 
     @Test(
         "Square succeeds",
-        arguments: [
-            (2, 4),
-            (3, 9)
-        ] as Array<(Roman, Roman)>
+        arguments: Self.squaringArguments
     )
     internal func squareSucceeds(
         base: Roman,
@@ -129,10 +121,7 @@ internal struct RomanRaisableTests {
 
     @Test(
         "Cubed succeeds",
-        arguments: [
-            (2, 8),
-            (3, 27)
-        ] as Array<(Roman, Roman)>
+        arguments: Self.cubingArguments
     )
     internal func cubedSucceeds(
         base: Roman,
@@ -143,10 +132,7 @@ internal struct RomanRaisableTests {
 
     @Test(
         "Cube succeeds",
-        arguments: [
-            (2, 8),
-            (3, 27)
-        ] as Array<(Roman, Roman)>
+        arguments: Self.cubingArguments
     )
     internal func cubeSucceeds(
         base: Roman,
@@ -162,19 +148,41 @@ internal struct RomanRaisableTests {
 
 extension RomanRaisableTests {
     @Test(
-        "Zero base exponentiation follows unsigned integer rules",
+        "Raising to one preserves base",
         arguments: [
-            (0, 0, 1),
-            (0, 1, 0),
-            (0, 2, 0)
-        ] as Array<(Roman, Roman.Exponent, Roman)>
+            2,
+            3
+        ] as Array<Roman>
     )
-    internal func zeroBaseExponentiationFollowsRomanRules(
-        base: Roman,
-        exponent: Roman.Exponent,
-        power: Roman
+    internal func raisingToOnePreservesBase(base: Roman) {
+        #expect(base ** 1 == base)
+    }
+
+    @Test(
+        "One base exponentiation returns one",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ] as Array<Roman.Exponent>
+    )
+    internal func oneBaseExponentiationReturnsOne(exponent: Roman.Exponent) {
+        #expect(Roman(1) ** exponent == 1)
+    }
+
+    @Test(
+        "One base power predicate follows identity rule",
+        arguments: [
+            (1, true),
+            (2, false)
+        ] as Array<(Roman, Bool)>
+    )
+    internal func oneBasePowerPredicateFollowsIdentityRule(
+        value: Roman,
+        result: Bool
     ) {
-        #expect(base ** exponent == power)
+        #expect(value.isPower(of: 1) == result)
     }
 
     @Test(
@@ -191,5 +199,40 @@ extension RomanRaisableTests {
         let power: Roman = base ** exponent
         let reversedPower: Roman = exponent ** base
         #expect(power != reversedPower)
+    }
+}
+
+// MARK: - Integer Rules
+
+extension RomanRaisableTests {
+    @Test(
+        "Zero base power predicate follows unsigned integer rules",
+        arguments: [
+            (0, true),
+            (1, false),
+            (2, false)
+        ] as Array<(Roman, Bool)>
+    )
+    internal func zeroBasePowerPredicateFollowsRomanRules(
+        value: Roman,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: 0) == result)
+    }
+
+    @Test(
+        "Zero base exponentiation follows unsigned integer rules",
+        arguments: [
+            (0, 0, 1),
+            (0, 1, 0),
+            (0, 2, 0)
+        ] as Array<(Roman, Roman.Exponent, Roman)>
+    )
+    internal func zeroBaseExponentiationFollowsRomanRules(
+        base: Roman,
+        exponent: Roman.Exponent,
+        power: Roman
+    ) {
+        #expect(base ** exponent == power)
     }
 }

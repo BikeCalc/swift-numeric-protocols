@@ -14,8 +14,11 @@ internal struct RomanNumericTests {
     @Test(
         "Magnitude succeeds",
         arguments: [
-            (4, 4),
-            (8, 8)
+            (0, 0),
+            (2, 2),
+            (3, 3),
+            (Roman.min, Roman.min),
+            (Roman.max, Roman.max)
         ] as Array<(Roman, Roman.Magnitude)>
     )
     internal func magnitudeSucceeds(
@@ -28,8 +31,11 @@ internal struct RomanNumericTests {
     @Test(
         "Initialized exactly succeeds",
         arguments: [
-            (4, 4),
-            (8, 8)
+            (0, 0),
+            (2, 2),
+            (3, 3),
+            (0, Roman.min),
+            (3999, Roman.max)
         ] as Array<(Int, Roman)>
     )
     internal func initializedExactlySucceeds(

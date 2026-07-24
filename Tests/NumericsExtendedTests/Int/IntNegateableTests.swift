@@ -11,13 +11,25 @@ import Testing
 
 @Suite("Int Negateable Tests")
 internal struct IntNegateableTests {
+    private static let negationArguments: Array<(value: Int, negation: Int)> = [
+        (1, -1),
+        (-1, 1),
+        (5, -5),
+        (-5, 5)
+    ]
+
+    private static let additiveInverseArguments: Array<Int> = [
+        0,
+        -0,
+        1,
+        -1,
+        5,
+        -5
+    ]
+
     @Test(
         "Negation succeeds",
-        arguments: [
-            (1, -1),
-            (-1, 1),
-            (5, -5)
-        ]
+        arguments: Self.negationArguments
     )
     internal func negationSucceeds(
         value: Int,
@@ -28,11 +40,7 @@ internal struct IntNegateableTests {
 
     @Test(
         "Negating succeeds",
-        arguments: [
-            (1, -1),
-            (-1, 1),
-            (5, -5)
-        ]
+        arguments: Self.negationArguments
     )
     internal func negatingSucceeds(
         value: Int,
@@ -43,11 +51,7 @@ internal struct IntNegateableTests {
 
     @Test(
         "Negate succeeds",
-        arguments: [
-            (1, -1),
-            (-1, 1),
-            (5, -5)
-        ]
+        arguments: Self.negationArguments
     )
     internal func negateSucceeds(
         value: Int,
@@ -62,7 +66,9 @@ internal struct IntNegateableTests {
         "Is negative",
         arguments: [
             (1, false),
-            (-1, true)
+            (-1, true),
+            (5, false),
+            (-5, true)
         ]
     )
     internal func isNegative(
@@ -75,8 +81,10 @@ internal struct IntNegateableTests {
     @Test(
         "Is positive",
         arguments: [
+            (1, true),
             (-1, false),
-            (1, true)
+            (5, true),
+            (-5, false)
         ]
     )
     internal func isPositive(
@@ -89,8 +97,10 @@ internal struct IntNegateableTests {
     @Test(
         "Is signed",
         arguments: [
+            (1, true),
             (-1, true),
-            (1, true)
+            (5, true),
+            (-5, true)
         ]
     )
     internal func isSigned(
@@ -104,8 +114,13 @@ internal struct IntNegateableTests {
         "Is opposite",
         arguments: [
             (1, 1, false),
+            (-1, -1, false),
             (-1, 1, true),
-            (1, -1, true)
+            (1, -1, true),
+            (5, 5, false),
+            (-5, -5, false),
+            (-5, 5, true),
+            (5, -5, true)
         ]
     )
     internal func isOpposite(
@@ -118,6 +133,34 @@ internal struct IntNegateableTests {
 }
 
 // MARK: - Arithmetic Rules
+
+extension IntNegateableTests {
+    @Test(
+        "Negating twice returns original value",
+        arguments: Self.additiveInverseArguments
+    )
+    internal func negatingTwiceReturnsOriginalValue(value: Int) {
+        #expect(value.negating().negating() == value)
+    }
+
+    @Test(
+        "Negating follows additive inverse rule",
+        arguments: Self.additiveInverseArguments
+    )
+    internal func negatingFollowsAdditiveInverseRule(value: Int) {
+        #expect(value + value.negating() == 0)
+    }
+
+    @Test("One and negative one are opposites")
+    internal func oneAndNegativeOneAreOpposites() {
+        #expect(1.isOpposite(of: -1))
+        #expect((-1).isOpposite(of: 1))
+        #expect(1.negating() == -1)
+        #expect((-1).negating() == 1)
+    }
+}
+
+// MARK: - Integer Rules
 
 extension IntNegateableTests {
     @Test(
@@ -164,33 +207,5 @@ extension IntNegateableTests {
     )
     internal func negatingZeroReturnsZero(value: Int) {
         #expect(value.negating() == 0)
-    }
-
-    @Test(
-        "Negating twice returns original value",
-        arguments: [
-            0,
-            1,
-            -1,
-            5,
-            -5
-        ]
-    )
-    internal func negatingTwiceReturnsOriginalValue(value: Int) {
-        #expect(value.negating().negating() == value)
-    }
-
-    @Test(
-        "Negating follows additive inverse rule",
-        arguments: [
-            0,
-            1,
-            -1,
-            5,
-            -5
-        ]
-    )
-    internal func negatingFollowsAdditiveInverseRule(value: Int) {
-        #expect(value + value.negating() == 0)
     }
 }

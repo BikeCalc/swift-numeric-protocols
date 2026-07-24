@@ -12,13 +12,25 @@ import Testing
 @Suite("Roman LosslessStringConvertible Tests")
 internal struct RomanLosslessStringConvertibleTests {
     @Test(
-        "Initialized with string succeeds",
+        "Initialized with decimal string succeeds",
         arguments: [
             ("0", 0),
+            ("00", 0),
+            ("01", 1),
             ("1", 1),
-            ("4", 4),
-            ("16", 16),
-            ("3999", 3999),
+            ("3999", 3999)
+        ] as Array<(String, Roman)>
+    )
+    internal func initializedWithDecimalStringSucceeds(
+        description: String,
+        value: Roman
+    ) {
+        #expect(Roman(description) == value)
+    }
+
+    @Test(
+        "Initialized with Roman numeral string succeeds",
+        arguments: [
             ("N", 0),
             ("I", 1),
             ("III", 3),

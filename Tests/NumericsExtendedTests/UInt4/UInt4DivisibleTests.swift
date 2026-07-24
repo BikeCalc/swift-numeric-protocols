@@ -11,11 +11,28 @@ import Testing
 
 @Suite("UInt4 Divisible Tests")
 internal struct UInt4DivisibleTests {
+    private static let divisionArguments: [(UInt4, UInt4, UInt4)] = [
+        (6, 2, 3),
+        (6, 3, 2)
+    ]
+
+    private static let remainderArguments: [(UInt4, UInt4, UInt4)] = [
+        (4, 2, 0),
+        (5, 2, 1)
+    ]
+
+    private static let halvingArguments: [(UInt4, UInt4)] = [
+        (6, 3),
+        (4, 2)
+    ]
+
     @Test(
         "Parity predicates",
         arguments: [
+            (0, true),
             (1, false),
-            (2, true)
+            (2, true),
+            (3, false)
         ] as Array<(UInt4, Bool)>
     )
     internal func parityPredicates(
@@ -41,25 +58,10 @@ internal struct UInt4DivisibleTests {
     }
 
     @Test(
-        "Is invertible",
-        arguments: [
-            (1, true),
-            (2, false)
-        ] as Array<(UInt4, Bool)>
-    )
-    internal func isInvertible(
-        dividend: UInt4,
-        result: Bool
-    ) {
-        #expect(dividend.isInvertible == result)
-    }
-
-    @Test(
         "Is divisible by",
         arguments: [
-            (3, 1, true),
-            (6, 2, true),
-            (7, 2, false)
+            (6, 3, true),
+            (7, 3, false)
         ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func isDivisibleBy(
@@ -73,9 +75,8 @@ internal struct UInt4DivisibleTests {
     @Test(
         "Is factor of",
         arguments: [
-            (1, 2, true),
-            (2, 6, true),
-            (2, 7, false)
+            (3, 6, true),
+            (3, 7, false)
         ] as Array<(UInt4, UInt4, Bool)>
     )
     internal func isFactorOf(
@@ -88,10 +89,7 @@ internal struct UInt4DivisibleTests {
 
     @Test(
         "Division succeeds",
-        arguments: [
-            (6, 2, 3),
-            (7, 2, 3)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.divisionArguments
     )
     internal func divisionSucceeds(
         dividend: UInt4,
@@ -103,10 +101,7 @@ internal struct UInt4DivisibleTests {
 
     @Test(
         "Division equal succeeds",
-        arguments: [
-            (6, 2, 3),
-            (7, 2, 3)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.divisionArguments
     )
     internal func divisionEqualSucceeds(
         dividend: UInt4,
@@ -120,10 +115,7 @@ internal struct UInt4DivisibleTests {
 
     @Test(
         "Remainder succeeds",
-        arguments: [
-            (6, 2, 0),
-            (7, 2, 1)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.remainderArguments
     )
     internal func remainderSucceeds(
         dividend: UInt4,
@@ -135,10 +127,7 @@ internal struct UInt4DivisibleTests {
 
     @Test(
         "Remainder equal succeeds",
-        arguments: [
-            (6, 2, 0),
-            (7, 2, 1)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.remainderArguments
     )
     internal func remainderEqualSucceeds(
         dividend: UInt4,
@@ -152,10 +141,7 @@ internal struct UInt4DivisibleTests {
 
     @Test(
         "Dividing by succeeds",
-        arguments: [
-            (6, 2, 3),
-            (7, 2, 3)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.divisionArguments
     )
     internal func dividingBySucceeds(
         dividend: UInt4,
@@ -167,10 +153,7 @@ internal struct UInt4DivisibleTests {
 
     @Test(
         "Divide by succeeds",
-        arguments: [
-            (6, 2, 3),
-            (7, 2, 3)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.divisionArguments
     )
     internal func divideBySucceeds(
         dividend: UInt4,
@@ -184,10 +167,7 @@ internal struct UInt4DivisibleTests {
 
     @Test(
         "Halved succeeds",
-        arguments: [
-            (2, 1),
-            (4, 2)
-        ] as Array<(UInt4, UInt4)>
+        arguments: Self.halvingArguments
     )
     internal func halvedSucceeds(
         dividend: UInt4,
@@ -198,10 +178,7 @@ internal struct UInt4DivisibleTests {
 
     @Test(
         "Halve succeeds",
-        arguments: [
-            (2, 1),
-            (4, 2)
-        ] as Array<(UInt4, UInt4)>
+        arguments: Self.halvingArguments
     )
     internal func halveSucceeds(
         dividend: UInt4,
@@ -216,6 +193,75 @@ internal struct UInt4DivisibleTests {
 // MARK: - Arithmetic Rules
 
 extension UInt4DivisibleTests {
+    @Test("Zero is not invertible")
+    internal func zeroIsNotInvertible() {
+        let zero: UInt4 = 0
+        #expect(zero.isInvertible == false)
+    }
+
+    @Test(
+        "Dividing zero by nonzero value returns zero",
+        arguments: [
+            2,
+            3
+        ] as Array<UInt4>
+    )
+    internal func dividingZeroByNonzeroValueReturnsZero(divisor: UInt4) {
+        #expect(UInt4.zero / divisor == 0)
+    }
+
+    @Test(
+        "Dividing by one preserves dividend",
+        arguments: [
+            6,
+            4
+        ] as Array<UInt4>
+    )
+    internal func dividingByOnePreservesDividend(dividend: UInt4) {
+        #expect(dividend / 1 == dividend)
+    }
+
+    @Test(
+        "Remainder by self returns zero",
+        arguments: [
+            6,
+            4
+        ] as Array<UInt4>
+    )
+    internal func remainderBySelfReturnsZero(value: UInt4) {
+        #expect(value % value == 0)
+    }
+
+    @Test(
+        "Division is not commutative",
+        arguments: Self.divisionArguments
+    )
+    internal func divisionIsNotCommutative(
+        dividend: UInt4,
+        divisor: UInt4,
+        quotient _: UInt4
+    ) {
+        #expect(dividend / divisor != divisor / dividend)
+    }
+}
+
+// MARK: - Integer Rules
+
+extension UInt4DivisibleTests {
+    @Test(
+        "Only one is invertible",
+        arguments: [
+            (1, true),
+            (2, false)
+        ] as Array<(UInt4, Bool)>
+    )
+    internal func onlyOneIsInvertible(
+        dividend: UInt4,
+        result: Bool
+    ) {
+        #expect(dividend.isInvertible == result)
+    }
+
     @Test(
         "Halving odd values truncates toward zero",
         arguments: [
@@ -232,49 +278,13 @@ extension UInt4DivisibleTests {
     }
 
     @Test(
-        "Dividing zero by nonzero value returns zero",
-        arguments: [
-            1,
-            2
-        ] as Array<UInt4>
-    )
-    internal func dividingZeroByNonzeroValueReturnsZero(divisor: UInt4) {
-        #expect(UInt4.zero / divisor == 0)
-    }
-
-    @Test(
         "Remainder by one returns zero",
         arguments: [
-            1,
-            5
+            6,
+            4
         ] as Array<UInt4>
     )
     internal func remainderByOneReturnsZero(dividend: UInt4) {
         #expect(dividend % 1 == 0)
-    }
-
-    @Test(
-        "Remainder by self returns zero",
-        arguments: [
-            1,
-            5
-        ] as Array<UInt4>
-    )
-    internal func remainderBySelfReturnsZero(value: UInt4) {
-        #expect(value % value == 0)
-    }
-
-    @Test(
-        "Division is not commutative",
-        arguments: [
-            (6, 2),
-            (7, 2)
-        ] as Array<(UInt4, UInt4)>
-    )
-    internal func divisionIsNotCommutative(
-        lhs: UInt4,
-        rhs: UInt4
-    ) {
-        #expect(lhs / rhs != rhs / lhs)
     }
 }

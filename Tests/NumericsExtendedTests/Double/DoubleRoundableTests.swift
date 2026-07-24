@@ -11,17 +11,24 @@ import Testing
 
 @Suite("Double Roundable Tests")
 internal struct DoubleRoundableTests {
+    private static let roundingArguments: Array<(value: Double, decimalPlace: Double.DecimalPlace, result: Double)> = [
+        (1.2345, Double.DecimalPlace(0), 1.0),
+        (-1.2345, Double.DecimalPlace(0), -1.0),
+        (1.2345, Double.DecimalPlace(1), 1.2),
+        (-1.2345, Double.DecimalPlace(1), -1.2),
+        (1.2345, Double.DecimalPlace(2), 1.23),
+        (-1.2345, Double.DecimalPlace(2), -1.23),
+        (1.2355, Double.DecimalPlace(2), 1.24),
+        (-1.2355, Double.DecimalPlace(2), -1.24),
+        (0.555, Double.DecimalPlace(2), 0.56),
+        (-0.555, Double.DecimalPlace(2), -0.56),
+        (12.999, Double.DecimalPlace(2), 13.0),
+        (-12.999, Double.DecimalPlace(2), -13.0)
+    ]
+
     @Test(
         "Rounded to succeeds",
-        arguments: [
-            (1.0, Double.DecimalPlace(0), 1.0),
-            (1.2345, Double.DecimalPlace(0), 1.0),
-            (1.2345, Double.DecimalPlace(1), 1.2),
-            (1.2345, Double.DecimalPlace(2), 1.23),
-            (1.2355, Double.DecimalPlace(2), 1.24),
-            (-1.2345, Double.DecimalPlace(2), -1.23),
-            (-1.2355, Double.DecimalPlace(2), -1.24)
-        ]
+        arguments: Self.roundingArguments
     )
     internal func roundedToSucceeds(
         value: Double,
@@ -33,15 +40,7 @@ internal struct DoubleRoundableTests {
 
     @Test(
         "Round to succeeds",
-        arguments: [
-            (1.0, Double.DecimalPlace(0), 1.0),
-            (1.2345, Double.DecimalPlace(0), 1.0),
-            (1.2345, Double.DecimalPlace(1), 1.2),
-            (1.2345, Double.DecimalPlace(2), 1.23),
-            (1.2355, Double.DecimalPlace(2), 1.24),
-            (-1.2345, Double.DecimalPlace(2), -1.23),
-            (-1.2355, Double.DecimalPlace(2), -1.24)
-        ]
+        arguments: Self.roundingArguments
     )
     internal func roundToSucceeds(
         value: Double,
@@ -57,6 +56,22 @@ internal struct DoubleRoundableTests {
 // MARK: - Arithmetic Rules
 
 extension DoubleRoundableTests {
+    @Test(
+        "Rounding whole value preserves value",
+        arguments: [
+            (1.0, Double.DecimalPlace(0)),
+            (-1.0, Double.DecimalPlace(0)),
+            (1.0, Double.DecimalPlace(2)),
+            (-1.0, Double.DecimalPlace(2))
+        ]
+    )
+    internal func roundingWholeValuePreservesValue(
+        value: Double,
+        decimalPlace: Double.DecimalPlace
+    ) {
+        #expect(value.rounded(to: decimalPlace) == value)
+    }
+
     @Test(
         "Rounding midpoint follows away-from-zero rule",
         arguments: [

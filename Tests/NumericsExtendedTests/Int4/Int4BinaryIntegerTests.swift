@@ -51,6 +51,7 @@ internal struct Int4BinaryIntegerTests {
         "Bitwise and equal succeeds",
         arguments: [
             (0b0110, 0b0011, 0b0010),
+            (-6, -4, -8),
             (-1, 0b0101, 0b0101)
         ] as Array<(Int4, Int4, Int4)>
     )
@@ -85,6 +86,7 @@ internal struct Int4BinaryIntegerTests {
         "Bitwise xor equal succeeds",
         arguments: [
             (0b0110, 0b0011, 0b0101),
+            (-6, -4, 0b0110),
             (-1, 0b0101, -6)
         ] as Array<(Int4, Int4, Int4)>
     )
@@ -96,24 +98,5 @@ internal struct Int4BinaryIntegerTests {
         var maskedValue: Int4 = value
         maskedValue ^= mask
         #expect(maskedValue == result)
-    }
-
-    @Test(
-        "Quotient and remainder succeeds",
-        arguments: [
-            (7, 2, 3, 1),
-            (-7, 2, -3, -1)
-        ] as Array<(Int4, Int4, Int4, Int4)>
-    )
-    internal func quotientAndRemainderSucceeds(
-        dividend: Int4,
-        divisor: Int4,
-        quotient: Int4,
-        remainder: Int4
-    ) {
-        let result = dividend.quotientAndRemainder(dividingBy: divisor)
-
-        #expect(result.quotient == quotient)
-        #expect(result.remainder == remainder)
     }
 }

@@ -11,22 +11,27 @@ import Testing
 
 @Suite("Double Equatable Tests")
 internal struct DoubleEquatableTests {
+    private static let equalityArguments: Array<(lhs: Double, rhs: Double)> = [
+        (1.0, 1.0),
+        (1.0, 2.0),
+        (-1.0, -1.0),
+        (-1.0, 1.0),
+        (0.5, 0.5),
+        (0.5, 1.5),
+        (-0.5, -0.5),
+        (-0.5, 0.5)
+    ]
+
     @Test(
         "Equality predicates",
-        arguments: [
-            (1.0, 2.0, false),
-            (1.0, 1.0, true),
-            (-1.0, 1.0, false),
-            (-1.0, -1.0, true)
-        ]
+        arguments: Self.equalityArguments
     )
     internal func equalityPredicates(
         lhs: Double,
-        rhs: Double,
-        result: Bool
+        rhs: Double
     ) {
-        #expect(lhs.isEqual(to: rhs) == result)
-        #expect(lhs.isUnequal(to: rhs) == !result)
+        #expect(lhs.isEqual(to: rhs) == (lhs == rhs))
+        #expect(lhs.isUnequal(to: rhs) == (lhs != rhs))
     }
 }
 
@@ -38,7 +43,8 @@ extension DoubleEquatableTests {
         arguments: [
             (0.0, 0.0, true),
             (-0.0, 0.0, true),
-            (0.0, 1.0, false)
+            (0.0, 1.0, false),
+            (-0.0, 1.0, false)
         ]
     )
     internal func zeroEqualityFollowsFloatingPointRules(

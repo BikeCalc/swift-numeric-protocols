@@ -11,13 +11,50 @@ import Testing
 
 @Suite("Double Divisible Tests")
 internal struct DoubleDivisibleTests {
+    private static let divisionArguments: [(Double, Double, Double)] = [
+        (6.0, 2.0, 3.0),
+        (6.0, 3.0, 2.0),
+        (-6.0, 2.0, -3.0),
+        (-6.0, -3.0, 2.0),
+        (1.5, 0.5, 3.0),
+        (3.75, 1.5, 2.5),
+        (-1.5, 0.5, -3.0),
+        (-3.75, -1.5, 2.5)
+    ]
+
+    private static let remainderArguments: [(Double, Double, Double)] = [
+        (4.0, 2.0, 0.0),
+        (5.0, 2.0, 1.0),
+        (-5.0, 2.0, -1.0),
+        (-5.0, -2.0, -1.0),
+        (1.5, 0.5, 0.0),
+        (1.75, 0.5, 0.25),
+        (-1.75, 0.5, -0.25),
+        (-1.75, -0.5, -0.25)
+    ]
+
+    private static let halvingArguments: [(Double, Double)] = [
+        (6.0, 3.0),
+        (4.0, 2.0),
+        (-6.0, -3.0),
+        (-4.0, -2.0),
+        (1.5, 0.75),
+        (3.75, 1.875),
+        (-1.5, -0.75),
+        (-3.75, -1.875)
+    ]
+
     @Test(
         "Reciprocal",
         arguments: [
-            (1.0, 1.0),
-            (-1.0, -1.0),
             (2.0, 0.5),
-            (-2.0, -0.5)
+            (4.0, 0.25),
+            (-2.0, -0.5),
+            (-4.0, -0.25),
+            (0.5, 2.0),
+            (0.25, 4.0),
+            (-0.5, -2.0),
+            (-0.25, -4.0)
         ]
     )
     internal func reciprocal(
@@ -30,27 +67,31 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Is invertible",
         arguments: [
-            (1.0, true),
-            (-1.0, true),
-            (2.0, true),
-            (-2.0, true)
+            2.0,
+            3.0,
+            -2.0,
+            -3.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
         ]
     )
-    internal func isInvertible(
-        dividend: Double,
-        result: Bool
-    ) {
-        #expect(dividend.isInvertible == result)
+    internal func isInvertible(dividend: Double) {
+        #expect(dividend.isInvertible)
     }
 
     @Test(
         "Is divisible by",
         arguments: [
-            (3.0, 1.0, true),
-            (6.0, 2.0, true),
-            (7.0, 2.0, false),
-            (-6.0, 2.0, true),
-            (6.0, -2.0, true)
+            (6.0, 3.0, true),
+            (7.0, 3.0, false),
+            (-6.0, 3.0, true),
+            (-7.0, 3.0, false),
+            (1.5, 0.5, true),
+            (1.5, 2.5, false),
+            (-1.5, 0.5, true),
+            (-1.5, 2.5, false)
         ]
     )
     internal func isDivisibleBy(
@@ -64,11 +105,14 @@ internal struct DoubleDivisibleTests {
     @Test(
         "Is factor of",
         arguments: [
-            (1.0, 2.0, true),
-            (2.0, 6.0, true),
-            (2.0, 7.0, false),
-            (-2.0, 6.0, true),
-            (2.0, -6.0, true)
+            (3.0, 6.0, true),
+            (3.0, 7.0, false),
+            (3.0, -6.0, true),
+            (3.0, -7.0, false),
+            (0.5, 1.5, true),
+            (2.5, 1.5, false),
+            (0.5, -1.5, true),
+            (2.5, -1.5, false)
         ]
     )
     internal func isFactorOf(
@@ -81,12 +125,7 @@ internal struct DoubleDivisibleTests {
 
     @Test(
         "Division succeeds",
-        arguments: [
-            (6.0, 2.0, 3.0),
-            (-6.0, 2.0, -3.0),
-            (6.0, -2.0, -3.0),
-            (-6.0, -2.0, 3.0)
-        ]
+        arguments: Self.divisionArguments
     )
     internal func divisionSucceeds(
         dividend: Double,
@@ -98,12 +137,7 @@ internal struct DoubleDivisibleTests {
 
     @Test(
         "Division equal succeeds",
-        arguments: [
-            (6.0, 2.0, 3.0),
-            (-6.0, 2.0, -3.0),
-            (6.0, -2.0, -3.0),
-            (-6.0, -2.0, 3.0)
-        ]
+        arguments: Self.divisionArguments
     )
     internal func divisionEqualSucceeds(
         dividend: Double,
@@ -117,10 +151,7 @@ internal struct DoubleDivisibleTests {
 
     @Test(
         "Remainder succeeds",
-        arguments: [
-            (6.0, 2.0, 0.0),
-            (7.0, 2.0, 1.0)
-        ]
+        arguments: Self.remainderArguments
     )
     internal func remainderSucceeds(
         dividend: Double,
@@ -132,10 +163,7 @@ internal struct DoubleDivisibleTests {
 
     @Test(
         "Remainder equal succeeds",
-        arguments: [
-            (6.0, 2.0, 0.0),
-            (7.0, 2.0, 1.0)
-        ]
+        arguments: Self.remainderArguments
     )
     internal func remainderEqualSucceeds(
         dividend: Double,
@@ -149,12 +177,7 @@ internal struct DoubleDivisibleTests {
 
     @Test(
         "Dividing by succeeds",
-        arguments: [
-            (6.0, 2.0, 3.0),
-            (-6.0, 2.0, -3.0),
-            (6.0, -2.0, -3.0),
-            (-6.0, -2.0, 3.0)
-        ]
+        arguments: Self.divisionArguments
     )
     internal func dividingBySucceeds(
         dividend: Double,
@@ -166,12 +189,7 @@ internal struct DoubleDivisibleTests {
 
     @Test(
         "Divide by succeeds",
-        arguments: [
-            (6.0, 2.0, 3.0),
-            (-6.0, 2.0, -3.0),
-            (6.0, -2.0, -3.0),
-            (-6.0, -2.0, 3.0)
-        ]
+        arguments: Self.divisionArguments
     )
     internal func divideBySucceeds(
         dividend: Double,
@@ -185,11 +203,7 @@ internal struct DoubleDivisibleTests {
 
     @Test(
         "Halved succeeds",
-        arguments: [
-            (1.0, 0.5),
-            (-1.0, -0.5),
-            (6.0, 3.0)
-        ]
+        arguments: Self.halvingArguments
     )
     internal func halvedSucceeds(
         dividend: Double,
@@ -200,11 +214,7 @@ internal struct DoubleDivisibleTests {
 
     @Test(
         "Halve succeeds",
-        arguments: [
-            (1.0, 0.5),
-            (-1.0, -0.5),
-            (6.0, 3.0)
-        ]
+        arguments: Self.halvingArguments
     )
     internal func halveSucceeds(
         dividend: Double,
@@ -220,11 +230,25 @@ internal struct DoubleDivisibleTests {
 
 extension DoubleDivisibleTests {
     @Test(
+        "Zero is not invertible",
+        arguments: [
+            0.0,
+            -0.0
+        ]
+    )
+    internal func zeroIsNotInvertible(dividend: Double) {
+        #expect(dividend.isInvertible == false)
+    }
+
+    @Test(
         "Dividing zero by nonzero value returns zero",
         arguments: [
-            1.0,
-            -1.0,
-            3.0
+            2.0,
+            -3.0,
+            3.0,
+            0.5,
+            1.5,
+            -1.5
         ]
     )
     internal func dividingZeroByNonzeroValueReturnsZero(divisor: Double) {
@@ -234,40 +258,51 @@ extension DoubleDivisibleTests {
     @Test(
         "Dividing by one preserves dividend",
         arguments: [
-            (0.0, 0.0),
-            (1.0, 1.0),
-            (-1.0, -1.0),
-            (5.0, 5.0),
-            (-5.0, -5.0)
+            6.0,
+            4.0,
+            -6.0,
+            -4.0,
+            1.5,
+            3.75,
+            -1.5,
+            -3.75
         ]
     )
-    internal func dividingByOnePreservesDividend(
-        dividend: Double,
-        quotient: Double
-    ) {
-        #expect(dividend / 1.0 == quotient)
+    internal func dividingByOnePreservesDividend(dividend: Double) {
+        #expect(dividend / 1.0 == dividend)
     }
 
     @Test(
-        "Remainder by one returns zero",
+        "Dividing by negative one returns opposite value",
         arguments: [
-            1.0,
-            -1.0,
-            5.0,
-            -5.0
+            (6.0, -6.0),
+            (4.0, -4.0),
+            (-6.0, 6.0),
+            (-4.0, 4.0),
+            (1.5, -1.5),
+            (3.75, -3.75),
+            (-1.5, 1.5),
+            (-3.75, 3.75)
         ]
     )
-    internal func remainderByOneReturnsZero(dividend: Double) {
-        #expect(dividend % 1.0 == 0.0)
+    internal func dividingByNegativeOneReturnsOppositeValue(
+        dividend: Double,
+        quotient: Double
+    ) {
+        #expect(dividend / -1.0 == quotient)
     }
 
     @Test(
         "Remainder by self returns zero",
         arguments: [
-            1.0,
-            -1.0,
-            5.0,
-            -5.0
+            6.0,
+            4.0,
+            -6.0,
+            -4.0,
+            1.5,
+            3.75,
+            -1.5,
+            -3.75
         ]
     )
     internal func remainderBySelfReturnsZero(value: Double) {
@@ -277,10 +312,10 @@ extension DoubleDivisibleTests {
     @Test(
         "Remainder follows dividend sign",
         arguments: [
-            (7.0, 2.0, 1.0),
-            (-7.0, 2.0, -1.0),
-            (7.0, -2.0, 1.0),
-            (-7.0, -2.0, -1.0)
+            (5.0, 2.0, 1.0),
+            (-5.0, 2.0, -1.0),
+            (5.0, -2.0, 1.0),
+            (-5.0, -2.0, -1.0)
         ]
     )
     internal func remainderFollowsDividendSign(
@@ -293,17 +328,14 @@ extension DoubleDivisibleTests {
 
     @Test(
         "Division is not commutative",
-        arguments: [
-            (6.0, 2.0),
-            (-6.0, 2.0),
-            (6.0, -2.0)
-        ]
+        arguments: Self.divisionArguments
     )
     internal func divisionIsNotCommutative(
-        lhs: Double,
-        rhs: Double
+        dividend: Double,
+        divisor: Double,
+        quotient _: Double
     ) {
-        #expect(lhs / rhs != rhs / lhs)
+        #expect(dividend / divisor != divisor / dividend)
     }
 }
 
@@ -495,16 +527,28 @@ extension DoubleDivisibleTests {
     @Test(
         "Dividing NaN returns NaN",
         arguments: [
-            (Double.nan, Double.nan),
-            (Double.nan, 1.0),
-            (1.0, Double.nan),
-            (Double.nan, Double.infinity)
+            Double.nan,
+            1.0,
+            -1.0,
+            Double.infinity,
+            Double.negativeInfinity
         ]
     )
-    internal func dividingNaNReturnsNaN(
-        dividend: Double,
-        divisor: Double
-    ) {
-        #expect((dividend / divisor).isNaN)
+    internal func dividingNaNReturnsNaN(divisor: Double) {
+        #expect((Double.nan / divisor).isNaN)
+    }
+
+    @Test(
+        "Dividing by NaN returns NaN",
+        arguments: [
+            Double.nan,
+            1.0,
+            -1.0,
+            Double.infinity,
+            Double.negativeInfinity
+        ]
+    )
+    internal func dividingByNaNReturnsNaN(dividend: Double) {
+        #expect((dividend / Double.nan).isNaN)
     }
 }

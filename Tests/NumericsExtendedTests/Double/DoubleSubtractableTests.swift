@@ -11,13 +11,20 @@ import Testing
 
 @Suite("Double Subtractable Tests")
 internal struct DoubleSubtractableTests {
+    private static let subtractionArguments: [(Double, Double, Double)] = [
+        (3.0, 2.0, 1.0),
+        (5.0, 3.0, 2.0),
+        (-3.0, 2.0, -5.0),
+        (-5.0, -3.0, -2.0),
+        (1.5, 0.5, 1.0),
+        (3.5, 1.5, 2.0),
+        (-1.5, 0.5, -2.0),
+        (-3.5, -1.5, -2.0)
+    ]
+
     @Test(
         "Subtraction succeeds",
-        arguments: [
-            (6.0, 4.0, 2.0),
-            (-6.0, 4.0, -10.0),
-            (6.0, -4.0, 10.0)
-        ]
+        arguments: Self.subtractionArguments
     )
     internal func subtractionSucceeds(
         minuend: Double,
@@ -29,11 +36,7 @@ internal struct DoubleSubtractableTests {
 
     @Test(
         "Subtraction equal succeeds",
-        arguments: [
-            (6.0, 4.0, 2.0),
-            (-6.0, 4.0, -10.0),
-            (6.0, -4.0, 10.0)
-        ]
+        arguments: Self.subtractionArguments
     )
     internal func subtractionEqualSucceeds(
         minuend: Double,
@@ -47,11 +50,7 @@ internal struct DoubleSubtractableTests {
 
     @Test(
         "Subtracting succeeds",
-        arguments: [
-            (6.0, 4.0, 2.0),
-            (-6.0, 4.0, -10.0),
-            (6.0, -4.0, 10.0)
-        ]
+        arguments: Self.subtractionArguments
     )
     internal func subtractingSucceeds(
         minuend: Double,
@@ -63,11 +62,7 @@ internal struct DoubleSubtractableTests {
 
     @Test(
         "Subtract succeeds",
-        arguments: [
-            (6.0, 4.0, 2.0),
-            (-6.0, 4.0, -10.0),
-            (6.0, -4.0, 10.0)
-        ]
+        arguments: Self.subtractionArguments
     )
     internal func subtractSucceeds(
         minuend: Double,
@@ -86,26 +81,31 @@ extension DoubleSubtractableTests {
     @Test(
         "Subtracting zero preserves minuend",
         arguments: [
-            (0.0, 0.0),
-            (1.0, 1.0),
-            (-1.0, -1.0)
+            3.0,
+            5.0,
+            -3.0,
+            -5.0,
+            1.5,
+            3.5,
+            -1.5,
+            -3.5
         ]
     )
-    internal func subtractingZeroPreservesMinuend(
-        minuend: Double,
-        difference: Double
-    ) {
-        #expect(minuend - 0.0 == difference)
+    internal func subtractingZeroPreservesMinuend(minuend: Double) {
+        #expect(minuend - 0.0 == minuend)
     }
 
     @Test(
         "Subtracting self returns zero",
         arguments: [
-            0.0,
-            1.0,
-            -1.0,
+            3.0,
             5.0,
-            -5.0
+            -3.0,
+            -5.0,
+            1.5,
+            3.5,
+            -1.5,
+            -3.5
         ]
     )
     internal func subtractingSelfReturnsZero(value: Double) {
@@ -113,34 +113,15 @@ extension DoubleSubtractableTests {
     }
 
     @Test(
-        "Subtracting negative value adds opposite",
-        arguments: [
-            (6.0, -4.0, 10.0),
-            (-6.0, -4.0, -2.0),
-            (0.0, -4.0, 4.0)
-        ]
-    )
-    internal func subtractingNegativeValueAddsOpposite(
-        minuend: Double,
-        subtrahend: Double,
-        difference: Double
-    ) {
-        #expect(minuend - subtrahend == difference)
-    }
-
-    @Test(
         "Subtraction is not commutative",
-        arguments: [
-            (3.0, 2.0),
-            (-3.0, 2.0),
-            (3.0, -2.0)
-        ]
+        arguments: Self.subtractionArguments
     )
     internal func subtractionIsNotCommutative(
-        lhs: Double,
-        rhs: Double
+        minuend: Double,
+        subtrahend: Double,
+        difference _: Double
     ) {
-        #expect(lhs - rhs != rhs - lhs)
+        #expect(minuend - subtrahend != subtrahend - minuend)
     }
 }
 
@@ -152,8 +133,12 @@ extension DoubleSubtractableTests {
         arguments: [
             (0.0, 0.0, 0.0),
             (-0.0, 0.0, -0.0),
-            (1.0, 0.0, 1.0),
-            (-1.0, 0.0, -1.0)
+            (0.0, -0.0, 0.0),
+            (-0.0, -0.0, 0.0),
+            (2.0, 0.0, 2.0),
+            (-2.0, 0.0, -2.0),
+            (0.5, 0.0, 0.5),
+            (-0.5, 0.0, -0.5)
         ]
     )
     internal func subtractingZeroFollowsFloatingPointRules(

@@ -21,7 +21,6 @@ where Self: ReportableAsOverflow {
         case ..<2:
             let result: Self = self ** rhs
             return (result, false)
-
         default:
             var result: Self = self
             var exponent: Self.Exponent = 2

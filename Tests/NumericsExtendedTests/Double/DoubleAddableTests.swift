@@ -11,12 +11,20 @@ import Testing
 
 @Suite("Double Addable Tests")
 internal struct DoubleAddableTests {
+    private static let additionArguments: Array<(Double, Double, Double)> = [
+        (2.0, 3.0, 5.0),
+        (3.0, 4.0, 7.0),
+        (-2.0, 3.0, 1.0),
+        (-3.0, -4.0, -7.0),
+        (0.5, 1.5, 2.0),
+        (1.5, 2.5, 4.0),
+        (-0.5, 1.5, 1.0),
+        (-1.5, -2.5, -4.0)
+    ]
+
     @Test(
         "Addition succeeds",
-        arguments: [
-            (2.0, 4.0, 6.0),
-            (-2.0, 4.0, 2.0)
-        ]
+        arguments: Self.additionArguments
     )
     internal func additionSucceeds(
         augend: Double,
@@ -28,10 +36,7 @@ internal struct DoubleAddableTests {
 
     @Test(
         "Addition equal succeeds",
-        arguments: [
-            (2.0, 4.0, 6.0),
-            (-2.0, 4.0, 2.0)
-        ]
+        arguments: Self.additionArguments
     )
     internal func additionEqualSucceeds(
         augend: Double,
@@ -45,10 +50,7 @@ internal struct DoubleAddableTests {
 
     @Test(
         "Adding succeeds",
-        arguments: [
-            (2.0, 4.0, 6.0),
-            (-2.0, 4.0, 2.0)
-        ]
+        arguments: Self.additionArguments
     )
     internal func addingSucceeds(
         augend: Double,
@@ -60,10 +62,7 @@ internal struct DoubleAddableTests {
 
     @Test(
         "Add succeeds",
-        arguments: [
-            (2.0, 4.0, 6.0),
-            (-2.0, 4.0, 2.0)
-        ]
+        arguments: Self.additionArguments
     )
     internal func addSucceeds(
         augend: Double,
@@ -82,48 +81,50 @@ extension DoubleAddableTests {
     @Test(
         "Adding zero preserves augend",
         arguments: [
-            (0.0, 0.0),
-            (1.0, 1.0),
-            (-1.0, -1.0)
+            2.0,
+            3.0,
+            -2.0,
+            -3.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
         ]
     )
-    internal func addingZeroPreservesAugend(
-        augend: Double,
-        sum: Double
-    ) {
-        #expect(augend + 0.0 == sum)
+    internal func addingZeroPreservesAugend(augend: Double) {
+        #expect(augend + 0.0 == augend)
     }
 
     @Test(
         "Adding opposite values returns zero",
         arguments: [
-            (0.0, 0.0, 0.0),
-            (1.0, -1.0, 0.0),
-            (-1.0, 1.0, 0.0),
-            (5.0, -5.0, 0.0)
+            (2.0, -2.0),
+            (3.0, -3.0),
+            (-2.0, 2.0),
+            (-3.0, 3.0),
+            (0.5, -0.5),
+            (1.5, -1.5),
+            (-0.5, 0.5),
+            (-1.5, 1.5)
         ]
     )
     internal func addingOppositeValuesReturnsZero(
         augend: Double,
-        addend: Double,
-        sum: Double
+        addend: Double
     ) {
-        #expect(augend + addend == sum)
+        #expect(augend + addend == 0.0)
     }
 
     @Test(
         "Addition is commutative",
-        arguments: [
-            (2.0, 4.0),
-            (-2.0, 4.0),
-            (-2.0, -4.0)
-        ]
+        arguments: Self.additionArguments
     )
     internal func additionIsCommutative(
-        lhs: Double,
-        rhs: Double
+        augend: Double,
+        addend: Double,
+        sum _: Double
     ) {
-        #expect(lhs + rhs == rhs + lhs)
+        #expect(augend + addend == addend + augend)
     }
 }
 
@@ -134,9 +135,13 @@ extension DoubleAddableTests {
         "Adding zero follows floating-point rules",
         arguments: [
             (0.0, 0.0, 0.0),
+            (-0.0, 0.0, 0.0),
+            (0.0, -0.0, 0.0),
             (-0.0, -0.0, -0.0),
-            (1.0, 0.0, 1.0),
-            (-1.0, 0.0, -1.0)
+            (2.0, 0.0, 2.0),
+            (-2.0, 0.0, -2.0),
+            (0.5, 0.0, 0.5),
+            (-0.5, 0.0, -0.5)
         ]
     )
     internal func addingZeroFollowsFloatingPointRules(
@@ -186,7 +191,8 @@ extension DoubleAddableTests {
             (Double.nan, Double.nan),
             (Double.nan, 1.0),
             (1.0, Double.nan),
-            (Double.nan, Double.infinity)
+            (Double.nan, Double.infinity),
+            (Double.nan, Double.negativeInfinity)
         ]
     )
     internal func addingNaNReturnsNaN(

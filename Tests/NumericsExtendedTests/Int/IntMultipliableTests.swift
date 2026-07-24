@@ -11,14 +11,27 @@ import Testing
 
 @Suite("Int Multipliable Tests")
 internal struct IntMultipliableTests {
+    private static let multiplicationArguments: [(Int, Int, Int)] = [
+        (2, 3, 6),
+        (3, 4, 12),
+        (-2, 3, -6),
+        (-3, -4, 12)
+    ]
+
+    private static let doublingArguments: [(Int, Int)] = [
+        (2, 4),
+        (3, 6),
+        (-2, -4),
+        (-3, -6)
+    ]
+
     @Test(
         "Is multiple of",
         arguments: [
-            (3, 1, true),
             (6, 3, true),
             (7, 3, false),
             (-6, 3, true),
-            (6, -3, true)
+            (-7, 3, false)
         ]
     )
     internal func isMultipleOf(
@@ -31,12 +44,7 @@ internal struct IntMultipliableTests {
 
     @Test(
         "Multiplication succeeds",
-        arguments: [
-            (2, 3, 6),
-            (-2, 3, -6),
-            (2, -3, -6),
-            (-2, -3, 6)
-        ]
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationSucceeds(
         multiplicand: Int,
@@ -48,12 +56,7 @@ internal struct IntMultipliableTests {
 
     @Test(
         "Multiplication equal succeeds",
-        arguments: [
-            (2, 3, 6),
-            (-2, 3, -6),
-            (2, -3, -6),
-            (-2, -3, 6)
-        ]
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationEqualSucceeds(
         multiplicand: Int,
@@ -67,12 +70,7 @@ internal struct IntMultipliableTests {
 
     @Test(
         "Multiplying by succeeds",
-        arguments: [
-            (2, 3, 6),
-            (-2, 3, -6),
-            (2, -3, -6),
-            (-2, -3, 6)
-        ]
+        arguments: Self.multiplicationArguments
     )
     internal func multiplyingBySucceeds(
         multiplicand: Int,
@@ -84,12 +82,7 @@ internal struct IntMultipliableTests {
 
     @Test(
         "Multiply by succeeds",
-        arguments: [
-            (2, 3, 6),
-            (-2, 3, -6),
-            (2, -3, -6),
-            (-2, -3, 6)
-        ]
+        arguments: Self.multiplicationArguments
     )
     internal func multiplyBySucceeds(
         multiplicand: Int,
@@ -103,11 +96,7 @@ internal struct IntMultipliableTests {
 
     @Test(
         "Doubled succeeds",
-        arguments: [
-            (1, 2),
-            (-1, -2),
-            (3, 6)
-        ]
+        arguments: Self.doublingArguments
     )
     internal func doubledSucceeds(
         multiplicand: Int,
@@ -118,11 +107,7 @@ internal struct IntMultipliableTests {
 
     @Test(
         "Double succeeds",
-        arguments: [
-            (1, 2),
-            (-1, -2),
-            (3, 6)
-        ]
+        arguments: Self.doublingArguments
     )
     internal func doubleSucceeds(
         multiplicand: Int,
@@ -138,13 +123,25 @@ internal struct IntMultipliableTests {
 
 extension IntMultipliableTests {
     @Test(
+        "Is multiple of zero returns false",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ]
+    )
+    internal func isMultipleOfZeroReturnsFalse(multiplicand: Int) {
+        #expect(multiplicand.isMultiple(of: 0) == false)
+    }
+
+    @Test(
         "Multiplying by zero returns zero",
         arguments: [
-            0,
-            1,
-            -1,
-            5,
-            -5
+            2,
+            3,
+            -2,
+            -3
         ]
     )
     internal func multiplyingByZeroReturnsZero(multiplicand: Int) {
@@ -154,49 +151,58 @@ extension IntMultipliableTests {
     @Test(
         "Multiplying by one preserves multiplicand",
         arguments: [
-            (0, 0),
-            (1, 1),
-            (-1, -1),
-            (5, 5),
-            (-5, -5)
+            2,
+            3,
+            -2,
+            -3
         ]
     )
-    internal func multiplyingByOnePreservesMultiplicand(
-        multiplicand: Int,
-        product: Int
-    ) {
-        #expect(multiplicand * 1 == product)
+    internal func multiplyingByOnePreservesMultiplicand(multiplicand: Int) {
+        #expect(multiplicand * 1 == multiplicand)
     }
 
     @Test(
-        "Multiplication follows sign rules",
+        "Multiplying by negative one returns opposite value",
         arguments: [
-            (2, 3, 6),
-            (-2, 3, -6),
-            (2, -3, -6),
-            (-2, -3, 6)
+            (2, -2),
+            (3, -3),
+            (-2, 2),
+            (-3, 3)
         ]
     )
-    internal func multiplicationFollowsSignRules(
+    internal func multiplyingByNegativeOneReturnsOppositeValue(
         multiplicand: Int,
-        multiplier: Int,
         product: Int
     ) {
-        #expect(multiplicand * multiplier == product)
+        #expect(multiplicand * -1 == product)
     }
 
     @Test(
         "Multiplication is commutative",
-        arguments: [
-            (2, 4),
-            (-2, 4),
-            (-2, -4)
-        ]
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationIsCommutative(
-        lhs: Int,
-        rhs: Int
+        multiplicand: Int,
+        multiplier: Int,
+        product _: Int
     ) {
-        #expect(lhs * rhs == rhs * lhs)
+        #expect(multiplicand * multiplier == multiplier * multiplicand)
+    }
+}
+
+// MARK: - Integer Rules
+
+extension IntMultipliableTests {
+    @Test(
+        "Is multiple of one returns true",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ]
+    )
+    internal func isMultipleOfOneReturnsTrue(multiplicand: Int) {
+        #expect(multiplicand.isMultiple(of: 1))
     }
 }

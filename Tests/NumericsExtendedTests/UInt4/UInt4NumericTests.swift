@@ -14,8 +14,11 @@ internal struct UInt4NumericTests {
     @Test(
         "Magnitude succeeds",
         arguments: [
-            (4, 4),
-            (8, 8)
+            (0, 0),
+            (2, 2),
+            (3, 3),
+            (UInt4.min, UInt4.min),
+            (UInt4.max, UInt4.max)
         ] as Array<(UInt4, UInt4.Magnitude)>
     )
     internal func magnitudeSucceeds(
@@ -28,8 +31,11 @@ internal struct UInt4NumericTests {
     @Test(
         "Initialized exactly succeeds",
         arguments: [
-            (4, 4),
-            (8, 8)
+            (0, 0),
+            (2, 2),
+            (3, 3),
+            (0, UInt4.min),
+            (15, UInt4.max)
         ] as Array<(Int, UInt4)>
     )
     internal func initializedExactlySucceeds(

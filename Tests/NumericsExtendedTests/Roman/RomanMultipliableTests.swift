@@ -11,10 +11,19 @@ import Testing
 
 @Suite("Roman Multipliable Tests")
 internal struct RomanMultipliableTests {
+    private static let multiplicationArguments: [(Roman, Roman, Roman)] = [
+        (2, 3, 6),
+        (3, 4, 12)
+    ]
+
+    private static let doublingArguments: [(Roman, Roman)] = [
+        (2, 4),
+        (3, 6)
+    ]
+
     @Test(
         "Is multiple of",
         arguments: [
-            (3, 1, true),
             (6, 3, true),
             (7, 3, false)
         ] as Array<(Roman, Roman, Bool)>
@@ -29,10 +38,7 @@ internal struct RomanMultipliableTests {
 
     @Test(
         "Multiplication succeeds",
-        arguments: [
-            (2, 3, 6),
-            (3, 4, 12)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationSucceeds(
         multiplicand: Roman,
@@ -44,10 +50,7 @@ internal struct RomanMultipliableTests {
 
     @Test(
         "Multiplication equal succeeds",
-        arguments: [
-            (2, 3, 6),
-            (3, 4, 12)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationEqualSucceeds(
         multiplicand: Roman,
@@ -61,10 +64,7 @@ internal struct RomanMultipliableTests {
 
     @Test(
         "Multiplying by succeeds",
-        arguments: [
-            (2, 3, 6),
-            (3, 4, 12)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.multiplicationArguments
     )
     internal func multiplyingBySucceeds(
         multiplicand: Roman,
@@ -76,10 +76,7 @@ internal struct RomanMultipliableTests {
 
     @Test(
         "Multiply by succeeds",
-        arguments: [
-            (2, 3, 6),
-            (3, 4, 12)
-        ] as Array<(Roman, Roman, Roman)>
+        arguments: Self.multiplicationArguments
     )
     internal func multiplyBySucceeds(
         multiplicand: Roman,
@@ -93,10 +90,7 @@ internal struct RomanMultipliableTests {
 
     @Test(
         "Doubled succeeds",
-        arguments: [
-            (1, 2),
-            (3, 6)
-        ] as Array<(Roman, Roman)>
+        arguments: Self.doublingArguments
     )
     internal func doubledSucceeds(
         multiplicand: Roman,
@@ -107,10 +101,7 @@ internal struct RomanMultipliableTests {
 
     @Test(
         "Double succeeds",
-        arguments: [
-            (1, 2),
-            (3, 6)
-        ] as Array<(Roman, Roman)>
+        arguments: Self.doublingArguments
     )
     internal func doubleSucceeds(
         multiplicand: Roman,
@@ -126,11 +117,21 @@ internal struct RomanMultipliableTests {
 
 extension RomanMultipliableTests {
     @Test(
+        "Is multiple of zero returns false",
+        arguments: [
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func isMultipleOfZeroReturnsFalse(multiplicand: Roman) {
+        #expect(multiplicand.isMultiple(of: 0) == false)
+    }
+
+    @Test(
         "Multiplying by zero returns zero",
         arguments: [
-            0,
-            1,
-            5
+            2,
+            3
         ] as Array<Roman>
     )
     internal func multiplyingByZeroReturnsZero(multiplicand: Roman) {
@@ -140,29 +141,38 @@ extension RomanMultipliableTests {
     @Test(
         "Multiplying by one preserves multiplicand",
         arguments: [
-            (0, 0),
-            (1, 1),
-            (5, 5)
-        ] as Array<(Roman, Roman)>
+            2,
+            3
+        ] as Array<Roman>
     )
-    internal func multiplyingByOnePreservesMultiplicand(
-        multiplicand: Roman,
-        product: Roman
-    ) {
-        #expect(multiplicand * 1 == product)
+    internal func multiplyingByOnePreservesMultiplicand(multiplicand: Roman) {
+        #expect(multiplicand * 1 == multiplicand)
     }
 
     @Test(
         "Multiplication is commutative",
-        arguments: [
-            (2, 4),
-            (3, 5)
-        ] as Array<(Roman, Roman)>
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationIsCommutative(
-        lhs: Roman,
-        rhs: Roman
+        multiplicand: Roman,
+        multiplier: Roman,
+        product _: Roman
     ) {
-        #expect(lhs * rhs == rhs * lhs)
+        #expect(multiplicand * multiplier == multiplier * multiplicand)
+    }
+}
+
+// MARK: - Integer Rules
+
+extension RomanMultipliableTests {
+    @Test(
+        "Is multiple of one returns true",
+        arguments: [
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func isMultipleOfOneReturnsTrue(multiplicand: Roman) {
+        #expect(multiplicand.isMultiple(of: 1))
     }
 }

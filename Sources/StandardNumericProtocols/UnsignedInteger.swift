@@ -24,4 +24,3 @@ where Self: Divisible {
         return self == 1
     }
 }
-

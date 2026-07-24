@@ -14,8 +14,10 @@ internal struct IntReportableAsOverflowTests {
     @Test(
         "Adding reporting overflow",
         arguments: [
-            (2, 4, 6, false),
-            (-2, 4, 2, false),
+            (2, 3, 5, false),
+            (3, 4, 7, false),
+            (-2, 3, 1, false),
+            (-3, -4, -7, false),
             (Int.max - 1, 1, Int.max, false),
             (Int.max, 1, Int.min, true),
             (Int.max, 2, Int.min + 1, true),
@@ -38,8 +40,10 @@ internal struct IntReportableAsOverflowTests {
     @Test(
         "Subtracting reporting overflow",
         arguments: [
-            (6, 4, 2, false),
-            (-6, 4, -10, false),
+            (3, 2, 1, false),
+            (5, 3, 2, false),
+            (-3, 2, -5, false),
+            (-5, -3, -2, false),
             (Int.min + 1, 1, Int.min, false),
             (Int.min, 1, Int.max, true),
             (Int.min, 2, Int.max - 1, true),
@@ -63,8 +67,11 @@ internal struct IntReportableAsOverflowTests {
         "Multiplied reporting overflow",
         arguments: [
             (2, 3, 6, false),
+            (3, 4, 12, false),
             (-2, 3, -6, false),
+            (-3, -4, 12, false),
             (Int.max, 1, Int.max, false),
+            (Int.min, 1, Int.min, false),
             (Int.max, 2, -2, true),
             (Int.min, 2, 0, true),
             (Int.min, -1, Int.min, true)
@@ -85,10 +92,13 @@ internal struct IntReportableAsOverflowTests {
     @Test(
         "Divided reporting overflow",
         arguments: [
-            (0, 1, 0, false),
             (6, 2, 3, false),
+            (6, 3, 2, false),
             (-6, 2, -3, false),
+            (-6, -3, 2, false),
+            (0, 1, 0, false),
             (Int.max, 1, Int.max, false),
+            (Int.min, 1, Int.min, false),
             (Int.max, 0, Int.max, true),
             (Int.min, -1, Int.min, true)
         ]
@@ -108,10 +118,13 @@ internal struct IntReportableAsOverflowTests {
     @Test(
         "Remainder reporting overflow",
         arguments: [
-            (0, 1, 0, false),
+            (6, 2, 0, false),
             (7, 2, 1, false),
+            (-6, 2, 0, false),
             (-7, 2, -1, false),
+            (0, 1, 0, false),
             (Int.max, 1, 0, false),
+            (Int.min, 1, 0, false),
             (Int.max, 0, Int.max, true),
             (Int.min, -1, 0, true)
         ]
@@ -131,15 +144,18 @@ internal struct IntReportableAsOverflowTests {
     @Test(
         "Raised reporting overflow",
         arguments: [
+            (2, 3, 8, false),
+            (3, 2, 9, false),
+            (-2, 3, -8, false),
+            (-2, 2, 4, false),
             (0, 0, 1, false),
             (0, 1, 0, false),
-            (0, 2, 0, false),
             (1, 0, 1, false),
             (1, 1, 1, false),
-            (-2, 3, -8, false),
-            (2, 3, 8, false),
+            (Int.max, 1, Int.max, false),
             (Int.max, 2, 1, true),
             (Int.max, 3, 1, true),
+            (Int.min, 1, Int.min, false),
             (Int.min, 2, 0, true)
         ]
     )

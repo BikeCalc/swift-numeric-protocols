@@ -15,7 +15,9 @@ internal struct RomanStrideableTests {
         "Advanced by succeeds",
         arguments: [
             (1, 3, 4),
-            (4, -3, 1)
+            (2, 3, 5),
+            (4, -3, 1),
+            (5, -3, 2)
         ] as Array<(Roman, Roman.Stride, Roman)>
     )
     internal func advancedBySucceeds(
@@ -30,7 +32,9 @@ internal struct RomanStrideableTests {
         "Distance to succeeds",
         arguments: [
             (1, 4, 3),
-            (4, 1, -3)
+            (2, 5, 3),
+            (4, 1, -3),
+            (5, 2, -3)
         ] as Array<(Roman, Roman, Roman.Stride)>
     )
     internal func distanceToSucceeds(
@@ -39,5 +43,31 @@ internal struct RomanStrideableTests {
         result: Roman.Stride
     ) {
         #expect(value.distance(to: other) == result)
+    }
+}
+
+// MARK: - Stride Rules
+
+extension RomanStrideableTests {
+    @Test(
+        "Advancing by zero preserves value",
+        arguments: [
+            1,
+            2
+        ] as Array<Roman>
+    )
+    internal func advancingByZeroPreservesValue(value: Roman) {
+        #expect(value.advanced(by: 0) == value)
+    }
+
+    @Test(
+        "Distance to self returns zero",
+        arguments: [
+            1,
+            2
+        ] as Array<Roman>
+    )
+    internal func distanceToSelfReturnsZero(value: Roman) {
+        #expect(value.distance(to: value) == 0)
     }
 }

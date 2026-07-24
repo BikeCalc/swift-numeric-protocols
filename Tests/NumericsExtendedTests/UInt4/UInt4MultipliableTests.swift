@@ -11,10 +11,19 @@ import Testing
 
 @Suite("UInt4 Multipliable Tests")
 internal struct UInt4MultipliableTests {
+    private static let multiplicationArguments: [(UInt4, UInt4, UInt4)] = [
+        (2, 3, 6),
+        (3, 4, 12)
+    ]
+
+    private static let doublingArguments: [(UInt4, UInt4)] = [
+        (2, 4),
+        (3, 6)
+    ]
+
     @Test(
         "Is multiple of",
         arguments: [
-            (3, 1, true),
             (6, 3, true),
             (7, 3, false)
         ] as Array<(UInt4, UInt4, Bool)>
@@ -29,10 +38,7 @@ internal struct UInt4MultipliableTests {
 
     @Test(
         "Multiplication succeeds",
-        arguments: [
-            (2, 3, 6),
-            (3, 4, 12)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationSucceeds(
         multiplicand: UInt4,
@@ -44,10 +50,7 @@ internal struct UInt4MultipliableTests {
 
     @Test(
         "Multiplication equal succeeds",
-        arguments: [
-            (2, 3, 6),
-            (3, 4, 12)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationEqualSucceeds(
         multiplicand: UInt4,
@@ -61,10 +64,7 @@ internal struct UInt4MultipliableTests {
 
     @Test(
         "Multiplying by succeeds",
-        arguments: [
-            (2, 3, 6),
-            (3, 4, 12)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.multiplicationArguments
     )
     internal func multiplyingBySucceeds(
         multiplicand: UInt4,
@@ -76,10 +76,7 @@ internal struct UInt4MultipliableTests {
 
     @Test(
         "Multiply by succeeds",
-        arguments: [
-            (2, 3, 6),
-            (3, 4, 12)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.multiplicationArguments
     )
     internal func multiplyBySucceeds(
         multiplicand: UInt4,
@@ -93,10 +90,7 @@ internal struct UInt4MultipliableTests {
 
     @Test(
         "Doubled succeeds",
-        arguments: [
-            (1, 2),
-            (3, 6)
-        ] as Array<(UInt4, UInt4)>
+        arguments: Self.doublingArguments
     )
     internal func doubledSucceeds(
         multiplicand: UInt4,
@@ -107,10 +101,7 @@ internal struct UInt4MultipliableTests {
 
     @Test(
         "Double succeeds",
-        arguments: [
-            (1, 2),
-            (3, 6)
-        ] as Array<(UInt4, UInt4)>
+        arguments: Self.doublingArguments
     )
     internal func doubleSucceeds(
         multiplicand: UInt4,
@@ -126,11 +117,21 @@ internal struct UInt4MultipliableTests {
 
 extension UInt4MultipliableTests {
     @Test(
+        "Is multiple of zero returns false",
+        arguments: [
+            2,
+            3
+        ] as Array<UInt4>
+    )
+    internal func isMultipleOfZeroReturnsFalse(multiplicand: UInt4) {
+        #expect(multiplicand.isMultiple(of: 0) == false)
+    }
+
+    @Test(
         "Multiplying by zero returns zero",
         arguments: [
-            0,
-            1,
-            5
+            2,
+            3
         ] as Array<UInt4>
     )
     internal func multiplyingByZeroReturnsZero(multiplicand: UInt4) {
@@ -140,29 +141,38 @@ extension UInt4MultipliableTests {
     @Test(
         "Multiplying by one preserves multiplicand",
         arguments: [
-            (0, 0),
-            (1, 1),
-            (5, 5)
-        ] as Array<(UInt4, UInt4)>
+            2,
+            3
+        ] as Array<UInt4>
     )
-    internal func multiplyingByOnePreservesMultiplicand(
-        multiplicand: UInt4,
-        product: UInt4
-    ) {
-        #expect(multiplicand * 1 == product)
+    internal func multiplyingByOnePreservesMultiplicand(multiplicand: UInt4) {
+        #expect(multiplicand * 1 == multiplicand)
     }
 
     @Test(
         "Multiplication is commutative",
-        arguments: [
-            (2, 4),
-            (3, 5)
-        ] as Array<(UInt4, UInt4)>
+        arguments: Self.multiplicationArguments
     )
     internal func multiplicationIsCommutative(
-        lhs: UInt4,
-        rhs: UInt4
+        multiplicand: UInt4,
+        multiplier: UInt4,
+        product _: UInt4
     ) {
-        #expect(lhs * rhs == rhs * lhs)
+        #expect(multiplicand * multiplier == multiplier * multiplicand)
+    }
+}
+
+// MARK: - Integer Rules
+
+extension UInt4MultipliableTests {
+    @Test(
+        "Is multiple of one returns true",
+        arguments: [
+            2,
+            3
+        ] as Array<UInt4>
+    )
+    internal func isMultipleOfOneReturnsTrue(multiplicand: UInt4) {
+        #expect(multiplicand.isMultiple(of: 1))
     }
 }

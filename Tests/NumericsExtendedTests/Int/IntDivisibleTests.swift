@@ -11,13 +11,37 @@ import Testing
 
 @Suite("Int Divisible Tests")
 internal struct IntDivisibleTests {
+    private static let divisionArguments: [(Int, Int, Int)] = [
+        (6, 2, 3),
+        (6, 3, 2),
+        (-6, 2, -3),
+        (-6, -3, 2)
+    ]
+
+    private static let remainderArguments: [(Int, Int, Int)] = [
+        (4, 2, 0),
+        (5, 2, 1),
+        (-5, 2, -1),
+        (-5, -2, -1)
+    ]
+
+    private static let halvingArguments: [(Int, Int)] = [
+        (6, 3),
+        (4, 2),
+        (-6, -3),
+        (-4, -2)
+    ]
+
     @Test(
         "Parity predicates",
         arguments: [
+            (0, true),
             (1, false),
             (2, true),
+            (3, false),
             (-1, false),
-            (-2, true)
+            (-2, true),
+            (-3, false)
         ]
     )
     internal func parityPredicates(
@@ -45,29 +69,12 @@ internal struct IntDivisibleTests {
     }
 
     @Test(
-        "Is invertible",
-        arguments: [
-            (1, true),
-            (-1, true),
-            (2, false),
-            (-2, false)
-        ]
-    )
-    internal func isInvertible(
-        dividend: Int,
-        result: Bool
-    ) {
-        #expect(dividend.isInvertible == result)
-    }
-
-    @Test(
         "Is divisible by",
         arguments: [
-            (3, 1, true),
-            (6, 2, true),
-            (7, 2, false),
-            (-6, 2, true),
-            (6, -2, true)
+            (6, 3, true),
+            (7, 3, false),
+            (-6, 3, true),
+            (-7, 3, false)
         ]
     )
     internal func isDivisibleBy(
@@ -81,11 +88,10 @@ internal struct IntDivisibleTests {
     @Test(
         "Is factor of",
         arguments: [
-            (1, 2, true),
-            (2, 6, true),
-            (2, 7, false),
-            (-2, 6, true),
-            (2, -6, true)
+            (3, 6, true),
+            (3, 7, false),
+            (3, -6, true),
+            (3, -7, false)
         ]
     )
     internal func isFactorOf(
@@ -98,12 +104,7 @@ internal struct IntDivisibleTests {
 
     @Test(
         "Division succeeds",
-        arguments: [
-            (6, 2, 3),
-            (-6, 2, -3),
-            (6, -2, -3),
-            (-6, -2, 3)
-        ]
+        arguments: Self.divisionArguments
     )
     internal func divisionSucceeds(
         dividend: Int,
@@ -115,12 +116,7 @@ internal struct IntDivisibleTests {
 
     @Test(
         "Division equal succeeds",
-        arguments: [
-            (6, 2, 3),
-            (-6, 2, -3),
-            (6, -2, -3),
-            (-6, -2, 3)
-        ]
+        arguments: Self.divisionArguments
     )
     internal func divisionEqualSucceeds(
         dividend: Int,
@@ -134,10 +130,7 @@ internal struct IntDivisibleTests {
 
     @Test(
         "Remainder succeeds",
-        arguments: [
-            (6, 2, 0),
-            (7, 2, 1)
-        ]
+        arguments: Self.remainderArguments
     )
     internal func remainderSucceeds(
         dividend: Int,
@@ -149,10 +142,7 @@ internal struct IntDivisibleTests {
 
     @Test(
         "Remainder equal succeeds",
-        arguments: [
-            (6, 2, 0),
-            (7, 2, 1)
-        ]
+        arguments: Self.remainderArguments
     )
     internal func remainderEqualSucceeds(
         dividend: Int,
@@ -166,12 +156,7 @@ internal struct IntDivisibleTests {
 
     @Test(
         "Dividing by succeeds",
-        arguments: [
-            (6, 2, 3),
-            (-6, 2, -3),
-            (6, -2, -3),
-            (-6, -2, 3)
-        ]
+        arguments: Self.divisionArguments
     )
     internal func dividingBySucceeds(
         dividend: Int,
@@ -183,12 +168,7 @@ internal struct IntDivisibleTests {
 
     @Test(
         "Divide by succeeds",
-        arguments: [
-            (6, 2, 3),
-            (-6, 2, -3),
-            (6, -2, -3),
-            (-6, -2, 3)
-        ]
+        arguments: Self.divisionArguments
     )
     internal func divideBySucceeds(
         dividend: Int,
@@ -202,12 +182,7 @@ internal struct IntDivisibleTests {
 
     @Test(
         "Halved succeeds",
-        arguments: [
-            (2, 1),
-            (-2, -1),
-            (4, 2),
-            (-4, -2)
-        ]
+        arguments: Self.halvingArguments
     )
     internal func halvedSucceeds(
         dividend: Int,
@@ -218,12 +193,7 @@ internal struct IntDivisibleTests {
 
     @Test(
         "Halve succeeds",
-        arguments: [
-            (2, 1),
-            (-2, -1),
-            (4, 2),
-            (-4, -2)
-        ]
+        arguments: Self.halvingArguments
     )
     internal func halveSucceeds(
         dividend: Int,
@@ -238,6 +208,120 @@ internal struct IntDivisibleTests {
 // MARK: - Arithmetic Rules
 
 extension IntDivisibleTests {
+    @Test(
+        "Zero is not invertible",
+        arguments: [
+            0,
+            -0
+        ]
+    )
+    internal func zeroIsNotInvertible(dividend: Int) {
+        #expect(dividend.isInvertible == false)
+    }
+
+    @Test(
+        "Dividing zero by nonzero value returns zero",
+        arguments: [
+            2,
+            -3,
+            3
+        ]
+    )
+    internal func dividingZeroByNonzeroValueReturnsZero(divisor: Int) {
+        #expect(0 / divisor == 0)
+    }
+
+    @Test(
+        "Dividing by one preserves dividend",
+        arguments: [
+            6,
+            4,
+            -6,
+            -4
+        ]
+    )
+    internal func dividingByOnePreservesDividend(dividend: Int) {
+        #expect(dividend / 1 == dividend)
+    }
+
+    @Test(
+        "Dividing by negative one returns opposite value",
+        arguments: [
+            (6, -6),
+            (4, -4),
+            (-6, 6),
+            (-4, 4)
+        ]
+    )
+    internal func dividingByNegativeOneReturnsOppositeValue(
+        dividend: Int,
+        quotient: Int
+    ) {
+        #expect(dividend / -1 == quotient)
+    }
+
+    @Test(
+        "Remainder by self returns zero",
+        arguments: [
+            6,
+            4,
+            -6,
+            -4
+        ]
+    )
+    internal func remainderBySelfReturnsZero(value: Int) {
+        #expect(value % value == 0)
+    }
+
+    @Test(
+        "Remainder follows dividend sign",
+        arguments: [
+            (5, 2, 1),
+            (-5, 2, -1),
+            (5, -2, 1),
+            (-5, -2, -1)
+        ]
+    )
+    internal func remainderFollowsDividendSign(
+        dividend: Int,
+        divisor: Int,
+        remainder: Int
+    ) {
+        #expect(dividend % divisor == remainder)
+    }
+
+    @Test(
+        "Division is not commutative",
+        arguments: Self.divisionArguments
+    )
+    internal func divisionIsNotCommutative(
+        dividend: Int,
+        divisor: Int,
+        quotient _: Int
+    ) {
+        #expect(dividend / divisor != divisor / dividend)
+    }
+}
+
+// MARK: - Integer Rules
+
+extension IntDivisibleTests {
+    @Test(
+        "Only one is invertible",
+        arguments: [
+            (1, true),
+            (-1, true),
+            (2, false),
+            (-2, false)
+        ]
+    )
+    internal func onlyOneIsInvertible(
+        dividend: Int,
+        result: Bool
+    ) {
+        #expect(dividend.isInvertible == result)
+    }
+
     @Test(
         "Halving odd values truncates toward zero",
         arguments: [
@@ -257,41 +341,12 @@ extension IntDivisibleTests {
     }
 
     @Test(
-        "Dividing zero by nonzero value returns zero",
-        arguments: [
-            1,
-            -1,
-            3
-        ]
-    )
-    internal func dividingZeroByNonzeroValueReturnsZero(divisor: Int) {
-        #expect(0 / divisor == 0)
-    }
-
-    @Test(
-        "Dividing by one preserves dividend",
-        arguments: [
-            (0, 0),
-            (1, 1),
-            (-1, -1),
-            (5, 5),
-            (-5, -5)
-        ]
-    )
-    internal func dividingByOnePreservesDividend(
-        dividend: Int,
-        quotient: Int
-    ) {
-        #expect(dividend / 1 == quotient)
-    }
-
-    @Test(
         "Remainder by one returns zero",
         arguments: [
-            1,
-            -1,
-            5,
-            -5
+            6,
+            4,
+            -6,
+            -4
         ]
     )
     internal func remainderByOneReturnsZero(dividend: Int) {
@@ -299,61 +354,12 @@ extension IntDivisibleTests {
     }
 
     @Test(
-        "Remainder by self returns zero",
-        arguments: [
-            1,
-            -1,
-            5,
-            -5
-        ]
-    )
-    internal func remainderBySelfReturnsZero(value: Int) {
-        #expect(value % value == 0)
-    }
-
-    @Test(
-        "Remainder follows dividend sign",
-        arguments: [
-            (7, 2, 1),
-            (-7, 2, -1),
-            (7, -2, 1),
-            (-7, -2, -1)
-        ]
-    )
-    internal func remainderFollowsDividendSign(
-        dividend: Int,
-        divisor: Int,
-        remainder: Int
-    ) {
-        #expect(dividend % divisor == remainder)
-    }
-
-    @Test(
-        "Division is not commutative",
-        arguments: [
-            (6, 2),
-            (-6, 2),
-            (6, -2)
-        ]
-    )
-    internal func divisionIsNotCommutative(
-        lhs: Int,
-        rhs: Int
-    ) {
-        #expect(lhs / rhs != rhs / lhs)
-    }
-}
-
-// MARK: - Integer Rules
-
-extension IntDivisibleTests {
-    @Test(
         "Integer division truncates toward zero",
         arguments: [
-            (7, 2, 3),
-            (-7, 2, -3),
-            (7, -2, -3),
-            (-7, -2, 3)
+            (7, 3, 2),
+            (-7, 3, -2),
+            (7, -3, -2),
+            (-7, -3, 2)
         ]
     )
     internal func integerDivisionTruncatesTowardZero(

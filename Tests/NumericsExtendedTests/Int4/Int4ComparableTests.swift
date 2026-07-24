@@ -11,127 +11,106 @@ import Testing
 
 @Suite("Int4 Comparable Tests")
 internal struct Int4ComparableTests {
+    private static let comparisonArguments: Array<(lhs: Int4, rhs: Int4)> = [
+        (1, 1),
+        (-1, -1),
+        (2, 3),
+        (3, 2),
+        (-2, 3),
+        (-3, -2)
+    ]
+
+    private static let rangeArguments: Array<(value: Int4, lowerBound: Int4, upperBound: Int4)> = [
+        (1, 2, 4),
+        (2, 2, 4),
+        (3, 2, 4),
+        (4, 2, 4),
+        (5, 2, 4),
+        (-5, -4, -2),
+        (-4, -4, -2),
+        (-3, -4, -2),
+        (-2, -4, -2),
+        (-1, -4, -2)
+    ]
+
     @Test(
         "Is less than",
-        arguments: [
-            (1, 1, false),
-            (2, 1, false),
-            (1, 2, true),
-            (-1, 1, true)
-        ] as Array<(Int4, Int4, Bool)>
+        arguments: Self.comparisonArguments
     )
     internal func isLessThan(
         lhs: Int4,
-        rhs: Int4,
-        result: Bool
+        rhs: Int4
     ) {
-        #expect(lhs.isLess(than: rhs) == result)
+        #expect(lhs.isLess(than: rhs) == (lhs < rhs))
     }
 
     @Test(
         "Is less than or equal",
-        arguments: [
-            (2, 1, false),
-            (1, 1, true),
-            (1, 2, true),
-            (-1, 1, true)
-        ] as Array<(Int4, Int4, Bool)>
+        arguments: Self.comparisonArguments
     )
     internal func isLessThanOrEqualTo(
         lhs: Int4,
-        rhs: Int4,
-        result: Bool
+        rhs: Int4
     ) {
-        #expect(lhs.isLessThanOrEqual(to: rhs) == result)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == (lhs <= rhs))
     }
 
     @Test(
         "Is greater than",
-        arguments: [
-            (1, 1, false),
-            (1, 2, false),
-            (2, 1, true),
-            (1, -1, true)
-        ] as Array<(Int4, Int4, Bool)>
+        arguments: Self.comparisonArguments
     )
     internal func isGreaterThan(
         lhs: Int4,
-        rhs: Int4,
-        result: Bool
+        rhs: Int4
     ) {
-        #expect(lhs.isGreater(than: rhs) == result)
+        #expect(lhs.isGreater(than: rhs) == (lhs > rhs))
     }
 
     @Test(
         "Is greater than or equal",
-        arguments: [
-            (1, 2, false),
-            (1, 1, true),
-            (2, 1, true),
-            (1, -1, true)
-        ] as Array<(Int4, Int4, Bool)>
+        arguments: Self.comparisonArguments
     )
     internal func isGreaterThanOrEqualTo(
         lhs: Int4,
-        rhs: Int4,
-        result: Bool
+        rhs: Int4
     ) {
-        #expect(lhs.isGreaterThanOrEqual(to: rhs) == result)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == (lhs >= rhs))
     }
 
     @Test(
         "Is within closed range",
-        arguments: [
-            (1, 1...3, true),
-            (2, 1...3, true),
-            (3, 1...3, true),
-            (4, 1...3, false),
-            (-1, -2...2, true)
-        ] as Array<(Int4, ClosedRange<Int4>, Bool)>
+        arguments: Self.rangeArguments
     )
     internal func isWithinClosedRange(
         value: Int4,
-        range: ClosedRange<Int4>,
-        result: Bool
+        lowerBound: Int4,
+        upperBound: Int4
     ) {
-        #expect(value.isWithin(range) == result)
+        let range: ClosedRange<Int4> = lowerBound...upperBound
+        #expect(value.isWithin(range) == range.contains(value))
     }
 
     @Test(
         "Is within bounds",
-        arguments: [
-            (1, 1, 3, true),
-            (2, 1, 3, true),
-            (3, 1, 3, true),
-            (4, 1, 3, false),
-            (-1, -2, 2, true)
-        ] as Array<(Int4, Int4, Int4, Bool)>
+        arguments: Self.rangeArguments
     )
     internal func isWithinBounds(
         value: Int4,
         lowerBound: Int4,
-        upperBound: Int4,
-        result: Bool
+        upperBound: Int4
     ) {
-        #expect(value.isWithin(lowerBound, through: upperBound) == result)
+        #expect(value.isWithin(lowerBound, through: upperBound) == (value >= lowerBound && value <= upperBound))
     }
 
     @Test(
         "Is between bounds",
-        arguments: [
-            (1, 1, 3, false),
-            (2, 1, 3, true),
-            (3, 1, 3, false),
-            (4, 1, 3, false),
-            (-1, -2, 2, true)
-        ] as Array<(Int4, Int4, Int4, Bool)>
+        arguments: Self.rangeArguments
     )
     internal func isBetweenBounds(
         value: Int4,
         lowerBound: Int4,
-        upperBound: Int4,
-        result: Bool
+        upperBound: Int4
     ) {
-        #expect(value.isBetween(lowerBound, and: upperBound) == result)
+        #expect(value.isBetween(lowerBound, and: upperBound) == (value > lowerBound && value < upperBound))
     }
 }

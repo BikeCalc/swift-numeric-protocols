@@ -395,7 +395,6 @@ extension Roman: ReportableAsOverflow {
         case ..<2:
             let result: Self = self ** rhs
             return (partialValue: result, overflow: false)
-
         default:
             var result: Self = self
             var exponent: Self.Exponent = 2

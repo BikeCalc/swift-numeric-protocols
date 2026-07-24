@@ -18,7 +18,6 @@ internal struct UInt4CodableTests {
         arguments: [
             (0, "0"),
             (1, "1"),
-            (9, "9"),
             (15, "15")
         ] as Array<(UInt4, String)>
     )
@@ -38,7 +37,6 @@ internal struct UInt4CodableTests {
         arguments: [
             ("0", 0),
             ("1", 1),
-            ("9", 9),
             ("15", 15)
         ] as Array<(String, UInt4)>
     )

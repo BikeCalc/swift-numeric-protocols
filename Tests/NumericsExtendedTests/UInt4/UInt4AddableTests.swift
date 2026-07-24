@@ -11,12 +11,14 @@ import Testing
 
 @Suite("UInt4 Addable Tests")
 internal struct UInt4AddableTests {
+    private static let additionArguments: [(UInt4, UInt4, UInt4)] = [
+        (2, 3, 5),
+        (3, 4, 7)
+    ]
+
     @Test(
         "Addition succeeds",
-        arguments: [
-            (2, 4, 6),
-            (3, 5, 8)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.additionArguments
     )
     internal func additionSucceeds(
         augend: UInt4,
@@ -28,10 +30,7 @@ internal struct UInt4AddableTests {
 
     @Test(
         "Addition equal succeeds",
-        arguments: [
-            (2, 4, 6),
-            (3, 5, 8)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.additionArguments
     )
     internal func additionEqualSucceeds(
         augend: UInt4,
@@ -45,10 +44,7 @@ internal struct UInt4AddableTests {
 
     @Test(
         "Adding succeeds",
-        arguments: [
-            (2, 4, 6),
-            (3, 5, 8)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.additionArguments
     )
     internal func addingSucceeds(
         augend: UInt4,
@@ -60,10 +56,7 @@ internal struct UInt4AddableTests {
 
     @Test(
         "Add succeeds",
-        arguments: [
-            (2, 4, 6),
-            (3, 5, 8)
-        ] as Array<(UInt4, UInt4, UInt4)>
+        arguments: Self.additionArguments
     )
     internal func addSucceeds(
         augend: UInt4,
@@ -82,28 +75,23 @@ extension UInt4AddableTests {
     @Test(
         "Adding zero preserves augend",
         arguments: [
-            (0, 0),
-            (1, 1)
-        ] as Array<(UInt4, UInt4)>
+            2,
+            3
+        ] as Array<UInt4>
     )
-    internal func addingZeroPreservesAugend(
-        augend: UInt4,
-        sum: UInt4
-    ) {
-        #expect(augend + 0 == sum)
+    internal func addingZeroPreservesAugend(augend: UInt4) {
+        #expect(augend + 0 == augend)
     }
 
     @Test(
         "Addition is commutative",
-        arguments: [
-            (2, 4),
-            (3, 5)
-        ] as Array<(UInt4, UInt4)>
+        arguments: Self.additionArguments
     )
     internal func additionIsCommutative(
-        lhs: UInt4,
-        rhs: UInt4
+        augend: UInt4,
+        addend: UInt4,
+        sum _: UInt4
     ) {
-        #expect(lhs + rhs == rhs + lhs)
+        #expect(augend + addend == addend + augend)
     }
 }

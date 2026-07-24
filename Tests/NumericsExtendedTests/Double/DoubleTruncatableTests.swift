@@ -11,17 +11,24 @@ import Testing
 
 @Suite("Double Truncatable Tests")
 internal struct DoubleTruncatableTests {
+    private static let truncationArguments: Array<(value: Double, decimalPlace: Double.DecimalPlace, result: Double)> = [
+        (1.2345, Double.DecimalPlace(0), 1.0),
+        (-1.2345, Double.DecimalPlace(0), -1.0),
+        (1.2345, Double.DecimalPlace(1), 1.2),
+        (-1.2345, Double.DecimalPlace(1), -1.2),
+        (1.2345, Double.DecimalPlace(2), 1.23),
+        (-1.2345, Double.DecimalPlace(2), -1.23),
+        (1.2399, Double.DecimalPlace(2), 1.23),
+        (-1.2399, Double.DecimalPlace(2), -1.23),
+        (0.555, Double.DecimalPlace(2), 0.55),
+        (-0.555, Double.DecimalPlace(2), -0.55),
+        (12.999, Double.DecimalPlace(2), 12.99),
+        (-12.999, Double.DecimalPlace(2), -12.99)
+    ]
+
     @Test(
         "Truncated to succeeds",
-        arguments: [
-            (1.0, Double.DecimalPlace(0), 1.0),
-            (1.2345, Double.DecimalPlace(0), 1.0),
-            (1.2345, Double.DecimalPlace(1), 1.2),
-            (1.2345, Double.DecimalPlace(2), 1.23),
-            (1.2399, Double.DecimalPlace(2), 1.23),
-            (-1.2345, Double.DecimalPlace(2), -1.23),
-            (-1.2399, Double.DecimalPlace(2), -1.23)
-        ]
+        arguments: Self.truncationArguments
     )
     internal func truncatedToSucceeds(
         value: Double,
@@ -33,15 +40,7 @@ internal struct DoubleTruncatableTests {
 
     @Test(
         "Truncate to succeeds",
-        arguments: [
-            (1.0, Double.DecimalPlace(0), 1.0),
-            (1.2345, Double.DecimalPlace(0), 1.0),
-            (1.2345, Double.DecimalPlace(1), 1.2),
-            (1.2345, Double.DecimalPlace(2), 1.23),
-            (1.2399, Double.DecimalPlace(2), 1.23),
-            (-1.2345, Double.DecimalPlace(2), -1.23),
-            (-1.2399, Double.DecimalPlace(2), -1.23)
-        ]
+        arguments: Self.truncationArguments
     )
     internal func truncateToSucceeds(
         value: Double,
@@ -57,6 +56,22 @@ internal struct DoubleTruncatableTests {
 // MARK: - Arithmetic Rules
 
 extension DoubleTruncatableTests {
+    @Test(
+        "Truncating whole value preserves value",
+        arguments: [
+            (1.0, Double.DecimalPlace(0)),
+            (-1.0, Double.DecimalPlace(0)),
+            (1.0, Double.DecimalPlace(2)),
+            (-1.0, Double.DecimalPlace(2))
+        ]
+    )
+    internal func truncatingWholeValuePreservesValue(
+        value: Double,
+        decimalPlace: Double.DecimalPlace
+    ) {
+        #expect(value.truncated(to: decimalPlace) == value)
+    }
+
     @Test(
         "Truncating follows toward-zero rule",
         arguments: [
