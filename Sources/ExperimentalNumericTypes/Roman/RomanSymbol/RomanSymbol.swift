@@ -114,9 +114,9 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
 
     /// Concatenates this case with the specified value.
     ///
-    /// - parameter rhs: The value on the right hand side.
-    /// - throws: A Roman symbol error if is unconcatenable.
-    /// - returns: A concatenated value.
+    /// - Parameter rhs: The value on the right hand side.
+    /// - Throws: A Roman symbol error if is unconcatenable.
+    /// - Returns: A concatenated value.
     internal func concatenate(with rhs: Self) throws -> Self {
         switch (self, rhs) {
         case (.I, .V):
@@ -138,8 +138,8 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
 
     /// Separates this case into an array of cases.
     ///
-    /// - throws: A Roman symbol error if is inseparable.
-    /// - returns: An array of separated values.
+    /// - Throws: A Roman symbol error if is inseparable.
+    /// - Returns: An array of separated values.
     internal func separate() throws -> [Self] {
         switch self {
         case .IV:
@@ -164,8 +164,8 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
     /// If a lower value digit is written to the left of a higher value digit, it is subtracted.
     /// Only I, X, and C can be used as subtractive numerals.
     ///
-    /// - parameter rhs: The value on the right hand side.
-    /// - returns: A boolean value.
+    /// - Parameter rhs: The value on the right hand side.
+    /// - Returns: A boolean value.
     internal func isSubtractable(from rhs: Self) -> Bool {
         switch self {
         case .I:
@@ -192,9 +192,9 @@ extension RomanSymbol: Comparable {
     /// // Prints "true"
     /// ```
     ///
-    /// - parameter lhs: A value to compare.
-    /// - parameter rhs: Another value to compare.
-    /// - returns: `true` if lhs is smaller, and `false` otherwise.
+    /// - Parameter lhs: A value to compare.
+    /// - Parameter rhs: Another value to compare.
+    /// - Returns: `true` if lhs is smaller, and `false` otherwise.
     internal static func < (_ lhs: Self, _ rhs: Self) -> Bool {
         return lhs.value < rhs.value
     }

@@ -10,8 +10,8 @@
 public protocol Increasable {
     /// Returns the sum of increasing this value by the specified value.
     ///
-    /// - parameter percentage: The addend.
-    /// - returns: The sum.
+    /// - Parameter percentage: The addend.
+    /// - Returns: The sum.
     func increasing(by percentage: Self) -> Self
 }
 
@@ -25,7 +25,7 @@ extension Increasable {
     /// // Prints "11"
     /// ```
     ///
-    /// - parameter percentage: The addend.
+    /// - Parameter percentage: The addend.
     public mutating func increase(by percentage: Self) {
 		self = self.increasing(by: percentage)
     }

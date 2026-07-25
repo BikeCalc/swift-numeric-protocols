@@ -25,7 +25,7 @@ public struct Int4 {
 
     /// Creates a new instance with the specified value.
     ///
-    /// - parameter value: The value of this instance.
+    /// - Parameter value: The value of this instance.
     /// - Warning: The value must be between negative eight and seven, inclusive.
     internal init(value: Self.Value) {
         precondition(-8...7 ~= value, "Int4 value must be between -8 and 7.")
@@ -39,7 +39,7 @@ public struct Int4 {
 
     /// Creates a value by interpreting the low four bits as two's-complement.
     ///
-    /// - parameter bits: The bits to interpret.
+    /// - Parameter bits: The bits to interpret.
     private init(bitPattern bits: UInt8) {
         let nibble: UInt8 = bits & 0b1111
         let modulus: Self.Value = 16
@@ -64,9 +64,9 @@ extension Int4: Addable {
     /// // Prints "2"
     /// ```
     ///
-    /// - parameter lhs: The augend.
-    /// - parameter rhs: The addend.
-    /// - returns: The sum.
+    /// - Parameter lhs: The augend.
+    /// - Parameter rhs: The addend.
+    /// - Returns: The sum.
     public static func + (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value + rhs.value
         return .init(value: newValue)
@@ -95,7 +95,7 @@ extension Int4: BinaryInteger {
 
         /// Creates a one-word collection with the specified value.
         ///
-        /// - parameter value: The value stored by the collection.
+        /// - Parameter value: The value stored by the collection.
         internal init(_ value: UInt) {
             self.value = value
         }
@@ -112,8 +112,8 @@ extension Int4: BinaryInteger {
 
         /// Accesses the word at the specified position.
         ///
-        /// - parameter position: The position of the word to access.
-        /// - returns: The word at the specified position.
+        /// - Parameter position: The position of the word to access.
+        /// - Returns: The word at the specified position.
         public subscript(position: Int) -> UInt {
             precondition(position == self.startIndex, "Int4 words index must be zero.")
 
@@ -122,8 +122,8 @@ extension Int4: BinaryInteger {
 
         /// Returns the position immediately after the specified index.
         ///
-        /// - parameter index: A valid index of the collection.
-        /// - returns: The index immediately after `index`.
+        /// - Parameter index: A valid index of the collection.
+        /// - Returns: The index immediately after `index`.
         public func index(after index: Int) -> Int {
             precondition(index == self.startIndex, "Int4 words index must be the start index.")
 
@@ -132,8 +132,8 @@ extension Int4: BinaryInteger {
 
         /// Returns the position immediately before the specified index.
         ///
-        /// - parameter index: A valid index of the collection.
-        /// - returns: The index immediately before `index`.
+        /// - Parameter index: A valid index of the collection.
+        /// - Returns: The index immediately before `index`.
         public func index(before index: Int) -> Int {
             precondition(index == self.endIndex, "Int4 words index must be the end index.")
 
@@ -142,9 +142,9 @@ extension Int4: BinaryInteger {
 
         /// Returns an index offset from the specified index.
         ///
-        /// - parameter index: The index to offset.
-        /// - parameter distance: The distance to offset `index` by.
-        /// - returns: An index offset by `distance`.
+        /// - Parameter index: The index to offset.
+        /// - Parameter distance: The distance to offset `index` by.
+        /// - Returns: An index offset by `distance`.
         public func index(_ index: Int, offsetBy distance: Int) -> Int {
             let newIndex: Int = index + distance
             precondition(self.startIndex...self.endIndex ~= newIndex, "Int4 words index must be within bounds.")
@@ -154,9 +154,9 @@ extension Int4: BinaryInteger {
 
         /// Returns the distance between two indices.
         ///
-        /// - parameter start: The starting index.
-        /// - parameter end: The ending index.
-        /// - returns: The distance from `start` to `end`.
+        /// - Parameter start: The starting index.
+        /// - Parameter end: The ending index.
+        /// - Returns: The distance from `start` to `end`.
         public func distance(from start: Int, to end: Int) -> Int {
             return end - start
         }
@@ -178,7 +178,7 @@ extension Int4: BinaryInteger {
 
     /// Creates a new instance from the specified integer.
     ///
-    /// - parameter source: The value to use for the new instance.
+    /// - Parameter source: The value to use for the new instance.
     /// - Warning: The source must be representable in the range `-8...7`.
     public init<T>(_ source: T)
     where T: BinaryInteger {
@@ -192,24 +192,24 @@ extension Int4: BinaryInteger {
 
     /// Stores the bitwise AND of the two specified values in the left-hand-side variable.
     ///
-    /// - parameter lhs: The left-hand-side value.
-    /// - parameter rhs: The right-hand-side value.
+    /// - Parameter lhs: The left-hand-side value.
+    /// - Parameter rhs: The right-hand-side value.
     public static func &= (_ lhs: inout Self, _ rhs: Self) {
         lhs = .init(bitPattern: lhs.bitPattern & rhs.bitPattern)
     }
 
     /// Stores the bitwise OR of the two specified values in the left-hand-side variable.
     ///
-    /// - parameter lhs: The left-hand-side value.
-    /// - parameter rhs: The right-hand-side value.
+    /// - Parameter lhs: The left-hand-side value.
+    /// - Parameter rhs: The right-hand-side value.
     public static func |= (_ lhs: inout Self, _ rhs: Self) {
         lhs = .init(bitPattern: lhs.bitPattern | rhs.bitPattern)
     }
 
     /// Stores the bitwise XOR of the two specified values in the left-hand-side variable.
     ///
-    /// - parameter lhs: The left-hand-side value.
-    /// - parameter rhs: The right-hand-side value.
+    /// - Parameter lhs: The left-hand-side value.
+    /// - Parameter rhs: The right-hand-side value.
     public static func ^= (_ lhs: inout Self, _ rhs: Self) {
         lhs = .init(bitPattern: lhs.bitPattern ^ rhs.bitPattern)
     }
@@ -262,9 +262,9 @@ extension Int4: Divisible {
     /// // Prints "3"
     /// ```
     ///
-    /// - parameter lhs: The dividend.
-    /// - parameter rhs: The divisor.
-    /// - returns: The quotient.
+    /// - Parameter lhs: The dividend.
+    /// - Parameter rhs: The divisor.
+    /// - Returns: The quotient.
     public static func / (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
@@ -272,9 +272,9 @@ extension Int4: Divisible {
 
     /// Returns the remainder of dividing the first specified value by the second.
     ///
-    /// - parameter lhs: The dividend.
-    /// - parameter rhs: The divisor.
-    /// - returns: The remainder.
+    /// - Parameter lhs: The dividend.
+    /// - Parameter rhs: The divisor.
+    /// - Returns: The remainder.
     public static func % (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)
@@ -438,9 +438,9 @@ extension Int4: Multipliable {
     /// // Prints "4"
     /// ```
     ///
-    /// - parameter lhs: The multiplicand.
-    /// - parameter rhs: The multiplicator.
-    /// - returns: The product.
+    /// - Parameter lhs: The multiplicand.
+    /// - Parameter rhs: The multiplicator.
+    /// - Returns: The product.
     public static func * (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)
@@ -649,9 +649,9 @@ extension Int4: Subtractable {
     /// // Prints "1"
     /// ```
     ///
-    /// - parameter lhs: The minuend.
-    /// - parameter rhs: The subtrahend.
-    /// - returns: The difference.
+    /// - Parameter lhs: The minuend.
+    /// - Parameter rhs: The subtrahend.
+    /// - Returns: The difference.
     public static func - (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value - rhs.value
         return .init(value: newValue)

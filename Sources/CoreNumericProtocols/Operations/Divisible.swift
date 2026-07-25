@@ -16,44 +16,44 @@ public protocol Divisible: Equatable {
 
     /// Returns a boolean value indicating whether this value is divisible by the specified value.
     ///
-    /// - parameter other: The value to test.
-    /// - returns: Returns `true` if this value is divisible by the specified value, and `false` otherwise.
+    /// - Parameter other: The value to test.
+    /// - Returns: Returns `true` if this value is divisible by the specified value, and `false` otherwise.
     func isDivisible(by other: Self) -> Bool
 
     /// Returns a boolean value indicating whether this value is a factor of the specified value.
     ///
-    /// - parameter other: The value to test.
-    /// - returns: Returns `true` if this value is a factor of the specified value, and `false` otherwise.
+    /// - Parameter other: The value to test.
+    /// - Returns: Returns `true` if this value is a factor of the specified value, and `false` otherwise.
     func isFactor(of other: Self) -> Bool
 
 	/// Returns the quotient of dividing the first specified value by the second.
 	///
-	/// - parameter lhs: The dividend.
-	/// - parameter rhs: The divisor.
-	/// - returns: The quotient.
+	/// - Parameter lhs: The dividend.
+	/// - Parameter rhs: The divisor.
+	/// - Returns: The quotient.
 	static func / (_ lhs: Self, _ rhs: Self) -> Self
 
 	/// Returns the remainder of dividing the first specified value by the second.
 	///
-	/// - parameter lhs: The dividend.
-	/// - parameter rhs: The divisor.
-	/// - returns: The remainder.
+	/// - Parameter lhs: The dividend.
+	/// - Parameter rhs: The divisor.
+	/// - Returns: The remainder.
 	static func % (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Divisible {
 	/// Divides the first specified value by the second and stores the quotient in the left-hand-side variable.
 	///
-	/// - parameter lhs: The dividend.
-	/// - parameter rhs: The divisor.
+	/// - Parameter lhs: The dividend.
+	/// - Parameter rhs: The divisor.
     public static func /= (_ lhs: inout Self, _ rhs: Self) {
         lhs = lhs / rhs
     }
 
 	/// Divides the first specified value by the second and stores the remainder in the left-hand-side variable.
 	///
-	/// - parameter lhs: The dividend.
-	/// - parameter rhs: The divisor.
+	/// - Parameter lhs: The dividend.
+	/// - Parameter rhs: The divisor.
 	public static func %= (_ lhs: inout Self, _ rhs: Self) {
 		lhs = lhs % rhs
 	}
@@ -65,8 +65,8 @@ extension Divisible {
     /// // Prints "3"
     /// ```
     ///
-    /// - parameter divisor: The divisor.
-    /// - returns: The quotient.
+    /// - Parameter divisor: The divisor.
+    /// - Returns: The quotient.
     public func dividing(by divisor: Self) -> Self {
         return self / divisor
     }
@@ -80,7 +80,7 @@ extension Divisible {
     /// // Prints "3"
     /// ```
     ///
-    /// - parameter divisor: The divisor.
+    /// - Parameter divisor: The divisor.
     public mutating func divide(by divisor: Self) {
         self /= divisor
     }

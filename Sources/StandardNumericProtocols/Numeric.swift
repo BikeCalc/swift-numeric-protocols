@@ -18,8 +18,8 @@ where Self: Divisible {
     /// // Prints "false"
     /// ```
     ///
-    /// - parameter other: The value to test.
-    /// - returns: Returns `true` if this value is divisible by the specified value, and `false` otherwise.
+    /// - Parameter other: The value to test.
+    /// - Returns: Returns `true` if this value is divisible by the specified value, and `false` otherwise.
     public func isDivisible(by other: Self) -> Bool {
         guard other != 0 else {
             return false
@@ -35,8 +35,8 @@ where Self: Divisible {
     /// // Prints "true"
     /// ```
     ///
-    /// - parameter other: The value to test.
-    /// - returns: Returns `true` if this value is a factor of the specified value, and `false` otherwise.
+    /// - Parameter other: The value to test.
+    /// - Returns: Returns `true` if this value is a factor of the specified value, and `false` otherwise.
     public func isFactor(of other: Self) -> Bool {
         guard self != 0 else {
             return false
@@ -52,7 +52,7 @@ where Self: Divisible {
     /// // Prints "0.5"
     /// ```
     ///
-    /// - returns: The value halved.
+    /// - Returns: The value halved.
     public func halved() -> Self {
         return self / 2
     }
@@ -79,7 +79,7 @@ where Self: Multipliable {
     /// // Prints "2"
     /// ```
     ///
-    ///  - returns: The value doubled.
+    ///  - Returns: The value doubled.
     public func doubled() -> Self {
         return self * 2
     }
@@ -106,8 +106,8 @@ where Self: Raisable {
     /// // Prints "true"
     /// ```
     ///
-    /// - parameter other: The value to test.
-    /// - returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
+    /// - Parameter other: The value to test.
+    /// - Returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
     public func isPower(of other: Self) -> Bool
     where Self: Comparable & Divisible {
         switch other {
@@ -139,8 +139,8 @@ where Self: Raisable {
     /// // Prints "true"
     /// ```
     ///
-    /// - parameter other: The value to test.
-    /// - returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
+    /// - Parameter other: The value to test.
+    /// - Returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
     public func isPower(of other: Self) -> Bool
     where Self: Comparable & Divisible & Negateable {
         switch other {
@@ -178,7 +178,7 @@ where Self: Raisable {
     /// // Prints "4"
     /// ```
     ///
-    /// - returns: The square.
+    /// - Returns: The square.
     public func squared() -> Self
     where Self.Exponent: ExpressibleByIntegerLiteral {
         return self ** 2
@@ -204,7 +204,7 @@ where Self: Raisable {
     /// // Prints "8"
     /// ```
     ///
-    /// - returns: The cube.
+    /// - Returns: The cube.
     public func cubed() -> Self
     where Self.Exponent: ExpressibleByIntegerLiteral {
         return self ** 3

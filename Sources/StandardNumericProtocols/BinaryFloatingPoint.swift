@@ -18,8 +18,8 @@ where Self: Decreasable {
     /// // Prints "9"
     /// ```
     ///
-    /// - parameter percentage: The subtrahend.
-    /// - returns: The difference.
+    /// - Parameter percentage: The subtrahend.
+    /// - Returns: The difference.
     public func decreasing(by percentage: Self) -> Self {
         return self - self * percentage / 100
     }
@@ -34,8 +34,8 @@ where Self: Divisible & Multipliable {
     /// // Prints "true"
     /// ```
     ///
-    /// - parameter other: The value to test.
-    /// - returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
+    /// - Parameter other: The value to test.
+    /// - Returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
     public func isMultiple(of other: Self) -> Bool {
         if self == 0 && other == 0 {
             return true
@@ -77,8 +77,8 @@ where Self: Increasable {
     /// // Prints "11"
     /// ```
     ///
-    /// - parameter percentage: The addend.
-    /// - returns: The sum.
+    /// - Parameter percentage: The addend.
+    /// - Returns: The sum.
     public func increasing(by percentage: Self) -> Self {
         return self + self * percentage / 100
     }
@@ -102,8 +102,8 @@ where Self: Roundable, Self.DecimalPlace: UnsignedInteger {
     /// // Prints "1.57"
     /// ```
     ///
-    /// - parameter decimalPlace: The number of decimals places.
-    /// - returns: This instance rounded.
+    /// - Parameter decimalPlace: The number of decimals places.
+    /// - Returns: This instance rounded.
     public func rounded(to decimalPlace: Self.DecimalPlace) -> Self {
         var divisor: Self = 1
         var remaining = decimalPlace
@@ -130,8 +130,8 @@ where Self: Truncatable, Self.DecimalPlace: UnsignedInteger {
     /// // Prints "1.23"
     /// ```
     ///
-    /// - parameter countPlaces: The number of decimals places.
-    /// - returns: This instance truncated.
+    /// - Parameter countPlaces: The number of decimals places.
+    /// - Returns: This instance truncated.
     public func truncated(to decimalPlace: Self.DecimalPlace) -> Self {
         var divisor: Self = 1
         var remaining = decimalPlace

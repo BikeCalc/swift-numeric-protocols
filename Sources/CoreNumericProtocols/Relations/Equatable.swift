@@ -9,16 +9,16 @@
 extension Equatable {
     /// Returns a boolean value indicating whether this value is equal to the specified value.
     ///
-    /// - parameter rhs: Another value to compare.
-    /// - returns: A boolean indicating whether the two values are equal.
+    /// - Parameter rhs: Another value to compare.
+    /// - Returns: A boolean indicating whether the two values are equal.
     public func isEqual(to rhs: Self) -> Bool {
         return self == rhs
     }
 
     /// Returns a boolean value indicating whether this value is unequal to the specified value.
     ///
-    /// - parameter rhs: Another value to compare.
-    /// - returns: A boolean indicating whether the two values are unequal.
+    /// - Parameter rhs: Another value to compare.
+    /// - Returns: A boolean indicating whether the two values are unequal.
     public func isUnequal(to rhs: Self) -> Bool {
         return self != rhs
     }

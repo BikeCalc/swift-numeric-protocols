@@ -10,8 +10,8 @@
 public protocol Decreasable {
     /// Returns the difference of decreasing this value by the specified value.
     ///
-    /// - parameter percentage: The subtrahend.
-    /// - returns: The difference.
+    /// - Parameter percentage: The subtrahend.
+    /// - Returns: The difference.
     func decreasing(by percentage: Self) -> Self
 }
 
@@ -25,7 +25,7 @@ extension Decreasable {
     /// // Prints "9"
     /// ```
     ///
-    /// - parameter percentage: The subtrahend.
+    /// - Parameter percentage: The subtrahend.
     public mutating func decrease(by percentage: Self) {
 		self = self.decreasing(by: percentage)
     }

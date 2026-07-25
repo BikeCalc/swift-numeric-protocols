@@ -17,8 +17,8 @@ public protocol Truncatable {
     /// Values that cannot be represented exactly in binary may produce results that
     /// differ from exact decimal arithmetic.
     ///
-    /// - parameter countPlaces: The number of decimals places.
-    /// - returns: This instance truncated.
+    /// - Parameter countPlaces: The number of decimals places.
+    /// - Returns: This instance truncated.
     func truncated(to decimalPlace: Self.DecimalPlace) -> Self
 }
 
@@ -36,7 +36,7 @@ extension Truncatable {
     /// // Prints "1.23"
     /// ```
     ///
-    /// - parameter countPlaces: The number of decimals places.
+    /// - Parameter countPlaces: The number of decimals places.
     public mutating func truncate(to decimalPlace: Self.DecimalPlace) {
         self = self.truncated(to: decimalPlace)
     }

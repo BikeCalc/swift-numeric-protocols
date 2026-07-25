@@ -9,32 +9,32 @@
 extension Comparable {
     /// Returns a boolean value indicating whether this value is less than the specified value.
     ///
-    /// - parameter rhs: Another value to compare.
-    /// - returns: A boolean indicating whether this value is less than the specified value.
+    /// - Parameter rhs: Another value to compare.
+    /// - Returns: A boolean indicating whether this value is less than the specified value.
     public func isLess(than rhs: Self) -> Bool {
         return self < rhs
     }
 
     /// Returns a boolean value indicating whether this value is less than or equal to the specified value.
     ///
-    /// - parameter rhs: Another value to compare.
-    /// - returns: A boolean indicating whether this value is less than or equal to the specified value.
+    /// - Parameter rhs: Another value to compare.
+    /// - Returns: A boolean indicating whether this value is less than or equal to the specified value.
     public func isLessThanOrEqual(to rhs: Self) -> Bool {
         return self <= rhs
     }
 
     /// Returns a boolean value indicating whether this value is greater than the specified value.
     ///
-    /// - parameter rhs: Another value to compare.
-    /// - returns: A boolean indicating whether this value is greater than the specified value.
+    /// - Parameter rhs: Another value to compare.
+    /// - Returns: A boolean indicating whether this value is greater than the specified value.
     public func isGreater(than rhs: Self) -> Bool {
         return self > rhs
     }
 
     /// Returns a boolean value indicating whether this value is greater than or equal to the specified value.
     ///
-    /// - parameter rhs: Another value to compare.
-    /// - returns: A boolean indicating whether this value is greater than or equal to the specified value.
+    /// - Parameter rhs: Another value to compare.
+    /// - Returns: A boolean indicating whether this value is greater than or equal to the specified value.
     public func isGreaterThanOrEqual(to rhs: Self) -> Bool {
         return self >= rhs
     }
@@ -47,8 +47,8 @@ extension Comparable {
 	/// // Prints "true"
 	/// ```
 	///
-	/// - parameter closedRange: An interval from a lower bound up to, and including, an upper bound.
-	/// - returns: A boolean value.
+	/// - Parameter closedRange: An interval from a lower bound up to, and including, an upper bound.
+	/// - Returns: A boolean value.
 	public func isWithin(_ closedRange: ClosedRange<Self>) -> Bool {
 		return closedRange ~= self
 	}
@@ -61,9 +61,9 @@ extension Comparable {
 	/// // Prints "true"
 	/// ```
 	///
-	/// - parameter lowerBound: The lower bound value.
-	/// - parameter upperBound: The upper bound value.
-	/// - returns: A boolean value.
+	/// - Parameter lowerBound: The lower bound value.
+	/// - Parameter upperBound: The upper bound value.
+	/// - Returns: A boolean value.
 	/// - Warning: The lower bound value must be smaller than the upper bound value.
 	public func isWithin(_ lowerBound: Self, through upperBound: Self) -> Bool {
 		precondition(lowerBound < upperBound, "Lower bound must be less than upper bound.")
@@ -81,9 +81,9 @@ extension Comparable {
     /// // Prints "true"
     /// ```
     ///
-    /// - parameter lowerBound: The lower bound value.
-    /// - parameter upperBound: The upper bound value.
-    /// - returns: A boolean value.
+    /// - Parameter lowerBound: The lower bound value.
+    /// - Parameter upperBound: The upper bound value.
+    /// - Returns: A boolean value.
     /// - Warning: The lower bound value must be smaller than the upper bound value.
     public func isBetween(_ lowerBound: Self, and upperBound: Self) -> Bool {
         precondition(lowerBound < upperBound, "Lower bound must be less than upper bound.")

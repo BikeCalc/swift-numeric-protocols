@@ -10,8 +10,8 @@
 public protocol Negateable: Equatable {
 	/// Returns the additive inverse of the specified value.
 	///
-	/// - parameter operand:
-	/// - returns: The additive inverse.
+	/// - Parameter operand:
+	/// - Returns: The additive inverse.
 	prefix static func - (_ operand: Self) -> Self
 }
 
@@ -33,8 +33,8 @@ extension Negateable {
 	/// // Prints "true"
 	/// ```
 	///
-	/// - parameter other: The value to test.
-	/// - returns: Returns `true` if this value is the opposite of the given value, and `false` otherwise.
+	/// - Parameter other: The value to test.
+	/// - Returns: Returns `true` if this value is the opposite of the given value, and `false` otherwise.
 	public func isOpposite(of other: Self) -> Bool {
 		return self == other.negating()
 	}
@@ -46,7 +46,7 @@ extension Negateable {
 	/// // Prints "-2"
 	/// ```
 	///
-	/// - returns: The additive inverse.
+	/// - Returns: The additive inverse.
 	public func negating() -> Self {
 		return -self
 	}

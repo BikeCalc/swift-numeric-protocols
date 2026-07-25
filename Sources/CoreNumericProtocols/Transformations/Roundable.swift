@@ -17,8 +17,8 @@ public protocol Roundable {
     /// Values that cannot be represented exactly in binary may produce results that
     /// differ from exact decimal arithmetic.
     ///
-    /// - parameter decimalPlace: The number of decimals places.
-    /// - returns: This instance rounded.
+    /// - Parameter decimalPlace: The number of decimals places.
+    /// - Returns: This instance rounded.
     func rounded(to decimalPlace: Self.DecimalPlace) -> Self
 }
 
@@ -43,7 +43,7 @@ extension Roundable {
     /// // Prints "1.57"
     /// ```
     ///
-    /// - parameter decimalPlace: The number of decimals places.
+    /// - Parameter decimalPlace: The number of decimals places.
     public mutating func round(to decimalPlace: Self.DecimalPlace) {
         self = self.rounded(to: decimalPlace)
     }

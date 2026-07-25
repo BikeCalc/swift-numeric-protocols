@@ -18,9 +18,9 @@ where Self: Raisable, Self.Exponent: BinaryInteger {
     /// // Prints "8.0"
     /// ```
     ///
-    /// - parameter lhs: The base.
-    /// - parameter rhs: The exponent.
-    /// - returns: The power.
+    /// - Parameter lhs: The base.
+    /// - Parameter rhs: The exponent.
+    /// - Returns: The power.
     public static func ** (_ lhs: Self, _ rhs: Self.Exponent) -> Self {
         switch rhs {
         case ..<0:

@@ -15,23 +15,23 @@ public protocol Raisable: Equatable {
 
     /// Returns a boolean value indicating whether this value is a power of the specified value.
     ///
-    /// - parameter other: The value to test.
-    /// - returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
+    /// - Parameter other: The value to test.
+    /// - Returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
     func isPower(of other: Self) -> Bool
 
     /// Returns the power of raising the first specified value to the second.
 	///
-    /// - parameter lhs: The base.
-    /// - parameter rhs: The exponent.
-    /// - returns: The power.
+    /// - Parameter lhs: The base.
+    /// - Parameter rhs: The exponent.
+    /// - Returns: The power.
     static func ** (_ lhs: Self, _ rhs: Self.Exponent) -> Self
 }
 
 extension Raisable {
 	/// Raises the first specified value to the second and stores the power in the left-hand-side variable.
     ///
-    /// - parameter lhs: The base.
-    /// - parameter rhs: The exponent.
+    /// - Parameter lhs: The base.
+    /// - Parameter rhs: The exponent.
     public static func **= (_ lhs: inout Self, _ rhs: Self.Exponent) {
 		lhs = lhs ** rhs
     }
@@ -43,8 +43,8 @@ extension Raisable {
     /// // Prints "16"
     /// ```
     ///
-    /// - parameter exponent: The exponent.
-    /// - returns: The power.
+    /// - Parameter exponent: The exponent.
+    /// - Returns: The power.
     public func raising(to exponent: Self.Exponent) -> Self {
         return self ** exponent
     }
@@ -58,7 +58,7 @@ extension Raisable {
     /// // Prints "16"
     /// ```
     ///
-    /// - parameter exponent: The exponent.
+    /// - Parameter exponent: The exponent.
     public mutating func raise(to exponent: Self.Exponent) {
         self **= exponent
     }

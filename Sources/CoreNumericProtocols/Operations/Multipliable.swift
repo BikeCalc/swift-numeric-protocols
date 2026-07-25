@@ -10,23 +10,23 @@
 public protocol Multipliable: Equatable {
     /// Returns a boolean value indicating whether this value is a multiple of the specified value.
     ///
-    /// - parameter other: The value to test.
-    /// - returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
+    /// - Parameter other: The value to test.
+    /// - Returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
     func isMultiple(of other: Self) -> Bool
 
     /// Returns the product of multiplying the two specified values.
     ///
-    /// - parameter lhs: The multiplicand.
-    /// - parameter rhs: The multiplicator.
-    /// - returns: The product.
+    /// - Parameter lhs: The multiplicand.
+    /// - Parameter rhs: The multiplicator.
+    /// - Returns: The product.
     static func * (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Multipliable {
 	/// Multiplies the two specified values and stores the product in the left-hand-side variable.
 	///
-	/// - parameter lhs: The multiplicand.
-	/// - parameter rhs: The multiplicator.
+	/// - Parameter lhs: The multiplicand.
+	/// - Parameter rhs: The multiplicator.
 	public static func *= (_ lhs: inout Self, _ rhs: Self) {
 		lhs = lhs * rhs
 	}
@@ -38,8 +38,8 @@ extension Multipliable {
     /// // Prints "6"
     /// ```
     ///
-    /// - parameter multiplicator: The multiplicator.
-    /// - returns: The product.
+    /// - Parameter multiplicator: The multiplicator.
+    /// - Returns: The product.
     public func multiplying(by multiplicator: Self) -> Self {
         return self * multiplicator
     }
@@ -53,7 +53,7 @@ extension Multipliable {
     /// // Prints "6"
     /// ```
     ///
-    /// - parameter multiplicator: The multiplicator.
+    /// - Parameter multiplicator: The multiplicator.
     public mutating func multiply(by multiplicator: Self) {
         self *= multiplicator
     }

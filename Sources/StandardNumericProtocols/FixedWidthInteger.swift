@@ -13,8 +13,8 @@ extension FixedWidthInteger
 where Self: ReportableAsOverflow {
     /// Returns the power after raising this instance to the specified value, along with a boolean value indicating whether overflow occurred in the operation.
     ///
-    /// - parameter rhs: The value to raise this instance to.
-    /// - returns: A tuple containing the result of the exponentiation along with a boolean value indicating whether overflow occurred.
+    /// - Parameter rhs: The value to raise this instance to.
+    /// - Returns: A tuple containing the result of the exponentiation along with a boolean value indicating whether overflow occurred.
     public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.Report
     where Self.Exponent: BinaryInteger {
         switch rhs {

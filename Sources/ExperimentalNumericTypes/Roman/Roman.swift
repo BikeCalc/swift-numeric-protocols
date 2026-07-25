@@ -21,7 +21,7 @@ public struct Roman {
 
     /// Creates a new instance with the specified value.
     ///
-    /// - parameter value: The value of this instance.
+    /// - Parameter value: The value of this instance.
     /// - Warning: The value must be in between 0 and 3999.
     private init(value: Self.Value) {
         precondition(0...3999 ~= value, "Roman value must be between \(Self.min) and \(Self.max).")
@@ -65,9 +65,9 @@ extension Roman: Addable {
     /// // Prints "II"
     /// ```
     ///
-    /// - parameter lhs: The augend.
-    /// - parameter rhs: The addend.
-    /// - returns: The sum.
+    /// - Parameter lhs: The augend.
+    /// - Parameter rhs: The addend.
+    /// - Returns: The sum.
     public static func + (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value + rhs.value
         return .init(value: newValue)
@@ -161,9 +161,9 @@ extension Roman: Divisible {
     /// // Prints "III"
     /// ```
     ///
-    /// - parameter lhs: The dividend.
-    /// - parameter rhs: The divisor.
-    /// - returns: The quotient.
+    /// - Parameter lhs: The dividend.
+    /// - Parameter rhs: The divisor.
+    /// - Returns: The quotient.
     public static func / (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
@@ -171,9 +171,9 @@ extension Roman: Divisible {
 
     /// Returns the remainder of dividing the first specified value by the second.
     ///
-    /// - parameter lhs: The dividend.
-    /// - parameter rhs: The divisor.
-    /// - returns: The remainder.
+    /// - Parameter lhs: The dividend.
+    /// - Parameter rhs: The divisor.
+    /// - Returns: The remainder.
     public static func % (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)
@@ -261,9 +261,9 @@ extension Roman: Multipliable {
     /// // Prints "IV"
     /// ```
     ///
-    /// - parameter lhs: The multiplicand.
-    /// - parameter rhs: The multiplicator.
-    /// - returns: The product.
+    /// - Parameter lhs: The multiplicand.
+    /// - Parameter rhs: The multiplicator.
+    /// - Returns: The product.
     public static func * (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)
@@ -470,9 +470,9 @@ extension Roman: Subtractable {
     /// // Prints "I"
     /// ```
     ///
-    /// - parameter lhs: The minuend.
-    /// - parameter rhs: The subtrahend.
-    /// - returns: The difference.
+    /// - Parameter lhs: The minuend.
+    /// - Parameter rhs: The subtrahend.
+    /// - Returns: The difference.
     public static func - (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value - rhs.value
         return .init(value: newValue)

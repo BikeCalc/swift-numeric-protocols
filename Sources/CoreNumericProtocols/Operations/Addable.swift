@@ -10,17 +10,17 @@
 public protocol Addable: Equatable {
 	/// Returns the sum of adding the two specified values.
 	///
-	/// - parameter lhs: The augend.
-	/// - parameter rhs: The addend.
-	/// - returns: The sum.
+	/// - Parameter lhs: The augend.
+	/// - Parameter rhs: The addend.
+	/// - Returns: The sum.
 	static func + (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Addable {
 	/// Adds the two specified values and stores the sum in the left-hand-side variable.
 	///
-	/// - parameter lhs: The augend.
-	/// - parameter rhs: The addend.
+	/// - Parameter lhs: The augend.
+	/// - Parameter rhs: The addend.
 	public static func += (_ lhs: inout Self, _ rhs: Self) {
 		lhs = lhs + rhs
 	}
@@ -32,8 +32,8 @@ extension Addable {
     /// // Prints "6"
     /// ```
     ///
-    /// - parameter addend: The addend.
-    /// - returns: The sum.
+    /// - Parameter addend: The addend.
+    /// - Returns: The sum.
     public func adding(_ addend: Self) -> Self {
         return self + addend
     }
@@ -47,7 +47,7 @@ extension Addable {
     /// // Prints "6"
     /// ```
     ///
-    /// - parameter addend: The addend.
+    /// - Parameter addend: The addend.
     public mutating func add(_ addend: Self) {
         self += addend
     }
