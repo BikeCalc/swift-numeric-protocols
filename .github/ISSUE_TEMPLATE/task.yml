@@ -1,0 +1,30 @@
+name: Track a task
+description: Track maintenance work, refactoring, research, or follow-up implementation.
+title: "[Task]: "
+labels: ["task", "triage needed"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the task and why it matters.
+    validations:
+      required: true
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Checklist
+      description: List the concrete steps or acceptance criteria.
+      value: |
+        - [ ] 
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional Information
+      description: Add any extra context, links, constraints, or notes.
+    validations:
+      required: false
