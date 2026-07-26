@@ -50,12 +50,13 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: Provide Swift, platform, and package details.
+      description: Provide Swift, platform, package, and tool details.
       value: |
         - Swift version:
-        - Xcode version:
-        - Platform:
+        - Platform and platform version:
+        - Deployment target, if explicitly set:
         - Package tag, branch, or commit:
+        - Xcode version, if relevant:
     validations:
       required: true
 
