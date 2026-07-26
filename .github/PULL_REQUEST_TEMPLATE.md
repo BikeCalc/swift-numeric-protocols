@@ -28,6 +28,6 @@ Removed: for deleted files, APIs, obsolete behavior, or unused code.
 - [ ] `swift test`
 - [ ] `swift package generate-documentation --target NumericsExtended`
 
-## Notes
+## Additional Information
 
 <!-- Add anything useful for developers, testers, or future readers. -->
