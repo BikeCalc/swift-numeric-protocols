@@ -1,0 +1,37 @@
+name: Branch Route
+
+on:
+  pull_request:
+    branches: ["main", "release/**"]
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Branch Route
+        run: |
+          base="${{ github.base_ref }}"
+          head="${{ github.head_ref }}"
+
+          case "$base" in
+            main)
+              case "$head" in
+                release/*|hotfix/*)
+                  exit 0
+                  ;;
+              esac
+              ;;
+            release/*)
+              case "$head" in
+                feature/*|bugfix/*|chore/*|docs/*|test/*)
+                  exit 0
+                  ;;
+              esac
+              ;;
+          esac
+
+          echo "Invalid branch route: $head -> $base"
+          echo "Allowed routes:"
+          echo "- release/* or hotfix/* -> main"
+          echo "- feature/*, bugfix/*, chore/*, docs/*, or test/* -> release/*"
+          exit 1

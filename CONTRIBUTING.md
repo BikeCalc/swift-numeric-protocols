@@ -75,7 +75,23 @@ Use lowercase branch names in the form:
 <type>/<description>
 ```
 
-Long-lived branches such as `main` and `develop` do not need a prefix.
+The `main` branch is protected and represents the released package history. Release branches are
+also protected and should use the form:
+
+```text
+release/<semantic version>
+```
+
+Use `feature`, `bugfix`, `chore`, `docs`, or `test` branches for regular work. These branches
+should be merged into a release branch. Use `hotfix` branches only for urgent fixes that need to be
+merged directly into `main`.
+
+Delete short-lived branches after they are merged.
+
+Allowed pull request routes are:
+
+- `release/*` or `hotfix/*` into `main`.
+- `feature/*`, `bugfix/*`, `chore/*`, `docs/*`, or `test/*` into `release/*`.
 
 ### Code Templates
 
@@ -136,6 +152,8 @@ Use the form:
 When creating a pull request, please use the pull request template and include a link to the
 related issues.
 
+Pull requests must target a branch allowed by the branch routing rules.
+
 Before submitting a pull request, run the commands that apply to your change:
 
 ```sh
@@ -164,3 +182,5 @@ Use the form:
 ```text
 <major>.<minor>.<patch>
 ```
+
+Create a version tag after a release or hotfix is merged into `main`.
