@@ -1,6 +1,6 @@
 name: Request a change
 description: Suggest a feature, improvement, protocol, numeric type, or behavior change.
-title: "[Change]: "
+title: ""
 labels: ["enhancement", "triage needed"]
 body:
   - type: textarea

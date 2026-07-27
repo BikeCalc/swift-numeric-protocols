@@ -1,6 +1,6 @@
 name: Prepare a release
 description: Track the scope, remaining work, and context for an upcoming release.
-title: "[Release]: "
+title: ""
 labels: ["release", "triage needed"]
 body:
   - type: textarea

@@ -1,6 +1,6 @@
 name: Report a documentation issue
 description: Report unclear, missing, or incorrect documentation.
-title: "[Docs]: "
+title: ""
 labels: ["documentation", "triage needed"]
 body:
   - type: textarea

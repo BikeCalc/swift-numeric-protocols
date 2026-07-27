@@ -65,6 +65,19 @@ contributing directly to this project.
 Substantial code changes should start with an issue so the problem, design, and scope can be
 discussed before implementation begins.
 
+Use short, imperative issue titles that start with a verb. Issue titles should describe the work in
+human language; branch names should describe the route. For example, an issue titled
+`Add DocC documentation` could use the branch `docs/add-docc-documentation`.
+
+Use sentence case for issue titles. Capitalize proper nouns, acronyms, and API names such as
+`DocC`, `UInt4`, `Roman`, and `Swift Testing`.
+
+Release issues should use the form:
+
+```text
+Prepare <semantic version> release
+```
+
 ### Branches
 
 Branch names should follow [Conventional Branch](https://conventionalbranch.org/).

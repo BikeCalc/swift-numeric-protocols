@@ -1,6 +1,6 @@
 name: Report a bug
 description: Report incorrect or unexpected package behavior.
-title: "[Bug]: "
+title: ""
 labels: ["bug", "triage needed"]
 body:
   - type: markdown

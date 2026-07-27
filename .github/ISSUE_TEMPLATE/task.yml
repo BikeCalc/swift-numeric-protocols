@@ -1,6 +1,6 @@
 name: Track a task
 description: Track maintenance work, refactoring, research, or follow-up implementation.
-title: "[Task]: "
+title: ""
 labels: ["task", "triage needed"]
 body:
   - type: textarea
