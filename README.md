@@ -26,9 +26,11 @@ The Swift Package Manager is a tool for managing the distribution of Swift code 
     let package: Package = .init(
         ...
         dependencies: [
-            .package(url: "https://github.com/bikecalc/swift-numerics-extended.git", branch: "main")
-        ],
-        ...
+            .package(
+                url: "https://github.com/bikecalc/swift-numerics-extended.git", 
+                from: "2.0.0"
+            )
+        ]
     )
     ```
 
@@ -38,11 +40,16 @@ The Swift Package Manager is a tool for managing the distribution of Swift code 
     let package: Package = .init(
         ...
         targets: [
-            .target(name: "MyTarget", dependencies: [
-                .product(name: "NumericsExtended", package: "swift-numerics-extended")
-            ])
-        ],
-        ...
+            .target(
+                name: "MyTarget",
+                dependencies: [
+                    .product(
+                        name: "NumericsExtended", 
+                        package: "swift-numerics-extended"
+                    )
+                ]
+            )
+        ]
     )
     ```
 
