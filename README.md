@@ -2,51 +2,48 @@
 
 # swift-numerics-extended
 
-A package containing numeric protocols, for the Swift programming language.
+A Swift package extending numeric protocols, standard numeric types, and experimental numeric types.
 
 ## Overview
 
-No overview available.
+Numerics Extended provides a layered set of numeric protocols and utilities for Swift. It includes core numeric operators, core numeric protocols, extensions for standard library numeric protocols, standard numeric type conformances, experimental numeric constants, and experimental numeric types such as `Roman`, `Int4`, and `UInt4`.
 
-## Availability
+Experimental numeric types are included for exploration and documentation, and their APIs may evolve across major releases.
 
-- iOS 13.0+
-- iPadOS 13.0+
-- macCatalyst 15.0+
-- macOS 10.15+
-- watchOS 6.0+
+## Requirements
+
+- Swift 6.3+
+
+Numerics Extended is written in Swift and avoids platform-specific APIs where possible.
 
 ## Installation
 
-The Swift Package Manager is a tool for managing the distribution of Swift code and is integrated into the swift compiler.
-
-1. Add the package to the dependencies in your `Package.swift` file.
+1. Add Numerics Extended to the dependencies in your `Package.swift` file:
 
     ```swift
     let package: Package = .init(
-        ...
         dependencies: [
-            .package(url: "https://github.com/bikecalc/swift-numerics-extended.git", branch: "main")
-        ],
-        ...
+            .package(url: "https://github.com/bikecalc/swift-numerics-extended.git", from: "2.0.0")
+        ]
     )
     ```
 
-2. Add the package as a dependency on your target in your `Package.swift` file.
+2. Add the package product as a dependency on your target:
 
     ```swift
     let package: Package = .init(
-        ...
         targets: [
-            .target(name: "MyTarget", dependencies: [
-                .product(name: "NumericsExtended", package: "swift-numerics-extended")
-            ])
-        ],
-        ...
+            .target(
+                name: "MyTarget",
+                dependencies: [
+                    .product(name: "NumericsExtended", package: "swift-numerics-extended")
+                ]
+            )
+        ]
     )
     ```
 
-3. Import the package in your source code.
+3. Import the package in your source code:
 
     ```swift
     import NumericsExtended
@@ -54,38 +51,18 @@ The Swift Package Manager is a tool for managing the distribution of Swift code 
 
 ## Documentation
 
-You can read more about this package by visiting the [documentation page].
+You can read more about this package by visiting the [documentation](https://bikecalc.github.io/swift-numerics-extended/documentation/numericsextended).
 
-## Contribution
+## Contributing
 
-Contributions are what makes the open source community such an amazing place to learn, inspire, and create. If you wish to contribute and be part of this project, please fork the repository and create a [pull request].
+Everyone is welcome to contribute to Numerics Extended. See `CONTRIBUTING.md` for contribution guidelines, branch conventions, pull request expectations, and testing instructions.
 
-1. Fork the repository
-2. Create your feature branch `git checkout -b feature/NewFeature`
-3. Commit your changes `git commit -m 'Added a new feature'`
-4. Push to your branch `git push origin feature/NewFeature`
-5. Open a pull request
-
-### Reporting a bug
-
-If you find a bug, please create an [issue].
-
-### Contacting the maintainers
-
-If you want to share your thoughts on how to improve this repository, you can contact the code owner. See the `CODEOWNERS.txt` file for more information.
-
-### Supporting this repository
-
-If this repository has been useful to you in some way, show your support by starring it.
+If you find a bug, please create an [issue](https://github.com/bikecalc/swift-numerics-extended/issues). Security vulnerabilities should be reported using the instructions in `SECURITY.md`.
 
 ## Code of Conduct
 
-To be a truly great community, we welcome developers from all walks of life, with different backgrounds, and with a wide range of experience. A diverse and friendly community will have more great ideas, more unique perspectives, and produce more great code. We will work diligently to make this community welcoming to everyone. See the `CODEOFCONDUCT.md` file for more information.
+This project follows a code of conduct. See `CODE_OF_CONDUCT.md` for more information.
 
 ## License
 
-Distributed under Apache License v2.0 with Runtime Library Exception. See the `LICENSE.md` file for more information.
-
-[documentation page]: https://bikecalc.github.io/swift-numerics-extended/documentation/numeric-protocols
-[pull request]: https://github.com/bikecalc/swift-numerics-extended/pulls
-[issue]: https://github.com/bikecalc/swift-numerics-extended/issues
+Distributed under Apache License v2.0 with Runtime Library Exception. See `LICENSE.md` for more information.
