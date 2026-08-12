@@ -7,6 +7,6 @@
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
 precedencegroup ExponentiationPrecedence {
-	associativity: right
-	higherThan: MultiplicationPrecedence
+    associativity: right
+    higherThan: MultiplicationPrecedence
 }

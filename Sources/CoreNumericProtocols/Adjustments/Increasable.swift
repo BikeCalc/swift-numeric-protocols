@@ -27,6 +27,6 @@ extension Increasable {
     ///
     /// - Parameter percentage: The addend.
     public mutating func increase(by percentage: Self) {
-		self = self.increasing(by: percentage)
+        self = self.increasing(by: percentage)
     }
 }

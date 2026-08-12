@@ -8,14 +8,14 @@
 
 /// Representing values that can be represented by a maximum.
 public protocol RepresentableByMax {
-	/// The representation of the maximum.
-	static var max: Self { get }
+    /// The representation of the maximum.
+    static var max: Self { get }
 }
 
 extension RepresentableByMax
 where Self: Equatable {
-	/// A boolean value indicating whether this instance is the maximum.
-	public var isMax: Bool {
-		return self == .max
-	}
+    /// A boolean value indicating whether this instance is the maximum.
+    public var isMax: Bool {
+        return self == .max
+    }
 }

@@ -8,22 +8,22 @@
 
 /// Representing values that can be subtracted.
 public protocol Subtractable: Equatable {
-	/// Returns the difference of subtracting the second specified value from the first.
-	///
-	/// - Parameter lhs: The minuend.
-	/// - Parameter rhs: The subtrahend.
-	/// - Returns: The difference.
-	static func - (_ lhs: Self, _ rhs: Self) -> Self
+    /// Returns the difference of subtracting the second specified value from the first.
+    ///
+    /// - Parameter lhs: The minuend.
+    /// - Parameter rhs: The subtrahend.
+    /// - Returns: The difference.
+    static func - (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Subtractable {
-	/// Subtracts the second specified value from the first and stores the difference in the left-hand-side variable.
-	///
-	/// - Parameter lhs: The minuend.
-	/// - Parameter rhs: The subtrahend.
-	public static func -= (_ lhs: inout Self, _ rhs: Self) {
-		lhs = lhs - rhs
-	}
+    /// Subtracts the second specified value from the first and stores the difference in the left-hand-side variable.
+    ///
+    /// - Parameter lhs: The minuend.
+    /// - Parameter rhs: The subtrahend.
+    public static func -= (_ lhs: inout Self, _ rhs: Self) {
+        lhs = lhs - rhs
+    }
 
     /// Returns the difference of subtracting the specified value from this value.
     ///
@@ -43,7 +43,7 @@ extension Subtractable {
     /// ```swift
     /// var number: Double = 6
     /// number.subtract(4)
-	/// print(number)
+    /// print(number)
     /// // Prints "2"
     /// ```
     ///

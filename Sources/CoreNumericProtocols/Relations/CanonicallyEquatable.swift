@@ -8,9 +8,9 @@
 
 /// Representing values that can be canonically equatable.
 public protocol CanonicallyEquatable {
-	/// Returns a boolean value indicating whether the two specified instances are canonically equatable.
-	///
-	/// - Parameter rhs: An instance to compare.
-	/// - Returns: `true` if is canonically equatable, and `false` otherwise.
-	func isCanonicallyEquatable(to rhs: Self) -> Bool
+    /// Returns a boolean value indicating whether the two specified instances are canonically equatable.
+    ///
+    /// - Parameter rhs: An instance to compare.
+    /// - Returns: `true` if is canonically equatable, and `false` otherwise.
+    func isCanonicallyEquatable(to rhs: Self) -> Bool
 }

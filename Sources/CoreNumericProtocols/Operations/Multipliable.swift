@@ -23,13 +23,13 @@ public protocol Multipliable: Equatable {
 }
 
 extension Multipliable {
-	/// Multiplies the two specified values and stores the product in the left-hand-side variable.
-	///
-	/// - Parameter lhs: The multiplicand.
-	/// - Parameter rhs: The multiplicator.
-	public static func *= (_ lhs: inout Self, _ rhs: Self) {
-		lhs = lhs * rhs
-	}
+    /// Multiplies the two specified values and stores the product in the left-hand-side variable.
+    ///
+    /// - Parameter lhs: The multiplicand.
+    /// - Parameter rhs: The multiplicator.
+    public static func *= (_ lhs: inout Self, _ rhs: Self) {
+        lhs = lhs * rhs
+    }
 
     /// Returns the product of multiplying this value by the specified value.
     ///
@@ -49,7 +49,7 @@ extension Multipliable {
     /// ```swift
     /// var number: Double = 2
     /// number.multiply(by: 3)
-	/// print(number)
+    /// print(number)
     /// // Prints "6"
     /// ```
     ///

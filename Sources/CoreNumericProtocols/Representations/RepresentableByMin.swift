@@ -8,14 +8,14 @@
 
 /// Representing values that can be represented by a minimum.
 public protocol RepresentableByMin {
-	/// The representation of the minimum.
-	static var min: Self { get }
+    /// The representation of the minimum.
+    static var min: Self { get }
 }
 
 extension RepresentableByMin
 where Self: Equatable {
-	/// A boolean value indicating whether this instance is the minimum.
-	public var isMin: Bool {
-		return self == .min
-	}
+    /// A boolean value indicating whether this instance is the minimum.
+    public var isMin: Bool {
+        return self == .min
+    }
 }
