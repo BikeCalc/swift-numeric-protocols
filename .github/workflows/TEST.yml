@@ -8,14 +8,10 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-26
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
-      - name: Setup Swift Environment
-        uses: swift-actions/setup-swift@v2
-        with:
-          swift-version: "6.3"
       - name: Get Swift Version
         run: swift --version
       - name: Build Package
