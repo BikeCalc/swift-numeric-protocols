@@ -122,17 +122,6 @@ public struct UInt4 {
 // MARK: - Addable
 
 extension UInt4: Addable {
-    /// Returns the sum of adding the two specified values.
-    ///
-    /// ```swift
-    /// let one: UInt4 = 1
-    /// print(one + one)
-    /// // Prints "2"
-    /// ```
-    ///
-    /// - Parameter lhs: The augend.
-    /// - Parameter rhs: The addend.
-    /// - Returns: The sum.
     public static func + (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value + rhs.value
         return .init(value: newValue)
@@ -319,28 +308,11 @@ extension UInt4: Decodable {
 // MARK: - Divisible
 
 extension UInt4: Divisible {
-    /// Returns the quotient of dividing the first specified value by the second.
-    ///
-    /// ```swift
-    /// let six: UInt4 = 6
-    /// let two: UInt4 = 2
-    /// print(six / two)
-    /// // Prints "3"
-    /// ```
-    ///
-    /// - Parameter lhs: The dividend.
-    /// - Parameter rhs: The divisor.
-    /// - Returns: The quotient.
     public static func / (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
 
-    /// Returns the remainder of dividing the first specified value by the second.
-    ///
-    /// - Parameter lhs: The dividend.
-    /// - Parameter rhs: The divisor.
-    /// - Returns: The remainder.
     public static func % (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)
@@ -519,17 +491,6 @@ extension UInt4: Multipliable {
         return (self % other) == 0
     }
 
-    /// Returns the product of multiplying the two specified values.
-    ///
-    /// ```swift
-    /// let two: UInt4 = 2
-    /// print(two * two)
-    /// // Prints "4"
-    /// ```
-    ///
-    /// - Parameter lhs: The multiplicand.
-    /// - Parameter rhs: The multiplicator.
-    /// - Returns: The product.
     public static func * (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)
@@ -700,18 +661,6 @@ extension UInt4: Strideable {}
 // MARK: - Subtractable
 
 extension UInt4: Subtractable {
-    /// Returns the difference of subtracting the second specified value from the first.
-    ///
-    /// ```swift
-    /// let two: UInt4 = 2
-    /// let one: UInt4 = 1
-    /// print(two - one)
-    /// // Prints "1"
-    /// ```
-    ///
-    /// - Parameter lhs: The minuend.
-    /// - Parameter rhs: The subtrahend.
-    /// - Returns: The difference.
     public static func - (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value - rhs.value
         return .init(value: newValue)

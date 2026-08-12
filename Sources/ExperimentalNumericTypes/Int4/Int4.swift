@@ -145,17 +145,6 @@ public struct Int4 {
 // MARK: - Addable
 
 extension Int4: Addable {
-    /// Returns the sum of adding the two specified values.
-    ///
-    /// ```swift
-    /// let one: Int4 = 1
-    /// print(one + one)
-    /// // Prints "2"
-    /// ```
-    ///
-    /// - Parameter lhs: The augend.
-    /// - Parameter rhs: The addend.
-    /// - Returns: The sum.
     public static func + (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value + rhs.value
         return .init(value: newValue)
@@ -342,28 +331,11 @@ extension Int4: Decodable {
 // MARK: - Divisible
 
 extension Int4: Divisible {
-    /// Returns the quotient of dividing the first specified value by the second.
-    ///
-    /// ```swift
-    /// let six: Int4 = 6
-    /// let two: Int4 = 2
-    /// print(six / two)
-    /// // Prints "3"
-    /// ```
-    ///
-    /// - Parameter lhs: The dividend.
-    /// - Parameter rhs: The divisor.
-    /// - Returns: The quotient.
     public static func / (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
 
-    /// Returns the remainder of dividing the first specified value by the second.
-    ///
-    /// - Parameter lhs: The dividend.
-    /// - Parameter rhs: The divisor.
-    /// - Returns: The remainder.
     public static func % (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)
@@ -455,6 +427,12 @@ extension Int4: FixedWidthInteger {
         }
     }
 
+    /// Returns the full-width product of this value and another value.
+    ///
+    /// The result is split into two 4-bit halves. `high` stores the upper four bits as an `Int4` bit pattern, and `low` stores the lower four bits as a `UInt4` magnitude.
+    ///
+    /// - Parameter other: The value to multiply by.
+    /// - Returns: The high and low halves of the full-width product.
     public func multipliedFullWidth(by other: Self) -> (high: Self, low: Self.Magnitude) {
         let product: Self.Value = self.value * other.value
         let bits: UInt8 = .init(truncatingIfNeeded: product)
@@ -467,6 +445,12 @@ extension Int4: FixedWidthInteger {
         )
     }
 
+    /// Divides a full-width dividend by this value.
+    ///
+    /// The dividend is interpreted as two 4-bit halves, where `high` contains the upper bits and `low` contains the lower bits. The combined 8-bit pattern is then interpreted with signed integer rules before division.
+    ///
+    /// - Parameter dividend: The high and low halves of the dividend.
+    /// - Returns: The quotient and remainder of the division.
     public func dividingFullWidth(_ dividend: (high: Self, low: Self.Magnitude)) -> (quotient: Self, remainder: Self) {
         precondition(self != 0, "Divisor must not be zero.")
 
@@ -519,17 +503,6 @@ extension Int4: Multipliable {
         return (self % other) == 0
     }
 
-    /// Returns the product of multiplying the two specified values.
-    ///
-    /// ```swift
-    /// let two: Int4 = 2
-    /// print(two * two)
-    /// // Prints "4"
-    /// ```
-    ///
-    /// - Parameter lhs: The multiplicand.
-    /// - Parameter rhs: The multiplicator.
-    /// - Returns: The product.
     public static func * (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)
@@ -729,18 +702,6 @@ extension Int4: Strideable {}
 // MARK: - Subtractable
 
 extension Int4: Subtractable {
-    /// Returns the difference of subtracting the second specified value from the first.
-    ///
-    /// ```swift
-    /// let two: Int4 = 2
-    /// let one: Int4 = 1
-    /// print(two - one)
-    /// // Prints "1"
-    /// ```
-    ///
-    /// - Parameter lhs: The minuend.
-    /// - Parameter rhs: The subtrahend.
-    /// - Returns: The difference.
     public static func - (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value - rhs.value
         return .init(value: newValue)

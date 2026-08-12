@@ -7,7 +7,18 @@
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
 extension StringProtocol {
-    /// A boolean value indicating whether this instance is a Roman symbol.
+    /// A boolean value indicating whether this instance is a single Roman symbol.
+    ///
+    /// This property recognizes both root symbols, such as `I`, `V`, and `X`, and compound subtractive symbols, such as `IV`, `IX`, and `CM`.
+    ///
+    /// ```swift
+    /// print("X".isRomanSymbol)
+    /// // Prints "true"
+    /// print("IV".isRomanSymbol)
+    /// // Prints "true"
+    /// print("IIII".isRomanSymbol)
+    /// // Prints "false"
+    /// ```
     public var isRomanSymbol: Bool {
         guard self.isEmpty == false else {
             return false
@@ -18,7 +29,16 @@ extension StringProtocol {
         })
     }
 
-    /// A boolean value indicating whether this instance is a Roman numeral.
+    /// A boolean value indicating whether this instance is a canonical Roman numeral.
+    ///
+    /// This property accepts `N` as zero and canonical Roman numerals from `I` through `MMMCMXCIX`.
+    ///
+    /// ```swift
+    /// print("MMXXVI".isRomanNumeral)
+    /// // Prints "true"
+    /// print("IIV".isRomanNumeral)
+    /// // Prints "false"
+    /// ```
     public var isRomanNumeral: Bool {
         return RomanNumeralParser(String(self)).parse() != nil
     }

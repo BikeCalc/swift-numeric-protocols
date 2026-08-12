@@ -159,17 +159,6 @@ extension Roman {
 // MARK: - Addable
 
 extension Roman: Addable {
-    /// Returns the sum of adding the two specified value.
-    ///
-    /// ```swift
-    /// let one: Roman = 1
-    /// print(one + one)
-    /// // Prints "II"
-    /// ```
-    ///
-    /// - Parameter lhs: The augend.
-    /// - Parameter rhs: The addend.
-    /// - Returns: The sum.
     public static func + (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value + rhs.value
         return .init(value: newValue)
@@ -220,6 +209,12 @@ extension Roman: CustomStringConvertible {
 // MARK: - Decodable
 
 extension Roman: Decodable {
+    /// Creates a Roman value by decoding a Roman numeral string or integer.
+    ///
+    /// Roman values decode from canonical Roman numeral strings such as `"N"` and from integers in the range `0...3999`.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
+    /// - Throws: A decoding error if the encoded value is neither a valid Roman numeral string nor an integer in range.
     public init(from decoder: Decoder) throws {
         let container: SingleValueDecodingContainer = try decoder.singleValueContainer()
 
@@ -254,28 +249,11 @@ extension Roman: Divisible {
         return self == 1
     }
 
-    /// Returns the quotient of dividing the first specified value by the second.
-    ///
-    /// ```swift
-    /// let six: Roman = 6
-    /// let two: Roman = 2
-    /// print(six / two)
-    /// // Prints "III"
-    /// ```
-    ///
-    /// - Parameter lhs: The dividend.
-    /// - Parameter rhs: The divisor.
-    /// - Returns: The quotient.
     public static func / (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
 
-    /// Returns the remainder of dividing the first specified value by the second.
-    ///
-    /// - Parameter lhs: The dividend.
-    /// - Parameter rhs: The divisor.
-    /// - Returns: The remainder.
     public static func % (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)
@@ -285,6 +263,11 @@ extension Roman: Divisible {
 // MARK: - Encodable
 
 extension Roman: Encodable {
+    /// Encodes this value as its canonical Roman numeral string.
+    ///
+    /// `Roman.zero` encodes as `"N"`.
+    ///
+    /// - Parameter encoder: The encoder to write data to.
     public func encode(to encoder: Encoder) throws {
         try self.description.encode(to: encoder)
     }
@@ -321,6 +304,11 @@ extension Roman: Hashable {
 // MARK: - LosslessStringConvertible
 
 extension Roman: LosslessStringConvertible {
+    /// Creates a Roman value from a decimal string or canonical Roman numeral.
+    ///
+    /// This initializer accepts decimal strings in the range `0...3999` and canonical Roman numerals such as `"N"`.
+    ///
+    /// - Parameter description: The string representation to convert.
     public init?(_ description: String) {
         guard description.isEmpty == false else {
             return nil
@@ -355,17 +343,6 @@ extension Roman: Multipliable {
         return (self % other) == 0
     }
 
-    /// Returns the product of multiplying the two specified value.
-    ///
-    /// ```swift
-    /// let two: Roman = 2
-    /// print(two * two)
-    /// // Prints "IV"
-    /// ```
-    ///
-    /// - Parameter lhs: The multiplicand.
-    /// - Parameter rhs: The multiplicator.
-    /// - Returns: The product.
     public static func * (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)
@@ -563,18 +540,6 @@ extension Roman: Strideable {
 // MARK: - Subtractable
 
 extension Roman: Subtractable {
-    /// Returns the difference of subtracting the second specified value from the first.
-    ///
-    /// ```swift
-    /// let two: Roman = 2
-    /// let one: Roman = 1
-    /// print(two - one)
-    /// // Prints "I"
-    /// ```
-    ///
-    /// - Parameter lhs: The minuend.
-    /// - Parameter rhs: The subtrahend.
-    /// - Returns: The difference.
     public static func - (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value - rhs.value
         return .init(value: newValue)
