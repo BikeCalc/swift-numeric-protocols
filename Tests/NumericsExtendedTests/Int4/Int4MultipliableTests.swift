@@ -34,10 +34,10 @@ internal struct Int4MultipliableTests {
     )
     internal func isMultipleOf(
         multiplicand: Int4,
-        multiplicator: Int4,
+        multiplier: Int4,
         result: Bool
     ) {
-        #expect(multiplicand.isMultiple(of: multiplicator) == result)
+        #expect(multiplicand.isMultiple(of: multiplier) == result)
     }
 
     @Test(

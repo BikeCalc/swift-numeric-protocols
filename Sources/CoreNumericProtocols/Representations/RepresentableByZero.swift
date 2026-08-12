@@ -6,16 +6,16 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be represented by zero.
+/// A type that can represent zero.
 public protocol RepresentableByZero {
-	/// The value representing zero.
-	static var zero: Self { get }
+    /// The value representing zero.
+    static var zero: Self { get }
 }
 
 extension RepresentableByZero
 where Self: Equatable {
-	/// A boolean value indicating whether this instance is zero.
-	public var isZero: Bool {
-		return self == .zero
-	}
+    /// A boolean value indicating whether this instance is zero.
+    public var isZero: Bool {
+        return self == .zero
+    }
 }

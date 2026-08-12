@@ -6,26 +6,26 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be subtracted.
+/// A type that supports subtraction.
 public protocol Subtractable: Equatable {
-	/// Returns the difference of subtracting the second specified value from the first.
-	///
-	/// - Parameter lhs: The minuend.
-	/// - Parameter rhs: The subtrahend.
-	/// - Returns: The difference.
-	static func - (_ lhs: Self, _ rhs: Self) -> Self
+    /// Returns the difference of subtracting the second specified value from the first.
+    ///
+    /// - Parameter lhs: The minuend.
+    /// - Parameter rhs: The subtrahend.
+    /// - Returns: The difference.
+    static func - (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Subtractable {
-	/// Subtracts the second specified value from the first and stores the difference in the left-hand-side variable.
-	///
-	/// - Parameter lhs: The minuend.
-	/// - Parameter rhs: The subtrahend.
-	public static func -= (_ lhs: inout Self, _ rhs: Self) {
-		lhs = lhs - rhs
-	}
+    /// Subtracts the second specified value from the first and stores the difference in the left-hand-side variable.
+    ///
+    /// - Parameter lhs: The minuend.
+    /// - Parameter rhs: The subtrahend.
+    public static func -= (_ lhs: inout Self, _ rhs: Self) {
+        lhs = lhs - rhs
+    }
 
-    /// Returns the difference of subtracting the specified value from this value.
+    /// Returns the difference of this value and the specified value.
     ///
     /// ```swift
     /// print(6.subtracting(4))
@@ -38,12 +38,12 @@ extension Subtractable {
         return self - subtrahend
     }
 
-    /// Subtracts the specified value from this value and produces the difference.
+    /// Subtracts the specified value from this value.
     ///
     /// ```swift
     /// var number: Double = 6
     /// number.subtract(4)
-	/// print(number)
+    /// print(number)
     /// // Prints "2"
     /// ```
     ///

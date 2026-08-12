@@ -6,17 +6,17 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be increased by n percent.
+/// A type that supports percentage increases.
 public protocol Increasable {
-    /// Returns the sum of increasing this value by the specified value.
+    /// Returns this value increased by the specified percentage.
     ///
-    /// - Parameter percentage: The addend.
-    /// - Returns: The sum.
+    /// - Parameter percentage: The percentage to increase this value by.
+    /// - Returns: The increased value.
     func increasing(by percentage: Self) -> Self
 }
 
 extension Increasable {
-    /// Increases this value by the specified value and produces the sum.
+    /// Increases this value by the specified percentage.
     ///
     /// ```swift
     /// var value: Double = 10
@@ -25,8 +25,8 @@ extension Increasable {
     /// // Prints "11"
     /// ```
     ///
-    /// - Parameter percentage: The addend.
+    /// - Parameter percentage: The percentage to increase this value by.
     public mutating func increase(by percentage: Self) {
-		self = self.increasing(by: percentage)
+        self = self.increasing(by: percentage)
     }
 }

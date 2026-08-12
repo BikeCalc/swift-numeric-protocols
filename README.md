@@ -23,7 +23,10 @@ Numerics Extended is written in Swift and avoids platform-specific APIs where po
     ```swift
     let package: Package = .init(
         dependencies: [
-            .package(url: "https://github.com/bikecalc/swift-numerics-extended.git", from: "2.0.0")
+            .package(
+                url: "https://github.com/bikecalc/swift-numerics-extended.git", 
+                from: "2.0.0"
+            )
         ]
     )
     ```
@@ -36,7 +39,10 @@ Numerics Extended is written in Swift and avoids platform-specific APIs where po
             .target(
                 name: "MyTarget",
                 dependencies: [
-                    .product(name: "NumericsExtended", package: "swift-numerics-extended")
+                    .product(
+                        name: "NumericsExtended", 
+                        package: "swift-numerics-extended"
+                    )
                 ]
             )
         ]

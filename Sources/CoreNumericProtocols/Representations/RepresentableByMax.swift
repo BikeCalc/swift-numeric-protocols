@@ -6,16 +6,16 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be represented by a maximum.
+/// A type that can represent a maximum value.
 public protocol RepresentableByMax {
-	/// The representation of the maximum.
-	static var max: Self { get }
+    /// The maximum representable value.
+    static var max: Self { get }
 }
 
 extension RepresentableByMax
 where Self: Equatable {
-	/// A boolean value indicating whether this instance is the maximum.
-	public var isMax: Bool {
-		return self == .max
-	}
+    /// A boolean value indicating whether this instance is the maximum.
+    public var isMax: Bool {
+        return self == .max
+    }
 }

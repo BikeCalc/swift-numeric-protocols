@@ -6,30 +6,30 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be multiplied.
+/// A type that supports multiplication.
 public protocol Multipliable: Equatable {
     /// Returns a boolean value indicating whether this value is a multiple of the specified value.
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
+    /// - Returns: `true` if this value is a multiple of the specified value, and `false` otherwise.
     func isMultiple(of other: Self) -> Bool
 
     /// Returns the product of multiplying the two specified values.
     ///
     /// - Parameter lhs: The multiplicand.
-    /// - Parameter rhs: The multiplicator.
+    /// - Parameter rhs: The multiplier.
     /// - Returns: The product.
     static func * (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Multipliable {
-	/// Multiplies the two specified values and stores the product in the left-hand-side variable.
-	///
-	/// - Parameter lhs: The multiplicand.
-	/// - Parameter rhs: The multiplicator.
-	public static func *= (_ lhs: inout Self, _ rhs: Self) {
-		lhs = lhs * rhs
-	}
+    /// Multiplies the two specified values and stores the product in the left-hand-side variable.
+    ///
+    /// - Parameter lhs: The multiplicand.
+    /// - Parameter rhs: The multiplier.
+    public static func *= (_ lhs: inout Self, _ rhs: Self) {
+        lhs = lhs * rhs
+    }
 
     /// Returns the product of multiplying this value by the specified value.
     ///
@@ -38,23 +38,23 @@ extension Multipliable {
     /// // Prints "6"
     /// ```
     ///
-    /// - Parameter multiplicator: The multiplicator.
+    /// - Parameter multiplier: The multiplier.
     /// - Returns: The product.
-    public func multiplying(by multiplicator: Self) -> Self {
-        return self * multiplicator
+    public func multiplying(by multiplier: Self) -> Self {
+        return self * multiplier
     }
 
-    /// Multiplies this value by the specified value and produces the product.
+    /// Multiplies this value by the specified value.
     ///
     /// ```swift
     /// var number: Double = 2
     /// number.multiply(by: 3)
-	/// print(number)
+    /// print(number)
     /// // Prints "6"
     /// ```
     ///
-    /// - Parameter multiplicator: The multiplicator.
-    public mutating func multiply(by multiplicator: Self) {
-        self *= multiplicator
+    /// - Parameter multiplier: The multiplier.
+    public mutating func multiply(by multiplier: Self) {
+        self *= multiplier
     }
 }

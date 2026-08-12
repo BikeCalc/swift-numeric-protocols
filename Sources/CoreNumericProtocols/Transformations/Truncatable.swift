@@ -6,18 +6,16 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be truncated.
+/// A type that supports truncation to decimal precision.
 public protocol Truncatable {
     /// The type used to describe the truncation precision.
     associatedtype DecimalPlace
 
     /// Returns this instance truncated to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native binary floating-point representation.
-    /// Values that cannot be represented exactly in binary may produce results that
-    /// differ from exact decimal arithmetic.
+    /// This operation uses the type's native binary floating-point representation. Values that cannot be represented exactly in binary may produce results that differ from exact decimal arithmetic.
     ///
-    /// - Parameter countPlaces: The number of decimals places.
+    /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance truncated.
     func truncated(to decimalPlace: Self.DecimalPlace) -> Self
 }
@@ -25,9 +23,7 @@ public protocol Truncatable {
 extension Truncatable {
     /// Truncates this instance to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native binary floating-point representation.
-    /// Values that cannot be represented exactly in binary may produce results that
-    /// differ from exact decimal arithmetic.
+    /// This operation uses the type's native binary floating-point representation. Values that cannot be represented exactly in binary may produce results that differ from exact decimal arithmetic.
     ///
     /// ```swift
     /// var number: Float = 1.2345
@@ -36,7 +32,7 @@ extension Truncatable {
     /// // Prints "1.23"
     /// ```
     ///
-    /// - Parameter countPlaces: The number of decimals places.
+    /// - Parameter decimalPlace: The number of decimal places.
     public mutating func truncate(to decimalPlace: Self.DecimalPlace) {
         self = self.truncated(to: decimalPlace)
     }

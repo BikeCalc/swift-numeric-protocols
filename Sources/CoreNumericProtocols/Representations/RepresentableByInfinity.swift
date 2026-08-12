@@ -6,22 +6,22 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be represented by infinity.
+/// A type that can represent infinity.
 public protocol RepresentableByInfinity: Equatable {
-	/// A boolean value indicating whether this instance is finite.
-	var isFinite: Bool { get }
+    /// A boolean value indicating whether this instance is finite.
+    var isFinite: Bool { get }
 
-	/// A boolean value indicating whether this instance is infinite.
-	var isInfinite: Bool { get }
+    /// A boolean value indicating whether this instance is infinite.
+    var isInfinite: Bool { get }
 
-	/// The value representing positive infinity.
-	static var infinity: Self { get }
+    /// The value representing positive infinity.
+    static var infinity: Self { get }
 }
 
 extension RepresentableByInfinity
 where Self: Negateable {
-	/// The value representing negative infinity.
-	public static var negativeInfinity: Self {
-		return .infinity.negating()
-	}
+    /// The value representing negative infinity.
+    public static var negativeInfinity: Self {
+        return .infinity.negating()
+    }
 }

@@ -6,26 +6,26 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be added.
+/// A type that supports addition.
 public protocol Addable: Equatable {
-	/// Returns the sum of adding the two specified values.
-	///
-	/// - Parameter lhs: The augend.
-	/// - Parameter rhs: The addend.
-	/// - Returns: The sum.
-	static func + (_ lhs: Self, _ rhs: Self) -> Self
+    /// Returns the sum of adding the two specified values.
+    ///
+    /// - Parameter lhs: The augend.
+    /// - Parameter rhs: The addend.
+    /// - Returns: The sum.
+    static func + (_ lhs: Self, _ rhs: Self) -> Self
 }
 
 extension Addable {
-	/// Adds the two specified values and stores the sum in the left-hand-side variable.
-	///
-	/// - Parameter lhs: The augend.
-	/// - Parameter rhs: The addend.
-	public static func += (_ lhs: inout Self, _ rhs: Self) {
-		lhs = lhs + rhs
-	}
+    /// Adds the two specified values and stores the sum in the left-hand-side variable.
+    ///
+    /// - Parameter lhs: The augend.
+    /// - Parameter rhs: The addend.
+    public static func += (_ lhs: inout Self, _ rhs: Self) {
+        lhs = lhs + rhs
+    }
 
-    /// Returns the sum of adding the specified value to this value.
+    /// Returns the sum of this value and the specified value.
     ///
     /// ```swift
     /// print(2.adding(4))
@@ -38,12 +38,12 @@ extension Addable {
         return self + addend
     }
 
-	/// Adds the specified value to this value and produces the sum.
+    /// Adds the specified value to this value.
     ///
     /// ```swift
     /// var number: Double = 2
     /// number.add(4)
-	/// print(number)
+    /// print(number)
     /// // Prints "6"
     /// ```
     ///

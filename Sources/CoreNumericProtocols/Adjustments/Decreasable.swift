@@ -6,17 +6,17 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be decreased by n percent.
+/// A type that supports percentage decreases.
 public protocol Decreasable {
-    /// Returns the difference of decreasing this value by the specified value.
+    /// Returns this value decreased by the specified percentage.
     ///
-    /// - Parameter percentage: The subtrahend.
-    /// - Returns: The difference.
+    /// - Parameter percentage: The percentage to decrease this value by.
+    /// - Returns: The decreased value.
     func decreasing(by percentage: Self) -> Self
 }
 
 extension Decreasable {
-    /// Decreases this value by the specified value and produces the difference.
+    /// Decreases this value by the specified percentage.
     ///
     /// ```swift
     /// var value: Double = 10
@@ -25,8 +25,8 @@ extension Decreasable {
     /// // Prints "9"
     /// ```
     ///
-    /// - Parameter percentage: The subtrahend.
+    /// - Parameter percentage: The percentage to decrease this value by.
     public mutating func decrease(by percentage: Self) {
-		self = self.decreasing(by: percentage)
+        self = self.decreasing(by: percentage)
     }
 }

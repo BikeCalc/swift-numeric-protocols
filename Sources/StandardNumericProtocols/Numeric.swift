@@ -19,7 +19,7 @@ where Self: Divisible {
     /// ```
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: Returns `true` if this value is divisible by the specified value, and `false` otherwise.
+    /// - Returns: `true` if this value is divisible by the specified value, and `false` otherwise.
     public func isDivisible(by other: Self) -> Bool {
         guard other != 0 else {
             return false
@@ -36,7 +36,7 @@ where Self: Divisible {
     /// ```
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: Returns `true` if this value is a factor of the specified value, and `false` otherwise.
+    /// - Returns: `true` if this value is a factor of the specified value, and `false` otherwise.
     public func isFactor(of other: Self) -> Bool {
         guard self != 0 else {
             return false
@@ -107,7 +107,7 @@ where Self: Raisable {
     /// ```
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
+    /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
     public func isPower(of other: Self) -> Bool
     where Self: Comparable & Divisible {
         switch other {
@@ -140,7 +140,7 @@ where Self: Raisable {
     /// ```
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
+    /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
     public func isPower(of other: Self) -> Bool
     where Self: Comparable & Divisible & Negateable {
         switch other {

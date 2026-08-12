@@ -11,9 +11,98 @@ import CoreNumericProtocols
 import StandardNumericProtocols
 import StandardNumericTypes
 
-/// A 4-bit signed integer value.
+/// A four-bit signed integer value from `-8` through `7`.
 ///
-/// `Int4` stores values in the closed range `-8...7`. The value is backed by `Int8` storage, but only the low four bits are semantically part of the integer. Truncating and overflow-reporting operations interpret those bits using two's-complement signed integer rules.
+/// Use `Int4` to experiment with signed fixed-width integer behavior in a range small enough to inspect by hand. The type uses `Int8` storage internally, but only the low four bits define its integer behavior. Those four bits are interpreted with two's-complement signed integer rules.
+///
+/// ```swift
+/// let value: Int4 = -8
+///
+/// print(value)
+/// // Prints "-8"
+/// ```
+///
+/// Create `Int4` values from integer literals, exact integer conversion, or decimal strings:
+///
+/// ```swift
+/// let literal: Int4 = -8
+/// let exact = Int4(exactly: 7)
+/// let string = Int4("-8")
+/// let invalid = Int4(exactly: 8)
+///
+/// print(literal)
+/// // Prints "-8"
+/// print(exact)
+/// // Prints "Optional(7)"
+/// print(string)
+/// // Prints "Optional(-8)"
+/// print(invalid)
+/// // Prints "nil"
+/// ```
+///
+/// Use truncating initialization to keep only the low four bits of a source value and interpret them as a signed value:
+///
+/// ```swift
+/// print(Int4(truncatingIfNeeded: 7))
+/// // Prints "7"
+/// print(Int4(truncatingIfNeeded: 8))
+/// // Prints "-8"
+/// print(Int4(truncatingIfNeeded: 15))
+/// // Prints "-1"
+/// ```
+///
+/// `Int4` supports whole-number arithmetic, comparison, bitwise operations, and fixed-width integer APIs:
+///
+/// ```swift
+/// let value: Int4 = -1 // 1111
+/// let mask: Int4 = 3   // 0011
+///
+/// print(value & mask)
+/// // Prints "3"
+/// ```
+///
+/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped partial values:
+///
+/// ```swift
+/// let report = Int4.max.addingReportingOverflow(1)
+///
+/// print(report.partialValue)
+/// // Prints "-8"
+/// print(report.overflow)
+/// // Prints "true"
+/// ```
+///
+/// `Int4.Magnitude` is `UInt4`, so the magnitude of `Int4.min` can still be represented:
+///
+/// ```swift
+/// print(Int4.min.magnitude)
+/// // Prints "8"
+/// ```
+///
+/// `Int4` values encode and decode as JSON numbers.
+///
+/// ```swift
+/// import Foundation
+///
+/// let value: Int4 = -8
+/// let encoder = JSONEncoder()
+/// let data = try encoder.encode(value)
+///
+/// print(String(data: data, encoding: .utf8)!)
+/// // Prints "-8"
+/// ```
+///
+/// ```swift
+/// import Foundation
+///
+/// let data = Data(#"-8"#.utf8)
+/// let decoder = JSONDecoder()
+///
+/// print(try decoder.decode(Int4.self, from: data))
+/// // Prints "-8"
+/// ```
+///
+/// - Note: `Int4` is intentionally experimental. It is useful for learning, tests, and documentation, but it is not intended to replace Swift's standard signed integer types in application code.
 public struct Int4 {
     /// The storage type used to hold the 4-bit value.
     internal typealias Value = Int8
@@ -56,17 +145,6 @@ public struct Int4 {
 // MARK: - Addable
 
 extension Int4: Addable {
-    /// Returns the sum of adding the two specified values.
-    ///
-    /// ```swift
-    /// let one: Int4 = 1
-    /// print(one + one)
-    /// // Prints "2"
-    /// ```
-    ///
-    /// - Parameter lhs: The augend.
-    /// - Parameter rhs: The addend.
-    /// - Returns: The sum.
     public static func + (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value + rhs.value
         return .init(value: newValue)
@@ -253,28 +331,11 @@ extension Int4: Decodable {
 // MARK: - Divisible
 
 extension Int4: Divisible {
-    /// Returns the quotient of dividing the first specified value by the second.
-    ///
-    /// ```swift
-    /// let six: Int4 = 6
-    /// let two: Int4 = 2
-    /// print(six / two)
-    /// // Prints "3"
-    /// ```
-    ///
-    /// - Parameter lhs: The dividend.
-    /// - Parameter rhs: The divisor.
-    /// - Returns: The quotient.
     public static func / (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
 
-    /// Returns the remainder of dividing the first specified value by the second.
-    ///
-    /// - Parameter lhs: The dividend.
-    /// - Parameter rhs: The divisor.
-    /// - Returns: The remainder.
     public static func % (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)
@@ -366,6 +427,12 @@ extension Int4: FixedWidthInteger {
         }
     }
 
+    /// Returns the full-width product of this value and another value.
+    ///
+    /// The result is split into two 4-bit halves. `high` stores the upper four bits as an `Int4` bit pattern, and `low` stores the lower four bits as a `UInt4` magnitude.
+    ///
+    /// - Parameter other: The value to multiply by.
+    /// - Returns: The high and low halves of the full-width product.
     public func multipliedFullWidth(by other: Self) -> (high: Self, low: Self.Magnitude) {
         let product: Self.Value = self.value * other.value
         let bits: UInt8 = .init(truncatingIfNeeded: product)
@@ -378,6 +445,12 @@ extension Int4: FixedWidthInteger {
         )
     }
 
+    /// Divides a full-width dividend by this value.
+    ///
+    /// The dividend is interpreted as two 4-bit halves, where `high` contains the upper bits and `low` contains the lower bits. The combined 8-bit pattern is then interpreted with signed integer rules before division.
+    ///
+    /// - Parameter dividend: The high and low halves of the dividend.
+    /// - Returns: The quotient and remainder of the division.
     public func dividingFullWidth(_ dividend: (high: Self, low: Self.Magnitude)) -> (quotient: Self, remainder: Self) {
         precondition(self != 0, "Divisor must not be zero.")
 
@@ -430,17 +503,6 @@ extension Int4: Multipliable {
         return (self % other) == 0
     }
 
-    /// Returns the product of multiplying the two specified values.
-    ///
-    /// ```swift
-    /// let two: Int4 = 2
-    /// print(two * two)
-    /// // Prints "4"
-    /// ```
-    ///
-    /// - Parameter lhs: The multiplicand.
-    /// - Parameter rhs: The multiplicator.
-    /// - Returns: The product.
     public static func * (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)
@@ -640,18 +702,6 @@ extension Int4: Strideable {}
 // MARK: - Subtractable
 
 extension Int4: Subtractable {
-    /// Returns the difference of subtracting the second specified value from the first.
-    ///
-    /// ```swift
-    /// let two: Int4 = 2
-    /// let one: Int4 = 1
-    /// print(two - one)
-    /// // Prints "1"
-    /// ```
-    ///
-    /// - Parameter lhs: The minuend.
-    /// - Parameter rhs: The subtrahend.
-    /// - Returns: The difference.
     public static func - (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value - rhs.value
         return .init(value: newValue)

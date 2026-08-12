@@ -100,9 +100,6 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
     }
 
     /// A boolean value indicating whether this case is repeatable.
-    ///
-    /// The letters I, X, C and M can be repeated thrice in succession.
-    /// The letters N,  L, V and D can not be repeated.
     internal var isRepeatable: Bool {
         switch self {
         case .I, .X, .C, .M:

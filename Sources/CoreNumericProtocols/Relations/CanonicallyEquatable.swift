@@ -6,11 +6,11 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be canonically equatable.
+/// A type that can compare values by their canonical representation.
 public protocol CanonicallyEquatable {
-	/// Returns a boolean value indicating whether the two specified instances are canonically equatable.
-	///
-	/// - Parameter rhs: An instance to compare.
-	/// - Returns: `true` if is canonically equatable, and `false` otherwise.
-	func isCanonicallyEquatable(to rhs: Self) -> Bool
+    /// Returns a boolean value indicating whether this value is canonically equal to the specified value.
+    ///
+    /// - Parameter rhs: The value to compare.
+    /// - Returns: `true` if this value is canonically equal to the specified value, and `false` otherwise.
+    func isCanonicallyEquatable(to rhs: Self) -> Bool
 }

@@ -6,18 +6,16 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be rounded.
+/// A type that supports rounding to decimal precision.
 public protocol Roundable {
     /// The type used to describe the rounding precision.
     associatedtype DecimalPlace
 
     /// Returns this instance rounded to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native binary floating-point representation.
-    /// Values that cannot be represented exactly in binary may produce results that
-    /// differ from exact decimal arithmetic.
+    /// This operation uses the type's native binary floating-point representation. Values that cannot be represented exactly in binary may produce results that differ from exact decimal arithmetic.
     ///
-    /// - Parameter decimalPlace: The number of decimals places.
+    /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance rounded.
     func rounded(to decimalPlace: Self.DecimalPlace) -> Self
 }
@@ -25,9 +23,7 @@ public protocol Roundable {
 extension Roundable {
     /// Rounds this instance to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native binary floating-point representation.
-    /// Values that cannot be represented exactly in binary may produce results that
-    /// differ from exact decimal arithmetic.
+    /// This operation uses the type's native binary floating-point representation. Values that cannot be represented exactly in binary may produce results that differ from exact decimal arithmetic.
     ///
     /// ```swift
     /// var number: Float = 1.2345
@@ -43,7 +39,7 @@ extension Roundable {
     /// // Prints "1.57"
     /// ```
     ///
-    /// - Parameter decimalPlace: The number of decimals places.
+    /// - Parameter decimalPlace: The number of decimal places.
     public mutating func round(to decimalPlace: Self.DecimalPlace) {
         self = self.rounded(to: decimalPlace)
     }
