@@ -130,7 +130,7 @@ where Self: Truncatable, Self.DecimalPlace: UnsignedInteger {
     /// // Prints "1.23"
     /// ```
     ///
-    /// - Parameter countPlaces: The number of decimals places.
+    /// - Parameter decimalPlace: The number of decimals places.
     /// - Returns: This instance truncated.
     public func truncated(to decimalPlace: Self.DecimalPlace) -> Self {
         var divisor: Self = 1
