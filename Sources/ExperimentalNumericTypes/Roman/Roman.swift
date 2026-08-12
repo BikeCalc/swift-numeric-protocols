@@ -11,7 +11,109 @@ import CoreNumericProtocols
 import StandardNumericProtocols
 import StandardNumericTypes
 
-/// A representation of a Roman numeral.
+/// A Roman numeral value from `0` through `3999`.
+///
+/// Use `Roman` to represent whole numbers with Roman numeral notation. The type stores a numeric value internally, but its textual representation is the canonical Roman numeral for that value.
+///
+/// ```swift
+/// let value: Roman = 44
+///
+/// print(value)
+/// // Prints "XLIV"
+/// ```
+///
+/// Roman supports `N` for zero, the root symbols `I`, `V`, `X`, `L`, `C`, `D`, and `M`, and the canonical subtractive forms `IV`, `IX`, `XL`, `XC`, `CD`, and `CM`.
+///
+/// Create Roman values from integer literals, exact integer conversion, decimal strings, or Roman numeral strings:
+///
+/// ```swift
+/// let literal: Roman = 2026
+/// let exact = Roman(exactly: 3999)
+/// let decimal = Roman("44")
+/// let numeral = Roman("XLIV")
+/// let invalid = Roman("ABC")
+///
+/// print(literal)
+/// // Prints "MMXXVI"
+/// print(exact)
+/// // Prints "Optional(MMMCMXCIX)"
+/// print(decimal)
+/// // Prints "Optional(XLIV)"
+/// print(numeral)
+/// // Prints "Optional(XLIV)"
+/// print(invalid)
+/// // Prints "nil"
+/// ```
+///
+/// Roman values compare and hash by numeric value, not by the alphabetical order or length of their printed numerals.
+///
+/// ```swift
+/// let nine = Roman("IX")!
+/// let ten = Roman("X")!
+///
+/// print(nine < ten)
+/// // Prints "true"
+/// ```
+///
+/// They also support whole-number arithmetic through the package's numeric protocols:
+///
+/// ```swift
+/// let two: Roman = 2
+/// let three: Roman = 3
+/// let seven: Roman = 7
+///
+/// print(two + three)
+/// // Prints "V"
+/// print(two * three)
+/// // Prints "VI"
+/// print(seven / two)
+/// // Prints "III"
+/// print(seven % two)
+/// // Prints "I"
+/// print(two ** three)
+/// // Prints "VIII"
+/// ```
+///
+/// Division and remainders use integer-style arithmetic because Roman numerals cannot represent fractions.
+///
+/// Use overflow-reporting operations near the edge of the representable range:
+///
+/// ```swift
+/// let report = Roman.max.addingReportingOverflow(1)
+///
+/// print(report.partialValue)
+/// // Prints "N"
+/// print(report.overflow)
+/// // Prints "true"
+/// ```
+///
+/// Roman values encode as Roman numeral strings. Decoding accepts either a valid Roman numeral string or an integer in the representable range.
+///
+/// ```swift
+/// import Foundation
+///
+/// let value: Roman = 44
+/// let encoder = JSONEncoder()
+/// let data = try encoder.encode(value)
+///
+/// print(String(data: data, encoding: .utf8)!)
+/// // Prints "\"XLIV\""
+/// ```
+///
+/// ```swift
+/// import Foundation
+///
+/// let stringData = Data(#""XLIV""#.utf8)
+/// let integerData = Data(#"44"#.utf8)
+/// let decoder = JSONDecoder()
+///
+/// print(try decoder.decode(Roman.self, from: stringData))
+/// // Prints "XLIV"
+/// print(try decoder.decode(Roman.self, from: integerData))
+/// // Prints "XLIV"
+/// ```
+///
+/// - Note: `Roman` is intentionally experimental. It is not a binary integer and does not model signed values, bitwise operations, or fractional values.
 public struct Roman {
     /// The underlying value.
     internal typealias Value = UInt16
