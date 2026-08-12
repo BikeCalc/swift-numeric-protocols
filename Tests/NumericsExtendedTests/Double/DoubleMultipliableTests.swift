@@ -48,10 +48,10 @@ internal struct DoubleMultipliableTests {
     )
     internal func isMultipleOf(
         multiplicand: Double,
-        multiplicator: Double,
+        multiplier: Double,
         result: Bool
     ) {
-        #expect(multiplicand.isMultiple(of: multiplicator) == result)
+        #expect(multiplicand.isMultiple(of: multiplier) == result)
     }
 
     @Test(

@@ -6,7 +6,7 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be represented by zero.
+/// A type that can represent zero.
 public protocol RepresentableByZero {
     /// The value representing zero.
     static var zero: Self { get }

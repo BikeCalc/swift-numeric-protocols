@@ -6,9 +6,9 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be represented by a maximum.
+/// A type that can represent a maximum value.
 public protocol RepresentableByMax {
-    /// The representation of the maximum.
+    /// The maximum representable value.
     static var max: Self { get }
 }
 

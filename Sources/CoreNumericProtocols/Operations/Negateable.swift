@@ -6,11 +6,11 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be negating.
+/// A type that supports additive inversion.
 public protocol Negateable: Equatable {
     /// Returns the additive inverse of the specified value.
     ///
-    /// - Parameter operand:
+    /// - Parameter operand: The value to negate.
     /// - Returns: The additive inverse.
     prefix static func - (_ operand: Self) -> Self
 }
@@ -34,7 +34,7 @@ extension Negateable {
     /// ```
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: Returns `true` if this value is the opposite of the given value, and `false` otherwise.
+    /// - Returns: `true` if this value is the opposite of the specified value, and `false` otherwise.
     public func isOpposite(of other: Self) -> Bool {
         return self == other.negating()
     }

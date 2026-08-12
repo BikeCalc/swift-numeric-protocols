@@ -10,7 +10,7 @@ import CoreNumericProtocols
 
 extension BinaryFloatingPoint
 where Self: Decreasable {
-    /// Returns the difference of decreasing this value by the specified value.
+    /// Returns this value decreased by the specified percentage.
     ///
     /// ```swift
     /// let value: Double = Double(10)
@@ -18,8 +18,8 @@ where Self: Decreasable {
     /// // Prints "9"
     /// ```
     ///
-    /// - Parameter percentage: The subtrahend.
-    /// - Returns: The difference.
+    /// - Parameter percentage: The percentage to decrease this value by.
+    /// - Returns: The decreased value.
     public func decreasing(by percentage: Self) -> Self {
         return self - self * percentage / 100
     }
@@ -35,7 +35,7 @@ where Self: Divisible & Multipliable {
     /// ```
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: Returns `true` if this value is a multiple of the given value, and `false` otherwise.
+    /// - Returns: `true` if this value is a multiple of the specified value, and `false` otherwise.
     public func isMultiple(of other: Self) -> Bool {
         if self == 0 && other == 0 {
             return true
@@ -69,7 +69,7 @@ where Self: Divisible {
 
 extension BinaryFloatingPoint
 where Self: Increasable {
-    /// Returns the sum of increasing this value by the specified value.
+    /// Returns this value increased by the specified percentage.
     ///
     /// ```swift
     /// let value: Double = 10
@@ -77,8 +77,8 @@ where Self: Increasable {
     /// // Prints "11"
     /// ```
     ///
-    /// - Parameter percentage: The addend.
-    /// - Returns: The sum.
+    /// - Parameter percentage: The percentage to increase this value by.
+    /// - Returns: The increased value.
     public func increasing(by percentage: Self) -> Self {
         return self + self * percentage / 100
     }
@@ -88,9 +88,7 @@ extension BinaryFloatingPoint
 where Self: Roundable, Self.DecimalPlace: UnsignedInteger {
     /// Returns this instance rounded to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native binary floating-point representation.
-    /// Values that cannot be represented exactly in binary may produce results that
-    /// differ from exact decimal arithmetic.
+    /// This operation uses the type's native binary floating-point representation. Values that cannot be represented exactly in binary may produce results that differ from exact decimal arithmetic.
     ///
     /// ```swift
     /// print(1.2345.rounded(to: 2))
@@ -102,7 +100,7 @@ where Self: Roundable, Self.DecimalPlace: UnsignedInteger {
     /// // Prints "1.57"
     /// ```
     ///
-    /// - Parameter decimalPlace: The number of decimals places.
+    /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance rounded.
     public func rounded(to decimalPlace: Self.DecimalPlace) -> Self {
         var divisor: Self = 1
@@ -121,16 +119,14 @@ extension BinaryFloatingPoint
 where Self: Truncatable, Self.DecimalPlace: UnsignedInteger {
     /// Returns this instance truncated to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native binary floating-point representation.
-    /// Values that cannot be represented exactly in binary may produce results that
-    /// differ from exact decimal arithmetic.
+    /// This operation uses the type's native binary floating-point representation. Values that cannot be represented exactly in binary may produce results that differ from exact decimal arithmetic.
     ///
     /// ```swift
     /// print(1.2345.truncated(to: 2))
     /// // Prints "1.23"
     /// ```
     ///
-    /// - Parameter decimalPlace: The number of decimals places.
+    /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance truncated.
     public func truncated(to decimalPlace: Self.DecimalPlace) -> Self {
         var divisor: Self = 1

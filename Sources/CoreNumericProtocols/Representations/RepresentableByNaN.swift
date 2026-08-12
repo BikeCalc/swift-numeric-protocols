@@ -6,11 +6,11 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be represented by not a number.
+/// A type that can represent not-a-number values.
 public protocol RepresentableByNaN {
     /// A boolean value indicating whether this instance is not a number.
     var isNaN: Bool { get }
 
-    /// The representation of not a number.
+    /// The not-a-number value.
     static var nan: Self { get }
 }

@@ -6,9 +6,9 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be represented by a minimum.
+/// A type that can represent a minimum value.
 public protocol RepresentableByMin {
-    /// The representation of the minimum.
+    /// The minimum representable value.
     static var min: Self { get }
 }
 

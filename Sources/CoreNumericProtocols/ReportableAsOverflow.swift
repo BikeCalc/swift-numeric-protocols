@@ -6,7 +6,7 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be reported as overflow.
+/// A type that can report whether arithmetic operations overflow.
 public protocol ReportableAsOverflow: Operatable, Raisable {
     /// Returns the sum after adding the specified value to this instance, along with a boolean value indicating whether overflow occurred in the operation.
     ///
@@ -14,7 +14,7 @@ public protocol ReportableAsOverflow: Operatable, Raisable {
     /// - Returns: A tuple containing the result of the addition along with a boolean value indicating whether overflow occurred.
     func addingReportingOverflow(_ rhs: Self) -> Self.Report
 
-    /// Returns the difference after subtracting the specified value to this instance, along with a boolean value indicating whether overflow occurred in the operation.
+    /// Returns the difference after subtracting the specified value from this instance, along with a boolean value indicating whether overflow occurred in the operation.
     ///
     /// - Parameter rhs: The value to subtract from this instance.
     /// - Returns: A tuple containing the result of the subtraction along with a boolean value indicating whether overflow occurred.
@@ -46,6 +46,6 @@ public protocol ReportableAsOverflow: Operatable, Raisable {
 }
 
 extension ReportableAsOverflow {
-    /// The overflow report.
+    /// The partial value and overflow status produced by an overflow-reporting operation.
     public typealias Report = (partialValue: Self, overflow: Bool)
 }

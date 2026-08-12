@@ -6,7 +6,7 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be subtracted.
+/// A type that supports subtraction.
 public protocol Subtractable: Equatable {
     /// Returns the difference of subtracting the second specified value from the first.
     ///
@@ -25,7 +25,7 @@ extension Subtractable {
         lhs = lhs - rhs
     }
 
-    /// Returns the difference of subtracting the specified value from this value.
+    /// Returns the difference of this value and the specified value.
     ///
     /// ```swift
     /// print(6.subtracting(4))
@@ -38,7 +38,7 @@ extension Subtractable {
         return self - subtrahend
     }
 
-    /// Subtracts the specified value from this value and produces the difference.
+    /// Subtracts the specified value from this value.
     ///
     /// ```swift
     /// var number: Double = 6

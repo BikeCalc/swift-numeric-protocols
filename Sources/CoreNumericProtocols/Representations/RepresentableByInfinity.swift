@@ -6,7 +6,7 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be represented by infinity.
+/// A type that can represent infinity.
 public protocol RepresentableByInfinity: Equatable {
     /// A boolean value indicating whether this instance is finite.
     var isFinite: Bool { get }

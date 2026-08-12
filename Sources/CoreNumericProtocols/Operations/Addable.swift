@@ -6,7 +6,7 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be added.
+/// A type that supports addition.
 public protocol Addable: Equatable {
     /// Returns the sum of adding the two specified values.
     ///
@@ -25,7 +25,7 @@ extension Addable {
         lhs = lhs + rhs
     }
 
-    /// Returns the sum of adding the specified value to this value.
+    /// Returns the sum of this value and the specified value.
     ///
     /// ```swift
     /// print(2.adding(4))
@@ -38,7 +38,7 @@ extension Addable {
         return self + addend
     }
 
-    /// Adds the specified value to this value and produces the sum.
+    /// Adds the specified value to this value.
     ///
     /// ```swift
     /// var number: Double = 2

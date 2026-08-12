@@ -30,10 +30,10 @@ internal struct RomanMultipliableTests {
     )
     internal func isMultipleOf(
         multiplicand: Roman,
-        multiplicator: Roman,
+        multiplier: Roman,
         result: Bool
     ) {
-        #expect(multiplicand.isMultiple(of: multiplicator) == result)
+        #expect(multiplicand.isMultiple(of: multiplier) == result)
     }
 
     @Test(

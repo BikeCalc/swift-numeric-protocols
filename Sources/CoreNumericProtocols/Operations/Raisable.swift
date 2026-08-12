@@ -8,7 +8,7 @@
 
 import CoreNumericOperators
 
-/// Representing values that can be raised to the power.
+/// A type that supports exponentiation.
 public protocol Raisable: Equatable {
     /// The type used to represent exponents.
     associatedtype Exponent
@@ -16,7 +16,7 @@ public protocol Raisable: Equatable {
     /// Returns a boolean value indicating whether this value is a power of the specified value.
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: Returns `true` if this value is a power of the specified value, and `false` otherwise.
+    /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
     func isPower(of other: Self) -> Bool
 
     /// Returns the power of raising the first specified value to the second.
@@ -49,7 +49,7 @@ extension Raisable {
         return self ** exponent
     }
 
-    /// Raises this value to the specified value and produces the power.
+    /// Raises this value to the specified exponent.
     ///
     /// ```swift
     /// var number: Double = 2

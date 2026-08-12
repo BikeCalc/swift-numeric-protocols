@@ -6,5 +6,5 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be operated with basic arithmetics.
+/// A type that supports the four basic arithmetic operations.
 public typealias Operatable = Addable & Subtractable & Multipliable & Divisible

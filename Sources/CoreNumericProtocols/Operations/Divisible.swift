@@ -6,7 +6,7 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// Representing values that can be divided.
+/// A type that supports division.
 public protocol Divisible: Equatable {
     /// Returns the reciprocal of this instance.
     var reciprocal: Self? { get }
@@ -17,13 +17,13 @@ public protocol Divisible: Equatable {
     /// Returns a boolean value indicating whether this value is divisible by the specified value.
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: Returns `true` if this value is divisible by the specified value, and `false` otherwise.
+    /// - Returns: `true` if this value is divisible by the specified value, and `false` otherwise.
     func isDivisible(by other: Self) -> Bool
 
     /// Returns a boolean value indicating whether this value is a factor of the specified value.
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: Returns `true` if this value is a factor of the specified value, and `false` otherwise.
+    /// - Returns: `true` if this value is a factor of the specified value, and `false` otherwise.
     func isFactor(of other: Self) -> Bool
 
     /// Returns the quotient of dividing the first specified value by the second.
@@ -71,7 +71,7 @@ extension Divisible {
         return self / divisor
     }
 
-    /// Divides this value by the specified value and produces the quotient.
+    /// Divides this value by the specified value.
     ///
     /// ```swift
     /// var number: Double = 6
