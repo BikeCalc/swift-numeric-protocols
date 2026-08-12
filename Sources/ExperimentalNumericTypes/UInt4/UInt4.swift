@@ -11,9 +11,95 @@ import CoreNumericProtocols
 import StandardNumericProtocols
 import StandardNumericTypes
 
-/// A 4-bit unsigned integer value.
+/// A four-bit unsigned integer value from `0` through `15`.
 ///
-/// `UInt4` stores values in the closed range `0...15`. The value is backed by `UInt8` storage, but only the low four bits are semantically part of the integer. Normal arithmetic traps when the result cannot be represented, while truncating and overflow-reporting operations use the low four bits.
+/// Use `UInt4` to experiment with unsigned fixed-width integer behavior in a range small enough to inspect by hand. The type uses `UInt8` storage internally, but only the low four bits define its integer behavior.
+///
+/// ```swift
+/// let value: UInt4 = 15
+///
+/// print(value)
+/// // Prints "15"
+/// ```
+///
+/// Create `UInt4` values from integer literals, exact integer conversion, or decimal strings:
+///
+/// ```swift
+/// let literal: UInt4 = 15
+/// let exact = UInt4(exactly: 15)
+/// let string = UInt4("15")
+/// let invalid = UInt4(exactly: 16)
+///
+/// print(literal)
+/// // Prints "15"
+/// print(exact)
+/// // Prints "Optional(15)"
+/// print(string)
+/// // Prints "Optional(15)"
+/// print(invalid)
+/// // Prints "nil"
+/// ```
+///
+/// Use truncating initialization to keep only the low four bits of a source value:
+///
+/// ```swift
+/// print(UInt4(truncatingIfNeeded: 15))
+/// // Prints "15"
+/// print(UInt4(truncatingIfNeeded: 16))
+/// // Prints "0"
+/// print(UInt4(truncatingIfNeeded: 17))
+/// // Prints "1"
+/// ```
+///
+/// `UInt4` supports whole-number arithmetic, comparison, bitwise operations, and fixed-width integer APIs:
+///
+/// ```swift
+/// let twelve: UInt4 = 12 // 1100
+/// let ten: UInt4 = 10    // 1010
+///
+/// print(twelve & ten)
+/// // Prints "8"
+/// print(twelve | ten)
+/// // Prints "14"
+/// print(twelve ^ ten)
+/// // Prints "6"
+/// ```
+///
+/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped partial values:
+///
+/// ```swift
+/// let report = UInt4.max.addingReportingOverflow(1)
+///
+/// print(report.partialValue)
+/// // Prints "0"
+/// print(report.overflow)
+/// // Prints "true"
+/// ```
+///
+/// `UInt4` values encode and decode as JSON numbers.
+///
+/// ```swift
+/// import Foundation
+///
+/// let value: UInt4 = 15
+/// let encoder = JSONEncoder()
+/// let data = try encoder.encode(value)
+///
+/// print(String(data: data, encoding: .utf8)!)
+/// // Prints "15"
+/// ```
+///
+/// ```swift
+/// import Foundation
+///
+/// let data = Data(#"15"#.utf8)
+/// let decoder = JSONDecoder()
+///
+/// print(try decoder.decode(UInt4.self, from: data))
+/// // Prints "15"
+/// ```
+///
+/// - Note: `UInt4` is intentionally experimental. It is useful for learning, tests, and documentation, but it is not intended to replace Swift's standard unsigned integer types in application code.
 public struct UInt4 {
     /// The storage type used to hold the 4-bit value.
     internal typealias Value = UInt8

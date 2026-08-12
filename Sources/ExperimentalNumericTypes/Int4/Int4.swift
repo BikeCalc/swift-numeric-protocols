@@ -11,9 +11,98 @@ import CoreNumericProtocols
 import StandardNumericProtocols
 import StandardNumericTypes
 
-/// A 4-bit signed integer value.
+/// A four-bit signed integer value from `-8` through `7`.
 ///
-/// `Int4` stores values in the closed range `-8...7`. The value is backed by `Int8` storage, but only the low four bits are semantically part of the integer. Truncating and overflow-reporting operations interpret those bits using two's-complement signed integer rules.
+/// Use `Int4` to experiment with signed fixed-width integer behavior in a range small enough to inspect by hand. The type uses `Int8` storage internally, but only the low four bits define its integer behavior. Those four bits are interpreted with two's-complement signed integer rules.
+///
+/// ```swift
+/// let value: Int4 = -8
+///
+/// print(value)
+/// // Prints "-8"
+/// ```
+///
+/// Create `Int4` values from integer literals, exact integer conversion, or decimal strings:
+///
+/// ```swift
+/// let literal: Int4 = -8
+/// let exact = Int4(exactly: 7)
+/// let string = Int4("-8")
+/// let invalid = Int4(exactly: 8)
+///
+/// print(literal)
+/// // Prints "-8"
+/// print(exact)
+/// // Prints "Optional(7)"
+/// print(string)
+/// // Prints "Optional(-8)"
+/// print(invalid)
+/// // Prints "nil"
+/// ```
+///
+/// Use truncating initialization to keep only the low four bits of a source value and interpret them as a signed value:
+///
+/// ```swift
+/// print(Int4(truncatingIfNeeded: 7))
+/// // Prints "7"
+/// print(Int4(truncatingIfNeeded: 8))
+/// // Prints "-8"
+/// print(Int4(truncatingIfNeeded: 15))
+/// // Prints "-1"
+/// ```
+///
+/// `Int4` supports whole-number arithmetic, comparison, bitwise operations, and fixed-width integer APIs:
+///
+/// ```swift
+/// let value: Int4 = -1 // 1111
+/// let mask: Int4 = 3   // 0011
+///
+/// print(value & mask)
+/// // Prints "3"
+/// ```
+///
+/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped partial values:
+///
+/// ```swift
+/// let report = Int4.max.addingReportingOverflow(1)
+///
+/// print(report.partialValue)
+/// // Prints "-8"
+/// print(report.overflow)
+/// // Prints "true"
+/// ```
+///
+/// `Int4.Magnitude` is `UInt4`, so the magnitude of `Int4.min` can still be represented:
+///
+/// ```swift
+/// print(Int4.min.magnitude)
+/// // Prints "8"
+/// ```
+///
+/// `Int4` values encode and decode as JSON numbers.
+///
+/// ```swift
+/// import Foundation
+///
+/// let value: Int4 = -8
+/// let encoder = JSONEncoder()
+/// let data = try encoder.encode(value)
+///
+/// print(String(data: data, encoding: .utf8)!)
+/// // Prints "-8"
+/// ```
+///
+/// ```swift
+/// import Foundation
+///
+/// let data = Data(#"-8"#.utf8)
+/// let decoder = JSONDecoder()
+///
+/// print(try decoder.decode(Int4.self, from: data))
+/// // Prints "-8"
+/// ```
+///
+/// - Note: `Int4` is intentionally experimental. It is useful for learning, tests, and documentation, but it is not intended to replace Swift's standard signed integer types in application code.
 public struct Int4 {
     /// The storage type used to hold the 4-bit value.
     internal typealias Value = Int8
