@@ -6,7 +6,7 @@
 
 <!-- Link related GitHub issues. Use "Closes #000" when the PR should close an issue. -->
 
-- Closes #000
+- Closes: #000
 
 ## Changes
 
