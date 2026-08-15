@@ -46,7 +46,12 @@ The package is exposed through a public umbrella module. Import `NumericsExtende
 ### Transformations
 
 - ``Roundable``
+- ``Simplifiable``
 - ``Truncatable``
+
+### Wrappers
+
+- ``Simplified``
 
 ### Adjustments
 

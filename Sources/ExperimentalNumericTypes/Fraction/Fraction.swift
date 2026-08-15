@@ -5,11 +5,3 @@
 //
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
-
-@_exported import CoreNumericOperators
-@_exported import CoreNumericProtocols
-@_exported import ExperimentalNumericConstants
-@_exported import ExperimentalNumericProtocols
-@_exported import ExperimentalNumericTypes
-@_exported import StandardNumericProtocols
-@_exported import StandardNumericTypes

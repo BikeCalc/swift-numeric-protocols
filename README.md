@@ -6,7 +6,7 @@ A Swift package extending numeric protocols, standard numeric types, and experim
 
 ## Overview
 
-Numerics Extended provides a layered set of numeric protocols and utilities for Swift. It includes core numeric operators, core numeric protocols, extensions for standard library numeric protocols, standard numeric type conformances, experimental numeric constants, and experimental numeric types such as `Roman`, `Int4`, and `UInt4`.
+Numerics Extended provides a layered set of numeric protocols and utilities for Swift. It includes core numeric operators, core numeric protocols, extensions for standard library numeric protocols, standard numeric type conformances, experimental numeric constants, experimental numeric protocols, and experimental numeric types such as `Fraction`, `Roman`, `Int4`, and `UInt4`.
 
 Experimental numeric types are included for exploration and documentation, and their APIs may evolve across major releases.
 
