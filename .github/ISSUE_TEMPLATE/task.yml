@@ -1,23 +1,33 @@
-name: Track a task
-description: Track maintenance work, refactoring, research, or follow-up implementation.
+name: Plan a task
+description: Define accepted work that is ready for delivery.
 title: ""
-labels: ["task", "triage needed"]
+labels: ["task"]
 body:
   - type: textarea
-    id: description
+    id: overview
     attributes:
-      label: Description
-      description: Describe the task and why it matters.
+      label: Overview
+      description: Describe the task, its scope, and why it matters.
     validations:
       required: true
 
   - type: textarea
-    id: checklist
+    id: acceptance-criteria
     attributes:
-      label: Checklist
-      description: List the concrete steps or acceptance criteria.
+      label: Acceptance Criteria
+      description: List the conditions that must be satisfied before this issue can be closed.
       value: |
-        - [ ] 
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: testing-scenarios
+    attributes:
+      label: Testing Scenarios
+      description: List any scenarios agreed during refinement that must be verified.
+      value: |
+        - [ ]
     validations:
       required: false
 
@@ -25,6 +35,6 @@ body:
     id: additional-information
     attributes:
       label: Additional Information
-      description: Add any extra context, links, constraints, or notes.
+      description: Add design decisions, constraints, dependencies, research, risks, or deferred work.
     validations:
       required: false

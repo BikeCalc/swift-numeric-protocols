@@ -40,7 +40,7 @@ Reporting bugs is an important part of improving software. Nearly as important i
 bugs to ensure that they are reproducible, small, and unique.
 
 There are a number of things you can do to help triage bugs in the
-[bug tracker](https://github.com/bikecalc/swift-numeric-protocols/issues).
+repository's [issues](https://github.com/bikecalc/swift-numeric-protocols/issues).
 
 - **Reproduce bugs.** For a bug to be actionable, it needs to be reproducible. If you cannot
   reproduce the bug, try to figure out why. Get in touch with the submitter if you need more
@@ -62,8 +62,76 @@ contributing directly to this project.
 
 ### Issues
 
-Substantial code changes should start with an issue so the problem, design, and scope can be
-discussed before implementation begins.
+Substantial code changes should normally start with an issue so the problem, design, and scope can
+be discussed before implementation begins.
+
+Use public intake templates to report unrefined ideas and problems:
+
+- Use **Request a feature** to propose a capability or improvement for consideration.
+- Use **Report a bug** to provide reproducible incorrect or unexpected behavior.
+- Use **Request documentation** to propose new documentation or an improvement to existing
+  documentation.
+
+After triage, maintainers should use **Plan a task** for accepted work that is ready for delivery,
+whether it originated from a public request or was identified internally. Planned tasks describe
+intent: the overview explains why the work matters, the acceptance criteria define what must be
+delivered, and the testing scenarios define how the expected behavior will be verified.
+
+#### Acceptance Criteria
+
+Acceptance criteria define the observable outcomes, capabilities, and constraints that must be
+satisfied before an issue can be closed. They should describe what must be delivered without
+prescribing implementation details unless those details are intentional requirements.
+
+#### Testing Scenarios
+
+Testing scenarios define the representative behaviors, boundaries, failure conditions, and edge
+cases used to verify the acceptance criteria. A scenario may be verified manually or through an
+automated test. A single scenario may require multiple test functions to separate successful
+behavior, failure behavior, edge cases, or rule-specific behavior. One parameterized test function
+may also exercise many cases within the same scenario.
+
+In Swift Testing, a scenario often corresponds to an `@Test` function while its test cases are the
+values supplied through `arguments`. This is a useful mapping, not a structural requirement;
+organize scenarios according to behavior rather than the testing framework.
+
+Do not duplicate every test case in an issue unless each case represents a distinct requirement or
+risk. When examples make a scenario easier to refine or verify, add them as a nested list beneath
+the scenario. Use nested checkboxes only when each case must be verified independently.
+
+For example:
+
+```text
+- [ ] Prevent form submission when required information is invalid.
+  - A required value is missing.
+  - A value uses an unsupported format.
+    - An email address is malformed.
+    - A date does not use the expected format.
+  - Text length is outside the allowed range.
+    - Character count is below the minimum.
+    - Character count exceeds the maximum.
+```
+
+#### Sub-Issues
+
+Use native GitHub sub-issues when a unit of work can be owned, reviewed, deferred, or closed
+independently. Keep closely related code, tests, and documentation in one planned task when
+they are developed together.
+
+#### Issue Metadata
+
+Use GitHub's structured fields instead of repeating metadata in the issue description. Complete or
+update the fields as information becomes available during triage, refinement, scheduling, and
+implementation:
+
+- Assign the person responsible for the issue when ownership is known.
+- Set the issue type to **Bug**, **Feature**, or **Task**.
+- Set the priority to **Urgent**, **High**, **Medium**, or **Low**.
+- Add optional start and target dates when the work is scheduled.
+- Set the effort to **High**, **Medium**, or **Low** when it can be estimated.
+- Assign the issue to a milestone when it is included in a release.
+- Add parent, blocked-by, blocking, and related-to relationships when they apply.
+- Link the development branch when implementation begins.
 
 Use short, imperative issue titles that start with a verb. Issue titles should describe the work in
 human language; branch names should describe the route. For example, an issue titled
@@ -77,6 +145,20 @@ Release issues should use the form:
 ```text
 Prepare <semantic version> release
 ```
+
+### Milestones
+
+Normally, create and refine issues before assigning them to a release. Once the scope of a release
+begins to take shape, create a milestone using the semantic version of that release:
+
+```text
+<major>.<minor>.<patch>
+```
+
+Create one release issue, assign it and every issue included in the release to the milestone, and
+make those issues sub-issues of the release issue. The release issue should summarize the included
+outcomes and other release-wide work in a high-level checklist without duplicating the detailed
+acceptance criteria or testing scenarios tracked by its sub-issues.
 
 ### Branches
 
@@ -162,18 +244,23 @@ Use the form:
 
 ### Pull Requests
 
-When creating a pull request, please use the pull request template and include a link to the
-related issues.
+When creating a pull request, use the pull request template. Briefly explain its outcome in the
+Overview section and summarize reviewer-relevant additions, updates, and removals in the Changes
+section without restating the issue or describing line-by-line implementation details.
+
+Link the pull request to its issue in GitHub. Configured workflows run automatically, and their
+results appear on the pull request, so do not repeat them in its description.
+
+Each issue included in a release should normally have its own pull request into the release branch.
+If work is already present without a dedicated pull request, create or update the issue to document
+the delivered outcome, assign it to the appropriate milestone and parent release issue when
+applicable, and close it once the outcome has been confirmed. Do not create a retrospective pull
+request solely to reproduce a relationship that did not exist during implementation.
+
+Once the release checklist is complete and its sub-issues are closed, open a pull request from the
+release branch into `main` and link it to the release issue.
 
 Pull requests must target a branch allowed by the branch routing rules.
-
-Before submitting a pull request, run the commands that apply to your change:
-
-```sh
-swift build
-swift test
-swift package generate-documentation --target NumericsExtended
-```
 
 ### Code Reviews
 
@@ -196,4 +283,5 @@ Use the form:
 <major>.<minor>.<patch>
 ```
 
-Create a version tag after a release or hotfix is merged into `main`.
+Create a version tag matching the release milestone after a release is merged into `main`. Create
+a version tag after a hotfix is merged into `main`.

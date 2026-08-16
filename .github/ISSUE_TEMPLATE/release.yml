@@ -1,7 +1,7 @@
 name: Prepare a release
 description: Track the scope, remaining work, and context for an upcoming release.
 title: ""
-labels: ["release", "triage needed"]
+labels: ["release"]
 body:
   - type: textarea
     id: overview
@@ -12,22 +12,12 @@ body:
       required: true
 
   - type: textarea
-    id: related-issues
-    attributes:
-      label: Related Issues
-      description: Link issues that are included in this release.
-      value: |
-        - 
-    validations:
-      required: false
-
-  - type: textarea
     id: checklist
     attributes:
       label: Checklist
-      description: List the concrete work needed for the release.
+      description: List the high-level outcomes and other release-wide work included in the release.
       value: |
-        - [ ] 
+        - [ ]
     validations:
       required: true
 
@@ -35,6 +25,6 @@ body:
     id: additional-information
     attributes:
       label: Additional Information
-      description: Add release constraints, decisions, risks, or follow-up context.
+      description: Add release notes, risks, rollout considerations, or follow-up work.
     validations:
       required: false
