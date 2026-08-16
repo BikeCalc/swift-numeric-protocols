@@ -74,9 +74,45 @@ Use public intake templates to report unrefined ideas and problems:
 
 After triage, maintainers should use **Plan a task** for accepted work that is ready for delivery,
 whether it originated from a public request or was identified internally. Planned tasks describe
-intent: the overview explains why the work matters, the acceptance criteria define the conditions
-that must be satisfied before the issue can be closed, and testing scenarios define the behavior
-and edge cases that must be verified.
+intent: the overview explains why the work matters, the acceptance criteria define what must be
+delivered, and the testing scenarios define how the expected behavior will be verified.
+
+#### Acceptance Criteria
+
+Acceptance criteria define the observable outcomes, capabilities, and constraints that must be
+satisfied before an issue can be closed. They should describe what must be delivered without
+prescribing implementation details unless those details are intentional requirements.
+
+#### Testing Scenarios
+
+Testing scenarios define the representative behaviors, boundaries, failure conditions, and edge
+cases used to verify the acceptance criteria. A scenario may be verified manually or through an
+automated test. A single scenario may require multiple test functions to separate successful
+behavior, failure behavior, edge cases, or rule-specific behavior. One parameterized test function
+may also exercise many cases within the same scenario.
+
+In Swift Testing, a scenario often corresponds to an `@Test` function while its test cases are the
+values supplied through `arguments`. This is a useful mapping, not a structural requirement;
+organize scenarios according to behavior rather than the testing framework.
+
+Do not duplicate every test case in an issue unless each case represents a distinct requirement or
+risk. When examples make a scenario easier to refine or verify, add them as a nested list beneath
+the scenario. Use nested checkboxes only when each case must be verified independently.
+
+For example:
+
+```text
+- [ ] Prevent form submission when required information is invalid.
+  - A required value is missing.
+  - A value uses an unsupported format.
+    - An email address is malformed.
+    - A date does not use the expected format.
+  - Text length is outside the allowed range.
+    - Character count is below the minimum.
+    - Character count exceeds the maximum.
+```
+
+#### Sub-Issues
 
 Use native GitHub sub-issues when a unit of work can be owned, reviewed, deferred, or closed
 independently. Keep closely related code, tests, and documentation in one planned task when
