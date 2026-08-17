@@ -115,9 +115,12 @@ public struct Int4 {
     /// Creates a new instance with the specified value.
     ///
     /// - Parameter value: The value of this instance.
-    /// - Warning: The value must be between negative eight and seven, inclusive.
+    /// - Precondition: `value` must be in the range `-8...7`.
     internal init(value: Self.Value) {
-        precondition(-8...7 ~= value, "Int4 value must be between -8 and 7.")
+        precondition(
+            -8...7 ~= value,
+             "Int4 value must be between -8 and 7."
+        )
         self.value = value
     }
 
@@ -192,8 +195,12 @@ extension Int4: BinaryInteger {
         ///
         /// - Parameter position: The position of the word to access.
         /// - Returns: The word at the specified position.
+        /// - Precondition: `position` must equal `startIndex`.
         public subscript(position: Int) -> UInt {
-            precondition(position == self.startIndex, "Int4 words index must be zero.")
+            precondition(
+                position == self.startIndex,
+                "Int4 words index must be zero."
+            )
 
             return self.value
         }
@@ -202,8 +209,12 @@ extension Int4: BinaryInteger {
         ///
         /// - Parameter index: A valid index of the collection.
         /// - Returns: The index immediately after `index`.
+        /// - Precondition: `index` must equal `startIndex`.
         public func index(after index: Int) -> Int {
-            precondition(index == self.startIndex, "Int4 words index must be the start index.")
+            precondition(
+                index == self.startIndex,
+                "Int4 words index must be the start index."
+            )
 
             return index + 1
         }
@@ -212,8 +223,12 @@ extension Int4: BinaryInteger {
         ///
         /// - Parameter index: A valid index of the collection.
         /// - Returns: The index immediately before `index`.
+        /// - Precondition: `index` must equal `endIndex`.
         public func index(before index: Int) -> Int {
-            precondition(index == self.endIndex, "Int4 words index must be the end index.")
+            precondition(
+                index == self.endIndex,
+                "Int4 words index must be the end index."
+            )
 
             return index - 1
         }
@@ -223,9 +238,13 @@ extension Int4: BinaryInteger {
         /// - Parameter index: The index to offset.
         /// - Parameter distance: The distance to offset `index` by.
         /// - Returns: An index offset by `distance`.
+        /// - Precondition: The resulting index must be between `startIndex` and `endIndex`, inclusive.
         public func index(_ index: Int, offsetBy distance: Int) -> Int {
             let newIndex: Int = index + distance
-            precondition(self.startIndex...self.endIndex ~= newIndex, "Int4 words index must be within bounds.")
+            precondition(
+                self.startIndex...self.endIndex ~= newIndex,
+                "Int4 words index must be within bounds."
+            )
 
             return newIndex
         }
@@ -257,7 +276,7 @@ extension Int4: BinaryInteger {
     /// Creates a new instance from the specified integer.
     ///
     /// - Parameter source: The value to use for the new instance.
-    /// - Warning: The source must be representable in the range `-8...7`.
+    /// - Precondition: `source` must be representable in the range `-8...7`.
     public init<T>(_ source: T)
     where T: BinaryInteger {
         guard let value: Self.Value = .init(exactly: source),
@@ -312,7 +331,13 @@ extension Int4: CustomStringConvertible {
 // MARK: - Decodable
 
 extension Int4: Decodable {
-    public init(from decoder: Decoder) throws {
+    /// Creates a 4-bit signed integer by decoding a single integer value.
+    ///
+    /// The decoded value must be in the range `-8...7`.
+    ///
+    /// - Parameter decoder: The decoder to read data from.
+    /// - Throws: A decoding error if the encoded value is not an integer in range.
+    public init(from decoder: any Decoder) throws {
         let container: SingleValueDecodingContainer = try decoder.singleValueContainer()
         let value: Self.Value = try container.decode(Self.Value.self)
 
@@ -345,7 +370,11 @@ extension Int4: Divisible {
 // MARK: - Encodable
 
 extension Int4: Encodable {
-    public func encode(to encoder: Encoder) throws {
+    /// Encodes this value as a single signed integer.
+    ///
+    /// - Parameter encoder: The encoder to write data to.
+    /// - Throws: Any error thrown while encoding the underlying integer value.
+    public func encode(to encoder: any Encoder) throws {
         try self.value.encode(to: encoder)
     }
 }
@@ -361,8 +390,15 @@ extension Int4: Equatable {
 // MARK: - ExpressibleByIntegerLiteral
 
 extension Int4: ExpressibleByIntegerLiteral {
+    /// Creates a value from an integer literal.
+    ///
+    /// - Parameter value: The integer literal used to create the value.
+    /// - Precondition: `value` must be in the range `-8...7`.
     public init(integerLiteral value: IntegerLiteralType) {
-        precondition(-8...7 ~= value, "Int4 integer literal must be between \(Self.min) and \(Self.max).")
+        precondition(
+            -8...7 ~= value,
+             "Int4 integer literal must be between \(Self.min) and \(Self.max)."
+        )
 
         let newValue: Self.Value = .init(value)
 
@@ -451,8 +487,12 @@ extension Int4: FixedWidthInteger {
     ///
     /// - Parameter dividend: The high and low halves of the dividend.
     /// - Returns: The quotient and remainder of the division.
+    /// - Precondition: This value must not be zero.
     public func dividingFullWidth(_ dividend: (high: Self, low: Self.Magnitude)) -> (quotient: Self, remainder: Self) {
-        precondition(self != 0, "Divisor must not be zero.")
+        precondition(
+            self != 0,
+            "Divisor must not be zero."
+        )
 
         let raw: UInt8 = (dividend.high.bitPattern << Self.bitWidth) | dividend.low.value
         let signedDividend: Self.Value = .init(bitPattern: raw)
