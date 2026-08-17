@@ -124,9 +124,12 @@ public struct Roman {
     /// Creates a new instance with the specified value.
     ///
     /// - Parameter value: The value of this instance.
-    /// - Warning: The value must be in between 0 and 3999.
+    /// - Precondition: `value` must be in the range `0...3999`.
     private init(value: Self.Value) {
-        precondition(0...3999 ~= value, "Roman value must be between \(Self.min) and \(Self.max).")
+        precondition(
+            0...3999 ~= value,
+            "Roman value must be between \(Self.min) and \(Self.max)."
+        )
         self.value = value
     }
 }
@@ -154,7 +157,6 @@ extension Roman {
         return remainder != 0
     }
 }
-
 
 // MARK: - Addable
 
@@ -215,7 +217,7 @@ extension Roman: Decodable {
     ///
     /// - Parameter decoder: The decoder to read data from.
     /// - Throws: A decoding error if the encoded value is neither a valid Roman numeral string nor an integer in range.
-    public init(from decoder: Decoder) throws {
+    public init(from decoder: any Decoder) throws {
         let container: SingleValueDecodingContainer = try decoder.singleValueContainer()
 
         if let description: String = try? container.decode(String.self),
@@ -268,7 +270,8 @@ extension Roman: Encodable {
     /// `Roman.zero` encodes as `"N"`.
     ///
     /// - Parameter encoder: The encoder to write data to.
-    public func encode(to encoder: Encoder) throws {
+    /// - Throws: Any error thrown while encoding the canonical Roman numeral string.
+    public func encode(to encoder: any Encoder) throws {
         try self.description.encode(to: encoder)
     }
 }
@@ -284,8 +287,15 @@ extension Roman: Equatable {
 // MARK: - ExpressibleByIntegerLiteral
 
 extension Roman: ExpressibleByIntegerLiteral {
+    /// Creates a Roman value from an integer literal.
+    ///
+    /// - Parameter value: The integer literal used to create the value.
+    /// - Precondition: `value` must be in the range `0...3999`.
     public init(integerLiteral value: IntegerLiteralType) {
-        precondition(0...3999 ~= value, "Roman integer literal must be between \(Self.min) and \(Self.max).")
+        precondition(
+            0...3999 ~= value,
+            "Roman integer literal must be between \(Self.min) and \(Self.max)."
+        )
 
         let newValue: Self.Value = .init(value)
 
