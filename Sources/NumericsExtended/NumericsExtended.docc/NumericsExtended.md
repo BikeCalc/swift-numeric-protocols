@@ -45,13 +45,13 @@ The package is exposed through a public umbrella module. Import `NumericsExtende
 
 ### Transformations
 
+- ``Canonicalizable``
 - ``Roundable``
-- ``Simplifiable``
 - ``Truncatable``
 
 ### Wrappers
 
-- ``Simplified``
+- ``Canonicalized``
 
 ### Adjustments
 
@@ -61,6 +61,10 @@ The package is exposed through a public umbrella module. Import `NumericsExtende
 ### Overflow Reporting
 
 - ``ReportableAsOverflow``
+
+### Experimental Numeric Protocols
+
+- ``Rational``
 
 ### Experimental Numeric Types
 
