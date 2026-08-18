@@ -120,6 +120,11 @@ internal struct Int4MultipliableTests {
 // MARK: - Arithmetic Rules
 
 extension Int4MultipliableTests {
+    @Test("Zero is multiple of zero")
+    internal func zeroIsMultipleOfZero() {
+        #expect(Int4.zero.isMultiple(of: .zero))
+    }
+
     @Test(
         "Is multiple of zero returns false",
         arguments: [

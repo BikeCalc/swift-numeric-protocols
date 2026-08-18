@@ -531,18 +531,6 @@ extension Int4: LosslessStringConvertible {
 // MARK: - Multipliable
 
 extension Int4: Multipliable {
-    public func isMultiple(of other: Self) -> Bool {
-        if self == 0 && other == 0 {
-            return true
-        }
-
-        guard other != 0 else {
-            return false
-        }
-
-        return (self % other) == 0
-    }
-
     public static func * (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)

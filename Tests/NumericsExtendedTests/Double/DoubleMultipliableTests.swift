@@ -134,6 +134,11 @@ internal struct DoubleMultipliableTests {
 // MARK: - Arithmetic Rules
 
 extension DoubleMultipliableTests {
+    @Test("Zero is multiple of zero")
+    internal func zeroIsMultipleOfZero() {
+        #expect(0.0.isMultiple(of: 0.0))
+    }
+
     @Test(
         "Is multiple of zero returns false",
         arguments: [
