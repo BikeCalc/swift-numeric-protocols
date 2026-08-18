@@ -343,6 +343,26 @@ extension DoubleDivisibleTests {
 
 extension DoubleDivisibleTests {
     @Test(
+        "Nonfinite operands are not divisible",
+        arguments: [
+            (Double.infinity, 2.0),
+            (Double.negativeInfinity, 2.0),
+            (Double.nan, 2.0),
+            (2.0, Double.infinity),
+            (2.0, Double.negativeInfinity),
+            (2.0, Double.nan),
+            (0.0, Double.infinity),
+            (-0.0, Double.negativeInfinity)
+        ]
+    )
+    internal func nonfiniteOperandsAreNotDivisible(
+        dividend: Double,
+        divisor: Double
+    ) {
+        #expect(dividend.isDivisible(by: divisor) == false)
+    }
+
+    @Test(
         "Reciprocal of infinity follows floating-point rules",
         arguments: [
             (Double.infinity, 0.0),

@@ -116,6 +116,11 @@ internal struct UInt4MultipliableTests {
 // MARK: - Arithmetic Rules
 
 extension UInt4MultipliableTests {
+    @Test("Zero is multiple of zero")
+    internal func zeroIsMultipleOfZero() {
+        #expect(UInt4.zero.isMultiple(of: .zero))
+    }
+
     @Test(
         "Is multiple of zero returns false",
         arguments: [

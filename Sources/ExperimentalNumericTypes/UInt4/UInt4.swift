@@ -519,18 +519,6 @@ extension UInt4: LosslessStringConvertible {
 // MARK: - Multipliable
 
 extension UInt4: Multipliable {
-    public func isMultiple(of other: Self) -> Bool {
-        if self == 0 && other == 0 {
-            return true
-        }
-
-        guard other != 0 else {
-            return false
-        }
-
-        return (self % other) == 0
-    }
-
     public static func * (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)
@@ -561,25 +549,6 @@ extension UInt4: Numeric {
 
 extension UInt4: Raisable {
     public typealias Exponent = Self
-
-    public static func ** (_ lhs: Self, _ rhs: Self.Exponent) -> Self {
-        switch rhs {
-        case 0:
-            return 1
-        case 1:
-            return lhs
-        default:
-            var result: Self = lhs
-            var exponent: Self.Exponent = 2
-
-            while exponent <= rhs {
-                result *= lhs
-                exponent += 1
-            }
-
-            return result
-        }
-    }
 }
 
 // MARK: - ReportableAsOverflow

@@ -116,6 +116,11 @@ internal struct RomanMultipliableTests {
 // MARK: - Arithmetic Rules
 
 extension RomanMultipliableTests {
+    @Test("Zero is multiple of zero")
+    internal func zeroIsMultipleOfZero() {
+        #expect(Roman.zero.isMultiple(of: .zero))
+    }
+
     @Test(
         "Is multiple of zero returns false",
         arguments: [

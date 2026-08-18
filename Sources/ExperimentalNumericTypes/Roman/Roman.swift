@@ -239,6 +239,14 @@ extension Roman: Decodable {
 // MARK: - Divisible
 
 extension Roman: Divisible {
+    public func isDivisible(by other: Self) -> Bool {
+        guard other.isZero == false else {
+            return false
+        }
+
+        return (self % other).isZero
+    }
+
     public var reciprocal: Self? {
         guard self.isInvertible else {
             return nil
@@ -383,6 +391,29 @@ extension Roman: Numeric {
 
 extension Roman: Raisable {
     public typealias Exponent = Self
+
+    public func isPower(of other: Self) -> Bool {
+        switch other {
+        case 0:
+            return self == 0 || self == 1
+        case 1:
+            return self == 1
+        default:
+            var number: Self = self
+
+            while number > 1 && number.isDivisible(by: other) {
+                let quotient: Self = number / other
+
+                guard quotient != number else {
+                    return false
+                }
+
+                number = quotient
+            }
+
+            return number == 1
+        }
+    }
 
     public static func ** (_ lhs: Self, _ rhs: Self.Exponent) -> Self {
         switch rhs {

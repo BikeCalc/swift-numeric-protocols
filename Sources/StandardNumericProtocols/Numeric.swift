@@ -11,40 +11,6 @@ import CoreNumericProtocols
 
 extension Numeric
 where Self: Divisible {
-    /// Returns a boolean value indicating whether this value is divisible by the specified value.
-    ///
-    /// ```swift
-    /// print(50.isDivisible(by: 0))
-    /// // Prints "false"
-    /// ```
-    ///
-    /// - Parameter other: The value to test.
-    /// - Returns: `true` if this value is divisible by the specified value, and `false` otherwise.
-    public func isDivisible(by other: Self) -> Bool {
-        guard other != 0 else {
-            return false
-        }
-
-        return self % other == 0
-    }
-
-    /// Returns a boolean value indicating whether this value is a factor of the specified value.
-    ///
-    /// ```swift
-    /// print(10.isFactor(of: 50))
-    /// // Prints "true"
-    /// ```
-    ///
-    /// - Parameter other: The value to test.
-    /// - Returns: `true` if this value is a factor of the specified value, and `false` otherwise.
-    public func isFactor(of other: Self) -> Bool {
-        guard self != 0 else {
-            return false
-        }
-
-        return (other % self) == 0
-    }
-
     /// Returns this value halved.
     ///
     /// ```swift
@@ -99,78 +65,6 @@ where Self: Multipliable {
 
 extension Numeric
 where Self: Raisable {
-    /// Returns a boolean value indicating whether this value is a power of the specified value.
-    ///
-    /// ```swift
-    /// print(100.isPower(of: 10))
-    /// // Prints "true"
-    /// ```
-    ///
-    /// - Parameter other: The value to test.
-    /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
-    public func isPower(of other: Self) -> Bool
-    where Self: Comparable & Divisible {
-        switch other {
-        case 0:
-            return self == 0 || self == 1
-        case 1:
-            return self == 1
-        default:
-            var number: Self = self
-
-            while number > 1 && number.isDivisible(by: other) {
-                let quotient = number / other
-
-                guard quotient != number else {
-                    return false
-                }
-
-                number = quotient
-            }
-
-            return number == 1
-        }
-    }
-
-    /// Returns a boolean value indicating whether this value is a power of the specified value.
-    ///
-    /// ```swift
-    /// print(100.isPower(of: 10))
-    /// // Prints "true"
-    /// ```
-    ///
-    /// - Parameter other: The value to test.
-    /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
-    public func isPower(of other: Self) -> Bool
-    where Self: Comparable & Divisible & Negateable {
-        switch other {
-        case -1:
-            return self == 1 || self == -1
-        case 0:
-            return self == 0 || self == 1
-        case 1:
-            return self == 1
-        default:
-            var number: Self = self
-
-            while number.isDivisible(by: other) {
-                let quotient = number / other
-
-                guard quotient != number else {
-                    return false
-                }
-
-                number = quotient
-
-                if number == 1 {
-                    return true
-                }
-            }
-
-            return number == 1
-        }
-    }
-
     /// Returns the result of raising this value to its square.
     ///
     /// ```swift

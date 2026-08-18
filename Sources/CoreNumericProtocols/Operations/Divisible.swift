@@ -42,6 +42,14 @@ public protocol Divisible: Equatable {
 }
 
 extension Divisible {
+    /// Returns a boolean value indicating whether this value is a factor of the specified value.
+    ///
+    /// - Parameter other: The value to test.
+    /// - Returns: `true` if the specified value is divisible by this value, and `false` otherwise.
+    public func isFactor(of other: Self) -> Bool {
+        return other.isDivisible(by: self)
+    }
+
     /// Divides the first specified value by the second and stores the quotient in the left-hand-side variable.
     ///
     /// - Parameter lhs: The dividend.

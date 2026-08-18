@@ -51,6 +51,27 @@ where Self: Divisible & Multipliable {
 
 extension BinaryFloatingPoint
 where Self: Divisible {
+    /// Returns a boolean value indicating whether this value is divisible by the specified value.
+    ///
+    /// Nonfinite values are not divisible and cannot be divisors.
+    ///
+    /// ```swift
+    /// print(50.isDivisible(by: 0))
+    /// // Prints "false"
+    /// ```
+    ///
+    /// - Parameter other: The value to test.
+    /// - Returns: `true` if this finite value is divisible by the specified finite value, and `false` otherwise.
+    public func isDivisible(by other: Self) -> Bool {
+        guard self.isFinite,
+              other.isFinite,
+              other.isZero == false else {
+            return false
+        }
+
+        return (self % other).isZero
+    }
+
     /// Returns the reciprocal of this instance.
     public var reciprocal: Self? {
         guard self.isInvertible else {
@@ -64,6 +85,47 @@ where Self: Divisible {
     public var isInvertible: Bool {
         return self.isZero == false
             && self.isNaN == false
+    }
+}
+
+extension BinaryFloatingPoint
+where Self: Divisible & Negateable & Raisable {
+    /// Returns a boolean value indicating whether this value is a power of the specified value.
+    ///
+    /// ```swift
+    /// print(100.isPower(of: 10))
+    /// // Prints "true"
+    /// ```
+    ///
+    /// - Parameter other: The value to test.
+    /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
+    public func isPower(of other: Self) -> Bool {
+        switch other {
+        case -1:
+            return self == 1 || self == -1
+        case 0:
+            return self == 0 || self == 1
+        case 1:
+            return self == 1
+        default:
+            var number: Self = self
+
+            while number.isDivisible(by: other) {
+                let quotient: Self = number / other
+
+                guard quotient != number else {
+                    return false
+                }
+
+                number = quotient
+
+                if number == 1 {
+                    return true
+                }
+            }
+
+            return number == 1
+        }
     }
 }
 

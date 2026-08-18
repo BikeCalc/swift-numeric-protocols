@@ -10,6 +10,26 @@ import CoreNumericOperators
 import CoreNumericProtocols
 
 extension BinaryInteger
+where Self: Divisible & RepresentableByZero {
+    /// Returns a boolean value indicating whether this value is divisible by the specified value.
+    ///
+    /// ```swift
+    /// print(50.isDivisible(by: 0))
+    /// // Prints "false"
+    /// ```
+    ///
+    /// - Parameter other: The value to test.
+    /// - Returns: `true` if this value is divisible by the specified value, and `false` otherwise.
+    public func isDivisible(by other: Self) -> Bool {
+        guard other.isZero == false else {
+            return false
+        }
+
+        return (self % other).isZero
+    }
+}
+
+extension BinaryInteger
 where Self: Divisible {
     /// A boolean value indicating whether this value is even.
     ///
@@ -31,6 +51,97 @@ where Self: Divisible {
     public var isOdd: Bool {
         let remainder: Self = self % 2
         return remainder != 0
+    }
+}
+
+extension BinaryInteger
+where Self: Multipliable {
+    public func isMultiple(of other: Self) -> Bool {
+        if self == 0 && other == 0 {
+            return true
+        }
+
+        guard other != 0 else {
+            return false
+        }
+
+        return (self % other) == 0
+    }
+}
+
+extension BinaryInteger
+where Self: Divisible & Raisable {
+    /// Returns a boolean value indicating whether this value is a power of the specified value.
+    ///
+    /// ```swift
+    /// print(100.isPower(of: 10))
+    /// // Prints "true"
+    /// ```
+    ///
+    /// - Parameter other: The value to test.
+    /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
+    public func isPower(of other: Self) -> Bool {
+        switch other {
+        case 0:
+            return self == 0 || self == 1
+        case 1:
+            return self == 1
+        default:
+            var number: Self = self
+
+            while number > 1 && number.isDivisible(by: other) {
+                let quotient: Self = number / other
+
+                guard quotient != number else {
+                    return false
+                }
+
+                number = quotient
+            }
+
+            return number == 1
+        }
+    }
+}
+
+extension BinaryInteger
+where Self: Divisible & Negateable & Raisable {
+    /// Returns a boolean value indicating whether this value is a power of the specified value.
+    ///
+    /// ```swift
+    /// print(100.isPower(of: 10))
+    /// // Prints "true"
+    /// ```
+    ///
+    /// - Parameter other: The value to test.
+    /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
+    public func isPower(of other: Self) -> Bool {
+        switch other {
+        case -1:
+            return self == 1 || self == -1
+        case 0:
+            return self == 0 || self == 1
+        case 1:
+            return self == 1
+        default:
+            var number: Self = self
+
+            while number.isDivisible(by: other) {
+                let quotient: Self = number / other
+
+                guard quotient != number else {
+                    return false
+                }
+
+                number = quotient
+
+                if number == 1 {
+                    return true
+                }
+            }
+
+            return number == 1
+        }
     }
 }
 
