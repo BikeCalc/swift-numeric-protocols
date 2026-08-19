@@ -242,11 +242,23 @@ Use the form:
 <type>[optional scope]: <description>
 ```
 
+When a scope is included, enclose it in parentheses. Append `!` after the type or scope to indicate
+a breaking change.
+
+Allowed types are `fix`, `feat`, `build`, `chore`, `ci`, `docs`, `style`, `refactor`, `perf`, and
+`test`.
+
 ### Pull Requests
 
 When creating a pull request, use the pull request template. Briefly explain its outcome in the
 Overview section and summarize reviewer-relevant additions, updates, and removals in the Changes
 section without restating the issue or describing line-by-line implementation details.
+
+Use the Conventional Commit form described above for the pull request title:
+
+```text
+<type>[optional scope]: <description>
+```
 
 Link the pull request to its issue in GitHub. Configured workflows run automatically, and their
 results appear on the pull request, so do not repeat them in its description.
