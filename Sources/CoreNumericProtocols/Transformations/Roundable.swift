@@ -13,7 +13,7 @@ public protocol Roundable {
 
     /// Returns this instance rounded to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native binary floating-point representation. Values that cannot be represented exactly in binary may produce results that differ from exact decimal arithmetic.
+    /// This operation uses the conforming type's native representation. Values that cannot represent decimal fractions exactly may produce results that differ from exact decimal arithmetic.
     ///
     /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance rounded.
@@ -23,20 +23,13 @@ public protocol Roundable {
 extension Roundable {
     /// Rounds this instance to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native binary floating-point representation. Values that cannot be represented exactly in binary may produce results that differ from exact decimal arithmetic.
+    /// This operation uses the conforming type's native representation. Values that cannot represent decimal fractions exactly may produce results that differ from exact decimal arithmetic.
     ///
     /// ```swift
     /// var number: Float = 1.2345
     /// number.round(to: 2)
     /// print(number)
     /// // Prints "1.23"
-    /// ```
-    ///
-    /// ```swift
-    /// var number: Float = 1.5678
-    /// number.round(to: 2)
-    /// print(number)
-    /// // Prints "1.57"
     /// ```
     ///
     /// - Parameter decimalPlace: The number of decimal places.

@@ -78,6 +78,8 @@ where Self: Divisible & Raisable {
     /// // Prints "true"
     /// ```
     ///
+    /// A value is a power of a base when repeatedly multiplying the base produces that value. An exponent of zero makes `1` a power of every base.
+    ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
     public func isPower(of other: Self) -> Bool {
@@ -89,6 +91,7 @@ where Self: Divisible & Raisable {
         default:
             var number: Self = self
 
+            // Remove one factor of the base at a time until reaching one or finding a remainder.
             while number > 1 && number.isDivisible(by: other) {
                 let quotient: Self = number / other
 
@@ -113,6 +116,8 @@ where Self: Divisible & Negateable & Raisable {
     /// // Prints "true"
     /// ```
     ///
+    /// A value is a power of a base when repeatedly multiplying the base produces that value. An exponent of zero makes `1` a power of every base.
+    ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
     public func isPower(of other: Self) -> Bool {
@@ -126,6 +131,7 @@ where Self: Divisible & Negateable & Raisable {
         default:
             var number: Self = self
 
+            // Remove one factor of the base at a time until reaching one or finding a remainder.
             while number.isDivisible(by: other) {
                 let quotient: Self = number / other
 
@@ -154,7 +160,7 @@ where Self: Raisable, Self.Exponent: BinaryInteger {
     /// // Prints "8"
     /// ```
     ///
-    /// When the exponent is negative, the reciprocal power is truncated toward zero according to integer division rules. Powers of `1` and `-1` remain exactly representable.
+    /// A negative exponent returns `0` for every base except `1` and `-1` because integer division discards the fractional part. Powers of `1` and `-1` remain exactly representable.
     ///
     /// - Parameter lhs: The base.
     /// - Parameter rhs: The exponent.
@@ -168,6 +174,7 @@ where Self: Raisable, Self.Exponent: BinaryInteger {
                 "Zero cannot be raised to a negative exponent."
             )
 
+            // Every reciprocal other than one or negative one truncates to zero.
             guard lhs.magnitude == 1 else {
                 return 0
             }
