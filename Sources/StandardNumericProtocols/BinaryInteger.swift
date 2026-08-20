@@ -154,13 +154,25 @@ where Self: Raisable, Self.Exponent: BinaryInteger {
     /// // Prints "8"
     /// ```
     ///
+    /// When the exponent is negative, the reciprocal power is truncated toward zero according to integer division rules. Powers of `1` and `-1` remain exactly representable.
+    ///
     /// - Parameter lhs: The base.
     /// - Parameter rhs: The exponent.
+    /// - Precondition: The base must not be zero when the exponent is negative.
     /// - Returns: The power.
     public static func ** (_ lhs: Self, _ rhs: Self.Exponent) -> Self {
         switch rhs {
         case ..<0:
-            return 0
+            precondition(
+                lhs != 0,
+                "Zero cannot be raised to a negative exponent."
+            )
+
+            guard lhs.magnitude == 1 else {
+                return 0
+            }
+
+            return lhs == 1 || rhs.isMultiple(of: 2) ? 1 : lhs
         case 0:
             return 1
         case 1:

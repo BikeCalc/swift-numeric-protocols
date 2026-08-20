@@ -26,6 +26,45 @@ where Self: Decreasable {
 }
 
 extension BinaryFloatingPoint
+where Self: Divisible {
+    /// Returns the reciprocal of this instance.
+    public var reciprocal: Self? {
+        guard self.isInvertible else {
+            return nil
+        }
+
+        return 1 / self
+    }
+
+    /// A boolean value indicating whether this instance is invertible.
+    public var isInvertible: Bool {
+        return self.isZero == false
+            && self.isNaN == false
+    }
+
+    /// Returns a boolean value indicating whether this value is divisible by the specified value.
+    ///
+    /// Nonfinite values are not divisible and cannot be divisors.
+    ///
+    /// ```swift
+    /// print(50.isDivisible(by: 0))
+    /// // Prints "false"
+    /// ```
+    ///
+    /// - Parameter other: The value to test.
+    /// - Returns: `true` if this finite value is divisible by the specified finite value, and `false` otherwise.
+    public func isDivisible(by other: Self) -> Bool {
+        guard self.isFinite,
+              other.isFinite,
+              other.isZero == false else {
+            return false
+        }
+
+        return (self % other).isZero
+    }
+}
+
+extension BinaryFloatingPoint
 where Self: Divisible & Multipliable {
     /// Returns a boolean value indicating whether this value is a multiple of the specified value.
     ///
@@ -50,45 +89,6 @@ where Self: Divisible & Multipliable {
 }
 
 extension BinaryFloatingPoint
-where Self: Divisible {
-    /// Returns a boolean value indicating whether this value is divisible by the specified value.
-    ///
-    /// Nonfinite values are not divisible and cannot be divisors.
-    ///
-    /// ```swift
-    /// print(50.isDivisible(by: 0))
-    /// // Prints "false"
-    /// ```
-    ///
-    /// - Parameter other: The value to test.
-    /// - Returns: `true` if this finite value is divisible by the specified finite value, and `false` otherwise.
-    public func isDivisible(by other: Self) -> Bool {
-        guard self.isFinite,
-              other.isFinite,
-              other.isZero == false else {
-            return false
-        }
-
-        return (self % other).isZero
-    }
-
-    /// Returns the reciprocal of this instance.
-    public var reciprocal: Self? {
-        guard self.isInvertible else {
-            return nil
-        }
-
-        return 1 / self
-    }
-
-    /// A boolean value indicating whether this instance is invertible.
-    public var isInvertible: Bool {
-        return self.isZero == false
-            && self.isNaN == false
-    }
-}
-
-extension BinaryFloatingPoint
 where Self: Divisible & Negateable & Raisable {
     /// Returns a boolean value indicating whether this value is a power of the specified value.
     ///
@@ -100,31 +100,63 @@ where Self: Divisible & Negateable & Raisable {
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
     public func isPower(of other: Self) -> Bool {
-        switch other {
-        case -1:
-            return self == 1 || self == -1
-        case 0:
-            return self == 0 || self == 1
-        case 1:
-            return self == 1
-        default:
-            var number: Self = self
+        guard self.isNaN == false else {
+            return false
+        }
 
-            while number.isDivisible(by: other) {
-                let quotient: Self = number / other
+        guard self != 1 else {
+            return true
+        }
 
-                guard quotient != number else {
+        guard other.isNaN == false else {
+            return false
+        }
+
+        if other.isZero || other.isInfinite {
+            guard self.isZero || self.isInfinite else {
+                return false
+            }
+
+            return self.isZero || other.sign == .minus || self.sign == .plus
+        }
+
+        guard self.isFinite, self.isZero == false else {
+            return false
+        }
+
+        if other.magnitude == 1 {
+            return self == other
+        }
+
+        guard self.magnitude != 1 else {
+            return false
+        }
+
+        let usesPositiveExponent: Bool = (self.magnitude > 1) == (other.magnitude > 1)
+        var power: Self = 1
+
+        while true {
+            let nextPower: Self = usesPositiveExponent ? power * other : power / other
+
+            guard nextPower != self else {
+                return true
+            }
+
+            guard nextPower.isFinite, nextPower.isZero == false, nextPower != power else {
+                return false
+            }
+
+            if self.magnitude > 1 {
+                guard nextPower.magnitude < self.magnitude else {
                     return false
                 }
-
-                number = quotient
-
-                if number == 1 {
-                    return true
+            } else {
+                guard nextPower.magnitude > self.magnitude else {
+                    return false
                 }
             }
 
-            return number == 1
+            power = nextPower
         }
     }
 }

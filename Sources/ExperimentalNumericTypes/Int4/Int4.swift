@@ -124,11 +124,6 @@ public struct Int4 {
         self.value = value
     }
 
-    /// The unsigned low four bits of this value.
-    private var bitPattern: UInt8 {
-        return .init(bitPattern: self.value) & 0b1111
-    }
-
     /// Creates a value by interpreting the low four bits as two's-complement.
     ///
     /// - Parameter bits: The bits to interpret.
@@ -142,6 +137,11 @@ public struct Int4 {
         }
 
         self.init(value: value)
+    }
+
+    /// The unsigned low four bits of this value.
+    private var bitPattern: UInt8 {
+        return .init(bitPattern: self.value) & 0b1111
     }
 }
 

@@ -148,8 +148,23 @@ internal struct RomanRaisableTests {
 
 extension RomanRaisableTests {
     @Test(
+        "Raising to zero returns one",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func raisingToZeroReturnsOne(base: Roman) {
+        #expect(base ** 0 == 1)
+    }
+
+    @Test(
         "Raising to one preserves base",
         arguments: [
+            0,
+            1,
             2,
             3
         ] as Array<Roman>
@@ -213,7 +228,7 @@ extension RomanRaisableTests {
             (2, false)
         ] as Array<(Roman, Bool)>
     )
-    internal func zeroBasePowerPredicateFollowsRomanRules(
+    internal func zeroBasePowerPredicateFollowsIntegerRules(
         value: Roman,
         result: Bool
     ) {
@@ -228,7 +243,7 @@ extension RomanRaisableTests {
             (0, 2, 0)
         ] as Array<(Roman, Roman.Exponent, Roman)>
     )
-    internal func zeroBaseExponentiationFollowsRomanRules(
+    internal func zeroBaseExponentiationFollowsIntegerRules(
         base: Roman,
         exponent: Roman.Exponent,
         power: Roman

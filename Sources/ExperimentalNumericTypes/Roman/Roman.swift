@@ -239,14 +239,6 @@ extension Roman: Decodable {
 // MARK: - Divisible
 
 extension Roman: Divisible {
-    public func isDivisible(by other: Self) -> Bool {
-        guard other.isZero == false else {
-            return false
-        }
-
-        return (self % other).isZero
-    }
-
     public var reciprocal: Self? {
         guard self.isInvertible else {
             return nil
@@ -257,6 +249,14 @@ extension Roman: Divisible {
 
     public var isInvertible: Bool {
         return self == 1
+    }
+
+    public func isDivisible(by other: Self) -> Bool {
+        guard other.isZero == false else {
+            return false
+        }
+
+        return (self % other).isZero
     }
 
     public static func / (_ lhs: Self, _ rhs: Self) -> Self {

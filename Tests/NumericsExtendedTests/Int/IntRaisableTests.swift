@@ -14,8 +14,16 @@ internal struct IntRaisableTests {
     private static let exponentiationArguments: [(Int, Int.Exponent, Int)] = [
         (2, 2, 4),
         (2, 3, 8),
+        (2, -2, 0),
+        (2, -3, 0),
         (-2, 2, 4),
-        (-2, 3, -8)
+        (-2, 3, -8),
+        (-2, -2, 0),
+        (-2, -3, 0),
+        (1, -2, 1),
+        (1, -3, 1),
+        (-1, -2, 1),
+        (-1, -3, -1)
     ]
 
     private static let squaringArguments: [(Int, Int)] = [
@@ -154,8 +162,29 @@ internal struct IntRaisableTests {
 
 extension IntRaisableTests {
     @Test(
+        "Raising to zero returns one",
+        arguments: [
+            0,
+            -0,
+            1,
+            -1,
+            2,
+            3,
+            -2,
+            -3
+        ]
+    )
+    internal func raisingToZeroReturnsOne(base: Int) {
+        #expect(base ** 0 == 1)
+    }
+
+    @Test(
         "Raising to one preserves base",
         arguments: [
+            0,
+            -0,
+            1,
+            -1,
             2,
             3,
             -2,
@@ -172,7 +201,9 @@ extension IntRaisableTests {
             0,
             1,
             2,
-            3
+            3,
+            -2,
+            -3
         ]
     )
     internal func oneBaseExponentiationReturnsOne(exponent: Int.Exponent) {
@@ -215,7 +246,9 @@ extension IntRaisableTests {
             (0, 1),
             (1, -1),
             (2, 1),
-            (3, -1)
+            (3, -1),
+            (-2, 1),
+            (-3, -1)
         ]
     )
     internal func negativeOneBaseExponentiationFollowsParityRule(
@@ -333,8 +366,8 @@ extension IntRaisableTests {
             (-0, 0, 1),
             (0, 1, 0),
             (-0, 1, 0),
-            (0, -1, 0),
-            (-0, -1, 0)
+            (0, 2, 0),
+            (-0, 2, 0)
         ]
     )
     internal func zeroBaseExponentiationFollowsIntegerRules(

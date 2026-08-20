@@ -147,8 +147,23 @@ internal struct UInt4RaisableTests {
 
 extension UInt4RaisableTests {
     @Test(
+        "Raising to zero returns one",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ] as Array<UInt4>
+    )
+    internal func raisingToZeroReturnsOne(base: UInt4) {
+        #expect(base ** 0 == 1)
+    }
+
+    @Test(
         "Raising to one preserves base",
         arguments: [
+            0,
+            1,
             2,
             3
         ] as Array<UInt4>
