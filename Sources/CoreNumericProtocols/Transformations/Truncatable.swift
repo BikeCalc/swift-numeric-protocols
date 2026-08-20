@@ -25,13 +25,6 @@ extension Truncatable {
     ///
     /// This operation uses the conforming type's native representation. Values that cannot represent decimal fractions exactly may produce results that differ from exact decimal arithmetic.
     ///
-    /// ```swift
-    /// var number: Float = 1.2345
-    /// number.truncate(to: 2)
-    /// print(number)
-    /// // Prints "1.23"
-    /// ```
-    ///
     /// - Parameter decimalPlace: The number of decimal places.
     public mutating func truncate(to decimalPlace: Self.DecimalPlace) {
         self = self.truncated(to: decimalPlace)

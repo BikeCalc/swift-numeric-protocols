@@ -27,11 +27,6 @@ extension Addable {
 
     /// Returns the sum of this value and the specified value.
     ///
-    /// ```swift
-    /// print(2.adding(4))
-    /// // Prints "6"
-    /// ```
-    ///
     /// - Parameter addend: The addend.
     /// - Returns: The sum.
     public func adding(_ addend: Self) -> Self {
@@ -39,13 +34,6 @@ extension Addable {
     }
 
     /// Adds the specified value to this value.
-    ///
-    /// ```swift
-    /// var number: Double = 2
-    /// number.add(4)
-    /// print(number)
-    /// // Prints "6"
-    /// ```
     ///
     /// - Parameter addend: The addend.
     public mutating func add(_ addend: Self) {

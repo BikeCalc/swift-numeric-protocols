@@ -18,20 +18,11 @@ public protocol Negateable: Equatable {
 extension Negateable {
     /// A boolean value indicating whether this value is signed.
     ///
-    /// ```swift
-    /// print(-1.isSigned)
-    /// // Prints "true"
-    /// ```
     public var isSigned: Bool {
         return true
     }
 
     /// Returns a boolean value indicating whether this value is the opposite of the specified value.
-    ///
-    /// ```swift
-    /// print(10.isOpposite(of: -10))
-    /// // Prints "true"
-    /// ```
     ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is the opposite of the specified value, and `false` otherwise.
@@ -41,11 +32,6 @@ extension Negateable {
 
     /// Returns the additive inverse of this value.
     ///
-    /// ```swift
-    /// print(2.negating())
-    /// // Prints "-2"
-    /// ```
-    ///
     /// - Returns: The additive inverse.
     public func negating() -> Self {
         return -self
@@ -53,12 +39,6 @@ extension Negateable {
 
     /// Replaces this value with its additive inverse.
     ///
-    /// ```swift
-    /// var number: Double = 2
-    /// number.negate()
-    /// print(number)
-    /// // Prints "-2"
-    /// ```
     public mutating func negate() {
         self = self.negating()
     }
@@ -68,20 +48,12 @@ extension Negateable
 where Self: Comparable & RepresentableByZero {
     /// A boolean value indicating whether this value is negative.
     ///
-    /// ```swift
-    /// print(1.isNegative)
-    /// // Prints "false"
-    /// ```
     public var isNegative: Bool {
         return self < .zero
     }
 
     /// A boolean value indicating whether this value is positive.
     ///
-    /// ```swift
-    /// print(1.isPositive)
-    /// // Prints "true"
-    /// ```
     public var isPositive: Bool {
         return .zero < self
     }

@@ -18,13 +18,6 @@ public protocol Increasable {
 extension Increasable {
     /// Increases this value by the specified percentage.
     ///
-    /// ```swift
-    /// var value: Double = 10
-    /// value.increase(by: 10)
-    /// print(value)
-    /// // Prints "11"
-    /// ```
-    ///
     /// - Parameter percentage: The percentage to increase this value by.
     public mutating func increase(by percentage: Self) {
         self = self.increasing(by: percentage)

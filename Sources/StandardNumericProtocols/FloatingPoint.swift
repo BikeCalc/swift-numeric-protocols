@@ -13,12 +13,6 @@ extension FloatingPoint
 where Self: Decreasable {
     /// Returns this value decreased by the specified percentage.
     ///
-    /// ```swift
-    /// let value: Double = Double(10)
-    /// print(value.decreasing(by: 10))
-    /// // Prints "9"
-    /// ```
-    ///
     /// - Parameter percentage: The percentage to decrease this value by.
     /// - Returns: The decreased value.
     public func decreasing(by percentage: Self) -> Self {
@@ -47,11 +41,6 @@ where Self: Divisible {
     ///
     /// Both values must be finite and the divisor must be nonzero. Because floating-point values are approximate, values that appear divisible in decimal notation may not produce an exactly zero remainder.
     ///
-    /// ```swift
-    /// print(50.isDivisible(by: 0))
-    /// // Prints "false"
-    /// ```
-    ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if dividing this value by the specified value produces an exactly zero remainder, and `false` otherwise.
     public func isDivisible(by other: Self) -> Bool {
@@ -71,11 +60,6 @@ where Self: Divisible & Multipliable {
     ///
     /// Because floating-point values are approximate, values that appear to be multiples in decimal notation may not produce an exactly zero remainder.
     ///
-    /// ```swift
-    /// print(50.isMultiple(of: 10))
-    /// // Prints "true"
-    /// ```
-    ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value produces an exactly zero remainder when divided by the specified value, and `false` otherwise.
     public func isMultiple(of other: Self) -> Bool {
@@ -94,11 +78,6 @@ where Self: Divisible & Multipliable {
 extension FloatingPoint
 where Self: Divisible & Negateable & Raisable {
     /// Returns a boolean value indicating whether this value is a power of the specified value.
-    ///
-    /// ```swift
-    /// print(100.isPower(of: 10))
-    /// // Prints "true"
-    /// ```
     ///
     /// A value is a power of a base when raising the base to a positive, zero, or negative integer exponent produces that value. Floating-point values must match exactly.
     ///
@@ -176,12 +155,6 @@ extension FloatingPoint
 where Self: Increasable {
     /// Returns this value increased by the specified percentage.
     ///
-    /// ```swift
-    /// let value: Double = 10
-    /// print(value.increasing(by: 10))
-    /// // Prints "11"
-    /// ```
-    ///
     /// - Parameter percentage: The percentage to increase this value by.
     /// - Returns: The increased value.
     public func increasing(by percentage: Self) -> Self {
@@ -192,11 +165,6 @@ where Self: Increasable {
 extension FloatingPoint
 where Self: Raisable, Self.Exponent: BinaryInteger {
     /// Returns the power of raising the first specified value to the second.
-    ///
-    /// ```swift
-    /// print(2.0 ** 3)
-    /// // Prints "8.0"
-    /// ```
     ///
     /// A negative exponent returns the reciprocal power.
     ///
@@ -240,11 +208,6 @@ where Self: Roundable, Self.DecimalPlace: UnsignedInteger {
     ///
     /// This operation uses the type's native floating-point representation. Values that cannot be represented exactly may produce results that differ from exact decimal arithmetic.
     ///
-    /// ```swift
-    /// print(1.2345.rounded(to: 2))
-    /// // Prints "1.23"
-    /// ```
-    ///
     /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance rounded.
     public func rounded(to decimalPlace: Self.DecimalPlace) -> Self {
@@ -265,11 +228,6 @@ where Self: Truncatable, Self.DecimalPlace: UnsignedInteger {
     /// Returns this instance truncated to the specified approximate decimal precision.
     ///
     /// This operation uses the type's native floating-point representation. Values that cannot be represented exactly may produce results that differ from exact decimal arithmetic.
-    ///
-    /// ```swift
-    /// print(1.2345.truncated(to: 2))
-    /// // Prints "1.23"
-    /// ```
     ///
     /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance truncated.

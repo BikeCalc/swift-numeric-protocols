@@ -15,6 +15,8 @@ import StandardNumericTypes
 ///
 /// Use `Roman` to represent whole numbers with Roman numeral notation. The type stores a numeric value internally, but its textual representation is the canonical Roman numeral for that value.
 ///
+/// For example:
+///
 /// ```swift
 /// let value: Roman = 44
 ///
@@ -24,7 +26,9 @@ import StandardNumericTypes
 ///
 /// Roman supports `N` for zero, the root symbols `I`, `V`, `X`, `L`, `C`, `D`, and `M`, and the canonical subtractive forms `IV`, `IX`, `XL`, `XC`, `CD`, and `CM`.
 ///
-/// Create Roman values from integer literals, exact integer conversion, decimal strings, or Roman numeral strings:
+/// Create Roman values from integer literals, exact integer conversion, decimal strings, or Roman numeral strings.
+///
+/// For example:
 ///
 /// ```swift
 /// let literal: Roman = 2026
@@ -47,6 +51,8 @@ import StandardNumericTypes
 ///
 /// Roman values compare and hash by numeric value, not by the alphabetical order or length of their printed numerals.
 ///
+/// For example:
+///
 /// ```swift
 /// let nine = Roman("IX")!
 /// let ten = Roman("X")!
@@ -55,7 +61,9 @@ import StandardNumericTypes
 /// // Prints "true"
 /// ```
 ///
-/// They also support whole-number arithmetic through the package's numeric protocols:
+/// They also support whole-number arithmetic through the package's numeric protocols.
+///
+/// For example:
 ///
 /// ```swift
 /// let two: Roman = 2
@@ -76,7 +84,9 @@ import StandardNumericTypes
 ///
 /// Division and remainders use integer-style arithmetic because Roman numerals cannot represent fractions.
 ///
-/// Use overflow-reporting operations near the edge of the representable range:
+/// Use overflow-reporting operations near the edge of the representable range.
+///
+/// For example:
 ///
 /// ```swift
 /// let report = Roman.max.addingReportingOverflow(1)
@@ -89,6 +99,8 @@ import StandardNumericTypes
 ///
 /// Roman values encode as Roman numeral strings. Decoding accepts either a valid Roman numeral string or an integer in the representable range.
 ///
+/// For example:
+///
 /// ```swift
 /// import Foundation
 ///
@@ -99,6 +111,10 @@ import StandardNumericTypes
 /// print(String(data: data, encoding: .utf8)!)
 /// // Prints "\"XLIV\""
 /// ```
+///
+/// The corresponding decoder accepts either representation.
+///
+/// For example:
 ///
 /// ```swift
 /// import Foundation
@@ -137,6 +153,8 @@ public struct Roman {
 extension Roman {
     /// A boolean value indicating whether this value is even.
     ///
+    /// For example:
+    ///
     /// ```swift
     /// print(0.isEven)
     /// // Prints "true"
@@ -147,6 +165,8 @@ extension Roman {
     }
 
     /// A boolean value indicating whether this value is odd.
+    ///
+    /// For example:
     ///
     /// ```swift
     /// print(0.isOdd)
@@ -259,11 +279,44 @@ extension Roman: Divisible {
         return (self % other).isZero
     }
 
+    /// Returns the quotient of dividing the first specified value by the second.
+    ///
+    /// Division discards any fractional remainder because `Roman` represents only whole numbers.
+    /// For example:
+    ///
+    /// ```swift
+    /// let dividend: Roman = 7
+    /// let divisor: Roman = 2
+    ///
+    /// print(dividend / divisor)
+    /// // Prints "III"
+    /// ```
+    ///
+    /// - Parameter lhs: The dividend.
+    /// - Parameter rhs: The divisor.
+    /// - Returns: The quotient.
+    /// - Precondition: `rhs` must not be zero.
     public static func / (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
 
+    /// Returns the remainder of dividing the first specified value by the second.
+    ///
+    /// For example:
+    ///
+    /// ```swift
+    /// let dividend: Roman = 7
+    /// let divisor: Roman = 2
+    ///
+    /// print(dividend % divisor)
+    /// // Prints "I"
+    /// ```
+    ///
+    /// - Parameter lhs: The dividend.
+    /// - Parameter rhs: The divisor.
+    /// - Returns: The remainder.
+    /// - Precondition: `rhs` must not be zero.
     public static func % (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)

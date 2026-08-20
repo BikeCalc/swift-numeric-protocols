@@ -38,11 +38,6 @@ extension Raisable {
 
     /// Returns the power of raising this value to the specified value.
     ///
-    /// ```swift
-    /// print(2.raising(to: 4))
-    /// // Prints "16"
-    /// ```
-    ///
     /// - Parameter exponent: The exponent.
     /// - Returns: The power.
     public func raising(to exponent: Self.Exponent) -> Self {
@@ -50,13 +45,6 @@ extension Raisable {
     }
 
     /// Raises this value to the specified exponent.
-    ///
-    /// ```swift
-    /// var number: Double = 2
-    /// number.raise(to: 4)
-    /// print(number)
-    /// // Prints "16"
-    /// ```
     ///
     /// - Parameter exponent: The exponent.
     public mutating func raise(to exponent: Self.Exponent) {

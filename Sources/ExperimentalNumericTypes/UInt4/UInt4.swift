@@ -15,6 +15,8 @@ import StandardNumericTypes
 ///
 /// Use `UInt4` to experiment with unsigned fixed-width integer behavior in a range small enough to inspect by hand. The type uses `UInt8` storage internally, but only the low four bits define its integer behavior.
 ///
+/// For example:
+///
 /// ```swift
 /// let value: UInt4 = 15
 ///
@@ -22,7 +24,9 @@ import StandardNumericTypes
 /// // Prints "15"
 /// ```
 ///
-/// Create `UInt4` values from integer literals, exact integer conversion, or decimal strings:
+/// Create `UInt4` values from integer literals, exact integer conversion, or decimal strings.
+///
+/// For example:
 ///
 /// ```swift
 /// let literal: UInt4 = 15
@@ -40,7 +44,9 @@ import StandardNumericTypes
 /// // Prints "nil"
 /// ```
 ///
-/// Use truncating initialization to keep only the low four bits of a source value:
+/// Use truncating initialization to keep only the low four bits of a source value.
+///
+/// For example:
 ///
 /// ```swift
 /// print(UInt4(truncatingIfNeeded: 15))
@@ -51,7 +57,9 @@ import StandardNumericTypes
 /// // Prints "1"
 /// ```
 ///
-/// `UInt4` supports whole-number arithmetic, comparison, bitwise operations, and fixed-width integer APIs:
+/// `UInt4` supports whole-number arithmetic, comparison, bitwise operations, and fixed-width integer APIs.
+///
+/// For example:
 ///
 /// ```swift
 /// let twelve: UInt4 = 12 // 1100
@@ -65,7 +73,9 @@ import StandardNumericTypes
 /// // Prints "6"
 /// ```
 ///
-/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped partial values:
+/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped partial values.
+///
+/// For example:
 ///
 /// ```swift
 /// let report = UInt4.max.addingReportingOverflow(1)
@@ -78,6 +88,8 @@ import StandardNumericTypes
 ///
 /// `UInt4` values encode and decode as JSON numbers.
 ///
+/// For example:
+///
 /// ```swift
 /// import Foundation
 ///
@@ -88,6 +100,10 @@ import StandardNumericTypes
 /// print(String(data: data, encoding: .utf8)!)
 /// // Prints "15"
 /// ```
+///
+/// The encoded value can be decoded from the same representation.
+///
+/// For example:
 ///
 /// ```swift
 /// import Foundation
@@ -333,11 +349,43 @@ extension UInt4: Decodable {
 // MARK: - Divisible
 
 extension UInt4: Divisible {
+    /// Returns the quotient of dividing the first specified value by the second.
+    ///
+    /// For example:
+    ///
+    /// ```swift
+    /// let dividend: UInt4 = 7
+    /// let divisor: UInt4 = 2
+    ///
+    /// print(dividend / divisor)
+    /// // Prints "3"
+    /// ```
+    ///
+    /// - Parameter lhs: The dividend.
+    /// - Parameter rhs: The divisor.
+    /// - Returns: The quotient.
+    /// - Precondition: `rhs` must not be zero.
     public static func / (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
 
+    /// Returns the remainder of dividing the first specified value by the second.
+    ///
+    /// For example:
+    ///
+    /// ```swift
+    /// let dividend: UInt4 = 7
+    /// let divisor: UInt4 = 2
+    ///
+    /// print(dividend % divisor)
+    /// // Prints "1"
+    /// ```
+    ///
+    /// - Parameter lhs: The dividend.
+    /// - Parameter rhs: The divisor.
+    /// - Returns: The remainder.
+    /// - Precondition: `rhs` must not be zero.
     public static func % (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)

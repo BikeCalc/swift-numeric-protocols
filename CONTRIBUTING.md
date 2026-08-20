@@ -99,7 +99,7 @@ Do not duplicate every test case in an issue unless each case represents a disti
 risk. When examples make a scenario easier to refine or verify, add them as a nested list beneath
 the scenario. Use nested checkboxes only when each case must be verified independently.
 
-For example:
+For example, document a testing scenario and its cases as follows:
 
 ```text
 - [ ] Prevent form submission when required information is invalid.
@@ -261,6 +261,26 @@ When adding argument-based tests, keep the existing conventions in mind:
 
 Public APIs should have clear documentation comments. User-facing concepts, tutorials, and guides
 should be documented with DocC in the `NumericsExtended.docc` catalog.
+
+Protocol and protocol-extension documentation should describe requirements and guarantees without
+Swift examples that assume a particular conforming type's behavior. Place examples only on public
+concrete types and their public declarations, where their results are guaranteed. Keep examples
+short and focused on illustrating ordinary usage; use tests instead for comprehensive cases and
+edge conditions. Introduce every example with `For example:` on its own documentation line. Print
+the demonstrated value and show the expected output with a `// Prints "..."` comment.
+
+For example, document a public declaration as follows:
+
+````text
+/// For example:
+///
+/// ```swift
+/// let value = 2 + 2
+///
+/// print(value)
+/// // Prints "4"
+/// ```
+````
 
 ### Commits
 

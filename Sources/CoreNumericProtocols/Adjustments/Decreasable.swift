@@ -18,13 +18,6 @@ public protocol Decreasable {
 extension Decreasable {
     /// Decreases this value by the specified percentage.
     ///
-    /// ```swift
-    /// var value: Double = 10
-    /// value.decrease(by: 10)
-    /// print(value)
-    /// // Prints "9"
-    /// ```
-    ///
     /// - Parameter percentage: The percentage to decrease this value by.
     public mutating func decrease(by percentage: Self) {
         self = self.decreasing(by: percentage)

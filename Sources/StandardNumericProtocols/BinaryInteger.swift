@@ -13,11 +13,6 @@ extension BinaryInteger
 where Self: Divisible & RepresentableByZero {
     /// Returns a boolean value indicating whether this value is divisible by the specified value.
     ///
-    /// ```swift
-    /// print(50.isDivisible(by: 0))
-    /// // Prints "false"
-    /// ```
-    ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is divisible by the specified value, and `false` otherwise.
     public func isDivisible(by other: Self) -> Bool {
@@ -33,10 +28,6 @@ extension BinaryInteger
 where Self: Divisible {
     /// A boolean value indicating whether this value is even.
     ///
-    /// ```swift
-    /// print(0.isEven)
-    /// // Prints "true"
-    /// ```
     public var isEven: Bool {
         let remainder: Self = self % 2
         return remainder == 0
@@ -44,10 +35,6 @@ where Self: Divisible {
 
     /// A boolean value indicating whether this value is odd.
     ///
-    /// ```swift
-    /// print(0.isOdd)
-    /// // Prints "false"
-    /// ```
     public var isOdd: Bool {
         let remainder: Self = self % 2
         return remainder != 0
@@ -72,11 +59,6 @@ where Self: Multipliable {
 extension BinaryInteger
 where Self: Divisible & Raisable {
     /// Returns a boolean value indicating whether this value is a power of the specified value.
-    ///
-    /// ```swift
-    /// print(100.isPower(of: 10))
-    /// // Prints "true"
-    /// ```
     ///
     /// A value is a power of a base when repeatedly multiplying the base produces that value. An exponent of zero makes `1` a power of every base.
     ///
@@ -110,11 +92,6 @@ where Self: Divisible & Raisable {
 extension BinaryInteger
 where Self: Divisible & Negateable & Raisable {
     /// Returns a boolean value indicating whether this value is a power of the specified value.
-    ///
-    /// ```swift
-    /// print(100.isPower(of: 10))
-    /// // Prints "true"
-    /// ```
     ///
     /// A value is a power of a base when repeatedly multiplying the base produces that value. An exponent of zero makes `1` a power of every base.
     ///
@@ -154,11 +131,6 @@ where Self: Divisible & Negateable & Raisable {
 extension BinaryInteger
 where Self: Raisable, Self.Exponent: BinaryInteger {
     /// Returns the power of raising the first specified value to the second.
-    ///
-    /// ```swift
-    /// print(2 ** 3)
-    /// // Prints "8"
-    /// ```
     ///
     /// A negative exponent returns `0` for every base except `1` and `-1` because integer division discards the fractional part. Powers of `1` and `-1` remain exactly representable.
     ///
