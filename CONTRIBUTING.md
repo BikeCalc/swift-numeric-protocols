@@ -99,7 +99,7 @@ Do not duplicate every test case in an issue unless each case represents a disti
 risk. When examples make a scenario easier to refine or verify, add them as a nested list beneath
 the scenario. Use nested checkboxes only when each case must be verified independently.
 
-For example:
+For example, document a testing scenario and its cases as follows:
 
 ```text
 - [ ] Prevent form submission when required information is invalid.
@@ -213,6 +213,36 @@ For Swift source files the code header should look like this:
 Avoid importing Foundation unless it is required. When Foundation is only needed for a specific
 platform or feature, prefer wrapping the import with `#if canImport(Foundation)`.
 
+Indent Swift source code with four spaces per level. Do not use tabs for indentation.
+
+#### Declaration Order
+
+Organize declarations by their role and relationship rather than alphabetically or by access
+level. Use the following order as a baseline, but keep closely related declarations, overloads,
+and paired operations together when that makes the API easier to understand. Within each
+category, place fundamental behavior before convenience behavior.
+
+Within a concrete type, use the following order when applicable:
+
+1. Enumeration cases
+2. Type aliases
+3. Nested types
+4. Stored instance properties
+5. Initializers
+6. Deinitializers
+7. Computed instance properties
+8. Type properties
+9. Instance subscripts
+10. Type subscripts
+11. Instance functions
+12. Type functions and operators
+
+Apply the same relative order to protocols and extensions, omitting categories that do not apply.
+Protocols place associated types alongside type aliases at the beginning. Order
+protocol-conformance extensions alphabetically by protocol name, and follow the applicable
+declaration order within each extension while keeping related requirements and implementations
+together.
+
 ### Unit Tests
 
 Changes to numeric behavior should include tests. New tests should use Swift Testing. Do not add
@@ -232,6 +262,26 @@ When adding argument-based tests, keep the existing conventions in mind:
 Public APIs should have clear documentation comments. User-facing concepts, tutorials, and guides
 should be documented with DocC in the `NumericsExtended.docc` catalog.
 
+Protocol and protocol-extension documentation should describe requirements and guarantees without
+Swift examples that assume a particular conforming type's behavior. Place examples only on public
+concrete types and their public declarations, where their results are guaranteed. Keep examples
+short and focused on illustrating ordinary usage; use tests instead for comprehensive cases and
+edge conditions. Introduce every example with `For example:` on its own documentation line. Print
+the demonstrated value and show the expected output with a `// Prints "..."` comment.
+
+For example, document a public declaration as follows:
+
+````text
+/// For example:
+///
+/// ```swift
+/// let value = 2 + 2
+///
+/// print(value)
+/// // Prints "4"
+/// ```
+````
+
 ### Commits
 
 Commit messages should follow [Conventional Commits](https://www.conventionalcommits.org/).
@@ -242,11 +292,23 @@ Use the form:
 <type>[optional scope]: <description>
 ```
 
+When a scope is included, enclose it in parentheses. Append `!` after the type or scope to indicate
+a breaking change.
+
+Allowed types are `fix`, `feat`, `build`, `chore`, `ci`, `docs`, `style`, `refactor`, `perf`, and
+`test`.
+
 ### Pull Requests
 
 When creating a pull request, use the pull request template. Briefly explain its outcome in the
 Overview section and summarize reviewer-relevant additions, updates, and removals in the Changes
 section without restating the issue or describing line-by-line implementation details.
+
+Use the Conventional Commit form described above for the pull request title:
+
+```text
+<type>[optional scope]: <description>
+```
 
 Link the pull request to its issue in GitHub. Configured workflows run automatically, and their
 results appear on the pull request, so do not repeat them in its description.

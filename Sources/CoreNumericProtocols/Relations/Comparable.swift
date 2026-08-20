@@ -41,12 +41,6 @@ extension Comparable {
 
     /// Returns a boolean value indicating whether this value is within a specified closed range.
     ///
-    /// ```swift
-    /// let number: Int = 2
-    /// print(number.isWithin(1...3))
-    /// // Prints "true"
-    /// ```
-    ///
     /// - Parameter closedRange: An interval from a lower bound up to, and including, an upper bound.
     /// - Returns: A boolean value.
     public func isWithin(_ closedRange: ClosedRange<Self>) -> Bool {
@@ -54,12 +48,6 @@ extension Comparable {
     }
 
     /// Returns a boolean value indicating whether this value is within two specified values.
-    ///
-    /// ```swift
-    /// let number: Int = 2
-    /// print(number.isWithin(1, through: 3))
-    /// // Prints "true"
-    /// ```
     ///
     /// - Parameter lowerBound: The lower bound value.
     /// - Parameter upperBound: The upper bound value.
@@ -77,12 +65,6 @@ extension Comparable {
     }
 
     /// Returns a boolean value indicating whether this value is between two specified values.
-    ///
-    /// ```swift
-    /// let number: Int = 2
-    /// print(number.isBetween(1, and: 3))
-    /// // Prints "true"
-    /// ```
     ///
     /// - Parameter lowerBound: The lower bound value.
     /// - Parameter upperBound: The upper bound value.

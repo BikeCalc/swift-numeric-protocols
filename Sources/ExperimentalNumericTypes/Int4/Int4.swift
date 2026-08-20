@@ -15,6 +15,8 @@ import StandardNumericTypes
 ///
 /// Use `Int4` to experiment with signed fixed-width integer behavior in a range small enough to inspect by hand. The type uses `Int8` storage internally, but only the low four bits define its integer behavior. Those four bits are interpreted with two's-complement signed integer rules.
 ///
+/// For example:
+///
 /// ```swift
 /// let value: Int4 = -8
 ///
@@ -22,7 +24,9 @@ import StandardNumericTypes
 /// // Prints "-8"
 /// ```
 ///
-/// Create `Int4` values from integer literals, exact integer conversion, or decimal strings:
+/// Create `Int4` values from integer literals, exact integer conversion, or decimal strings.
+///
+/// For example:
 ///
 /// ```swift
 /// let literal: Int4 = -8
@@ -40,7 +44,9 @@ import StandardNumericTypes
 /// // Prints "nil"
 /// ```
 ///
-/// Use truncating initialization to keep only the low four bits of a source value and interpret them as a signed value:
+/// Use truncating initialization to keep only the low four bits of a source value and interpret them as a signed value.
+///
+/// For example:
 ///
 /// ```swift
 /// print(Int4(truncatingIfNeeded: 7))
@@ -51,7 +57,9 @@ import StandardNumericTypes
 /// // Prints "-1"
 /// ```
 ///
-/// `Int4` supports whole-number arithmetic, comparison, bitwise operations, and fixed-width integer APIs:
+/// `Int4` supports whole-number arithmetic, comparison, bitwise operations, and fixed-width integer APIs.
+///
+/// For example:
 ///
 /// ```swift
 /// let value: Int4 = -1 // 1111
@@ -61,7 +69,9 @@ import StandardNumericTypes
 /// // Prints "3"
 /// ```
 ///
-/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped partial values:
+/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped partial values.
+///
+/// For example:
 ///
 /// ```swift
 /// let report = Int4.max.addingReportingOverflow(1)
@@ -72,7 +82,9 @@ import StandardNumericTypes
 /// // Prints "true"
 /// ```
 ///
-/// `Int4.Magnitude` is `UInt4`, so the magnitude of `Int4.min` can still be represented:
+/// `Int4.Magnitude` is `UInt4`, so the magnitude of `Int4.min` can still be represented.
+///
+/// For example:
 ///
 /// ```swift
 /// print(Int4.min.magnitude)
@@ -80,6 +92,8 @@ import StandardNumericTypes
 /// ```
 ///
 /// `Int4` values encode and decode as JSON numbers.
+///
+/// For example:
 ///
 /// ```swift
 /// import Foundation
@@ -91,6 +105,10 @@ import StandardNumericTypes
 /// print(String(data: data, encoding: .utf8)!)
 /// // Prints "-8"
 /// ```
+///
+/// The encoded value can be decoded from the same representation.
+///
+/// For example:
 ///
 /// ```swift
 /// import Foundation
@@ -124,11 +142,6 @@ public struct Int4 {
         self.value = value
     }
 
-    /// The unsigned low four bits of this value.
-    private var bitPattern: UInt8 {
-        return .init(bitPattern: self.value) & 0b1111
-    }
-
     /// Creates a value by interpreting the low four bits as two's-complement.
     ///
     /// - Parameter bits: The bits to interpret.
@@ -142,6 +155,11 @@ public struct Int4 {
         }
 
         self.init(value: value)
+    }
+
+    /// The unsigned low four bits of this value.
+    private var bitPattern: UInt8 {
+        return .init(bitPattern: self.value) & 0b1111
     }
 }
 
@@ -259,20 +277,6 @@ extension Int4: BinaryInteger {
         }
     }
 
-    /// The machine-word representation of this value.
-    public var words: Self.Words {
-        return .init(.init(bitPattern: .init(self.value)))
-    }
-
-    /// The number of trailing zeros in this value's 4-bit binary representation.
-    public var trailingZeroBitCount: Int {
-        guard self != 0 else {
-            return Self.bitWidth
-        }
-
-        return self.bitPattern.trailingZeroBitCount
-    }
-
     /// Creates a new instance from the specified integer.
     ///
     /// - Parameter source: The value to use for the new instance.
@@ -285,6 +289,20 @@ extension Int4: BinaryInteger {
         }
 
         self.init(value: value)
+    }
+
+    /// The machine-word representation of this value.
+    public var words: Self.Words {
+        return .init(.init(bitPattern: .init(self.value)))
+    }
+
+    /// The number of trailing zeros in this value's 4-bit binary representation.
+    public var trailingZeroBitCount: Int {
+        guard self != 0 else {
+            return Self.bitWidth
+        }
+
+        return self.bitPattern.trailingZeroBitCount
     }
 
     /// Stores the bitwise AND of the two specified values in the left-hand-side variable.
@@ -356,11 +374,43 @@ extension Int4: Decodable {
 // MARK: - Divisible
 
 extension Int4: Divisible {
+    /// Returns the quotient of dividing the first specified value by the second.
+    ///
+    /// For example:
+    ///
+    /// ```swift
+    /// let dividend: Int4 = 7
+    /// let divisor: Int4 = 2
+    ///
+    /// print(dividend / divisor)
+    /// // Prints "3"
+    /// ```
+    ///
+    /// - Parameter lhs: The dividend.
+    /// - Parameter rhs: The divisor.
+    /// - Returns: The quotient.
+    /// - Precondition: `rhs` must not be zero and the quotient must be representable as `Int4`.
     public static func / (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
 
+    /// Returns the remainder of dividing the first specified value by the second.
+    ///
+    /// For example:
+    ///
+    /// ```swift
+    /// let dividend: Int4 = 7
+    /// let divisor: Int4 = 2
+    ///
+    /// print(dividend % divisor)
+    /// // Prints "1"
+    /// ```
+    ///
+    /// - Parameter lhs: The dividend.
+    /// - Parameter rhs: The divisor.
+    /// - Returns: The remainder.
+    /// - Precondition: `rhs` must not be zero and the operation must not overflow.
     public static func % (_ lhs: Self, _ rhs: Self) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)
@@ -409,34 +459,6 @@ extension Int4: ExpressibleByIntegerLiteral {
 // MARK: - FixedWidthInteger
 
 extension Int4: FixedWidthInteger {
-    public static var bitWidth: Int {
-        return 4
-    }
-
-    public static var isSigned: Bool {
-        return true
-    }
-
-    public var nonzeroBitCount: Int {
-        return self.bitPattern.nonzeroBitCount
-    }
-
-    public var leadingZeroBitCount: Int {
-        guard self.value >= 0 else {
-            return 0
-        }
-
-        guard self != 0 else {
-            return Self.bitWidth
-        }
-
-        return Self.bitWidth - self.bitPattern.bitWidth + self.bitPattern.leadingZeroBitCount
-    }
-
-    public var byteSwapped: Self {
-        return self
-    }
-
     public init<T>(truncatingIfNeeded source: T)
     where T: BinaryInteger {
         let bits: UInt8 = .init(truncatingIfNeeded: source)
@@ -461,6 +483,34 @@ extension Int4: FixedWidthInteger {
         } else {
             self.init(value: value)
         }
+    }
+
+    public var nonzeroBitCount: Int {
+        return self.bitPattern.nonzeroBitCount
+    }
+
+    public var leadingZeroBitCount: Int {
+        guard self.value >= 0 else {
+            return 0
+        }
+
+        guard self != 0 else {
+            return Self.bitWidth
+        }
+
+        return Self.bitWidth - self.bitPattern.bitWidth + self.bitPattern.leadingZeroBitCount
+    }
+
+    public var byteSwapped: Self {
+        return self
+    }
+
+    public static var bitWidth: Int {
+        return 4
+    }
+
+    public static var isSigned: Bool {
+        return true
     }
 
     /// Returns the full-width product of this value and another value.

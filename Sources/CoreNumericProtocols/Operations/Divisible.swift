@@ -68,11 +68,6 @@ extension Divisible {
 
     /// Returns the quotient of dividing this value by the specified value.
     ///
-    /// ```swift
-    /// print(6.dividing(by: 2))
-    /// // Prints "3"
-    /// ```
-    ///
     /// - Parameter divisor: The divisor.
     /// - Returns: The quotient.
     public func dividing(by divisor: Self) -> Self {
@@ -80,13 +75,6 @@ extension Divisible {
     }
 
     /// Divides this value by the specified value.
-    ///
-    /// ```swift
-    /// var number: Double = 6
-    /// number.divide(by: 2)
-    /// print(number)
-    /// // Prints "3"
-    /// ```
     ///
     /// - Parameter divisor: The divisor.
     public mutating func divide(by divisor: Self) {

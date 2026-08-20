@@ -13,11 +13,6 @@ extension BinaryInteger
 where Self: Divisible & RepresentableByZero {
     /// Returns a boolean value indicating whether this value is divisible by the specified value.
     ///
-    /// ```swift
-    /// print(50.isDivisible(by: 0))
-    /// // Prints "false"
-    /// ```
-    ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is divisible by the specified value, and `false` otherwise.
     public func isDivisible(by other: Self) -> Bool {
@@ -33,10 +28,6 @@ extension BinaryInteger
 where Self: Divisible {
     /// A boolean value indicating whether this value is even.
     ///
-    /// ```swift
-    /// print(0.isEven)
-    /// // Prints "true"
-    /// ```
     public var isEven: Bool {
         let remainder: Self = self % 2
         return remainder == 0
@@ -44,10 +35,6 @@ where Self: Divisible {
 
     /// A boolean value indicating whether this value is odd.
     ///
-    /// ```swift
-    /// print(0.isOdd)
-    /// // Prints "false"
-    /// ```
     public var isOdd: Bool {
         let remainder: Self = self % 2
         return remainder != 0
@@ -73,10 +60,7 @@ extension BinaryInteger
 where Self: Divisible & Raisable {
     /// Returns a boolean value indicating whether this value is a power of the specified value.
     ///
-    /// ```swift
-    /// print(100.isPower(of: 10))
-    /// // Prints "true"
-    /// ```
+    /// A value is a power of a base when repeatedly multiplying the base produces that value. An exponent of zero makes `1` a power of every base.
     ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
@@ -89,6 +73,7 @@ where Self: Divisible & Raisable {
         default:
             var number: Self = self
 
+            // Remove one factor of the base at a time until reaching one or finding a remainder.
             while number > 1 && number.isDivisible(by: other) {
                 let quotient: Self = number / other
 
@@ -108,10 +93,7 @@ extension BinaryInteger
 where Self: Divisible & Negateable & Raisable {
     /// Returns a boolean value indicating whether this value is a power of the specified value.
     ///
-    /// ```swift
-    /// print(100.isPower(of: 10))
-    /// // Prints "true"
-    /// ```
+    /// A value is a power of a base when repeatedly multiplying the base produces that value. An exponent of zero makes `1` a power of every base.
     ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
@@ -126,6 +108,7 @@ where Self: Divisible & Negateable & Raisable {
         default:
             var number: Self = self
 
+            // Remove one factor of the base at a time until reaching one or finding a remainder.
             while number.isDivisible(by: other) {
                 let quotient: Self = number / other
 
@@ -149,18 +132,26 @@ extension BinaryInteger
 where Self: Raisable, Self.Exponent: BinaryInteger {
     /// Returns the power of raising the first specified value to the second.
     ///
-    /// ```swift
-    /// print(2 ** 3)
-    /// // Prints "8"
-    /// ```
+    /// A negative exponent returns `0` for every base except `1` and `-1` because integer division discards the fractional part. Powers of `1` and `-1` remain exactly representable.
     ///
     /// - Parameter lhs: The base.
     /// - Parameter rhs: The exponent.
+    /// - Precondition: The base must not be zero when the exponent is negative.
     /// - Returns: The power.
     public static func ** (_ lhs: Self, _ rhs: Self.Exponent) -> Self {
         switch rhs {
         case ..<0:
-            return 0
+            precondition(
+                lhs != 0,
+                "Zero cannot be raised to a negative exponent."
+            )
+
+            // Every reciprocal other than one or negative one truncates to zero.
+            guard lhs.magnitude == 1 else {
+                return 0
+            }
+
+            return lhs == 1 || rhs.isMultiple(of: 2) ? 1 : lhs
         case 0:
             return 1
         case 1:

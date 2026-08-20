@@ -13,8 +13,16 @@ import Testing
 internal struct Int4RaisableTests {
     private static let exponentiationArguments: [(Int4, Int4.Exponent, Int4)] = [
         (2, 2, 4),
+        (2, -2, 0),
+        (2, -3, 0),
         (-2, 2, 4),
-        (-2, 3, -8)
+        (-2, 3, -8),
+        (-2, -2, 0),
+        (-2, -3, 0),
+        (1, -2, 1),
+        (1, -3, 1),
+        (-1, -2, 1),
+        (-1, -3, -1)
     ]
 
     private static let squaringArguments: [(Int4, Int4)] = [
@@ -147,8 +155,29 @@ internal struct Int4RaisableTests {
 
 extension Int4RaisableTests {
     @Test(
+        "Raising to zero returns one",
+        arguments: [
+            0,
+            -0,
+            1,
+            -1,
+            2,
+            3,
+            -2,
+            -3
+        ] as Array<Int4>
+    )
+    internal func raisingToZeroReturnsOne(base: Int4) {
+        #expect(base ** 0 == 1)
+    }
+
+    @Test(
         "Raising to one preserves base",
         arguments: [
+            0,
+            -0,
+            1,
+            -1,
             2,
             3,
             -2,
@@ -165,7 +194,9 @@ extension Int4RaisableTests {
             0,
             1,
             2,
-            3
+            3,
+            -2,
+            -3
         ] as Array<Int4.Exponent>
     )
     internal func oneBaseExponentiationReturnsOne(exponent: Int4.Exponent) {
@@ -208,7 +239,9 @@ extension Int4RaisableTests {
             (0, 1),
             (1, -1),
             (2, 1),
-            (3, -1)
+            (3, -1),
+            (-2, 1),
+            (-3, -1)
         ] as Array<(Int4.Exponent, Int4)>
     )
     internal func negativeOneBaseExponentiationFollowsParityRule(
@@ -252,8 +285,8 @@ extension Int4RaisableTests {
     @Test(
         "Exponentiation is not commutative",
         arguments: [
-            (2, -2),
-            (-2, 3)
+            (-2, 3),
+            (2, -2)
         ] as Array<(Int4, Int4.Exponent)>
     )
     internal func exponentiationIsNotCommutative(
@@ -324,8 +357,8 @@ extension Int4RaisableTests {
             (-0, 0, 1),
             (0, 1, 0),
             (-0, 1, 0),
-            (0, -1, 0),
-            (-0, -1, 0)
+            (0, 2, 0),
+            (-0, 2, 0)
         ] as Array<(Int4, Int4.Exponent, Int4)>
     )
     internal func zeroBaseExponentiationFollowsIntegerRules(

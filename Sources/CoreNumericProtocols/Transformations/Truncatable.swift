@@ -13,7 +13,7 @@ public protocol Truncatable {
 
     /// Returns this instance truncated to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native binary floating-point representation. Values that cannot be represented exactly in binary may produce results that differ from exact decimal arithmetic.
+    /// This operation uses the conforming type's native representation. Values that cannot represent decimal fractions exactly may produce results that differ from exact decimal arithmetic.
     ///
     /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance truncated.
@@ -23,14 +23,7 @@ public protocol Truncatable {
 extension Truncatable {
     /// Truncates this instance to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native binary floating-point representation. Values that cannot be represented exactly in binary may produce results that differ from exact decimal arithmetic.
-    ///
-    /// ```swift
-    /// var number: Float = 1.2345
-    /// number.truncate(to: 2)
-    /// print(number)
-    /// // Prints "1.23"
-    /// ```
+    /// This operation uses the conforming type's native representation. Values that cannot represent decimal fractions exactly may produce results that differ from exact decimal arithmetic.
     ///
     /// - Parameter decimalPlace: The number of decimal places.
     public mutating func truncate(to decimalPlace: Self.DecimalPlace) {

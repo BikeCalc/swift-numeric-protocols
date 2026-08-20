@@ -14,12 +14,24 @@ internal struct DoubleRaisableTests {
     private static let exponentiationArguments: [(Double, Double.Exponent, Double)] = [
         (2.0, 2, 4.0),
         (2.0, 3, 8.0),
+        (2.0, -2, 0.25),
+        (2.0, -3, 0.125),
         (-2.0, 2, 4.0),
         (-2.0, 3, -8.0),
+        (-2.0, -2, 0.25),
+        (-2.0, -3, -0.125),
+        (1.0, -2, 1.0),
+        (1.0, -3, 1.0),
+        (-1.0, -2, 1.0),
+        (-1.0, -3, -1.0),
         (0.5, 2, 0.25),
         (0.5, 3, 0.125),
+        (0.5, -2, 4.0),
+        (0.5, -3, 8.0),
         (-0.5, 2, 0.25),
-        (-0.5, 3, -0.125)
+        (-0.5, 3, -0.125),
+        (-0.5, -2, 4.0),
+        (-0.5, -3, -8.0)
     ]
 
     private static let squaringArguments: [(Double, Double)] = [
@@ -50,7 +62,11 @@ internal struct DoubleRaisableTests {
             (4.0, 2.0, true),
             (6.0, 2.0, false),
             (8.0, 2.0, true),
-            (9.0, 2.0, false)
+            (9.0, 2.0, false),
+            (0.25, 2.0, true),
+            (4.0, 0.5, true),
+            (-0.125, -2.0, true),
+            (0.2, 2.0, false)
         ]
     )
     internal func isPowerOf(
@@ -166,8 +182,33 @@ internal struct DoubleRaisableTests {
 
 extension DoubleRaisableTests {
     @Test(
+        "Raising to zero returns one",
+        arguments: [
+            0.0,
+            -0.0,
+            1.0,
+            -1.0,
+            2.0,
+            3.0,
+            -2.0,
+            -3.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
+        ]
+    )
+    internal func raisingToZeroReturnsOne(base: Double) {
+        #expect(base ** 0 == 1.0)
+    }
+
+    @Test(
         "Raising to one preserves base",
         arguments: [
+            0.0,
+            -0.0,
+            1.0,
+            -1.0,
             2.0,
             3.0,
             -2.0,
@@ -188,7 +229,9 @@ extension DoubleRaisableTests {
             0,
             1,
             2,
-            3
+            3,
+            -2,
+            -3
         ]
     )
     internal func oneBaseExponentiationReturnsOne(exponent: Double.Exponent) {
@@ -231,7 +274,9 @@ extension DoubleRaisableTests {
             (0, 1.0),
             (1, -1.0),
             (2, 1.0),
-            (3, -1.0)
+            (3, -1.0),
+            (-2, 1.0),
+            (-3, -1.0)
         ]
     )
     internal func negativeOneBaseExponentiationFollowsParityRule(
@@ -309,6 +354,7 @@ extension DoubleRaisableTests {
         arguments: [
             (2.0, 3),
             (3.0, 2),
+            (-2.0, 3),
             (0.5, 2),
             (2.0, -2)
         ]
@@ -332,7 +378,9 @@ extension DoubleRaisableTests {
             (0.0, true),
             (-0.0, true),
             (1.0, true),
-            (2.0, false)
+            (2.0, false),
+            (Double.infinity, true),
+            (Double.negativeInfinity, false)
         ]
     )
     internal func zeroBasePowerPredicateFollowsFloatingPointRules(
@@ -343,10 +391,72 @@ extension DoubleRaisableTests {
     }
 
     @Test(
+        "Negative zero base power predicate follows floating-point rules",
+        arguments: [
+            (0.0, true),
+            (-0.0, true),
+            (1.0, true),
+            (2.0, false),
+            (Double.infinity, true),
+            (Double.negativeInfinity, true)
+        ]
+    )
+    internal func negativeZeroBasePowerPredicateFollowsFloatingPointRules(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: -0.0) == result)
+    }
+
+    @Test(
+        "Positive infinity base power predicate follows floating-point rules",
+        arguments: [
+            (0.0, true),
+            (-0.0, true),
+            (1.0, true),
+            (2.0, false),
+            (Double.infinity, true),
+            (Double.negativeInfinity, false)
+        ]
+    )
+    internal func positiveInfinityBasePowerPredicateFollowsFloatingPointRules(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: Double.infinity) == result)
+    }
+
+    @Test(
+        "Negative infinity base power predicate follows floating-point rules",
+        arguments: [
+            (0.0, true),
+            (-0.0, true),
+            (1.0, true),
+            (2.0, false),
+            (Double.infinity, true),
+            (Double.negativeInfinity, true)
+        ]
+    )
+    internal func negativeInfinityBasePowerPredicateFollowsFloatingPointRules(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: Double.negativeInfinity) == result)
+    }
+
+    @Test("NaN power predicate follows floating-point rules")
+    internal func nanPowerPredicateFollowsFloatingPointRules() {
+        #expect(1.0.isPower(of: Double.nan))
+        #expect(2.0.isPower(of: Double.nan) == false)
+        #expect(Double.nan.isPower(of: 2.0) == false)
+    }
+
+    @Test(
         "Zero base exponentiation follows floating-point rules",
         arguments: [
             (0.0, 0, 1.0),
             (0.0, 1, 0.0),
+            (0.0, 2, 0.0),
             (0.0, -1, Double.infinity)
         ]
     )
@@ -396,9 +506,9 @@ extension DoubleRaisableTests {
     @Test(
         "NaN raised to nonzero exponent returns NaN",
         arguments: [
-            (Double.nan, -1),
             (Double.nan, 1),
-            (Double.nan, 2)
+            (Double.nan, 2),
+            (Double.nan, -1)
         ]
     )
     internal func nanRaisedToNonzeroExponentReturnsNaN(

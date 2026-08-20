@@ -182,13 +182,6 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
 extension RomanSymbol: Comparable {
     /// Returns a boolean value indicating whether the value of the first argument is less than that of the second argument.
     ///
-    /// ```swift
-    /// let zero: RomanSymbol = .N
-    /// let one: RomanSymbol = .I
-    /// print(zero < one)
-    /// // Prints "true"
-    /// ```
-    ///
     /// - Parameter lhs: A value to compare.
     /// - Parameter rhs: Another value to compare.
     /// - Returns: `true` if lhs is smaller, and `false` otherwise.

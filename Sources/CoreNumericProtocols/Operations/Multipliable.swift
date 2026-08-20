@@ -33,11 +33,6 @@ extension Multipliable {
 
     /// Returns the product of multiplying this value by the specified value.
     ///
-    /// ```swift
-    /// print(2.multiplying(by: 3))
-    /// // Prints "6"
-    /// ```
-    ///
     /// - Parameter multiplier: The multiplier.
     /// - Returns: The product.
     public func multiplying(by multiplier: Self) -> Self {
@@ -45,13 +40,6 @@ extension Multipliable {
     }
 
     /// Multiplies this value by the specified value.
-    ///
-    /// ```swift
-    /// var number: Double = 2
-    /// number.multiply(by: 3)
-    /// print(number)
-    /// // Prints "6"
-    /// ```
     ///
     /// - Parameter multiplier: The multiplier.
     public mutating func multiply(by multiplier: Self) {

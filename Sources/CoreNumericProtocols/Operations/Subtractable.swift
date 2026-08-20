@@ -27,11 +27,6 @@ extension Subtractable {
 
     /// Returns the difference of this value and the specified value.
     ///
-    /// ```swift
-    /// print(6.subtracting(4))
-    /// // Prints "2"
-    /// ```
-    ///
     /// - Parameter subtrahend: The subtrahend.
     /// - Returns: The difference.
     public func subtracting(_ subtrahend: Self) -> Self {
@@ -39,13 +34,6 @@ extension Subtractable {
     }
 
     /// Subtracts the specified value from this value.
-    ///
-    /// ```swift
-    /// var number: Double = 6
-    /// number.subtract(4)
-    /// print(number)
-    /// // Prints "2"
-    /// ```
     ///
     /// - Parameter subtrahend: The subtrahend.
     public mutating func subtract(_ subtrahend: Self) {

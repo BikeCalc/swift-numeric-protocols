@@ -11,6 +11,8 @@ extension StringProtocol {
     ///
     /// This property recognizes both root symbols, such as `I`, `V`, and `X`, and compound subtractive symbols, such as `IV`, `IX`, and `CM`.
     ///
+    /// For example:
+    ///
     /// ```swift
     /// print("X".isRomanSymbol)
     /// // Prints "true"
@@ -32,6 +34,8 @@ extension StringProtocol {
     /// A boolean value indicating whether this instance is a canonical Roman numeral.
     ///
     /// This property accepts `N` as zero and canonical Roman numerals from `I` through `MMMCMXCIX`.
+    ///
+    /// For example:
     ///
     /// ```swift
     /// print("MMXXVI".isRomanNumeral)
