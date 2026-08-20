@@ -259,20 +259,6 @@ extension Int4: BinaryInteger {
         }
     }
 
-    /// The machine-word representation of this value.
-    public var words: Self.Words {
-        return .init(.init(bitPattern: .init(self.value)))
-    }
-
-    /// The number of trailing zeros in this value's 4-bit binary representation.
-    public var trailingZeroBitCount: Int {
-        guard self != 0 else {
-            return Self.bitWidth
-        }
-
-        return self.bitPattern.trailingZeroBitCount
-    }
-
     /// Creates a new instance from the specified integer.
     ///
     /// - Parameter source: The value to use for the new instance.
@@ -285,6 +271,20 @@ extension Int4: BinaryInteger {
         }
 
         self.init(value: value)
+    }
+
+    /// The machine-word representation of this value.
+    public var words: Self.Words {
+        return .init(.init(bitPattern: .init(self.value)))
+    }
+
+    /// The number of trailing zeros in this value's 4-bit binary representation.
+    public var trailingZeroBitCount: Int {
+        guard self != 0 else {
+            return Self.bitWidth
+        }
+
+        return self.bitPattern.trailingZeroBitCount
     }
 
     /// Stores the bitwise AND of the two specified values in the left-hand-side variable.
@@ -409,34 +409,6 @@ extension Int4: ExpressibleByIntegerLiteral {
 // MARK: - FixedWidthInteger
 
 extension Int4: FixedWidthInteger {
-    public static var bitWidth: Int {
-        return 4
-    }
-
-    public static var isSigned: Bool {
-        return true
-    }
-
-    public var nonzeroBitCount: Int {
-        return self.bitPattern.nonzeroBitCount
-    }
-
-    public var leadingZeroBitCount: Int {
-        guard self.value >= 0 else {
-            return 0
-        }
-
-        guard self != 0 else {
-            return Self.bitWidth
-        }
-
-        return Self.bitWidth - self.bitPattern.bitWidth + self.bitPattern.leadingZeroBitCount
-    }
-
-    public var byteSwapped: Self {
-        return self
-    }
-
     public init<T>(truncatingIfNeeded source: T)
     where T: BinaryInteger {
         let bits: UInt8 = .init(truncatingIfNeeded: source)
@@ -461,6 +433,34 @@ extension Int4: FixedWidthInteger {
         } else {
             self.init(value: value)
         }
+    }
+
+    public var nonzeroBitCount: Int {
+        return self.bitPattern.nonzeroBitCount
+    }
+
+    public var leadingZeroBitCount: Int {
+        guard self.value >= 0 else {
+            return 0
+        }
+
+        guard self != 0 else {
+            return Self.bitWidth
+        }
+
+        return Self.bitWidth - self.bitPattern.bitWidth + self.bitPattern.leadingZeroBitCount
+    }
+
+    public var byteSwapped: Self {
+        return self
+    }
+
+    public static var bitWidth: Int {
+        return 4
+    }
+
+    public static var isSigned: Bool {
+        return true
     }
 
     /// Returns the full-width product of this value and another value.

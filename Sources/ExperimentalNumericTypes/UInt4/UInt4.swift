@@ -236,20 +236,6 @@ extension UInt4: BinaryInteger {
         }
     }
 
-    /// The machine-word representation of this value.
-    public var words: Self.Words {
-        return .init(.init(self.value))
-    }
-
-    /// The number of trailing zeros in this value's 4-bit binary representation.
-    public var trailingZeroBitCount: Int {
-        guard self != 0 else {
-            return Self.bitWidth
-        }
-
-        return self.value.trailingZeroBitCount
-    }
-
     /// Creates a new instance from the specified integer.
     ///
     /// - Parameter source: The value to use for the new instance.
@@ -262,6 +248,20 @@ extension UInt4: BinaryInteger {
         }
 
         self.init(value: value)
+    }
+
+    /// The machine-word representation of this value.
+    public var words: Self.Words {
+        return .init(.init(self.value))
+    }
+
+    /// The number of trailing zeros in this value's 4-bit binary representation.
+    public var trailingZeroBitCount: Int {
+        guard self != 0 else {
+            return Self.bitWidth
+        }
+
+        return self.value.trailingZeroBitCount
     }
 
     /// Stores the bitwise AND of the two specified values in the left-hand-side variable.
@@ -386,37 +386,6 @@ extension UInt4: ExpressibleByIntegerLiteral {
 // MARK: - FixedWidthInteger
 
 extension UInt4: FixedWidthInteger {
-    /// The number of bits used to represent a `UInt4` value.
-    public static var bitWidth: Int {
-        return 4
-    }
-
-    /// A boolean value indicating whether this type is signed.
-    public static var isSigned: Bool {
-        return false
-    }
-
-    /// The number of nonzero bits in this value's 4-bit binary representation.
-    public var nonzeroBitCount: Int {
-        return (self.value & 0b1111).nonzeroBitCount
-    }
-
-    /// The number of leading zeros in this value's 4-bit binary representation.
-    public var leadingZeroBitCount: Int {
-        guard self != 0 else {
-            return Self.bitWidth
-        }
-
-        return Self.bitWidth - self.value.bitWidth + self.value.leadingZeroBitCount
-    }
-
-    /// The byte-swapped representation of this value.
-    ///
-    /// Byte swapping is a no-op because `UInt4` is smaller than one byte.
-    public var byteSwapped: Self {
-        return self
-    }
-
     /// Creates a new instance by keeping the low four bits of the specified value.
     ///
     /// - Parameter source: The value whose low four bits are used.
@@ -451,6 +420,37 @@ extension UInt4: FixedWidthInteger {
         } else {
             self.init(value: value)
         }
+    }
+
+    /// The number of nonzero bits in this value's 4-bit binary representation.
+    public var nonzeroBitCount: Int {
+        return (self.value & 0b1111).nonzeroBitCount
+    }
+
+    /// The number of leading zeros in this value's 4-bit binary representation.
+    public var leadingZeroBitCount: Int {
+        guard self != 0 else {
+            return Self.bitWidth
+        }
+
+        return Self.bitWidth - self.value.bitWidth + self.value.leadingZeroBitCount
+    }
+
+    /// The byte-swapped representation of this value.
+    ///
+    /// Byte swapping is a no-op because `UInt4` is smaller than one byte.
+    public var byteSwapped: Self {
+        return self
+    }
+
+    /// The number of bits used to represent a `UInt4` value.
+    public static var bitWidth: Int {
+        return 4
+    }
+
+    /// A boolean value indicating whether this type is signed.
+    public static var isSigned: Bool {
+        return false
     }
 
     /// Returns the full-width product of this value and another value.
