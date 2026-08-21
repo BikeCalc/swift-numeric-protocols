@@ -66,6 +66,7 @@ The package is exposed through a public umbrella module. Import `NumericsExtende
 ### Experimental Numeric Protocols
 
 - ``Rational``
+- ``SymbolicInteger``
 
 ### Experimental Numeric Types
 
