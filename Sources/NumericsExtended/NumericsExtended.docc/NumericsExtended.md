@@ -51,10 +51,6 @@ The package is exposed through a public umbrella module. Import `NumericsExtende
 - ``Roundable``
 - ``Truncatable``
 
-### Wrappers
-
-- ``Canonicalized``
-
 ### Adjustments
 
 - ``Increasable``
@@ -74,3 +70,7 @@ The package is exposed through a public umbrella module. Import `NumericsExtende
 - ``Int4``
 - ``UInt4``
 - ``Roman``
+
+### Wrappers
+
+- ``Canonicalized``

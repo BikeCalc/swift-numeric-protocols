@@ -7,7 +7,7 @@
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
 /// A type that can be reduced to a simpler equivalent representation.
-internal protocol Simplifiable {
+package protocol Simplifiable {
     /// A boolean value indicating whether this value can be simplified further.
     var isSimplifiable: Bool { get }
 
@@ -17,12 +17,12 @@ internal protocol Simplifiable {
 
 extension Simplifiable {
     /// A boolean value indicating whether this value is already simplified.
-    internal var isSimplified: Bool {
+    package var isSimplified: Bool {
         return self.isSimplifiable == false
     }
 
     /// Replaces this value with its simplified representation.
-    internal mutating func simplify() {
+    package mutating func simplify() {
         self = self.simplified()
     }
 }

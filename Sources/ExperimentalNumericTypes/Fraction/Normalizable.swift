@@ -7,7 +7,7 @@
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
 /// A type that can be converted to a normalized equivalent representation.
-internal protocol Normalizable {
+package protocol Normalizable {
     /// A boolean value indicating whether this value can be normalized.
     var isNormalizable: Bool { get }
 
@@ -20,7 +20,7 @@ internal protocol Normalizable {
 
 extension Normalizable {
     /// Replaces this value with its normalized representation.
-    internal mutating func normalize() {
+    package mutating func normalize() {
         self = self.normalized()
     }
 }
