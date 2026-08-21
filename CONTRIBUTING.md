@@ -53,12 +53,7 @@ repository's [issues](https://github.com/bikecalc/swift-numeric-protocols/issues
 - **Eliminate duplicate bugs.** If two bug reports refer to the same underlying problem, leave a
   comment linking them together. Doing so allows others to work more effectively.
 
-## Contributing Code
-
-### Getting Started
-
-It is highly recommended that you become familiar with using Swift in your own projects before
-contributing directly to this project.
+## Planning Changes
 
 ### Issues
 
@@ -160,6 +155,8 @@ make those issues sub-issues of the release issue. The release issue should summ
 outcomes and other release-wide work in a high-level checklist without duplicating the detailed
 acceptance criteria or testing scenarios tracked by its sub-issues.
 
+## Implementing Changes
+
 ### Branches
 
 Branch names should follow [Conventional Branch](https://conventionalbranch.org/).
@@ -188,7 +185,17 @@ Allowed pull request routes are:
 - `release/*` or `hotfix/*` into `main`.
 - `feature/*`, `bugfix/*`, `chore/*`, `docs/*`, or `test/*` into `release/*`.
 
-### Code Templates
+### File Names
+
+Name Swift source files using UpperCamelCase. When a file defines a type or protocol, or contains
+extensions of one, its name should match the declaration being defined or extended. For example,
+`Fraction.swift` defines `Fraction`, while `BinaryInteger.swift` extends `BinaryInteger`.
+
+Keep each top-level type or protocol declaration in its own source file. Extensions of the same
+declaration may remain in that file when appropriate, but supporting types and protocols should use
+separate files. Apply the same convention to test files by matching each filename to its test suite.
+
+### File Headers
 
 The license and copyright protections for Numerics Extended code are called out at the top of every
 source code file. On the rare occasion you contribute a change that includes a new source file,
@@ -243,7 +250,7 @@ protocol-conformance extensions alphabetically by protocol name, and follow the 
 declaration order within each extension while keeping related requirements and implementations
 together.
 
-### Unit Tests
+### Tests
 
 Changes to numeric behavior should include tests. New tests should use Swift Testing. Do not add
 new XCTest suites. Prefer focused Swift Testing suites that match the existing structure by numeric
@@ -298,6 +305,8 @@ a breaking change.
 Allowed types are `fix`, `feat`, `build`, `chore`, `ci`, `docs`, `style`, `refactor`, `perf`, and
 `test`.
 
+## Submitting Changes
+
 ### Pull Requests
 
 When creating a pull request, use the pull request template. Briefly explain its outcome in the
@@ -334,6 +343,8 @@ changes are normal. A change may be declined or redirected if it does not fit th
 
 Contributors are credited through the Git history. Contributors may also be listed in
 `CONTRIBUTORS.txt` when appropriate.
+
+## Releasing Changes
 
 ### Tags
 
