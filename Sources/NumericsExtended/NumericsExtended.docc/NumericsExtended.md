@@ -16,6 +16,7 @@ The package is exposed through a public umbrella module. Import `NumericsExtende
 
 - <doc:Installation>
 - <doc:PackageArchitecture>
+- <doc:NumericProtocolHierarchy>
 
 ### Articles
 
