@@ -11,29 +11,8 @@ import Foundation
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman Codable Tests")
-internal struct RomanCodableTests {
-    @Test(
-        "Encode to JSON succeeds",
-        arguments: [
-            (0, "\"N\""),
-            (1, "\"I\""),
-            (4, "\"IV\""),
-            (16, "\"XVI\""),
-            (3999, "\"MMMCMXCIX\"")
-        ] as Array<(Roman, String)>
-    )
-    internal func encodeToJSONSucceeds(
-        value: Roman,
-        json: String
-    ) throws {
-        let encoder: JSONEncoder = .init()
-        let result: Data = try encoder.encode(value)
-        let data: Data? = json.data(using: .utf8)
-
-        #expect(result == data)
-    }
-
+@Suite("Roman Decodable Tests")
+internal struct RomanDecodableTests {
     @Test(
         "Decode from JSON string succeeds",
         arguments: [
@@ -49,8 +28,7 @@ internal struct RomanCodableTests {
         value: Roman
     ) throws {
         let data: Data = try #require(json.data(using: .utf8))
-        let decoder: JSONDecoder = .init()
-        let result: Roman = try decoder.decode(Roman.self, from: data)
+        let result: Roman = try JSONDecoder().decode(Roman.self, from: data)
 
         #expect(result == value)
     }
@@ -70,8 +48,7 @@ internal struct RomanCodableTests {
         value: Roman
     ) throws {
         let data: Data = try #require(json.data(using: .utf8))
-        let decoder: JSONDecoder = .init()
-        let result: Roman = try decoder.decode(Roman.self, from: data)
+        let result: Roman = try JSONDecoder().decode(Roman.self, from: data)
 
         #expect(result == value)
     }
@@ -79,23 +56,15 @@ internal struct RomanCodableTests {
     @Test(
         "Decode from JSON throws",
         arguments: [
-            "\"\"",
-            "\"-1\"",
-            "\"4000\"",
-            "\"IIII\"",
-            "\"IXI\"",
-            "\"ABC\"",
-            "-1",
-            "4000",
-            "true"
+            "\"\"", "\"-1\"", "\"4000\"", "\"IIII\"", "\"IXI\"", "\"ABC\"",
+            "-1", "4000", "true"
         ]
     )
     internal func decodeFromJSONThrows(json: String) throws {
         let data: Data = try #require(json.data(using: .utf8))
-        let decoder: JSONDecoder = .init()
 
         #expect(throws: DecodingError.self) {
-            try decoder.decode(Roman.self, from: data)
+            try JSONDecoder().decode(Roman.self, from: data)
         }
     }
 }
