@@ -68,7 +68,6 @@ let package = Package(
         .target(
             name: "StandardNumericTypes",
             dependencies: [
-                "CoreNumericOperators",
                 "CoreNumericProtocols",
                 "StandardNumericProtocols"
             ]

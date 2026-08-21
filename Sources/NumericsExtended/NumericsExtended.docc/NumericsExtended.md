@@ -15,6 +15,7 @@ The package is exposed through a public umbrella module. Import `NumericsExtende
 ### Start Here
 
 - <doc:Installation>
+- <doc:PackageArchitecture>
 
 ### Articles
 
