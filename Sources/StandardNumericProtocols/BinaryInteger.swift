@@ -60,7 +60,8 @@ extension BinaryInteger
 where Self: Divisible & Raisable {
     /// Returns a boolean value indicating whether this value is a power of the specified value.
     ///
-    /// A value is a power of a base when repeatedly multiplying the base produces that value. An exponent of zero makes `1` a power of every base.
+    /// A value is a power of a base when repeatedly multiplying the base produces that value. An exponent of zero makes
+    /// `1` a power of every base.
     ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
@@ -93,7 +94,8 @@ extension BinaryInteger
 where Self: Divisible & Negateable & Raisable {
     /// Returns a boolean value indicating whether this value is a power of the specified value.
     ///
-    /// A value is a power of a base when repeatedly multiplying the base produces that value. An exponent of zero makes `1` a power of every base.
+    /// A value is a power of a base when repeatedly multiplying the base produces that value. An exponent of zero makes
+    /// `1` a power of every base.
     ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
@@ -132,13 +134,17 @@ extension BinaryInteger
 where Self: Raisable, Self.Exponent: BinaryInteger {
     /// Returns the power of raising the first specified value to the second.
     ///
-    /// A negative exponent returns `0` for every base except `1` and `-1` because integer division discards the fractional part. Powers of `1` and `-1` remain exactly representable.
+    /// A negative exponent returns `0` for every base except `1` and `-1` because integer division discards the
+    /// fractional part. Powers of `1` and `-1` remain exactly representable.
     ///
     /// - Parameter lhs: The base.
     /// - Parameter rhs: The exponent.
     /// - Precondition: The base must not be zero when the exponent is negative.
     /// - Returns: The power.
-    public static func ** (_ lhs: Self, _ rhs: Self.Exponent) -> Self {
+    public static func ** (
+        _ lhs: Self,
+        _ rhs: Self.Exponent
+    ) -> Self {
         switch rhs {
         case ..<0:
             precondition(

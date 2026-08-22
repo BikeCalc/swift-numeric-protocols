@@ -11,13 +11,13 @@ import Testing
 
 @Suite("Roman Comparable Tests")
 internal struct RomanComparableTests {
-    private static let comparisonArguments: Array<(lhs: Roman, rhs: Roman)> = [
+    private static let comparisonArguments: Array<(Roman, Roman)> = [
         (1, 1),
         (2, 3),
         (3, 2)
     ]
 
-    private static let rangeArguments: Array<(value: Roman, lowerBound: Roman, upperBound: Roman)> = [
+    private static let rangeArguments: Array<(Roman, Roman, Roman)> = [
         (1, 2, 4),
         (2, 2, 4),
         (3, 2, 4),
@@ -91,7 +91,11 @@ internal struct RomanComparableTests {
         lowerBound: Roman,
         upperBound: Roman
     ) {
-        #expect(value.isWithin(lowerBound, through: upperBound) == (value >= lowerBound && value <= upperBound))
+        let isWithin: Bool = value.isWithin(
+            lowerBound,
+            through: upperBound
+        )
+        #expect(isWithin == (value >= lowerBound && value <= upperBound))
     }
 
     @Test(
@@ -103,6 +107,10 @@ internal struct RomanComparableTests {
         lowerBound: Roman,
         upperBound: Roman
     ) {
-        #expect(value.isBetween(lowerBound, and: upperBound) == (value > lowerBound && value < upperBound))
+        let isBetween: Bool = value.isBetween(
+            lowerBound,
+            and: upperBound
+        )
+        #expect(isBetween == (value > lowerBound && value < upperBound))
     }
 }

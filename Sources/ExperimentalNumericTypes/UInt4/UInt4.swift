@@ -13,7 +13,8 @@ import StandardNumericTypes
 
 /// A four-bit unsigned integer value from `0` through `15`.
 ///
-/// Use `UInt4` to experiment with unsigned fixed-width integer behavior in a range small enough to inspect by hand. The type uses `UInt8` storage internally, but only the low four bits define its integer behavior.
+/// Use `UInt4` to experiment with unsigned fixed-width integer behavior in a range small enough to inspect by hand. The
+/// type uses `UInt8` storage internally, but only the low four bits define its integer behavior.
 ///
 /// For example:
 ///
@@ -73,7 +74,8 @@ import StandardNumericTypes
 /// // Prints "6"
 /// ```
 ///
-/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped partial values.
+/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped
+/// partial values.
 ///
 /// For example:
 ///
@@ -97,7 +99,12 @@ import StandardNumericTypes
 /// let encoder = JSONEncoder()
 /// let data = try encoder.encode(value)
 ///
-/// print(String(data: data, encoding: .utf8)!)
+/// let description = String(
+///     data: data,
+///     encoding: .utf8
+/// )!
+///
+/// print(description)
 /// // Prints "15"
 /// ```
 ///
@@ -111,11 +118,17 @@ import StandardNumericTypes
 /// let data = Data(#"15"#.utf8)
 /// let decoder = JSONDecoder()
 ///
-/// print(try decoder.decode(UInt4.self, from: data))
+/// let value = try decoder.decode(
+///     UInt4.self,
+///     from: data
+/// )
+///
+/// print(value)
 /// // Prints "15"
 /// ```
 ///
-/// - Note: `UInt4` is intentionally experimental. It is useful for learning, tests, and documentation, but it is not intended to replace Swift's standard unsigned integer types in application code.
+/// - Note: `UInt4` is intentionally experimental. It is useful for learning, tests, and documentation, but it is not
+///   intended to replace Swift's standard unsigned integer types in application code.
 public struct UInt4 {
     /// The storage type used to hold the 4-bit value.
     internal typealias Value = UInt8
@@ -141,7 +154,10 @@ public struct UInt4 {
 // MARK: - Addable
 
 extension UInt4: Addable {
-    public static func + (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func + (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value + rhs.value
         return .init(value: newValue)
     }
@@ -232,7 +248,10 @@ extension UInt4: BinaryInteger {
         /// - Parameter distance: The distance to offset `index` by.
         /// - Returns: An index offset by `distance`.
         /// - Precondition: The resulting index must be between `startIndex` and `endIndex`, inclusive.
-        public func index(_ index: Int, offsetBy distance: Int) -> Int {
+        public func index(
+            _ index: Int,
+            offsetBy distance: Int
+        ) -> Int {
             let newIndex: Int = index + distance
             precondition(
                 self.startIndex...self.endIndex ~= newIndex,
@@ -247,7 +266,10 @@ extension UInt4: BinaryInteger {
         /// - Parameter start: The starting index.
         /// - Parameter end: The ending index.
         /// - Returns: The distance from `start` to `end`.
-        public func distance(from start: Int, to end: Int) -> Int {
+        public func distance(
+            from start: Int,
+            to end: Int
+        ) -> Int {
             return end - start
         }
     }
@@ -284,7 +306,10 @@ extension UInt4: BinaryInteger {
     ///
     /// - Parameter lhs: The left-hand-side value.
     /// - Parameter rhs: The right-hand-side value.
-    public static func &= (_ lhs: inout Self, _ rhs: Self) {
+    public static func &= (
+        _ lhs: inout Self,
+        _ rhs: Self
+    ) {
         lhs = .init(value: lhs.value & rhs.value)
     }
 
@@ -292,7 +317,10 @@ extension UInt4: BinaryInteger {
     ///
     /// - Parameter lhs: The left-hand-side value.
     /// - Parameter rhs: The right-hand-side value.
-    public static func |= (_ lhs: inout Self, _ rhs: Self) {
+    public static func |= (
+        _ lhs: inout Self,
+        _ rhs: Self
+    ) {
         lhs = .init(value: lhs.value | rhs.value)
     }
 
@@ -300,7 +328,10 @@ extension UInt4: BinaryInteger {
     ///
     /// - Parameter lhs: The left-hand-side value.
     /// - Parameter rhs: The right-hand-side value.
-    public static func ^= (_ lhs: inout Self, _ rhs: Self) {
+    public static func ^= (
+        _ lhs: inout Self,
+        _ rhs: Self
+    ) {
         lhs = .init(value: lhs.value ^ rhs.value)
     }
 }
@@ -308,7 +339,10 @@ extension UInt4: BinaryInteger {
 // MARK: - Comparable
 
 extension UInt4: Comparable {
-    public static func < (_ lhs: Self, _ rhs: Self) -> Bool {
+    public static func < (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
         return lhs.value < rhs.value
     }
 }
@@ -374,7 +408,10 @@ extension UInt4: Divisible {
     /// - Parameter rhs: The divisor.
     /// - Returns: The quotient.
     /// - Precondition: `rhs` must not be zero.
-    public static func / (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func / (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
@@ -395,7 +432,10 @@ extension UInt4: Divisible {
     /// - Parameter rhs: The divisor.
     /// - Returns: The remainder.
     /// - Precondition: `rhs` must not be zero.
-    public static func % (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func % (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)
     }
@@ -416,7 +456,10 @@ extension UInt4: Encodable {
 // MARK: - Equatable
 
 extension UInt4: Equatable {
-    public static func == (_ lhs: Self, _ rhs: Self) -> Bool {
+    public static func == (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
         return lhs.value == rhs.value
     }
 }
@@ -512,11 +555,12 @@ extension UInt4: FixedWidthInteger {
 
     /// Returns the full-width product of this value and another value.
     ///
-    /// The result is split into two 4-bit halves. For example, `15 * 15` produces the 8-bit value `225`, represented as high `14` and low `1`.
+    /// The result is split into two 4-bit halves. For example, `15 * 15` produces the 8-bit value `225`, represented as
+    /// high `14` and low `1`.
     ///
     /// - Parameter other: The value to multiply by.
     /// - Returns: The high and low halves of the full-width product.
-    public func multipliedFullWidth(by other: Self) -> (high: Self, low: Self.Magnitude) {
+    public func multipliedFullWidth(by other: Self) -> Self.FullWidthProduct {
         let product: Self.Value = self.value * other.value
         let high: Self = .init(truncatingIfNeeded: product >> Self.bitWidth)
         let low: Self.Magnitude = .init(truncatingIfNeeded: product)
@@ -529,19 +573,20 @@ extension UInt4: FixedWidthInteger {
 
     /// Divides a full-width dividend by this value.
     ///
-    /// The dividend is interpreted as two 4-bit halves, where `high` contains the upper bits and `low` contains the lower bits.
+    /// The dividend is interpreted as two 4-bit halves, where `high` contains the upper bits and `low` contains the
+    /// lower bits.
     ///
     /// - Parameter dividend: The high and low halves of the dividend.
     /// - Returns: The quotient and remainder of the division.
     /// - Precondition: This value must not be zero.
-    public func dividingFullWidth(_ dividend: (high: Self, low: Self.Magnitude)) -> (quotient: Self, remainder: Self) {
+    public func dividingFullWidth(_ dividend: Self.FullWidthDividend) -> Self.QuotientAndRemainder {
         precondition(
             self != 0,
             "Divisor must not be zero."
         )
 
         let value: Self.Value = (dividend.high.value << Self.bitWidth) | dividend.low.value
-        let result: (quotient: Self.Value, remainder: Self.Value) = value.quotientAndRemainder(dividingBy: self.value)
+        let result: Self.Value.QuotientAndRemainder = value.quotientAndRemainder(dividingBy: self.value)
         let quotient: Self = .init(truncatingIfNeeded: result.quotient)
         let remainder: Self = .init(truncatingIfNeeded: result.remainder)
 
@@ -576,7 +621,10 @@ extension UInt4: LosslessStringConvertible {
 // MARK: - Multipliable
 
 extension UInt4: Multipliable {
-    public static func * (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func * (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)
     }
@@ -611,40 +659,58 @@ extension UInt4: Raisable {
 // MARK: - ReportableAsOverflow
 
 extension UInt4: ReportableAsOverflow {
-    public func addingReportingOverflow(_ rhs: Self) -> Self.Report {
+    public func addingReportingOverflow(_ rhs: Self) -> Self.OverflowReport {
         let sum: Self.Value = self.value + rhs.value
         let partialValue: Self = .init(truncatingIfNeeded: sum)
 
         guard sum <= Self.max.value else {
-            return (partialValue: partialValue, overflow: true)
+            return (
+                partialValue: partialValue,
+                overflow: true
+            )
         }
 
-        return (partialValue: partialValue, overflow: false)
+        return (
+            partialValue: partialValue,
+            overflow: false
+        )
     }
 
-    public func subtractingReportingOverflow(_ rhs: Self) -> Self.Report {
+    public func subtractingReportingOverflow(_ rhs: Self) -> Self.OverflowReport {
         let difference: Self.Value = self.value &- rhs.value
         let partialValue: Self = .init(truncatingIfNeeded: difference)
 
         guard self.value >= rhs.value else {
-            return (partialValue: partialValue, overflow: true)
+            return (
+                partialValue: partialValue,
+                overflow: true
+            )
         }
 
-        return (partialValue: partialValue, overflow: false)
+        return (
+            partialValue: partialValue,
+            overflow: false
+        )
     }
 
-    public func multipliedReportingOverflow(by rhs: Self) -> Self.Report {
+    public func multipliedReportingOverflow(by rhs: Self) -> Self.OverflowReport {
         let product: Self.Value = self.value * rhs.value
         let partialValue: Self = .init(truncatingIfNeeded: product)
 
         guard product <= Self.max.value else {
-            return (partialValue: partialValue, overflow: true)
+            return (
+                partialValue: partialValue,
+                overflow: true
+            )
         }
 
-        return (partialValue: partialValue, overflow: false)
+        return (
+            partialValue: partialValue,
+            overflow: false
+        )
     }
 
-    public func dividedReportingOverflow(by rhs: Self) -> Self.Report {
+    public func dividedReportingOverflow(by rhs: Self) -> Self.OverflowReport {
         guard rhs.value != 0 else {
             return (partialValue: self, overflow: true)
         }
@@ -652,10 +718,13 @@ extension UInt4: ReportableAsOverflow {
         let quotient: Self.Value = self.value / rhs.value
         let partialValue: Self = .init(value: quotient)
 
-        return (partialValue: partialValue, overflow: false)
+        return (
+            partialValue: partialValue,
+            overflow: false
+        )
     }
 
-    public func remainderReportingOverflow(dividingBy rhs: Self) -> Self.Report {
+    public func remainderReportingOverflow(dividingBy rhs: Self) -> Self.OverflowReport {
         guard rhs.value != 0 else {
             return (partialValue: self, overflow: true)
         }
@@ -663,10 +732,13 @@ extension UInt4: ReportableAsOverflow {
         let remainder: Self.Value = self.value % rhs.value
         let partialValue: Self = .init(value: remainder)
 
-        return (partialValue: partialValue, overflow: false)
+        return (
+            partialValue: partialValue,
+            overflow: false
+        )
     }
 
-    public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.Report {
+    public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.OverflowReport {
         switch rhs {
         case 0:
             return (partialValue: 1, overflow: false)
@@ -677,7 +749,7 @@ extension UInt4: ReportableAsOverflow {
             var exponent: Self.Exponent = 2
 
             while exponent <= rhs {
-                let report: Self.Report = result.multipliedReportingOverflow(by: self)
+                let report: Self.OverflowReport = result.multipliedReportingOverflow(by: self)
 
                 guard report.overflow == false else {
                     return report
@@ -687,7 +759,10 @@ extension UInt4: ReportableAsOverflow {
                 exponent += 1
             }
 
-            return (partialValue: result, overflow: false)
+            return (
+                partialValue: result,
+                overflow: false
+            )
         }
     }
 }
@@ -727,7 +802,10 @@ extension UInt4: Strideable {}
 // MARK: - Subtractable
 
 extension UInt4: Subtractable {
-    public static func - (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func - (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value - rhs.value
         return .init(value: newValue)
     }

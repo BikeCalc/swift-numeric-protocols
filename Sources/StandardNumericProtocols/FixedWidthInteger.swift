@@ -9,13 +9,41 @@
 import CoreNumericOperators
 import CoreNumericProtocols
 
+extension FixedWidthInteger {
+    /// The high and low components of a full-width product.
+    ///
+    /// The `high` component contains the upper half of the product, while `low` contains its lower half.
+    public typealias FullWidthProduct = (
+        high: Self,
+        low: Self.Magnitude
+    )
+
+    /// The high and low components of a full-width dividend.
+    ///
+    /// The `high` component contains the upper half of the dividend, while `low` contains its lower half.
+    public typealias FullWidthDividend = (
+        high: Self,
+        low: Self.Magnitude
+    )
+
+    /// The quotient and remainder produced by an integer division operation.
+    ///
+    /// The `quotient` component contains the result of the division, while `remainder` contains the value left over.
+    public typealias QuotientAndRemainder = (
+        quotient: Self,
+        remainder: Self
+    )
+}
+
 extension FixedWidthInteger
 where Self: ReportableAsOverflow {
-    /// Returns the power after raising this instance to the specified value, along with a boolean value indicating whether overflow occurred in the operation.
+    /// Returns the power after raising this instance to the specified value, along with a boolean value indicating
+    /// whether overflow occurred in the operation.
     ///
     /// - Parameter rhs: The value to raise this instance to.
-    /// - Returns: A tuple containing the result of the exponentiation along with a boolean value indicating whether overflow occurred.
-    public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.Report
+    /// - Returns: A tuple containing the result of the exponentiation along with a boolean value indicating whether
+    ///   overflow occurred.
+    public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.OverflowReport
     where Self.Exponent: BinaryInteger {
         switch rhs {
         case ..<2:
@@ -26,7 +54,7 @@ where Self: ReportableAsOverflow {
             var exponent: Self.Exponent = 2
 
             while exponent <= rhs {
-                let report: Self.Report = result.multipliedReportingOverflow(by: self)
+                let report: Self.OverflowReport = result.multipliedReportingOverflow(by: self)
 
                 guard report.overflow == false else {
                     return report

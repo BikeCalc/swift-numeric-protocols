@@ -13,7 +13,8 @@ public protocol Roundable {
 
     /// Returns this instance rounded to the specified approximate decimal precision.
     ///
-    /// This operation uses the conforming type's native representation. Values that cannot represent decimal fractions exactly may produce results that differ from exact decimal arithmetic.
+    /// This operation uses the conforming type's native representation. Values that cannot represent decimal fractions
+    /// exactly may produce results that differ from exact decimal arithmetic.
     ///
     /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance rounded.
@@ -23,7 +24,8 @@ public protocol Roundable {
 extension Roundable {
     /// Rounds this instance to the specified approximate decimal precision.
     ///
-    /// This operation uses the conforming type's native representation. Values that cannot represent decimal fractions exactly may produce results that differ from exact decimal arithmetic.
+    /// This operation uses the conforming type's native representation. Values that cannot represent decimal fractions
+    /// exactly may produce results that differ from exact decimal arithmetic.
     ///
     /// - Parameter decimalPlace: The number of decimal places.
     public mutating func round(to decimalPlace: Self.DecimalPlace) {

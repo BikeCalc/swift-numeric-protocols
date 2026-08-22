@@ -11,9 +11,10 @@ import CoreNumericProtocols
 import StandardNumericProtocols
 import StandardNumericTypes
 
-/// A Roman numeral value from `0` through `3999`.
+/// A Roman numeral value from `0` through `3,999`.
 ///
-/// Use `Roman` to represent whole numbers with Roman numeral notation. The type stores a numeric value internally, but its textual representation is the canonical Roman numeral for that value.
+/// Use `Roman` to represent whole numbers with Roman numeral notation. The type stores a numeric value internally, but
+/// its textual representation is the canonical Roman numeral for that value.
 ///
 /// For example:
 ///
@@ -24,15 +25,16 @@ import StandardNumericTypes
 /// // Prints "XLIV"
 /// ```
 ///
-/// Roman supports `N` for zero, the root symbols `I`, `V`, `X`, `L`, `C`, `D`, and `M`, and the canonical subtractive forms `IV`, `IX`, `XL`, `XC`, `CD`, and `CM`.
+/// Roman supports `N` for zero, the root symbols `I`, `V`, `X`, `L`, `C`, `D`, and `M`, and the canonical subtractive
+/// forms `IV`, `IX`, `XL`, `XC`, `CD`, and `CM`.
 ///
 /// Create Roman values from integer literals, exact integer conversion, decimal strings, or Roman numeral strings.
 ///
 /// For example:
 ///
 /// ```swift
-/// let literal: Roman = 2026
-/// let exact = Roman(exactly: 3999)
+/// let literal: Roman = 2_026
+/// let exact = Roman(exactly: 3_999)
 /// let decimal = Roman("44")
 /// let numeral = Roman("XLIV")
 /// let invalid = Roman("ABC")
@@ -97,7 +99,8 @@ import StandardNumericTypes
 /// // Prints "true"
 /// ```
 ///
-/// Roman values encode as Roman numeral strings. Decoding accepts either a valid Roman numeral string or an integer in the representable range.
+/// Roman values encode as Roman numeral strings. Decoding accepts either a valid Roman numeral string or an integer in
+/// the representable range.
 ///
 /// For example:
 ///
@@ -108,7 +111,12 @@ import StandardNumericTypes
 /// let encoder = JSONEncoder()
 /// let data = try encoder.encode(value)
 ///
-/// print(String(data: data, encoding: .utf8)!)
+/// let description = String(
+///     data: data,
+///     encoding: .utf8
+/// )!
+///
+/// print(description)
 /// // Prints "\"XLIV\""
 /// ```
 ///
@@ -123,13 +131,23 @@ import StandardNumericTypes
 /// let integerData = Data(#"44"#.utf8)
 /// let decoder = JSONDecoder()
 ///
-/// print(try decoder.decode(Roman.self, from: stringData))
+/// let stringValue = try decoder.decode(
+///     Roman.self,
+///     from: stringData
+/// )
+/// let integerValue = try decoder.decode(
+///     Roman.self,
+///     from: integerData
+/// )
+///
+/// print(stringValue)
 /// // Prints "XLIV"
-/// print(try decoder.decode(Roman.self, from: integerData))
+/// print(integerValue)
 /// // Prints "XLIV"
 /// ```
 ///
-/// - Note: `Roman` is intentionally experimental. It is not a binary integer and does not model signed values, bitwise operations, or fractional values.
+/// - Note: `Roman` is intentionally experimental. It is not a binary integer and does not model signed values, bitwise
+///   operations, or fractional values.
 public struct Roman {
     /// The underlying value.
     internal typealias Value = UInt16
@@ -140,10 +158,10 @@ public struct Roman {
     /// Creates a new instance with the specified value.
     ///
     /// - Parameter value: The value of this instance.
-    /// - Precondition: `value` must be in the range `0...3999`.
+    /// - Precondition: `value` must be in the range `0...3_999`.
     private init(value: Self.Value) {
         precondition(
-            0...3999 ~= value,
+            0...3_999 ~= value,
             "Roman value must be between \(Self.min) and \(Self.max)."
         )
         self.value = value
@@ -181,7 +199,10 @@ extension Roman {
 // MARK: - Addable
 
 extension Roman: Addable {
-    public static func + (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func + (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value + rhs.value
         return .init(value: newValue)
     }
@@ -194,7 +215,10 @@ extension Roman: AdditiveArithmetic {}
 // MARK: - Comparable
 
 extension Roman: Comparable {
-    public static func < (_ lhs: Self, _ rhs: Self) -> Bool {
+    public static func < (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
         return lhs.value < rhs.value
     }
 }
@@ -223,7 +247,7 @@ extension Roman: CustomStringConvertible {
 
         while number > 0 {
             for symbol in symbols {
-                let report: Self.Value.Report = number.subtractingReportingOverflow(symbol.value)
+                let report: Self.Value.OverflowReport = number.subtractingReportingOverflow(symbol.value)
 
                 if report.overflow == false && report.partialValue >= 0 {
                     number -= symbol.value
@@ -242,7 +266,8 @@ extension Roman: CustomStringConvertible {
 extension Roman: Decodable {
     /// Creates a Roman value by decoding a Roman numeral string or integer.
     ///
-    /// Roman values decode from canonical Roman numeral strings such as `"N"` and from integers in the range `0...3999`.
+    /// Roman values decode from canonical Roman numeral strings such as `"N"` and from integers in the range
+    /// `0...3_999`.
     ///
     /// - Parameter decoder: The decoder to read data from.
     /// - Throws: A decoding error if the encoded value is neither a valid Roman numeral string nor an integer in range.
@@ -256,7 +281,9 @@ extension Roman: Decodable {
            Self.min.value...Self.max.value ~= value {
             self.init(value: value)
         } else {
-            let debugDescription: String = "Roman numeral value must be a valid Roman numeral string or an integer between \(Self.min) and \(Self.max)."
+            let range: String = "\(Self.min) and \(Self.max)"
+            let debugDescription: String =
+                "Roman numeral value must be a valid Roman numeral string or an integer between \(range)."
             throw DecodingError.dataCorruptedError(
                 in: container,
                 debugDescription: debugDescription
@@ -291,6 +318,7 @@ extension Roman: Divisible {
     /// Returns the quotient of dividing the first specified value by the second.
     ///
     /// Division discards any fractional remainder because `Roman` represents only whole numbers.
+    ///
     /// For example:
     ///
     /// ```swift
@@ -305,7 +333,10 @@ extension Roman: Divisible {
     /// - Parameter rhs: The divisor.
     /// - Returns: The quotient.
     /// - Precondition: `rhs` must not be zero.
-    public static func / (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func / (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
@@ -326,7 +357,10 @@ extension Roman: Divisible {
     /// - Parameter rhs: The divisor.
     /// - Returns: The remainder.
     /// - Precondition: `rhs` must not be zero.
-    public static func % (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func % (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)
     }
@@ -349,7 +383,10 @@ extension Roman: Encodable {
 // MARK: - Equatable
 
 extension Roman: Equatable {
-    public static func == (_ lhs: Self, _ rhs: Self) -> Bool {
+    public static func == (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
         return lhs.value == rhs.value
     }
 }
@@ -360,10 +397,10 @@ extension Roman: ExpressibleByIntegerLiteral {
     /// Creates a Roman value from an integer literal.
     ///
     /// - Parameter value: The integer literal used to create the value.
-    /// - Precondition: `value` must be in the range `0...3999`.
+    /// - Precondition: `value` must be in the range `0...3_999`.
     public init(integerLiteral value: IntegerLiteralType) {
         precondition(
-            0...3999 ~= value,
+            0...3_999 ~= value,
             "Roman integer literal must be between \(Self.min) and \(Self.max)."
         )
 
@@ -386,7 +423,7 @@ extension Roman: Hashable {
 extension Roman: LosslessStringConvertible {
     /// Creates a Roman value from a decimal string or canonical Roman numeral.
     ///
-    /// This initializer accepts decimal strings in the range `0...3999` and canonical Roman numerals such as `"N"`.
+    /// This initializer accepts decimal strings in the range `0...3_999` and canonical Roman numerals such as `"N"`.
     ///
     /// - Parameter description: The string representation to convert.
     public init?(_ description: String) {
@@ -423,7 +460,10 @@ extension Roman: Multipliable {
         return (self % other) == 0
     }
 
-    public static func * (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func * (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)
     }
@@ -477,7 +517,10 @@ extension Roman: Raisable {
         }
     }
 
-    public static func ** (_ lhs: Self, _ rhs: Self.Exponent) -> Self {
+    public static func ** (
+        _ lhs: Self,
+        _ rhs: Self.Exponent
+    ) -> Self {
         switch rhs {
         case 0:
             return 1
@@ -500,19 +543,25 @@ extension Roman: Raisable {
 // MARK: - ReportableAsOverflow
 
 extension Roman: ReportableAsOverflow {
-    public func addingReportingOverflow(_ rhs: Self) -> Self.Report {
+    public func addingReportingOverflow(_ rhs: Self) -> Self.OverflowReport {
         let sum: Self.Value = self.value + rhs.value
         let modulus: Self.Value = Self.max.value + 1
         let partialValue: Self = .init(value: sum % modulus)
 
         guard sum <= Self.max.value else {
-            return (partialValue: partialValue, overflow: true)
+            return (
+                partialValue: partialValue,
+                overflow: true
+            )
         }
 
-        return (partialValue: partialValue, overflow: false)
+        return (
+            partialValue: partialValue,
+            overflow: false
+        )
     }
 
-    public func subtractingReportingOverflow(_ rhs: Self) -> Self.Report {
+    public func subtractingReportingOverflow(_ rhs: Self) -> Self.OverflowReport {
         if self.value >= rhs.value {
             let difference: Self.Value = self.value - rhs.value
             let partialValue: Self = .init(value: difference)
@@ -523,12 +572,15 @@ extension Roman: ReportableAsOverflow {
             let distance: Self.Value = rhs.value - self.value
             let partialValue: Self = .init(value: modulus - distance)
 
-            return (partialValue: partialValue, overflow: true)
+            return (
+                partialValue: partialValue,
+                overflow: true
+            )
         }
 
     }
 
-    public func multipliedReportingOverflow(by rhs: Self) -> Self.Report {
+    public func multipliedReportingOverflow(by rhs: Self) -> Self.OverflowReport {
         let overflow: Bool = rhs.value != 0 && self.value > Self.max.value / rhs.value
         let modulus: Self.Value = Self.max.value + 1
 
@@ -547,10 +599,13 @@ extension Roman: ReportableAsOverflow {
 
         let partialValue: Self = .init(value: product)
 
-        return (partialValue: partialValue, overflow: overflow)
+        return (
+            partialValue: partialValue,
+            overflow: overflow
+        )
     }
 
-    public func dividedReportingOverflow(by rhs: Self) -> Self.Report {
+    public func dividedReportingOverflow(by rhs: Self) -> Self.OverflowReport {
         guard rhs.value != 0 else {
             return (partialValue: self, overflow: true)
         }
@@ -558,10 +613,13 @@ extension Roman: ReportableAsOverflow {
         let quotient: Self.Value = self.value / rhs.value
         let partialValue: Self = .init(value: quotient)
 
-        return (partialValue: partialValue, overflow: false)
+        return (
+            partialValue: partialValue,
+            overflow: false
+        )
     }
 
-    public func remainderReportingOverflow(dividingBy rhs: Self) -> Self.Report {
+    public func remainderReportingOverflow(dividingBy rhs: Self) -> Self.OverflowReport {
         guard rhs.value != 0 else {
             return (partialValue: self, overflow: true)
         }
@@ -569,10 +627,13 @@ extension Roman: ReportableAsOverflow {
         let remainder: Self.Value = self.value % rhs.value
         let partialValue: Self = .init(value: remainder)
 
-        return (partialValue: partialValue, overflow: false)
+        return (
+            partialValue: partialValue,
+            overflow: false
+        )
     }
 
-    public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.Report {
+    public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.OverflowReport {
         switch rhs {
         case ..<2:
             let result: Self = self ** rhs
@@ -582,7 +643,7 @@ extension Roman: ReportableAsOverflow {
             var exponent: Self.Exponent = 2
 
             while exponent <= rhs {
-                let report: Self.Report = result.multipliedReportingOverflow(by: self)
+                let report: Self.OverflowReport = result.multipliedReportingOverflow(by: self)
 
                 guard report.overflow == false else {
                     return report
@@ -592,7 +653,10 @@ extension Roman: ReportableAsOverflow {
                 exponent += 1
             }
 
-            return (partialValue: result, overflow: false)
+            return (
+                partialValue: result,
+                overflow: false
+            )
         }
     }
 }
@@ -601,7 +665,7 @@ extension Roman: ReportableAsOverflow {
 
 extension Roman: RepresentableByMax {
     public static var max: Self {
-        return 3999
+        return 3_999
     }
 }
 
@@ -643,7 +707,10 @@ extension Roman: Strideable {
 // MARK: - Subtractable
 
 extension Roman: Subtractable {
-    public static func - (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func - (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value - rhs.value
         return .init(value: newValue)
     }

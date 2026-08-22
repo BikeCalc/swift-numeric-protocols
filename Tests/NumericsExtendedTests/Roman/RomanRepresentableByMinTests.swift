@@ -15,7 +15,7 @@ internal struct RomanRepresentableByMinTests {
         "Is min",
         arguments: [
             (0, true),
-            (3999, false)
+            (3_999, false)
         ] as Array<(Roman, Bool)>
     )
     internal func isMin(

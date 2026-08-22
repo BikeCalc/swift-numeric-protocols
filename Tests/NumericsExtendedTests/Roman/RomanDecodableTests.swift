@@ -20,7 +20,7 @@ internal struct RomanDecodableTests {
             ("\"I\"", 1),
             ("\"IV\"", 4),
             ("\"XVI\"", 16),
-            ("\"MMMCMXCIX\"", 3999)
+            ("\"MMMCMXCIX\"", 3_999)
         ] as Array<(String, Roman)>
     )
     internal func decodeFromJSONStringSucceeds(
@@ -28,7 +28,10 @@ internal struct RomanDecodableTests {
         value: Roman
     ) throws {
         let data: Data = try #require(json.data(using: .utf8))
-        let result: Roman = try JSONDecoder().decode(Roman.self, from: data)
+        let result: Roman = try JSONDecoder().decode(
+            Roman.self,
+            from: data
+        )
 
         #expect(result == value)
     }
@@ -40,7 +43,7 @@ internal struct RomanDecodableTests {
             ("1", 1),
             ("4", 4),
             ("16", 16),
-            ("3999", 3999)
+            ("3999", 3_999)
         ] as Array<(String, Roman)>
     )
     internal func decodeFromJSONIntegerSucceeds(
@@ -48,7 +51,10 @@ internal struct RomanDecodableTests {
         value: Roman
     ) throws {
         let data: Data = try #require(json.data(using: .utf8))
-        let result: Roman = try JSONDecoder().decode(Roman.self, from: data)
+        let result: Roman = try JSONDecoder().decode(
+            Roman.self,
+            from: data
+        )
 
         #expect(result == value)
     }
@@ -64,7 +70,10 @@ internal struct RomanDecodableTests {
         let data: Data = try #require(json.data(using: .utf8))
 
         #expect(throws: DecodingError.self) {
-            try JSONDecoder().decode(Roman.self, from: data)
+            try JSONDecoder().decode(
+                Roman.self,
+                from: data
+            )
         }
     }
 }

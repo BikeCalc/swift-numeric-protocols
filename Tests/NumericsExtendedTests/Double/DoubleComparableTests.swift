@@ -11,7 +11,7 @@ import Testing
 
 @Suite("Double Comparable Tests")
 internal struct DoubleComparableTests {
-    private static let comparisonArguments: Array<(lhs: Double, rhs: Double)> = [
+    private static let comparisonArguments: Array<(Double, Double)> = [
         (1.0, 1.0),
         (-1.0, -1.0),
         (2.0, 3.0),
@@ -24,7 +24,7 @@ internal struct DoubleComparableTests {
         (-1.5, -0.5)
     ]
 
-    private static let rangeArguments: Array<(value: Double, lowerBound: Double, upperBound: Double)> = [
+    private static let rangeArguments: Array<(Double, Double, Double)> = [
         (1.0, 2.0, 4.0),
         (2.0, 2.0, 4.0),
         (3.0, 2.0, 4.0),
@@ -113,7 +113,11 @@ internal struct DoubleComparableTests {
         lowerBound: Double,
         upperBound: Double
     ) {
-        #expect(value.isWithin(lowerBound, through: upperBound) == (value >= lowerBound && value <= upperBound))
+        let isWithin: Bool = value.isWithin(
+            lowerBound,
+            through: upperBound
+        )
+        #expect(isWithin == (value >= lowerBound && value <= upperBound))
     }
 
     @Test(
@@ -125,7 +129,11 @@ internal struct DoubleComparableTests {
         lowerBound: Double,
         upperBound: Double
     ) {
-        #expect(value.isBetween(lowerBound, and: upperBound) == (value > lowerBound && value < upperBound))
+        let isBetween: Bool = value.isBetween(
+            lowerBound,
+            and: upperBound
+        )
+        #expect(isBetween == (value > lowerBound && value < upperBound))
     }
 }
 

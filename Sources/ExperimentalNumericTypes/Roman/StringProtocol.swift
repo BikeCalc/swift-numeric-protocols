@@ -9,7 +9,8 @@
 extension StringProtocol {
     /// A boolean value indicating whether this instance is a single Roman symbol.
     ///
-    /// This property recognizes both root symbols, such as `I`, `V`, and `X`, and compound subtractive symbols, such as `IV`, `IX`, and `CM`.
+    /// This property recognizes both root symbols, such as `I`, `V`, and `X`, and compound subtractive symbols, such as
+    /// `IV`, `IX`, and `CM`.
     ///
     /// For example:
     ///

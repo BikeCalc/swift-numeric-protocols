@@ -13,7 +13,10 @@ public protocol Addable: Equatable {
     /// - Parameter lhs: The augend.
     /// - Parameter rhs: The addend.
     /// - Returns: The sum.
-    static func + (_ lhs: Self, _ rhs: Self) -> Self
+    static func + (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self
 }
 
 extension Addable {
@@ -21,7 +24,10 @@ extension Addable {
     ///
     /// - Parameter lhs: The augend.
     /// - Parameter rhs: The addend.
-    public static func += (_ lhs: inout Self, _ rhs: Self) {
+    public static func += (
+        _ lhs: inout Self,
+        _ rhs: Self
+    ) {
         lhs = lhs + rhs
     }
 

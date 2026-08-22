@@ -24,7 +24,10 @@ public protocol Raisable: Equatable {
     /// - Parameter lhs: The base.
     /// - Parameter rhs: The exponent.
     /// - Returns: The power.
-    static func ** (_ lhs: Self, _ rhs: Self.Exponent) -> Self
+    static func ** (
+        _ lhs: Self,
+        _ rhs: Self.Exponent
+    ) -> Self
 }
 
 extension Raisable {
@@ -32,7 +35,10 @@ extension Raisable {
     ///
     /// - Parameter lhs: The base.
     /// - Parameter rhs: The exponent.
-    public static func **= (_ lhs: inout Self, _ rhs: Self.Exponent) {
+    public static func **= (
+        _ lhs: inout Self,
+        _ rhs: Self.Exponent
+    ) {
         lhs = lhs ** rhs
     }
 

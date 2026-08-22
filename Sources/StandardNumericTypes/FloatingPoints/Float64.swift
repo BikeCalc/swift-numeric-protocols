@@ -20,7 +20,10 @@ extension Float64: Decreasable {}
 // MARK: - Divisible
 
 extension Float64: Divisible {
-    public static func % (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func % (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         return lhs.truncatingRemainder(dividingBy: rhs)
     }
 }

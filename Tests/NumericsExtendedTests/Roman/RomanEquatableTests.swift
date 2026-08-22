@@ -11,7 +11,7 @@ import Testing
 
 @Suite("Roman Equatable Tests")
 internal struct RomanEquatableTests {
-    private static let equalityArguments: Array<(lhs: Roman, rhs: Roman)> = [
+    private static let equalityArguments: Array<(Roman, Roman)> = [
         (1, 1),
         (1, 2)
     ]

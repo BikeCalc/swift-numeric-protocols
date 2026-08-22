@@ -11,13 +11,13 @@ import Testing
 
 @Suite("UInt4 Comparable Tests")
 internal struct UInt4ComparableTests {
-    private static let comparisonArguments: Array<(lhs: UInt4, rhs: UInt4)> = [
+    private static let comparisonArguments: Array<(UInt4, UInt4)> = [
         (1, 1),
         (2, 3),
         (3, 2)
     ]
 
-    private static let rangeArguments: Array<(value: UInt4, lowerBound: UInt4, upperBound: UInt4)> = [
+    private static let rangeArguments: Array<(UInt4, UInt4, UInt4)> = [
         (1, 2, 4),
         (2, 2, 4),
         (3, 2, 4),
@@ -91,7 +91,11 @@ internal struct UInt4ComparableTests {
         lowerBound: UInt4,
         upperBound: UInt4
     ) {
-        #expect(value.isWithin(lowerBound, through: upperBound) == (value >= lowerBound && value <= upperBound))
+        let isWithin: Bool = value.isWithin(
+            lowerBound,
+            through: upperBound
+        )
+        #expect(isWithin == (value >= lowerBound && value <= upperBound))
     }
 
     @Test(
@@ -103,6 +107,10 @@ internal struct UInt4ComparableTests {
         lowerBound: UInt4,
         upperBound: UInt4
     ) {
-        #expect(value.isBetween(lowerBound, and: upperBound) == (value > lowerBound && value < upperBound))
+        let isBetween: Bool = value.isBetween(
+            lowerBound,
+            and: upperBound
+        )
+        #expect(isBetween == (value > lowerBound && value < upperBound))
     }
 }

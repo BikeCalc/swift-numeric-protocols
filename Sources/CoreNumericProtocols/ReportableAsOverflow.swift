@@ -8,44 +8,59 @@
 
 /// A type that can report whether arithmetic operations overflow.
 public protocol ReportableAsOverflow: Operatable, Raisable {
-    /// Returns the sum after adding the specified value to this instance, along with a boolean value indicating whether overflow occurred in the operation.
+    /// Returns the sum after adding the specified value to this instance, along with a boolean value indicating whether
+    /// overflow occurred in the operation.
     ///
     /// - Parameter rhs: The value to add to this instance.
-    /// - Returns: A tuple containing the result of the addition along with a boolean value indicating whether overflow occurred.
-    func addingReportingOverflow(_ rhs: Self) -> Self.Report
+    /// - Returns: A tuple containing the result of the addition along with a boolean value indicating whether overflow
+    ///   occurred.
+    func addingReportingOverflow(_ rhs: Self) -> Self.OverflowReport
 
-    /// Returns the difference after subtracting the specified value from this instance, along with a boolean value indicating whether overflow occurred in the operation.
+    /// Returns the difference after subtracting the specified value from this instance, along with a boolean value
+    /// indicating whether overflow occurred in the operation.
     ///
     /// - Parameter rhs: The value to subtract from this instance.
-    /// - Returns: A tuple containing the result of the subtraction along with a boolean value indicating whether overflow occurred.
-    func subtractingReportingOverflow(_ rhs: Self) -> Self.Report
+    /// - Returns: A tuple containing the result of the subtraction along with a boolean value indicating whether
+    ///   overflow occurred.
+    func subtractingReportingOverflow(_ rhs: Self) -> Self.OverflowReport
 
-    /// Returns the product after multiplying this instance by the specified value, along with a boolean value indicating whether overflow occurred in the operation.
+    /// Returns the product after multiplying this instance by the specified value, along with a boolean value
+    /// indicating whether overflow occurred in the operation.
     ///
     /// - Parameter rhs: The value to multiply this instance by.
-    /// - Returns: A tuple containing the result of the multiplication along with a boolean value indicating whether overflow occurred.
-    func multipliedReportingOverflow(by rhs: Self) -> Self.Report
+    /// - Returns: A tuple containing the result of the multiplication along with a boolean value indicating whether
+    ///   overflow occurred.
+    func multipliedReportingOverflow(by rhs: Self) -> Self.OverflowReport
 
-    /// Returns the quotient after dividing this instance by the specified value, along with a boolean value indicating whether overflow occurred in the operation.
+    /// Returns the quotient after dividing this instance by the specified value, along with a boolean value indicating
+    /// whether overflow occurred in the operation.
     ///
     /// - Parameter rhs: The value to divide this instance by.
-    /// - Returns: A tuple containing the result of the division along with a boolean value indicating whether overflow occurred.
-    func dividedReportingOverflow(by rhs: Self) -> Self.Report
+    /// - Returns: A tuple containing the result of the division along with a boolean value indicating whether overflow
+    ///   occurred.
+    func dividedReportingOverflow(by rhs: Self) -> Self.OverflowReport
 
-    /// Returns the remainder after dividing this instance by the specified value, along with a boolean value indicating whether overflow occurred in the operation.
+    /// Returns the remainder after dividing this instance by the specified value, along with a boolean value indicating
+    /// whether overflow occurred in the operation.
     ///
     /// - Parameter rhs: The value to divide this instance by.
-    /// - Returns: A tuple containing the result of the division along with a boolean value indicating whether overflow occurred.
-    func remainderReportingOverflow(dividingBy rhs: Self) -> Self.Report
+    /// - Returns: A tuple containing the result of the division along with a boolean value indicating whether overflow
+    ///   occurred.
+    func remainderReportingOverflow(dividingBy rhs: Self) -> Self.OverflowReport
 
-    /// Returns the power after raising this instance to the specified value, along with a boolean value indicating whether overflow occurred in the operation.
+    /// Returns the power after raising this instance to the specified value, along with a boolean value indicating
+    /// whether overflow occurred in the operation.
     ///
     /// - Parameter rhs: The value to raise this instance to.
-    /// - Returns: A tuple containing the result of the exponentiation along with a boolean value indicating whether overflow occurred.
-    func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.Report
+    /// - Returns: A tuple containing the result of the exponentiation along with a boolean value indicating whether
+    ///   overflow occurred.
+    func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.OverflowReport
 }
 
 extension ReportableAsOverflow {
     /// The partial value and overflow status produced by an overflow-reporting operation.
-    public typealias Report = (partialValue: Self, overflow: Bool)
+    public typealias OverflowReport = (
+        partialValue: Self,
+        overflow: Bool
+    )
 }

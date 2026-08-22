@@ -8,9 +8,12 @@
 
 /// Parses and validates canonical Roman numeral strings.
 ///
-/// `RomanNumeralParser` converts a string into `RomanSymbol` values, folds valid subtractive pairs such as `IV` and `CM`, then validates the resulting symbols against Roman numeral ordering, recurrence, and subtractive notation rules.
+/// `RomanNumeralParser` converts a string into `RomanSymbol` values, folds valid subtractive pairs such as `IV` and
+/// `CM`, then validates the resulting symbols against Roman numeral ordering, recurrence, and subtractive notation
+/// rules.
 ///
-/// The parser accepts `N` only as a standalone zero. It rejects empty strings, non-Roman characters, noncanonical repetitions, and invalid subtractive.
+/// The parser accepts `N` only as a standalone zero. It rejects empty strings, non-Roman characters, noncanonical
+/// repetitions, and invalid subtractive.
 internal struct RomanNumeralParser {
     /// The underlying string to parse.
     private let string: String
@@ -45,7 +48,8 @@ internal struct RomanNumeralParser {
 
     /// Parses this string into canonical Roman symbols.
     ///
-    /// This step validates the lexical form of the numeral, including the standalone `N` rule, valid symbols, descending order, recurrence limits, and subtractive notation.
+    /// This step validates the lexical form of the numeral, including the standalone `N` rule, valid symbols,
+    /// descending order, recurrence limits, and subtractive notation.
     private func parseSymbols() -> Array<RomanSymbol>? {
         guard self.string.isEmpty == false else {
             return nil
@@ -108,7 +112,10 @@ internal struct RomanNumeralParser {
 
     /// Returns `true` if symbols appear in nonincreasing value order.
     private func hasValidOrder(_ symbols: Array<RomanSymbol>) -> Bool {
-        for (lhs, rhs) in zip(symbols.dropLast(), symbols.dropFirst()) {
+        for (lhs, rhs) in zip(
+            symbols.dropLast(),
+            symbols.dropFirst()
+        ) {
             if lhs < rhs {
                 return false
             }
@@ -121,7 +128,10 @@ internal struct RomanNumeralParser {
     ///
     /// Repeatable symbols may appear up to three times in succession. Nonrepeatable symbols may not be repeated.
     private func hasValidRecurrences(_ symbols: Array<RomanSymbol>) -> Bool {
-        for (lhs, rhs) in zip(symbols.dropLast(), symbols.dropFirst()) {
+        for (lhs, rhs) in zip(
+            symbols.dropLast(),
+            symbols.dropFirst()
+        ) {
             if lhs == rhs, rhs.isRepeatable == false {
                 return false
             }
@@ -143,7 +153,10 @@ internal struct RomanNumeralParser {
     ///
     /// For example, this rejects `IIV`, which would otherwise tokenize as `I` followed by `IV`.
     private func hasValidSubtractivePrefixes(_ symbols: Array<RomanSymbol>) -> Bool {
-        for (lhs, rhs) in zip(symbols.dropLast(), symbols.dropFirst()) {
+        for (lhs, rhs) in zip(
+            symbols.dropLast(),
+            symbols.dropFirst()
+        ) {
             guard let separatedSymbols: Array<RomanSymbol> = try? rhs.separate(),
                   let subtractingSymbol: RomanSymbol = separatedSymbols.first else {
                 continue
@@ -161,7 +174,10 @@ internal struct RomanNumeralParser {
     ///
     /// For example, this rejects `IXI`, which would otherwise tokenize as `IX` followed by `I`.
     private func hasValidSubtractiveSuffixes(_ symbols: Array<RomanSymbol>) -> Bool {
-        for (lhs, rhs) in zip(symbols.dropLast(), symbols.dropFirst()) {
+        for (lhs, rhs) in zip(
+            symbols.dropLast(),
+            symbols.dropFirst()
+        ) {
             guard let separatedSymbols: Array<RomanSymbol> = try? lhs.separate(),
                   let subtractingSymbol: RomanSymbol = separatedSymbols.first else {
                 continue

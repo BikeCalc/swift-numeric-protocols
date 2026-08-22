@@ -20,7 +20,7 @@ internal struct RomanEncodableTests {
             (1, "\"I\""),
             (4, "\"IV\""),
             (16, "\"XVI\""),
-            (3999, "\"MMMCMXCIX\"")
+            (3_999, "\"MMMCMXCIX\"")
         ] as Array<(Roman, String)>
     )
     internal func encodeToJSONSucceeds(

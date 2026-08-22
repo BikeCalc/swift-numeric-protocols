@@ -22,7 +22,10 @@ internal struct UInt4DecodableTests {
         value: UInt4
     ) throws {
         let data: Data = try #require(json.data(using: .utf8))
-        let result: UInt4 = try JSONDecoder().decode(UInt4.self, from: data)
+        let result: UInt4 = try JSONDecoder().decode(
+            UInt4.self,
+            from: data
+        )
 
         #expect(result == value)
     }
@@ -35,7 +38,10 @@ internal struct UInt4DecodableTests {
         let data: Data = try #require(json.data(using: .utf8))
 
         #expect(throws: DecodingError.self) {
-            try JSONDecoder().decode(UInt4.self, from: data)
+            try JSONDecoder().decode(
+                UInt4.self,
+                from: data
+            )
         }
     }
 }

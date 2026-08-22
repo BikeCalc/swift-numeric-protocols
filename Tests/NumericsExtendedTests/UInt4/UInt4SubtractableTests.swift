@@ -103,7 +103,7 @@ extension UInt4SubtractableTests {
         subtrahend: UInt4,
         difference: UInt4
     ) {
-        let reversedDifferenceReport: UInt4.Report = subtrahend.subtractingReportingOverflow(minuend)
+        let reversedDifferenceReport: UInt4.OverflowReport = subtrahend.subtractingReportingOverflow(minuend)
 
         #expect(minuend - subtrahend == difference)
         #expect(reversedDifferenceReport.partialValue != difference)

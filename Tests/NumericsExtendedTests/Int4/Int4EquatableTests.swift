@@ -11,7 +11,7 @@ import Testing
 
 @Suite("Int4 Equatable Tests")
 internal struct Int4EquatableTests {
-    private static let equalityArguments: Array<(lhs: Int4, rhs: Int4)> = [
+    private static let equalityArguments: Array<(Int4, Int4)> = [
         (1, 1),
         (1, 2),
         (-1, -1),
