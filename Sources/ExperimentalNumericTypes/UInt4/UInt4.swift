@@ -313,6 +313,15 @@ extension UInt4: Comparable {
     }
 }
 
+// MARK: - CustomDebugStringConvertible
+
+extension UInt4: CustomDebugStringConvertible {
+    /// A textual representation of this value suitable for debugging.
+    public var debugDescription: String {
+        return "UInt4(\(self.value))"
+    }
+}
+
 // MARK: - CustomStringConvertible
 
 extension UInt4: CustomStringConvertible {

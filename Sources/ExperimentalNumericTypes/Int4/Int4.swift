@@ -338,6 +338,15 @@ extension Int4: Comparable {
     }
 }
 
+// MARK: - CustomDebugStringConvertible
+
+extension Int4: CustomDebugStringConvertible {
+    /// A textual representation of this value suitable for debugging.
+    public var debugDescription: String {
+        return "Int4(\(self.value))"
+    }
+}
+
 // MARK: - CustomStringConvertible
 
 extension Int4: CustomStringConvertible {

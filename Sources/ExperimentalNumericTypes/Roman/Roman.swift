@@ -199,6 +199,15 @@ extension Roman: Comparable {
     }
 }
 
+// MARK: - CustomDebugStringConvertible
+
+extension Roman: CustomDebugStringConvertible {
+    /// A textual representation of this value suitable for debugging.
+    public var debugDescription: String {
+        return "Roman(\(self.value))"
+    }
+}
+
 // MARK: - CustomStringConvertible
 
 extension Roman: CustomStringConvertible {

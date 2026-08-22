@@ -9,21 +9,21 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("UInt4 CustomStringConvertible Tests")
-internal struct UInt4CustomStringConvertibleTests {
+@Suite("UInt4 CustomDebugStringConvertible Tests")
+internal struct UInt4CustomDebugStringConvertibleTests {
     @Test(
-        "Description succeeds",
+        "Debug description succeeds",
         arguments: [
-            (0, "0"),
-            (00, "0"),
-            (01, "1"),
-            (1, "1")
+            (0, "UInt4(0)"),
+            (00, "UInt4(0)"),
+            (01, "UInt4(1)"),
+            (1, "UInt4(1)")
         ] as Array<(UInt4, String)>
     )
-    internal func descriptionSucceeds(
+    internal func debugDescriptionSucceeds(
         value: UInt4,
-        description: String
+        debugDescription: String
     ) {
-        #expect(value.description == description)
+        #expect(value.debugDescription == debugDescription)
     }
 }
