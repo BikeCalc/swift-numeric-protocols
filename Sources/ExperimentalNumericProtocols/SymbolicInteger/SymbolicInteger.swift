@@ -10,9 +10,12 @@ import CoreNumericProtocols
 
 /// A bounded integer value expressed through a symbolic textual notation.
 ///
-/// A symbolic integer represents exact, discrete values without promising a binary representation or bit-level operations. Conforming types provide a lossless textual notation, define their lower and upper bounds, support arithmetic with overflow reporting, and advance across their representable values by a stride.
+/// A symbolic integer represents exact, discrete values without promising a binary representation or bit-level
+/// operations. Conforming types provide a lossless textual notation, define their lower and upper bounds, support
+/// arithmetic with overflow reporting, and advance across their representable values by a stride.
 ///
-/// The storage used by a conforming type is an implementation detail. A symbolic integer may use a binary integer internally while presenting a nonpositional notation publicly.
+/// The storage used by a conforming type is an implementation detail. A symbolic integer may use a binary integer
+/// internally while presenting a nonpositional notation publicly.
 public protocol SymbolicInteger:
     Comparable,
     LosslessStringConvertible,

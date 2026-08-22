@@ -29,14 +29,15 @@ package enum RationalComparator {
 
     /// Returns the ordering of the specified rational values.
     ///
-    /// This comparison evaluates continued-fraction terms using unsigned magnitudes rather than cross-multiplying the stored terms. NaN is unordered and produces `nil`.
+    /// This comparison evaluates continued-fraction terms using unsigned magnitudes rather than cross-multiplying the
+    /// stored terms. NaN is unordered and produces `nil`.
     ///
     /// - Parameter lhs: The first rational value.
     /// - Parameter rhs: The second rational value.
     /// - Returns: The ordering of the values, or `nil` when either value is NaN.
     package static func compare<Value>(
         _ lhs: Value,
-        to rhs: Value
+        _ rhs: Value
     ) -> Ordering?
     where Value: Rational {
         guard lhs.isNaN == false && rhs.isNaN == false else {
@@ -58,6 +59,7 @@ package enum RationalComparator {
             break
         }
 
+        // Treat every finite zero as nonnegative; otherwise, exactly one negative term makes the value negative.
         let lhsIsNegative: Bool = lhs.numerator != 0
             && (lhs.numerator < 0) != (lhs.denominator < 0)
 
@@ -69,10 +71,8 @@ package enum RationalComparator {
         }
 
         let ordering: Ordering = self.compareMagnitudes(
-            lhs.numerator.magnitude,
-            over: lhs.denominator.magnitude,
-            to: rhs.numerator.magnitude,
-            over: rhs.denominator.magnitude
+            (numerator: lhs.numerator.magnitude, denominator: lhs.denominator.magnitude),
+            (numerator: rhs.numerator.magnitude, denominator: rhs.denominator.magnitude)
         )
 
         return lhsIsNegative ? ordering.reversed : ordering
@@ -80,31 +80,28 @@ package enum RationalComparator {
 
     /// Returns the ordering of two nonnegative rational magnitudes.
     ///
-    /// - Parameter lhsNumerator: The first numerator magnitude.
-    /// - Parameter lhsDenominator: The first denominator magnitude.
-    /// - Parameter rhsNumerator: The second numerator magnitude.
-    /// - Parameter rhsDenominator: The second denominator magnitude.
+    /// - Parameter lhs: The first numerator and denominator magnitudes.
+    /// - Parameter rhs: The second numerator and denominator magnitudes.
     /// - Returns: The ordering of the two rational magnitudes.
     /// - Precondition: Both denominators must be greater than zero.
     private static func compareMagnitudes<Magnitude>(
-        _ lhsNumerator: Magnitude,
-        over lhsDenominator: Magnitude,
-        to rhsNumerator: Magnitude,
-        over rhsDenominator: Magnitude
+        _ lhs: (numerator: Magnitude, denominator: Magnitude),
+        _ rhs: (numerator: Magnitude, denominator: Magnitude)
     ) -> Ordering
     where Magnitude: BinaryInteger {
         precondition(
-            lhsDenominator > 0 && rhsDenominator > 0,
+            lhs.denominator > 0 && rhs.denominator > 0,
             "Rational comparison denominators must be positive."
         )
 
-        var lhsDividend: Magnitude = lhsNumerator
-        var lhsDivisor: Magnitude = lhsDenominator
-        var rhsDividend: Magnitude = rhsNumerator
-        var rhsDivisor: Magnitude = rhsDenominator
+        var lhsDividend: Magnitude = lhs.numerator
+        var lhsDivisor: Magnitude = lhs.denominator
+        var rhsDividend: Magnitude = rhs.numerator
+        var rhsDivisor: Magnitude = rhs.denominator
         var isReversed: Bool = false
 
         while true {
+            // Each quotient is the next coefficient in the value's simple continued-fraction expansion.
             let lhsQuotient: Magnitude = lhsDividend / lhsDivisor
             let lhsRemainder: Magnitude = lhsDividend % lhsDivisor
             let rhsQuotient: Magnitude = rhsDividend / rhsDivisor
@@ -118,6 +115,7 @@ package enum RationalComparator {
                 return isReversed ? ordering.reversed : ordering
             }
 
+            // A zero remainder terminates an expansion; otherwise, compare the reciprocal fractional parts.
             switch (lhsRemainder == 0, rhsRemainder == 0) {
             case (true, true):
                 return .equivalent
@@ -130,6 +128,8 @@ package enum RationalComparator {
                 lhsDivisor = lhsRemainder
                 rhsDividend = rhsDivisor
                 rhsDivisor = rhsRemainder
+
+                // Taking reciprocals reverses the ordering at every continued-fraction step.
                 isReversed.toggle()
             }
         }

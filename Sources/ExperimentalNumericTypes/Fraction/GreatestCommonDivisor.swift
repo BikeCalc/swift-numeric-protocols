@@ -8,7 +8,10 @@
 
 /// Returns the greatest common divisor of the specified values.
 ///
-/// Either operand may be zero. The greatest common divisor of zero and a nonzero value has the magnitude of the nonzero value, while the greatest common divisor of two zero values is zero. The unsigned result represents the mathematically nonnegative divisor even when that value cannot be represented by `Value`, such as the magnitude of a signed minimum value.
+/// Either operand may be zero. The greatest common divisor of zero and a nonzero value has the magnitude of the nonzero
+/// value, while the greatest common divisor of two zero values is zero. The unsigned result represents the
+/// mathematically nonnegative divisor even when that value cannot be represented by `Value`, such as the magnitude of a
+/// signed minimum value.
 ///
 /// - Parameter lhs: The first value.
 /// - Parameter rhs: The second value.

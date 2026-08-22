@@ -10,9 +10,15 @@ import CoreNumericProtocols
 
 /// A type that represents a finite or nonfinite rational value as a ratio of two binary integer terms.
 ///
-/// A rational value has a numerator, which appears above the fraction bar, and a denominator, which appears below it. A zero denominator represents infinity when the numerator is nonzero and NaN when the numerator is zero. Conforming types may preserve distinct representations of the same canonical value. For example, `1/1` and `2/2` may be unequal stored values while remaining canonically equal rational values. A conforming type determines whether it preserves or canonicalizes equivalent nonfinite representations.
+/// A rational value has a numerator, which appears above the fraction bar, and a denominator, which appears below it. A
+/// zero denominator represents infinity when the numerator is nonzero and NaN when the numerator is zero. Conforming
+/// types may preserve distinct representations of the same canonical value. For example, `1/1` and `2/2` may be unequal
+/// stored values while remaining canonically equal rational values. A conforming type determines whether it preserves
+/// or canonicalizes equivalent nonfinite representations.
 ///
-/// Conforming types support Swift's standard numeric operations, ordering, hashing, integer literals, and textual descriptions. They also support the four basic arithmetic operations, canonicalization, and canonical equality operations.
+/// Conforming types support Swift's standard numeric operations, ordering, hashing, integer literals, and textual
+/// descriptions. They also support the four basic arithmetic operations, canonicalization, and canonical equality
+/// operations.
 public protocol Rational:
     Canonicalizable,
     CanonicallyEquatable,
@@ -31,7 +37,10 @@ public protocol Rational:
     ///
     /// - Parameter numerator: The numerator.
     /// - Parameter denominator: The denominator. Zero creates a nonfinite value.
-    init(_ numerator: Self.Term, over denominator: Self.Term)
+    init(
+        _ numerator: Self.Term,
+        _ denominator: Self.Term
+    )
 
     /// The stored term above the fraction bar.
     var numerator: Self.Term { get }
@@ -43,7 +52,9 @@ public protocol Rational:
 extension Rational {
     /// A boolean value indicating whether this value represents one.
     ///
-    /// Any rational representation with equal, nonzero numerator and denominator terms represents one. This property does not require the value to be simplified. For example, `1/1`, `3/3`, and `-3/-3` represent one, while `0/0` is NaN and does not.
+    /// Any rational representation with equal, nonzero numerator and denominator terms represents one. This property
+    /// does not require the value to be simplified. For example, `1/1`, `3/3`, and `-3/-3` represent one, while `0/0`
+    /// is NaN and does not.
     public var isOne: Bool {
         return self.numerator != 0
             && self.numerator == self.denominator
@@ -51,7 +62,9 @@ extension Rational {
 
     /// A boolean value indicating whether this value is a whole fraction.
     ///
-    /// A whole fraction is finite, nonnegative, and has an integer quotient. This property is independent of the stored representation and does not require the value to be simplified. For example, `4/2`, `8/4`, `0/3`, and `-4/-2` are whole fractions, while `3/2` and `-4/2` are not.
+    /// A whole fraction is finite, nonnegative, and has an integer quotient. This property is independent of the stored
+    /// representation and does not require the value to be simplified. For example, `4/2`, `8/4`, `0/3`, and `-4/-2`
+    /// are whole fractions, while `3/2` and `-4/2` are not.
     public var isWhole: Bool {
         guard self.isFinite else {
             return false
@@ -68,7 +81,9 @@ extension Rational {
 
     /// A boolean value indicating whether this value is a proper fraction.
     ///
-    /// A nonzero rational value is proper when its magnitude is strictly less than one. Equivalently, the magnitude of its numerator is less than the magnitude of its denominator. For example, `1/2` and `-1/2` are proper, while zero is neither proper nor improper.
+    /// A nonzero rational value is proper when its magnitude is strictly less than one. Equivalently, the magnitude of
+    /// its numerator is less than the magnitude of its denominator. For example, `1/2` and `-1/2` are proper, while
+    /// zero is neither proper nor improper.
     public var isProper: Bool {
         return self.numerator != 0
             && self.numerator.magnitude < self.denominator.magnitude
@@ -76,7 +91,9 @@ extension Rational {
 
     /// A boolean value indicating whether this value is an improper fraction.
     ///
-    /// A rational value is improper when its magnitude is greater than or equal to one. Equivalently, the magnitude of its numerator is greater than or equal to the magnitude of its denominator. For example, `3/2`, `-3/2`, and `2/2` are improper.
+    /// A rational value is improper when its magnitude is greater than or equal to one. Equivalently, the magnitude of
+    /// its numerator is greater than or equal to the magnitude of its denominator. For example, `3/2`, `-3/2`, and
+    /// `2/2` are improper.
     public var isImproper: Bool {
         return self.isFinite
             && self.numerator.magnitude >= self.denominator.magnitude
@@ -84,7 +101,9 @@ extension Rational {
 
     /// A boolean value indicating whether this value is a unit fraction.
     ///
-    /// A stored representation is a unit fraction when its numerator is one and its denominator is positive. For example, `1/2` is a unit fraction. An equivalent but unnormalized representation such as `-1/-2` becomes a unit fraction after normalization.
+    /// A stored representation is a unit fraction when its numerator is one and its denominator is positive. For
+    /// example, `1/2` is a unit fraction. An equivalent but unnormalized representation such as `-1/-2` becomes a unit
+    /// fraction after normalization.
     public var isUnit: Bool {
         return self.numerator == 1
             && self.denominator > 0
@@ -92,14 +111,17 @@ extension Rational {
 
     /// A binary floating-point approximation of this value.
     ///
-    /// The quotient is the result of dividing the numerator by the denominator and storing that result as a `Double`. This conversion may round finite values that cannot be represented exactly. Infinite values produce a `Double` infinity, and NaN produces `Double.nan`. This property does not alter the stored numerator or denominator.
+    /// The quotient is the result of dividing the numerator by the denominator and storing that result as a `Double`.
+    /// This conversion may round finite values that cannot be represented exactly. Infinite values produce a `Double`
+    /// infinity, and NaN produces `Double.nan`. This property does not alter the stored numerator or denominator.
     public var quotient: Double {
         return .init(self.numerator) / .init(self.denominator)
     }
 
     /// Returns a boolean value indicating whether this value has the same stored denominator as the specified value.
     ///
-    /// Fractions with the same denominator are called like fractions. This comparison is representation-sensitive: `1/4` and `3/4` are like, while the canonically equal representations `1/2` and `2/4` are not.
+    /// Fractions with the same denominator are called like fractions. This comparison is representation-sensitive:
+    /// `1/4` and `3/4` are like, while the canonically equal representations `1/2` and `2/4` are not.
     ///
     /// - Parameter rhs: The value to compare.
     /// - Returns: `true` if both stored denominators are equal, and `false` otherwise.
@@ -113,12 +135,14 @@ extension Rational {
 extension Rational {
     /// Returns a boolean value indicating whether this value is canonically equal to the specified value.
     ///
-    /// Canonical equality compares the rational values represented by both operands without requiring their stored terms to match. For example, `1/2` and `2/4` are canonically equal even when ordinary equality considers their stored terms unequal. NaN is never canonically equal to any value, including itself.
+    /// Canonical equality compares the rational values represented by both operands without requiring their stored
+    /// terms to match. For example, `1/2` and `2/4` are canonically equal even when ordinary equality considers their
+    /// stored terms unequal. NaN is never canonically equal to any value, including itself.
     ///
     /// - Parameter rhs: The value to compare.
     /// - Returns: `true` if both values have the same canonical representation, and `false` otherwise.
     public func isCanonicallyEquatable(to rhs: Self) -> Bool {
-        return RationalComparator.compare(self, to: rhs) == .equivalent
+        return RationalComparator.compare(self, rhs) == .equivalent
     }
 }
 
@@ -140,7 +164,7 @@ extension Rational {
 
     /// Positive infinity, represented by `1/0`.
     public static var infinity: Self {
-        return .init(1, over: 0)
+        return .init(1, 0)
     }
 }
 
@@ -157,7 +181,7 @@ extension Rational {
 
     /// A not-a-number value, represented by `0/0`.
     public static var nan: Self {
-        return .init(0, over: 0)
+        return .init(0, 0)
     }
 }
 
@@ -166,13 +190,15 @@ extension Rational {
 extension Rational {
     /// A boolean value indicating whether this value represents zero.
     ///
-    /// Any rational representation with a zero numerator and nonzero denominator represents zero. For example, both `0/1` and `0/2` are zero even though they are not ordinarily equal stored representations. The expression `0/0` is NaN and does not represent zero.
+    /// Any rational representation with a zero numerator and nonzero denominator represents zero. For example, both
+    /// `0/1` and `0/2` are zero even though they are not ordinarily equal stored representations. The expression `0/0`
+    /// is NaN and does not represent zero.
     public var isZero: Bool {
         return self.numerator == 0
             && self.denominator != 0
     }
 
     public static var zero: Self {
-        return .init(0, over: 1)
+        return .init(0, 1)
     }
 }

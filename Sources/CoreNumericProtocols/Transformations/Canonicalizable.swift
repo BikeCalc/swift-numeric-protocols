@@ -8,7 +8,8 @@
 
 /// A type that can be converted to its canonical representation.
 ///
-/// A canonical representation is the single preferred representation among multiple equivalent representations of a value. The specific rules that determine this representation belong to the conforming type.
+/// A canonical representation is the single preferred representation among multiple equivalent representations of a
+/// value. The specific rules that determine this representation belong to the conforming type.
 public protocol Canonicalizable {
     /// A boolean value indicating whether this value can be converted to its canonical representation.
     var isCanonicalizable: Bool { get }

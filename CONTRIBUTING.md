@@ -240,6 +240,10 @@ In prose and explanatory tables, group thousands with commas, such as `1,000.25`
 Expand parameter and argument lists that contain more than one item. Keep the opening parenthesis on the declaration
 line, place each parameter or argument on its own line, and place the closing parenthesis on its own line.
 
+A short call to an initializer designed as tuple-like value construction may remain on one line when its unlabeled
+arguments fit comfortably within the line limit, such as `Fraction(1, 2)`. Keep the initializer declaration expanded so
+that its parameter names remain visible.
+
 Keep tuple types and tuple literals on one line when they fit within the 120-character limit and remain readable. Expand
 them only when their labels, types, or expressions make the single-line form difficult to understand.
 
