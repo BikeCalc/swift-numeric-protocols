@@ -6,9 +6,13 @@ A Swift package extending numeric protocols, standard numeric types, and experim
 
 ## Overview
 
-Numerics Extended provides a layered set of numeric protocols and utilities for Swift. It includes core numeric operators, core numeric protocols, extensions for standard library numeric protocols, standard numeric type conformances, experimental numeric constants, experimental numeric protocols, and experimental numeric types such as `Fraction`, `Roman`, `Int4`, and `UInt4`.
+Numerics Extended provides a layered set of numeric protocols and utilities for Swift. It includes core numeric
+operators, core numeric protocols, extensions for standard library numeric protocols, standard numeric type
+conformances, experimental numeric constants, experimental numeric protocols, and experimental numeric types such as
+`Fraction`, `Roman`, `Int4`, and `UInt4`.
 
-Experimental numeric types are included for exploration and documentation, and their APIs may evolve across major releases.
+Experimental numeric types are included for exploration and documentation, and their APIs may evolve across major
+releases.
 
 ## Requirements
 
@@ -22,30 +26,35 @@ Numerics Extended is written in Swift and avoids platform-specific APIs where po
 
     ```swift
     let package: Package = .init(
+        ...
         dependencies: [
             .package(
-                url: "https://github.com/bikecalc/swift-numerics-extended.git", 
+                url: "https://github.com/bikecalc/swift-numerics-extended.git",
                 from: "2.0.0"
             )
-        ]
+        ],
+        ...
     )
     ```
 
-2. Add the package product as a dependency on your target:
+2. Add the `NumericsExtended` product to the dependencies of the target that will import it. Replace `YourTarget` with
+   the name of that target:
 
     ```swift
     let package: Package = .init(
+        ...
         targets: [
             .target(
-                name: "MyTarget",
+                name: "YourTarget",
                 dependencies: [
                     .product(
-                        name: "NumericsExtended", 
+                        name: "NumericsExtended",
                         package: "swift-numerics-extended"
                     )
                 ]
             )
-        ]
+        ],
+        ...
     )
     ```
 
@@ -57,13 +66,16 @@ Numerics Extended is written in Swift and avoids platform-specific APIs where po
 
 ## Documentation
 
-You can read more about this package by visiting the [documentation](https://bikecalc.github.io/swift-numerics-extended/documentation/numericsextended).
+You can read more about this package by visiting the
+[documentation](https://bikecalc.github.io/swift-numerics-extended/documentation/numericsextended).
 
 ## Contributing
 
-Everyone is welcome to contribute to Numerics Extended. See `CONTRIBUTING.md` for contribution guidelines, branch conventions, pull request expectations, and testing instructions.
+Everyone is welcome to contribute to Numerics Extended. See `CONTRIBUTING.md` for contribution guidelines, branch
+conventions, pull request expectations, and testing instructions.
 
-If you find a bug, please create an [issue](https://github.com/bikecalc/swift-numerics-extended/issues). Security vulnerabilities should be reported using the instructions in `SECURITY.md`.
+If you find a bug, please create an [issue](https://github.com/bikecalc/swift-numerics-extended/issues). Security
+vulnerabilities should be reported using the instructions in `SECURITY.md`.
 
 ## Code of Conduct
 

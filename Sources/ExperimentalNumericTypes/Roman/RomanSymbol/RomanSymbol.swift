@@ -95,7 +95,7 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
             let oneHundred: Roman.Value = Self.C.value
             return oneThousand - oneHundred
         case .M:
-            return 1000
+            return 1_000
         }
     }
 
@@ -158,8 +158,8 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
 
     /// Returns a boolean value indicating whether this case is subtractable from the specified value.
     ///
-    /// If a lower value digit is written to the left of a higher value digit, it is subtracted.
-    /// Only I, X, and C can be used as subtractive numerals.
+    /// If a lower value digit is written to the left of a higher value digit, it is subtracted. Only I, X, and C can be
+    /// used as subtractive numerals.
     ///
     /// - Parameter rhs: The value on the right hand side.
     /// - Returns: A boolean value.
@@ -180,12 +180,16 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
 // MARK: - Comparable
 
 extension RomanSymbol: Comparable {
-    /// Returns a boolean value indicating whether the value of the first argument is less than that of the second argument.
+    /// Returns a boolean value indicating whether the value of the first argument is less than that of the second
+    /// argument.
     ///
     /// - Parameter lhs: A value to compare.
     /// - Parameter rhs: Another value to compare.
     /// - Returns: `true` if lhs is smaller, and `false` otherwise.
-    internal static func < (_ lhs: Self, _ rhs: Self) -> Bool {
+    internal static func < (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
         return lhs.value < rhs.value
     }
 }

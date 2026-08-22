@@ -1,14 +1,19 @@
 # Understanding Four-Bit Integers
 
-Learn how binary integers store values, wrap around, and interpret bit patterns by using integer types small enough to inspect by hand.
+Learn how binary integers store values, wrap around, and interpret bit patterns by using integer types small enough to
+inspect by hand.
 
 ## Overview
 
-Swift's standard integer types are usually too large to reason about visually. A `UInt64` has 64 bits, which means there are 18,446,744,073,709,551,616 possible bit patterns. That is too many patterns to list, too many values to count by hand, and too much machinery to see at once.
+Swift's standard integer types are usually too large to reason about visually. A `UInt64` has 64 bits, which means there
+are 18,446,744,073,709,551,616 possible bit patterns. That is too many patterns to list, too many values to count by
+hand, and too much machinery to see at once.
 
-A four-bit integer has only 16 possible bit patterns. That tiny range makes `UInt4` and `Int4` useful learning types. They behave like fixed-width integers, but their entire value space fits in one table.
+A four-bit integer has only 16 possible bit patterns. That tiny range makes `UInt4` and `Int4` useful learning types.
+They behave like fixed-width integers, but their entire value space fits in one table.
 
-This article focuses on the binary model itself: bits, unsigned interpretation, signed interpretation, truncation, overflow, and bitwise operations.
+This article focuses on the binary model itself: bits, unsigned interpretation, signed interpretation, truncation,
+overflow, and bitwise operations.
 
 ## Start With Bits
 
@@ -23,13 +28,15 @@ A four-bit value is a group of four bits:
 0011
 ```
 
-Each position can independently be `0` or `1`. Because there are four positions and two choices for each position, there are 16 possible patterns:
+Each position can independently be `0` or `1`. Because there are four positions and two choices for each position, there
+are 16 possible patterns:
 
 ```text
 2 * 2 * 2 * 2 = 16
 ```
 
-That means a four-bit integer can represent exactly 16 distinct values. The interesting part is that the same 16 patterns can mean different things depending on how a type interprets them.
+That means a four-bit integer can represent exactly 16 distinct values. The interesting part is that the same 16
+patterns can mean different things depending on how a type interprets them.
 
 ## Use Binary Place Values
 
@@ -63,7 +70,8 @@ That is why an unsigned four-bit integer can represent values from `0` through `
 
 `UInt4` is unsigned. It reads every bit pattern as a nonnegative value from `0` through `15`.
 
-`Int4` is signed. It uses two's-complement representation, so `0000` through `0111` represent `0` through `7`, while `1000` through `1111` represent `-8` through `-1`.
+`Int4` is signed. It uses two's-complement representation, so `0000` through `0111` represent `0` through `7`, while
+`1000` through `1111` represent `-8` through `-1`.
 
 | Bits | `UInt4` | `Int4` |
 | ---- | ------: | -----: |
@@ -84,15 +92,19 @@ That is why an unsigned four-bit integer can represent values from `0` through `
 | `1110` | `14` | `-2` |
 | `1111` | `15` | `-1` |
 
-The leftmost bit is the sign bit for `Int4`. If it is `0`, the signed value is nonnegative. If it is `1`, the signed value is negative.
+The leftmost bit is the sign bit for `Int4`. If it is `0`, the signed value is nonnegative. If it is `1`, the signed
+value is negative.
 
-This is why signed integer ranges are asymmetric. `Int4` has one more negative value than positive value: the range is `-8...7`.
+This is why signed integer ranges are asymmetric. `Int4` has one more negative value than positive value: the range is
+`-8...7`.
 
-The bit pattern `1111` is `15` for `UInt4`, but `-1` for `Int4`. The stored bits are the same; the interpretation is different.
+The bit pattern `1111` is `15` for `UInt4`, but `-1` for `Int4`. The stored bits are the same; the interpretation is
+different.
 
 ## Understand Truncation
 
-Truncation keeps the low bits of a source value and discards the rest. For a four-bit integer, that means keeping only the last four bits.
+Truncation keeps the low bits of a source value and discards the rest. For a four-bit integer, that means keeping only
+the last four bits.
 
 The decimal value `16` is binary `1 0000`:
 
@@ -122,13 +134,15 @@ For signed values, the same low four bits are interpreted through two's-compleme
 | `16` | `0000` | `0` | `0` |
 | `17` | `0001` | `1` | `1` |
 
-Truncation is not the same as asking whether a value fits. It is a bit-level operation: keep the low bits, then let the destination type interpret them.
+Truncation is not the same as asking whether a value fits. It is a bit-level operation: keep the low bits, then let the
+destination type interpret them.
 
 ## Understand Overflow
 
 Overflow happens when an arithmetic result does not fit in the type's representable range.
 
-For `UInt4`, the largest value is `15`. Adding one more cannot produce `16`, because `16` is outside the range. In a four-bit unsigned domain, the values wrap after `15`:
+For `UInt4`, the largest value is `15`. Adding one more cannot produce `16`, because `16` is outside the range. In a
+four-bit unsigned domain, the values wrap after `15`:
 
 ```text
 0, 1, 2, 3, ..., 14, 15, 0, 1, ...
@@ -176,7 +190,8 @@ The bitwise XOR operator, `^`, keeps a `1` when the input bits are different:
 0110
 ```
 
-Signed values still have bit patterns. For example, `-1` as `Int4` is `1111`. If you apply the mask `0011`, only the selected low bits remain:
+Signed values still have bit patterns. For example, `-1` as `Int4` is `1111`. If you apply the mask `0011`, only the
+selected low bits remain:
 
 ```text
 1111
@@ -185,7 +200,8 @@ Signed values still have bit patterns. For example, `-1` as `Int4` is `1111`. If
 0011
 ```
 
-This is a useful reminder: signed integers are still bit patterns first. The type decides how to interpret those patterns as numeric values.
+This is a useful reminder: signed integers are still bit patterns first. The type decides how to interpret those
+patterns as numeric values.
 
 ## Understand Fixed-Width Properties
 
@@ -199,4 +215,5 @@ For the four-bit pattern `1100`:
 | Leading zero bit count | `0` | The first bit is already `1`. |
 | Trailing zero bit count | `2` | The last two bits are `0`. |
 
-These properties are simple on a four-bit value, which makes them useful for understanding the same APIs on larger fixed-width integers.
+These properties are simple on a four-bit value, which makes them useful for understanding the same APIs on larger
+fixed-width integers.

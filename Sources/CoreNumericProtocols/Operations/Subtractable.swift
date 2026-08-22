@@ -13,7 +13,10 @@ public protocol Subtractable: Equatable {
     /// - Parameter lhs: The minuend.
     /// - Parameter rhs: The subtrahend.
     /// - Returns: The difference.
-    static func - (_ lhs: Self, _ rhs: Self) -> Self
+    static func - (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self
 }
 
 extension Subtractable {
@@ -21,7 +24,10 @@ extension Subtractable {
     ///
     /// - Parameter lhs: The minuend.
     /// - Parameter rhs: The subtrahend.
-    public static func -= (_ lhs: inout Self, _ rhs: Self) {
+    public static func -= (
+        _ lhs: inout Self,
+        _ rhs: Self
+    ) {
         lhs = lhs - rhs
     }
 

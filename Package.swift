@@ -8,7 +8,9 @@ let package = Package(
     products: [
         .library(
             name: "NumericsExtended",
-            targets: ["NumericsExtended"]
+            targets: [
+                "NumericsExtended"
+            ]
         )
     ],
     dependencies: [

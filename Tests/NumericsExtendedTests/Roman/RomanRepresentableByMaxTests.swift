@@ -15,7 +15,7 @@ internal struct RomanRepresentableByMaxTests {
         "Is max",
         arguments: [
             (0, false),
-            (3999, true)
+            (3_999, true)
         ] as Array<(Roman, Bool)>
     )
     internal func isMax(
@@ -27,6 +27,6 @@ internal struct RomanRepresentableByMaxTests {
 
     @Test("Max returns max")
     internal func maxReturnsMax() {
-        #expect(Roman.max == 3999)
+        #expect(Roman.max == 3_999)
     }
 }

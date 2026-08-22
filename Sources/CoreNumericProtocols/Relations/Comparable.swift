@@ -53,7 +53,10 @@ extension Comparable {
     /// - Parameter upperBound: The upper bound value.
     /// - Returns: A boolean value.
     /// - Precondition: `lowerBound` must be less than `upperBound`.
-    public func isWithin(_ lowerBound: Self, through upperBound: Self) -> Bool {
+    public func isWithin(
+        _ lowerBound: Self,
+        through upperBound: Self
+    ) -> Bool {
         precondition(
             lowerBound < upperBound,
             "Lower bound must be less than upper bound."
@@ -70,7 +73,10 @@ extension Comparable {
     /// - Parameter upperBound: The upper bound value.
     /// - Returns: A boolean value.
     /// - Precondition: `lowerBound` must be less than `upperBound`.
-    public func isBetween(_ lowerBound: Self, and upperBound: Self) -> Bool {
+    public func isBetween(
+        _ lowerBound: Self,
+        and upperBound: Self
+    ) -> Bool {
         precondition(
             lowerBound < upperBound,
             "Lower bound must be less than upper bound."

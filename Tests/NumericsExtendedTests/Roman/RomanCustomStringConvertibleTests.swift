@@ -26,7 +26,7 @@ internal struct RomanCustomStringConvertibleTests {
             (90, "XC"),
             (400, "CD"),
             (900, "CM"),
-            (3999, "MMMCMXCIX")
+            (3_999, "MMMCMXCIX")
         ] as Array<(Roman, String)>
     )
     internal func descriptionSucceeds(

@@ -37,12 +37,15 @@ where Self: Divisible {
             && self.isNaN == false
     }
 
-    /// Returns a boolean value indicating whether dividing this value by the specified value produces an exactly zero floating-point remainder.
+    /// Returns a boolean value indicating whether dividing this value by the specified value produces an exactly zero
+    /// floating-point remainder.
     ///
-    /// Both values must be finite and the divisor must be nonzero. Because floating-point values are approximate, values that appear divisible in decimal notation may not produce an exactly zero remainder.
+    /// Both values must be finite and the divisor must be nonzero. Because floating-point values are approximate,
+    /// values that appear divisible in decimal notation may not produce an exactly zero remainder.
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: `true` if dividing this value by the specified value produces an exactly zero remainder, and `false` otherwise.
+    /// - Returns: `true` if dividing this value by the specified value produces an exactly zero remainder, and `false`
+    ///   otherwise.
     public func isDivisible(by other: Self) -> Bool {
         guard self.isFinite,
               other.isFinite,
@@ -58,10 +61,12 @@ extension FloatingPoint
 where Self: Divisible & Multipliable {
     /// Returns a boolean value indicating whether this value is a multiple of the specified value.
     ///
-    /// Because floating-point values are approximate, values that appear to be multiples in decimal notation may not produce an exactly zero remainder.
+    /// Because floating-point values are approximate, values that appear to be multiples in decimal notation may not
+    /// produce an exactly zero remainder.
     ///
     /// - Parameter other: The value to test.
-    /// - Returns: `true` if this value produces an exactly zero remainder when divided by the specified value, and `false` otherwise.
+    /// - Returns: `true` if this value produces an exactly zero remainder when divided by the specified value, and
+    ///   `false` otherwise.
     public func isMultiple(of other: Self) -> Bool {
         if self == 0 && other == 0 {
             return true
@@ -79,9 +84,11 @@ extension FloatingPoint
 where Self: Divisible & Negateable & Raisable {
     /// Returns a boolean value indicating whether this value is a power of the specified value.
     ///
-    /// A value is a power of a base when raising the base to a positive, zero, or negative integer exponent produces that value. Floating-point values must match exactly.
+    /// A value is a power of a base when raising the base to a positive, zero, or negative integer exponent produces
+    /// that value. Floating-point values must match exactly.
     ///
-    /// This method treats `1` as a power of every base because an exponent of zero produces `1`. `NaN` is never a power, while zero and infinity follow floating-point rules.
+    /// This method treats `1` as a power of every base because an exponent of zero produces `1`. `NaN` is never a
+    /// power, while zero and infinity follow floating-point rules.
     ///
     /// - Parameter other: The value to test.
     /// - Returns: `true` if this value is a power of the specified value, and `false` otherwise.
@@ -120,7 +127,8 @@ where Self: Divisible & Negateable & Raisable {
             return false
         }
 
-        // Multiply when the value and base magnitudes are on the same side of one; otherwise, search through reciprocal powers.
+        // Multiply when the value and base magnitudes are on the same side of one; otherwise, search through reciprocal
+        // powers.
         let usesPositiveExponent: Bool = (self.magnitude > 1) == (other.magnitude > 1)
         var power: Self = 1
 
@@ -171,7 +179,10 @@ where Self: Raisable, Self.Exponent: BinaryInteger {
     /// - Parameter lhs: The base.
     /// - Parameter rhs: The exponent.
     /// - Returns: The power.
-    public static func ** (_ lhs: Self, _ rhs: Self.Exponent) -> Self {
+    public static func ** (
+        _ lhs: Self,
+        _ rhs: Self.Exponent
+    ) -> Self {
         switch rhs {
         case ..<0:
             var result: Self = 1
@@ -206,7 +217,8 @@ extension FloatingPoint
 where Self: Roundable, Self.DecimalPlace: UnsignedInteger {
     /// Returns this instance rounded to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native floating-point representation. Values that cannot be represented exactly may produce results that differ from exact decimal arithmetic.
+    /// This operation uses the type's native floating-point representation. Values that cannot be represented exactly
+    /// may produce results that differ from exact decimal arithmetic.
     ///
     /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance rounded.
@@ -227,7 +239,8 @@ extension FloatingPoint
 where Self: Truncatable, Self.DecimalPlace: UnsignedInteger {
     /// Returns this instance truncated to the specified approximate decimal precision.
     ///
-    /// This operation uses the type's native floating-point representation. Values that cannot be represented exactly may produce results that differ from exact decimal arithmetic.
+    /// This operation uses the type's native floating-point representation. Values that cannot be represented exactly
+    /// may produce results that differ from exact decimal arithmetic.
     ///
     /// - Parameter decimalPlace: The number of decimal places.
     /// - Returns: This instance truncated.

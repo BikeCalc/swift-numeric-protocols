@@ -10,14 +10,20 @@ import CoreNumericProtocols
 
 extension AdditiveArithmetic
 where Self: Addable {
-    public static func += (_ lhs: inout Self, _ rhs: Self) {
+    public static func += (
+        _ lhs: inout Self,
+        _ rhs: Self
+    ) {
         lhs = lhs + rhs
     }
 }
 
 extension AdditiveArithmetic
 where Self: Subtractable {
-    public static func -= (_ lhs: inout Self, _ rhs: Self) {
+    public static func -= (
+        _ lhs: inout Self,
+        _ rhs: Self
+    ) {
         lhs = lhs - rhs
     }
 }

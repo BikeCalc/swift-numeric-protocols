@@ -9,24 +9,21 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman RepresentableByMin Tests")
-internal struct RomanRepresentableByMinTests {
+@Suite("Roman CustomDebugStringConvertible Tests")
+internal struct RomanCustomDebugStringConvertibleTests {
     @Test(
-        "Is min",
+        "Debug description succeeds",
         arguments: [
-            (0, true),
-            (3_999, false)
-        ] as Array<(Roman, Bool)>
+            (0, "Roman(0)"),
+            (00, "Roman(0)"),
+            (01, "Roman(1)"),
+            (1, "Roman(1)")
+        ] as Array<(Roman, String)>
     )
-    internal func isMin(
+    internal func debugDescriptionSucceeds(
         value: Roman,
-        result: Bool
+        debugDescription: String
     ) {
-        #expect(value.isMin == result)
-    }
-
-    @Test("Min returns min")
-    internal func minReturnsMin() {
-        #expect(Roman.min == 0)
+        #expect(value.debugDescription == debugDescription)
     }
 }

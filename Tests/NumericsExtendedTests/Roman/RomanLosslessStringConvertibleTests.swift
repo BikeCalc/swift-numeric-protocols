@@ -18,7 +18,7 @@ internal struct RomanLosslessStringConvertibleTests {
             ("00", 0),
             ("01", 1),
             ("1", 1),
-            ("3999", 3999)
+            ("3999", 3_999)
         ] as Array<(String, Roman)>
     )
     internal func initializedWithDecimalStringSucceeds(
@@ -43,8 +43,8 @@ internal struct RomanLosslessStringConvertibleTests {
             ("CCC", 300),
             ("CD", 400),
             ("CM", 900),
-            ("MMM", 3000),
-            ("MMMCMXCIX", 3999)
+            ("MMM", 3_000),
+            ("MMMCMXCIX", 3_999)
         ] as Array<(String, Roman)>
     )
     internal func initializedWithStringSucceeds(

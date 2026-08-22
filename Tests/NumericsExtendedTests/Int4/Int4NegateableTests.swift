@@ -11,7 +11,7 @@ import Testing
 
 @Suite("Int4 Negateable Tests")
 internal struct Int4NegateableTests {
-    private static let negationArguments: Array<(value: Int4, negation: Int4)> = [
+    private static let negationArguments: Array<(Int4, Int4)> = [
         (1, -1),
         (-1, 1),
         (5, -5),

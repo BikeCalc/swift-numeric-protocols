@@ -4,11 +4,14 @@ Small numeric protocols, standard-library conformances, and experimental numeric
 
 ## Overview
 
-Numerics Extended explores Swift numerics in layers, from tiny operator protocols to experimental integer types that make low-level behavior easier to inspect.
+Numerics Extended explores Swift numerics in layers, from tiny operator protocols to experimental integer types that
+make low-level behavior easier to inspect.
 
-Use the package when you want to experiment with numeric abstractions, study how Swift's standard numeric protocols fit together, or inspect small numeric types such as `Int4`, `UInt4`, and `Roman`.
+Use the package when you want to experiment with numeric abstractions, study how Swift's standard numeric protocols fit
+together, or inspect small numeric types such as `Int4`, `UInt4`, and `Roman`.
 
-The package is exposed through a public umbrella module. Import `NumericsExtended` to access the core protocol layer, standard-library conformances, and experimental numeric types from one place.
+The package is exposed through a public umbrella module. Import `NumericsExtended` to access the core protocol layer,
+standard-library conformances, and experimental numeric types from one place.
 
 ## Topics
 

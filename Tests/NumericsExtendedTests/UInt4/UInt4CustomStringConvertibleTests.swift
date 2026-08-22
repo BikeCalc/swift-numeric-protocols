@@ -15,8 +15,9 @@ internal struct UInt4CustomStringConvertibleTests {
         "Description succeeds",
         arguments: [
             (0, "0"),
-            (1, "1"),
-            (15, "15")
+            (00, "0"),
+            (01, "1"),
+            (1, "1")
         ] as Array<(UInt4, String)>
     )
     internal func descriptionSucceeds(

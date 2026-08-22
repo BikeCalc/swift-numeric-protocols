@@ -35,7 +35,7 @@ internal struct RomanNumericTests {
             (2, 2),
             (3, 3),
             (0, Roman.min),
-            (3999, Roman.max)
+            (3_999, Roman.max)
         ] as Array<(Int, Roman)>
     )
     internal func initializedExactlySucceeds(
@@ -49,7 +49,7 @@ internal struct RomanNumericTests {
         "Initialized exactly fails",
         arguments: [
             -1,
-            4000
+            4_000
         ]
     )
     internal func initializedExactlyFails(source: Int) {

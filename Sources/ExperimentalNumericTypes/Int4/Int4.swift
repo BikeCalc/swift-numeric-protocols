@@ -13,7 +13,9 @@ import StandardNumericTypes
 
 /// A four-bit signed integer value from `-8` through `7`.
 ///
-/// Use `Int4` to experiment with signed fixed-width integer behavior in a range small enough to inspect by hand. The type uses `Int8` storage internally, but only the low four bits define its integer behavior. Those four bits are interpreted with two's-complement signed integer rules.
+/// Use `Int4` to experiment with signed fixed-width integer behavior in a range small enough to inspect by hand. The
+/// type uses `Int8` storage internally, but only the low four bits define its integer behavior. Those four bits are
+/// interpreted with two's-complement signed integer rules.
 ///
 /// For example:
 ///
@@ -69,7 +71,8 @@ import StandardNumericTypes
 /// // Prints "3"
 /// ```
 ///
-/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped partial values.
+/// Normal arithmetic expects representable results. Use overflow-reporting operations when you want to inspect wrapped
+/// partial values.
 ///
 /// For example:
 ///
@@ -102,7 +105,12 @@ import StandardNumericTypes
 /// let encoder = JSONEncoder()
 /// let data = try encoder.encode(value)
 ///
-/// print(String(data: data, encoding: .utf8)!)
+/// let description = String(
+///     data: data,
+///     encoding: .utf8
+/// )!
+///
+/// print(description)
 /// // Prints "-8"
 /// ```
 ///
@@ -116,11 +124,17 @@ import StandardNumericTypes
 /// let data = Data(#"-8"#.utf8)
 /// let decoder = JSONDecoder()
 ///
-/// print(try decoder.decode(Int4.self, from: data))
+/// let value = try decoder.decode(
+///     Int4.self,
+///     from: data
+/// )
+///
+/// print(value)
 /// // Prints "-8"
 /// ```
 ///
-/// - Note: `Int4` is intentionally experimental. It is useful for learning, tests, and documentation, but it is not intended to replace Swift's standard signed integer types in application code.
+/// - Note: `Int4` is intentionally experimental. It is useful for learning, tests, and documentation, but it is not
+///   intended to replace Swift's standard signed integer types in application code.
 public struct Int4 {
     /// The storage type used to hold the 4-bit value.
     internal typealias Value = Int8
@@ -137,7 +151,7 @@ public struct Int4 {
     internal init(value: Self.Value) {
         precondition(
             -8...7 ~= value,
-             "Int4 value must be between -8 and 7."
+            "Int4 value must be between -8 and 7."
         )
         self.value = value
     }
@@ -166,7 +180,10 @@ public struct Int4 {
 // MARK: - Addable
 
 extension Int4: Addable {
-    public static func + (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func + (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value + rhs.value
         return .init(value: newValue)
     }
@@ -257,7 +274,10 @@ extension Int4: BinaryInteger {
         /// - Parameter distance: The distance to offset `index` by.
         /// - Returns: An index offset by `distance`.
         /// - Precondition: The resulting index must be between `startIndex` and `endIndex`, inclusive.
-        public func index(_ index: Int, offsetBy distance: Int) -> Int {
+        public func index(
+            _ index: Int,
+            offsetBy distance: Int
+        ) -> Int {
             let newIndex: Int = index + distance
             precondition(
                 self.startIndex...self.endIndex ~= newIndex,
@@ -272,7 +292,10 @@ extension Int4: BinaryInteger {
         /// - Parameter start: The starting index.
         /// - Parameter end: The ending index.
         /// - Returns: The distance from `start` to `end`.
-        public func distance(from start: Int, to end: Int) -> Int {
+        public func distance(
+            from start: Int,
+            to end: Int
+        ) -> Int {
             return end - start
         }
     }
@@ -309,7 +332,10 @@ extension Int4: BinaryInteger {
     ///
     /// - Parameter lhs: The left-hand-side value.
     /// - Parameter rhs: The right-hand-side value.
-    public static func &= (_ lhs: inout Self, _ rhs: Self) {
+    public static func &= (
+        _ lhs: inout Self,
+        _ rhs: Self
+    ) {
         lhs = .init(bitPattern: lhs.bitPattern & rhs.bitPattern)
     }
 
@@ -317,7 +343,10 @@ extension Int4: BinaryInteger {
     ///
     /// - Parameter lhs: The left-hand-side value.
     /// - Parameter rhs: The right-hand-side value.
-    public static func |= (_ lhs: inout Self, _ rhs: Self) {
+    public static func |= (
+        _ lhs: inout Self,
+        _ rhs: Self
+    ) {
         lhs = .init(bitPattern: lhs.bitPattern | rhs.bitPattern)
     }
 
@@ -325,7 +354,10 @@ extension Int4: BinaryInteger {
     ///
     /// - Parameter lhs: The left-hand-side value.
     /// - Parameter rhs: The right-hand-side value.
-    public static func ^= (_ lhs: inout Self, _ rhs: Self) {
+    public static func ^= (
+        _ lhs: inout Self,
+        _ rhs: Self
+    ) {
         lhs = .init(bitPattern: lhs.bitPattern ^ rhs.bitPattern)
     }
 }
@@ -333,8 +365,20 @@ extension Int4: BinaryInteger {
 // MARK: - Comparable
 
 extension Int4: Comparable {
-    public static func < (_ lhs: Self, _ rhs: Self) -> Bool {
+    public static func < (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
         return lhs.value < rhs.value
+    }
+}
+
+// MARK: - CustomDebugStringConvertible
+
+extension Int4: CustomDebugStringConvertible {
+    /// A textual representation of this value suitable for debugging.
+    public var debugDescription: String {
+        return "Int4(\(self.value))"
     }
 }
 
@@ -390,7 +434,10 @@ extension Int4: Divisible {
     /// - Parameter rhs: The divisor.
     /// - Returns: The quotient.
     /// - Precondition: `rhs` must not be zero and the quotient must be representable as `Int4`.
-    public static func / (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func / (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value / rhs.value
         return .init(value: newValue)
     }
@@ -411,7 +458,10 @@ extension Int4: Divisible {
     /// - Parameter rhs: The divisor.
     /// - Returns: The remainder.
     /// - Precondition: `rhs` must not be zero and the operation must not overflow.
-    public static func % (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func % (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value % rhs.value
         return .init(value: newValue)
     }
@@ -432,7 +482,10 @@ extension Int4: Encodable {
 // MARK: - Equatable
 
 extension Int4: Equatable {
-    public static func == (_ lhs: Self, _ rhs: Self) -> Bool {
+    public static func == (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
         return lhs.value == rhs.value
     }
 }
@@ -447,7 +500,7 @@ extension Int4: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: IntegerLiteralType) {
         precondition(
             -8...7 ~= value,
-             "Int4 integer literal must be between \(Self.min) and \(Self.max)."
+            "Int4 integer literal must be between \(Self.min) and \(Self.max)."
         )
 
         let newValue: Self.Value = .init(value)
@@ -515,11 +568,12 @@ extension Int4: FixedWidthInteger {
 
     /// Returns the full-width product of this value and another value.
     ///
-    /// The result is split into two 4-bit halves. `high` stores the upper four bits as an `Int4` bit pattern, and `low` stores the lower four bits as a `UInt4` magnitude.
+    /// The result is split into two 4-bit halves. `high` stores the upper four bits as an `Int4` bit pattern, and `low`
+    /// stores the lower four bits as a `UInt4` magnitude.
     ///
     /// - Parameter other: The value to multiply by.
     /// - Returns: The high and low halves of the full-width product.
-    public func multipliedFullWidth(by other: Self) -> (high: Self, low: Self.Magnitude) {
+    public func multipliedFullWidth(by other: Self) -> Self.FullWidthProduct {
         let product: Self.Value = self.value * other.value
         let bits: UInt8 = .init(truncatingIfNeeded: product)
         let high: Self = .init(bitPattern: bits >> Self.bitWidth)
@@ -533,12 +587,13 @@ extension Int4: FixedWidthInteger {
 
     /// Divides a full-width dividend by this value.
     ///
-    /// The dividend is interpreted as two 4-bit halves, where `high` contains the upper bits and `low` contains the lower bits. The combined 8-bit pattern is then interpreted with signed integer rules before division.
+    /// The dividend is interpreted as two 4-bit halves, where `high` contains the upper bits and `low` contains the
+    /// lower bits. The combined 8-bit pattern is then interpreted with signed integer rules before division.
     ///
     /// - Parameter dividend: The high and low halves of the dividend.
     /// - Returns: The quotient and remainder of the division.
     /// - Precondition: This value must not be zero.
-    public func dividingFullWidth(_ dividend: (high: Self, low: Self.Magnitude)) -> (quotient: Self, remainder: Self) {
+    public func dividingFullWidth(_ dividend: Self.FullWidthDividend) -> Self.QuotientAndRemainder {
         precondition(
             self != 0,
             "Divisor must not be zero."
@@ -546,7 +601,7 @@ extension Int4: FixedWidthInteger {
 
         let raw: UInt8 = (dividend.high.bitPattern << Self.bitWidth) | dividend.low.value
         let signedDividend: Self.Value = .init(bitPattern: raw)
-        let result: (quotient: Self.Value, remainder: Self.Value) = signedDividend.quotientAndRemainder(dividingBy: self.value)
+        let result: Self.Value.QuotientAndRemainder = signedDividend.quotientAndRemainder(dividingBy: self.value)
         let quotient: Self = .init(truncatingIfNeeded: result.quotient)
         let remainder: Self = .init(truncatingIfNeeded: result.remainder)
 
@@ -581,7 +636,10 @@ extension Int4: LosslessStringConvertible {
 // MARK: - Multipliable
 
 extension Int4: Multipliable {
-    public static func * (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func * (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value * rhs.value
         return .init(value: newValue)
     }
@@ -630,7 +688,7 @@ extension Int4: Raisable {
 // MARK: - ReportableAsOverflow
 
 extension Int4: ReportableAsOverflow {
-    public func addingReportingOverflow(_ rhs: Self) -> Self.Report {
+    public func addingReportingOverflow(_ rhs: Self) -> Self.OverflowReport {
         let sum: Self.Value = self.value &+ rhs.value
         let partialValue: Self = .init(truncatingIfNeeded: sum)
 
@@ -642,10 +700,13 @@ extension Int4: ReportableAsOverflow {
             false
         }
 
-        return (partialValue: partialValue, overflow: overflow)
+        return (
+            partialValue: partialValue,
+            overflow: overflow
+        )
     }
 
-    public func subtractingReportingOverflow(_ rhs: Self) -> Self.Report {
+    public func subtractingReportingOverflow(_ rhs: Self) -> Self.OverflowReport {
         let difference: Self.Value = self.value &- rhs.value
         let partialValue: Self = .init(truncatingIfNeeded: difference)
 
@@ -657,10 +718,13 @@ extension Int4: ReportableAsOverflow {
             false
         }
 
-        return (partialValue: partialValue, overflow: overflow)
+        return (
+            partialValue: partialValue,
+            overflow: overflow
+        )
     }
 
-    public func multipliedReportingOverflow(by rhs: Self) -> Self.Report {
+    public func multipliedReportingOverflow(by rhs: Self) -> Self.OverflowReport {
         let product: Self.Value = self.value &* rhs.value
         let partialValue: Self = .init(truncatingIfNeeded: product)
 
@@ -676,10 +740,13 @@ extension Int4: ReportableAsOverflow {
             self.value < Self.max.value / rhs.value
         }
 
-        return (partialValue: partialValue, overflow: overflow)
+        return (
+            partialValue: partialValue,
+            overflow: overflow
+        )
     }
 
-    public func dividedReportingOverflow(by rhs: Self) -> Self.Report {
+    public func dividedReportingOverflow(by rhs: Self) -> Self.OverflowReport {
         guard rhs.value != 0 else {
             return (partialValue: self, overflow: true)
         }
@@ -691,10 +758,13 @@ extension Int4: ReportableAsOverflow {
         let quotient: Self.Value = self.value / rhs.value
         let partialValue: Self = .init(value: quotient)
 
-        return (partialValue: partialValue, overflow: false)
+        return (
+            partialValue: partialValue,
+            overflow: false
+        )
     }
 
-    public func remainderReportingOverflow(dividingBy rhs: Self) -> Self.Report {
+    public func remainderReportingOverflow(dividingBy rhs: Self) -> Self.OverflowReport {
         guard rhs.value != 0 else {
             return (partialValue: self, overflow: true)
         }
@@ -706,10 +776,13 @@ extension Int4: ReportableAsOverflow {
         let remainder: Self.Value = self.value % rhs.value
         let partialValue: Self = .init(value: remainder)
 
-        return (partialValue: partialValue, overflow: false)
+        return (
+            partialValue: partialValue,
+            overflow: false
+        )
     }
 
-    public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.Report {
+    public func raisedReportingOverflow(to rhs: Self.Exponent) -> Self.OverflowReport {
         switch rhs {
         case ..<0:
             return (partialValue: 0, overflow: false)
@@ -722,7 +795,7 @@ extension Int4: ReportableAsOverflow {
             var exponent: Self.Exponent = 2
 
             while exponent <= rhs {
-                let report: Self.Report = result.multipliedReportingOverflow(by: self)
+                let report: Self.OverflowReport = result.multipliedReportingOverflow(by: self)
 
                 guard report.overflow == false else {
                     return report
@@ -780,7 +853,10 @@ extension Int4: Strideable {}
 // MARK: - Subtractable
 
 extension Int4: Subtractable {
-    public static func - (_ lhs: Self, _ rhs: Self) -> Self {
+    public static func - (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Self {
         let newValue: Self.Value = lhs.value - rhs.value
         return .init(value: newValue)
     }
