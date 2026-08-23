@@ -70,6 +70,7 @@ standard-library conformances, and experimental numeric types from one place.
 
 ### Experimental Numeric Types
 
+- ``Fraction``
 - ``Int4``
 - ``UInt4``
 - ``Roman``
