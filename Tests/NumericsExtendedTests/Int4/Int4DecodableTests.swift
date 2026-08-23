@@ -38,7 +38,12 @@ internal struct Int4DecodableTests {
 
     @Test(
         "Decode from JSON throws",
-        arguments: ["-9", "8", "\"1\"", "true"]
+        arguments: [
+            "-9",
+            "8",
+            "\"1\"",
+            "true"
+        ]
     )
     internal func decodeFromJSONThrows(json: String) throws {
         let data: Data = try #require(json.data(using: .utf8))

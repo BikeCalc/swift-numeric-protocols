@@ -80,7 +80,7 @@ extension RomanSubtractableTests {
         ] as Array<Roman>
     )
     internal func subtractingZeroPreservesMinuend(minuend: Roman) {
-        #expect(minuend - 0 == minuend)
+        #expect(minuend - .zero == minuend)
     }
 
     @Test(
@@ -91,7 +91,7 @@ extension RomanSubtractableTests {
         ] as Array<Roman>
     )
     internal func subtractingSelfReturnsZero(value: Roman) {
-        #expect(value - value == 0)
+        #expect(value - value == .zero)
     }
 
     @Test(

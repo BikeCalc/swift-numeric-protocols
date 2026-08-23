@@ -11,18 +11,28 @@ import Testing
 
 @Suite("Double RepresentableByNaN Tests")
 internal struct DoubleRepresentableByNaNTests {
-    @Test(
-        "Is NaN",
-        arguments: [
-            (Double.nan, true),
-            (0.0, false),
-            (Double.infinity, false)
-        ]
-    )
-    internal func isNaN(
-        value: Double,
-        result: Bool
-    ) {
-        #expect(value.isNaN == result)
+    @Test("NaN is NaN")
+    internal func nanIsNaN() {
+        #expect(Double.nan.isNaN == true)
+    }
+
+    @Test("Zero is not NaN")
+    internal func zeroIsNotNaN() {
+        #expect(Double.zero.isNaN == false)
+    }
+
+    @Test("Negative zero is not NaN")
+    internal func negativeZeroIsNotNaN() {
+        #expect(Double.negativeZero.isNaN == false)
+    }
+
+    @Test("Positive infinity is not NaN")
+    internal func positiveInfinityIsNotNaN() {
+        #expect(Double.infinity.isNaN == false)
+    }
+
+    @Test("Negative infinity is not NaN")
+    internal func negativeInfinityIsNotNaN() {
+        #expect(Double.negativeInfinity.isNaN == false)
     }
 }

@@ -84,7 +84,7 @@ extension IntSubtractableTests {
         ]
     )
     internal func subtractingZeroPreservesMinuend(minuend: Int) {
-        #expect(minuend - 0 == minuend)
+        #expect(minuend - .zero == minuend)
     }
 
     @Test(
@@ -97,7 +97,7 @@ extension IntSubtractableTests {
         ]
     )
     internal func subtractingSelfReturnsZero(value: Int) {
-        #expect(value - value == 0)
+        #expect(value - value == .zero)
     }
 
     @Test(

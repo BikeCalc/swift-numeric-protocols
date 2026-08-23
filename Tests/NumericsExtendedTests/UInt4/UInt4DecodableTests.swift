@@ -15,7 +15,11 @@ import Testing
 internal struct UInt4DecodableTests {
     @Test(
         "Decode from JSON succeeds",
-        arguments: [("0", 0), ("1", 1), ("15", 15)] as Array<(String, UInt4)>
+        arguments: [
+            ("0", 0),
+            ("1", 1),
+            ("15", 15)
+        ] as Array<(String, UInt4)>
     )
     internal func decodeFromJSONSucceeds(
         json: String,
@@ -32,7 +36,12 @@ internal struct UInt4DecodableTests {
 
     @Test(
         "Decode from JSON throws",
-        arguments: ["-1", "16", "\"1\"", "true"]
+        arguments: [
+            "-1",
+            "16",
+            "\"1\"",
+            "true"
+        ]
     )
     internal func decodeFromJSONThrows(json: String) throws {
         let data: Data = try #require(json.data(using: .utf8))

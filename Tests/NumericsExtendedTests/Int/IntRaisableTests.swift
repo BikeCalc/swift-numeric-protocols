@@ -175,7 +175,7 @@ extension IntRaisableTests {
         ]
     )
     internal func raisingToZeroReturnsOne(base: Int) {
-        #expect(base ** 0 == 1)
+        #expect(base ** .zero == 1)
     }
 
     @Test(
@@ -324,7 +324,7 @@ extension IntRaisableTests {
         value: Int,
         result: Bool
     ) {
-        #expect(value.isPower(of: 0) == result)
+        #expect(value.isPower(of: .zero) == result)
     }
 
     @Test(

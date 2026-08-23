@@ -195,7 +195,7 @@ internal struct RomanDivisibleTests {
 extension RomanDivisibleTests {
     @Test("Zero is not invertible")
     internal func zeroIsNotInvertible() {
-        let zero: Roman = 0
+        let zero: Roman = .zero
         #expect(zero.isInvertible == false)
     }
 
@@ -207,7 +207,7 @@ extension RomanDivisibleTests {
         ] as Array<Roman>
     )
     internal func dividingZeroByNonzeroValueReturnsZero(divisor: Roman) {
-        #expect(0 / divisor == 0)
+        #expect(Roman.zero / divisor == .zero)
     }
 
     @Test(
@@ -229,7 +229,7 @@ extension RomanDivisibleTests {
         ] as Array<Roman>
     )
     internal func remainderBySelfReturnsZero(value: Roman) {
-        #expect(value % value == 0)
+        #expect(value % value == .zero)
     }
 
     @Test(
@@ -285,6 +285,6 @@ extension RomanDivisibleTests {
         ] as Array<Roman>
     )
     internal func remainderByOneReturnsZero(dividend: Roman) {
-        #expect(dividend % 1 == 0)
+        #expect(dividend % 1 == .zero)
     }
 }

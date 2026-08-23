@@ -252,7 +252,7 @@ extension DoubleDivisibleTests {
         ]
     )
     internal func dividingZeroByNonzeroValueReturnsZero(divisor: Double) {
-        #expect(0 / divisor == 0)
+        #expect(Double.zero / divisor == .zero)
     }
 
     @Test(
@@ -306,7 +306,7 @@ extension DoubleDivisibleTests {
         ]
     )
     internal func remainderBySelfReturnsZero(value: Double) {
-        #expect(value % value == 0.0)
+        #expect(value % value == .zero)
     }
 
     @Test(
@@ -380,7 +380,7 @@ extension DoubleDivisibleTests {
     internal func reciprocalOfNegativeInfinityPreservesNegativeZeroSign() {
         let reciprocal: Double? = Double.negativeInfinity.reciprocal
 
-        #expect(reciprocal == 0.0)
+        #expect(reciprocal == .zero)
         #expect(reciprocal?.sign == .minus)
     }
 
@@ -440,7 +440,7 @@ extension DoubleDivisibleTests {
     ) {
         let quotient: Double = dividend / divisor
 
-        #expect(quotient == 0.0)
+        #expect(quotient == .zero)
         #expect(quotient.sign == .minus)
     }
 
@@ -524,7 +524,7 @@ extension DoubleDivisibleTests {
     ) {
         let quotient: Double = dividend / divisor
 
-        #expect(quotient == 0.0)
+        #expect(quotient == .zero)
         #expect(quotient.sign == .minus)
     }
 

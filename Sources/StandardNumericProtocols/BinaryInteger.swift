@@ -27,14 +27,12 @@ where Self: Divisible & RepresentableByZero {
 extension BinaryInteger
 where Self: Divisible {
     /// A boolean value indicating whether this value is even.
-    ///
     public var isEven: Bool {
         let remainder: Self = self % 2
         return remainder == 0
     }
 
     /// A boolean value indicating whether this value is odd.
-    ///
     public var isOdd: Bool {
         let remainder: Self = self % 2
         return remainder != 0

@@ -137,7 +137,7 @@ extension DoubleRoundableTests {
     ) {
         let roundedValue: Double = value.rounded(to: decimalPlace)
 
-        #expect(roundedValue == 0.0)
+        #expect(roundedValue == .zero)
         #expect(roundedValue.sign == .minus)
     }
 }

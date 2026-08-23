@@ -62,8 +62,15 @@ internal struct RomanDecodableTests {
     @Test(
         "Decode from JSON throws",
         arguments: [
-            "\"\"", "\"-1\"", "\"4000\"", "\"IIII\"", "\"IXI\"", "\"ABC\"",
-            "-1", "4000", "true"
+            "\"\"",
+            "\"-1\"",
+            "\"4000\"",
+            "\"IIII\"",
+            "\"IXI\"",
+            "\"ABC\"",
+            "-1",
+            "4000",
+            "true"
         ]
     )
     internal func decodeFromJSONThrows(json: String) throws {

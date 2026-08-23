@@ -129,7 +129,7 @@ extension RomanMultipliableTests {
         ] as Array<Roman>
     )
     internal func isMultipleOfZeroReturnsFalse(multiplicand: Roman) {
-        #expect(multiplicand.isMultiple(of: 0) == false)
+        #expect(multiplicand.isMultiple(of: .zero) == false)
     }
 
     @Test(
@@ -140,7 +140,7 @@ extension RomanMultipliableTests {
         ] as Array<Roman>
     )
     internal func multiplyingByZeroReturnsZero(multiplicand: Roman) {
-        #expect(multiplicand * 0 == 0)
+        #expect(multiplicand * .zero == .zero)
     }
 
     @Test(

@@ -135,7 +135,7 @@ extension Int4MultipliableTests {
         ] as Array<Int4>
     )
     internal func isMultipleOfZeroReturnsFalse(multiplicand: Int4) {
-        #expect(multiplicand.isMultiple(of: 0) == false)
+        #expect(multiplicand.isMultiple(of: .zero) == false)
     }
 
     @Test(
@@ -146,7 +146,7 @@ extension Int4MultipliableTests {
         ] as Array<Int4>
     )
     internal func multiplyingByZeroReturnsZero(multiplicand: Int4) {
-        #expect(multiplicand * 0 == 0)
+        #expect(multiplicand * .zero == .zero)
     }
 
     @Test(

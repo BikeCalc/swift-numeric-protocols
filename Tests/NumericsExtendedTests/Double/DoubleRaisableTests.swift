@@ -199,7 +199,7 @@ extension DoubleRaisableTests {
         ]
     )
     internal func raisingToZeroReturnsOne(base: Double) {
-        #expect(base ** 0 == 1.0)
+        #expect(base ** .zero == 1.0)
     }
 
     @Test(
@@ -387,7 +387,7 @@ extension DoubleRaisableTests {
         value: Double,
         result: Bool
     ) {
-        #expect(value.isPower(of: 0.0) == result)
+        #expect(value.isPower(of: .zero) == result)
     }
 
     @Test(
@@ -405,7 +405,7 @@ extension DoubleRaisableTests {
         value: Double,
         result: Bool
     ) {
-        #expect(value.isPower(of: -0.0) == result)
+        #expect(value.isPower(of: .negativeZero) == result)
     }
 
     @Test(
@@ -499,7 +499,7 @@ extension DoubleRaisableTests {
     ) {
         let power: Double = base ** exponent
 
-        #expect(power == 0.0)
+        #expect(power == .zero)
         #expect(power.sign == .minus)
     }
 
@@ -520,7 +520,7 @@ extension DoubleRaisableTests {
 
     @Test("NaN raised to zero returns one")
     internal func nanRaisedToZeroReturnsOne() {
-        let power: Double = Double.nan ** 0
+        let power: Double = Double.nan ** .zero
 
         #expect(power == 1.0)
     }
@@ -572,7 +572,7 @@ extension DoubleRaisableTests {
     ) {
         let power: Double = base ** exponent
 
-        #expect(power == 0.0)
+        #expect(power == .zero)
         #expect(power.sign == .minus)
     }
 }

@@ -51,7 +51,7 @@ extension DoubleIncreasableTests {
         ]
     )
     internal func increasingByZeroPreservesValue(value: Double) {
-        let increasedValue: Double = value.increasing(by: 0.0)
+        let increasedValue: Double = value.increasing(by: .zero)
         #expect(increasedValue == value)
     }
 
@@ -65,8 +65,8 @@ extension DoubleIncreasableTests {
         ]
     )
     internal func increasingZeroReturnsZero(percentage: Double) {
-        let increasedValue: Double = 0.0.increasing(by: percentage)
-        #expect(increasedValue == 0.0)
+        let increasedValue: Double = .zero.increasing(by: percentage)
+        #expect(increasedValue == .zero)
     }
 
     @Test(
