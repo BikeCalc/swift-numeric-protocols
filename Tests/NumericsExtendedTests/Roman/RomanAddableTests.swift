@@ -80,7 +80,7 @@ extension RomanAddableTests {
         ] as Array<Roman>
     )
     internal func addingZeroPreservesAugend(augend: Roman) {
-        #expect(augend + 0 == augend)
+        #expect(augend + .zero == augend)
     }
 
     @Test(

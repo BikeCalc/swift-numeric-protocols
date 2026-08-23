@@ -92,7 +92,7 @@ extension DoubleSubtractableTests {
         ]
     )
     internal func subtractingZeroPreservesMinuend(minuend: Double) {
-        #expect(minuend - 0.0 == minuend)
+        #expect(minuend - .zero == minuend)
     }
 
     @Test(
@@ -109,7 +109,7 @@ extension DoubleSubtractableTests {
         ]
     )
     internal func subtractingSelfReturnsZero(value: Double) {
-        #expect(value - value == 0.0)
+        #expect(value - value == .zero)
     }
 
     @Test(

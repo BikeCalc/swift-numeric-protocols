@@ -12,21 +12,47 @@ import Testing
 @Suite("Double RepresentableByInfinity Tests")
 internal struct DoubleRepresentableByInfinityTests {
     @Test(
-        "Finite and infinite predicates",
+        "Finite values are finite",
         arguments: [
-            (Double.infinity, false, true),
-            (Double.negativeInfinity, false, true),
-            (0.0, true, false),
-            (Double.nan, false, false)
+            1.0,
+            -1.0,
+            0.5,
+            -0.5
         ]
     )
-    internal func finiteAndInfinitePredicates(
-        value: Double,
-        isFinite: Bool,
-        isInfinite: Bool
-    ) {
-        #expect(value.isFinite == isFinite)
-        #expect(value.isInfinite == isInfinite)
+    internal func finiteValuesAreFinite(value: Double) {
+        #expect(value.isFinite == true)
+        #expect(value.isInfinite == false)
+    }
+
+    @Test("Zero is finite")
+    internal func zeroIsFinite() {
+        #expect(Double.zero.isFinite == true)
+        #expect(Double.zero.isInfinite == false)
+    }
+
+    @Test("Negative zero is finite")
+    internal func negativeZeroIsFinite() {
+        #expect(Double.negativeZero.isFinite == true)
+        #expect(Double.negativeZero.isInfinite == false)
+    }
+
+    @Test("Positive infinity is infinite")
+    internal func positiveInfinityIsInfinite() {
+        #expect(Double.infinity.isFinite == false)
+        #expect(Double.infinity.isInfinite == true)
+    }
+
+    @Test("Negative infinity is infinite")
+    internal func negativeInfinityIsInfinite() {
+        #expect(Double.negativeInfinity.isFinite == false)
+        #expect(Double.negativeInfinity.isInfinite == true)
+    }
+
+    @Test("NaN is neither finite nor infinite")
+    internal func nanIsNeitherFiniteNorInfinite() {
+        #expect(Double.nan.isFinite == false)
+        #expect(Double.nan.isInfinite == false)
     }
 
     @Test("Negative infinity equals negated infinity")

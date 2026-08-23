@@ -9,24 +9,22 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Roman RepresentableByMin Tests")
-internal struct RomanRepresentableByMinTests {
+@Suite("Roman ExpressibleByIntegerLiteral Tests")
+internal struct RomanExpressibleByIntegerLiteralTests {
     @Test(
-        "Is min",
+        "Integer literal initialization succeeds",
         arguments: [
-            (0, true),
-            (3_999, false)
-        ] as Array<(Roman, Bool)>
+            (0, 0),
+            (1, 1),
+            (3_999, 3_999)
+        ] as [(Roman, Int)]
     )
-    internal func isMin(
+    internal func integerLiteralInitializationSucceeds(
         value: Roman,
-        result: Bool
-    ) {
-        #expect(value.isMin == result)
-    }
+        integer: Int
+    ) throws {
+        let expected: Roman = try #require(Roman(exactly: integer))
 
-    @Test("Min returns min")
-    internal func minReturnsMin() {
-        #expect(Roman.min == .zero)
+        #expect(value == expected)
     }
 }

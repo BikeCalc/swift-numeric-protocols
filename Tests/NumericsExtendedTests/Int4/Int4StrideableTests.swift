@@ -65,7 +65,7 @@ extension Int4StrideableTests {
         ] as Array<Int4>
     )
     internal func advancingByZeroPreservesValue(value: Int4) {
-        #expect(value.advanced(by: 0) == value)
+        #expect(value.advanced(by: .zero) == value)
     }
 
     @Test(
@@ -78,6 +78,6 @@ extension Int4StrideableTests {
         ] as Array<Int4>
     )
     internal func distanceToSelfReturnsZero(value: Int4) {
-        #expect(value.distance(to: value) == 0)
+        #expect(value.distance(to: value) == .zero)
     }
 }

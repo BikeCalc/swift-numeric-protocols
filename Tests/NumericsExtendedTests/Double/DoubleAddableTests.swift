@@ -92,7 +92,7 @@ extension DoubleAddableTests {
         ]
     )
     internal func addingZeroPreservesAugend(augend: Double) {
-        #expect(augend + 0.0 == augend)
+        #expect(augend + .zero == augend)
     }
 
     @Test(
@@ -112,7 +112,7 @@ extension DoubleAddableTests {
         augend: Double,
         addend: Double
     ) {
-        #expect(augend + addend == 0.0)
+        #expect(augend + addend == .zero)
     }
 
     @Test(

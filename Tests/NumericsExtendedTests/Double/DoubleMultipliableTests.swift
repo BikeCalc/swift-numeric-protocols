@@ -136,7 +136,7 @@ internal struct DoubleMultipliableTests {
 extension DoubleMultipliableTests {
     @Test("Zero is multiple of zero")
     internal func zeroIsMultipleOfZero() {
-        #expect(0.0.isMultiple(of: 0.0))
+        #expect(Double.zero.isMultiple(of: .zero))
     }
 
     @Test(
@@ -153,7 +153,7 @@ extension DoubleMultipliableTests {
         ]
     )
     internal func isMultipleOfZeroReturnsFalse(multiplicand: Double) {
-        #expect(multiplicand.isMultiple(of: 0.0) == false)
+        #expect(multiplicand.isMultiple(of: .zero) == false)
     }
 
     @Test(
@@ -170,7 +170,7 @@ extension DoubleMultipliableTests {
         ]
     )
     internal func multiplyingByZeroReturnsZero(multiplicand: Double) {
-        #expect(multiplicand * 0.0 == 0.0)
+        #expect(multiplicand * .zero == .zero)
     }
 
     @Test(
@@ -239,7 +239,7 @@ extension DoubleMultipliableTests {
     ) {
         let product: Double = multiplicand * multiplier
 
-        #expect(product == 0.0)
+        #expect(product == .zero)
         #expect(product.sign == .minus)
     }
 

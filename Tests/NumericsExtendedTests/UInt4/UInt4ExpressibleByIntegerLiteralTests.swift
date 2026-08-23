@@ -9,24 +9,22 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("UInt4 RepresentableByMin Tests")
-internal struct UInt4RepresentableByMinTests {
+@Suite("UInt4 ExpressibleByIntegerLiteral Tests")
+internal struct UInt4ExpressibleByIntegerLiteralTests {
     @Test(
-        "Is min",
+        "Integer literal initialization succeeds",
         arguments: [
-            (0, true),
-            (15, false)
-        ] as Array<(UInt4, Bool)>
+            (0, 0),
+            (1, 1),
+            (15, 15)
+        ] as [(UInt4, Int)]
     )
-    internal func isMin(
+    internal func integerLiteralInitializationSucceeds(
         value: UInt4,
-        result: Bool
-    ) {
-        #expect(value.isMin == result)
-    }
+        integer: Int
+    ) throws {
+        let expected: UInt4 = try #require(UInt4(exactly: integer))
 
-    @Test("Min returns min")
-    internal func minReturnsMin() {
-        #expect(UInt4.min == .zero)
+        #expect(value == expected)
     }
 }

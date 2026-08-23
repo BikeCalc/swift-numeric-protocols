@@ -19,3 +19,14 @@ where Self: Equatable {
         return self == .zero
     }
 }
+
+extension RepresentableByZero
+where Self: Negateable {
+    /// The value produced by negating zero.
+    ///
+    /// This value is not necessarily represented differently from zero. Types that support signed zero may preserve a
+    /// distinct negative-zero representation, while other types may represent both values identically.
+    public static var negativeZero: Self {
+        return .zero.negating()
+    }
+}

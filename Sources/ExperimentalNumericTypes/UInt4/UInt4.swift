@@ -467,11 +467,13 @@ extension UInt4: Equatable {
 // MARK: - ExpressibleByIntegerLiteral
 
 extension UInt4: ExpressibleByIntegerLiteral {
+    public typealias IntegerLiteralType = Int
+
     /// Creates a value from an integer literal.
     ///
     /// - Parameter value: The integer literal used to create the value.
     /// - Precondition: `value` must be in the range `0...15`.
-    public init(integerLiteral value: IntegerLiteralType) {
+    public init(integerLiteral value: Self.IntegerLiteralType) {
         precondition(
             0...15 ~= value,
             "UInt4 integer literal must be between \(Self.min) and \(Self.max)."

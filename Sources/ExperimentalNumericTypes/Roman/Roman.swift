@@ -394,11 +394,13 @@ extension Roman: Equatable {
 // MARK: - ExpressibleByIntegerLiteral
 
 extension Roman: ExpressibleByIntegerLiteral {
+    public typealias IntegerLiteralType = Int
+
     /// Creates a Roman value from an integer literal.
     ///
     /// - Parameter value: The integer literal used to create the value.
     /// - Precondition: `value` must be in the range `0...3_999`.
-    public init(integerLiteral value: IntegerLiteralType) {
+    public init(integerLiteral value: Self.IntegerLiteralType) {
         precondition(
             0...3_999 ~= value,
             "Roman integer literal must be between \(Self.min) and \(Self.max)."

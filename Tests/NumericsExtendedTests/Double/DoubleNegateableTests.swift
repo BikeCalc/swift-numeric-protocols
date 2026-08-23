@@ -168,7 +168,7 @@ extension DoubleNegateableTests {
         arguments: Self.additiveInverseArguments
     )
     internal func negatingFollowsAdditiveInverseRule(value: Double) {
-        #expect(value + value.negating() == 0.0)
+        #expect(value + value.negating() == .zero)
     }
 
     @Test("One and negative one are opposites")
@@ -245,7 +245,7 @@ extension DoubleNegateableTests {
     ) {
         let negatedValue: Double = value.negating()
 
-        #expect(negatedValue == 0.0)
+        #expect(negatedValue == .zero)
         #expect(negatedValue.sign == sign)
     }
 

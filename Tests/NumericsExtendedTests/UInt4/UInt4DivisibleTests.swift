@@ -195,7 +195,7 @@ internal struct UInt4DivisibleTests {
 extension UInt4DivisibleTests {
     @Test("Zero is not invertible")
     internal func zeroIsNotInvertible() {
-        let zero: UInt4 = 0
+        let zero: UInt4 = .zero
         #expect(zero.isInvertible == false)
     }
 
@@ -207,7 +207,7 @@ extension UInt4DivisibleTests {
         ] as Array<UInt4>
     )
     internal func dividingZeroByNonzeroValueReturnsZero(divisor: UInt4) {
-        #expect(UInt4.zero / divisor == 0)
+        #expect(UInt4.zero / divisor == .zero)
     }
 
     @Test(
@@ -229,7 +229,7 @@ extension UInt4DivisibleTests {
         ] as Array<UInt4>
     )
     internal func remainderBySelfReturnsZero(value: UInt4) {
-        #expect(value % value == 0)
+        #expect(value % value == .zero)
     }
 
     @Test(
@@ -285,6 +285,6 @@ extension UInt4DivisibleTests {
         ] as Array<UInt4>
     )
     internal func remainderByOneReturnsZero(dividend: UInt4) {
-        #expect(dividend % 1 == 0)
+        #expect(dividend % 1 == .zero)
     }
 }
