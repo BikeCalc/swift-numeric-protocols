@@ -14,12 +14,17 @@ internal struct FractionRepresentableByNaNTests {
     @Test("NaN is NaN")
     internal func nanIsNaN() {
         #expect(Fraction<Int>.nan.isNaN == true)
-        #expect(Fraction<Int>(0, 0).isNaN == true)
+        #expect(Fraction<Int>(.zero, .zero).isNaN == true)
     }
 
     @Test("Zero is not NaN")
     internal func zeroIsNotNaN() {
         #expect(Fraction<Int>.zero.isNaN == false)
+    }
+
+    @Test("Negative zero is not NaN")
+    internal func negativeZeroIsNotNaN() {
+        #expect(Fraction<Int>.negativeZero.isNaN == false)
     }
 
     @Test("Positive infinity is not NaN")

@@ -37,7 +37,7 @@ internal struct CanonicalizedFractionEncodableTests {
 
     @Test("Zero encodes to JSON")
     internal func zeroEncodesToJSON() throws {
-        @Canonicalized var value: Fraction<Int> = .init(0, -2)
+        @Canonicalized var value: Fraction<Int> = .init(.zero, -2)
         let encoder: JSONEncoder = .init()
         encoder.outputFormatting = .sortedKeys
 

@@ -50,6 +50,13 @@ public protocol Rational:
 }
 
 extension Rational {
+    /// Creates a whole rational number with the specified value.
+    ///
+    /// - Parameter value: The whole value.
+    public init(_ value: Self.Term) {
+        self.init(value, 1)
+    }
+
     /// A boolean value indicating whether this value represents one.
     ///
     /// Any rational representation with equal, nonzero numerator and denominator terms represents one. This property

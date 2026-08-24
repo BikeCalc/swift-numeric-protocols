@@ -98,13 +98,6 @@ where Term: BinaryInteger {
         }
     }
 
-    /// Creates a whole rational number with the specified value.
-    ///
-    /// - Parameter value: The whole value.
-    public init(_ value: Term) {
-        self.init(value, 1)
-    }
-
     /// A boolean value indicating whether this value carries a negative sign.
     private var hasNegativeSign: Bool {
         if self.isInfinite {
@@ -655,11 +648,13 @@ extension Fraction: Equatable {
 // MARK: - ExpressibleByIntegerLiteral
 
 extension Fraction: ExpressibleByIntegerLiteral {
+    public typealias IntegerLiteralType = Int
+
     /// Creates a whole rational value from an integer literal.
     ///
     /// - Parameter value: The integer literal used to create the value.
     /// - Precondition: `value` must be exactly representable by `Term`.
-    public init(integerLiteral value: IntegerLiteralType) {
+    public init(integerLiteral value: Self.IntegerLiteralType) {
         guard let term: Term = .init(exactly: value) else {
             preconditionFailure("Fraction integer literal must be representable by its term type.")
         }

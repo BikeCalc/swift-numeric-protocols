@@ -35,14 +35,14 @@ internal struct FractionRepresentableByInfinityTests {
     internal func positiveInfinityIsInfinite() {
         #expect(Fraction<Int>.infinity.isFinite == false)
         #expect(Fraction<Int>.infinity.isInfinite == true)
-        #expect(Fraction<Int>(1, 0).isInfinite == true)
+        #expect(Fraction<Int>(1, .zero).isInfinite == true)
     }
 
     @Test("Negative infinity is infinite")
     internal func negativeInfinityIsInfinite() {
         #expect(Fraction<Int>.negativeInfinity.isFinite == false)
         #expect(Fraction<Int>.negativeInfinity.isInfinite == true)
-        #expect(Fraction<Int>(-1, 0).isInfinite == true)
+        #expect(Fraction<Int>(-1, .zero).isInfinite == true)
     }
 
     @Test("NaN is neither finite nor infinite")

@@ -43,7 +43,7 @@ internal struct FractionDecodableTests {
             from: data
         )
 
-        #expect(result == Fraction<Int>(0, -2))
+        #expect(result == Fraction<Int>(.zero, -2))
     }
 
     @Test("Positive infinity decodes from JSON")

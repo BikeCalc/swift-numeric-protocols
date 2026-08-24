@@ -27,6 +27,11 @@ internal struct FractionRepresentableByZeroTests {
         #expect(value.isZero == result)
     }
 
+    @Test("Negative zero is zero")
+    internal func negativeZeroIsZero() {
+        #expect(Fraction<Int>.negativeZero.isZero)
+    }
+
     @Test(
         "Stored zero representations are zero",
         arguments: [
