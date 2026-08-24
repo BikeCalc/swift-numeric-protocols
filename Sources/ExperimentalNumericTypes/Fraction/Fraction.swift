@@ -263,35 +263,40 @@ extension Fraction: AdditiveArithmetic {}
 // MARK: - Canonicalizable
 
 extension Fraction: Canonicalizable {
-    /// A boolean value indicating whether this value can be converted to its canonical representation without
-    /// arithmetic overflow.
+    /// A boolean value indicating whether this value can be converted to its canonicalized representation.
     ///
-    /// A fraction is canonicalizable when it can be normalized directly or when removing a common factor makes
-    /// normalization representable.
+    /// This property is `true` when the fraction can be canonicalized safely, including when it is already
+    /// canonicalized and the operation leaves it unchanged. Simplification is always safe, so canonicalization is safe
+    /// when the resulting simplified fraction can be normalized without arithmetic overflow.
     public var isCanonicalizable: Bool {
-        return self.isNormalizable || self.isSimplifiable
+        let simplified: Self = self.simplified()
+        return simplified.isNormalizable
     }
 
-    /// A boolean value indicating whether this value is in its canonical representation.
+    /// A boolean value indicating whether this value is in its canonicalized representation.
     ///
     /// A canonical fraction is both simplified and normalized. Its numerator and denominator have no common factor
-    /// greater than one, and its denominator is nonnegative.
+    /// greater than one, and its denominator is nonnegative. Nonfinite fractions are already canonicalized.
     public var isCanonicalized: Bool {
         return self.isSimplified && self.isNormalized
     }
 
-    /// Returns the canonical representation of this value.
+    /// Returns the canonicalized representation of this value.
     ///
     /// Canonicalization first removes common factors and then moves any negative sign to the numerator. Simplifying
     /// first can make normalization representable for values whose original terms cannot both be negated.
     ///
     /// - Precondition: `isCanonicalizable` is `true`.
     public func canonicalized() -> Self {
+        guard self.isCanonicalized == false else {
+            return self
+        }
+
         let simplified: Self = self.simplified()
 
         precondition(
             simplified.isNormalizable,
-            "The simplified fraction must be normalizable."
+            "The fraction must be canonicalizable."
         )
 
         return simplified.normalized()
@@ -853,10 +858,11 @@ extension Fraction: Numeric {
 // MARK: - Normalizable
 
 extension Fraction: Normalizable {
-    /// A boolean value indicating whether this value can be normalized without arithmetic overflow.
+    /// A boolean value indicating whether this value can be converted to its normalized representation.
     ///
-    /// A value that is already normalized is always normalizable. Otherwise, the positive magnitudes of any negative
-    /// terms must be representable by `Term`.
+    /// This property is `true` when the fraction can be normalized safely, including when it is already normalized and
+    /// the operation leaves it unchanged. When the denominator is negative, normalization is safe when the negations of
+    /// both terms can be represented by `Term` without arithmetic overflow.
     package var isNormalizable: Bool {
         guard self.isNormalized == false else {
             return true
@@ -870,7 +876,7 @@ extension Fraction: Normalizable {
         return isNumeratorNegatable && isDenominatorNegatable
     }
 
-    /// A boolean value indicating whether this value has canonical sign placement.
+    /// A boolean value indicating whether this value is in its normalized representation.
     ///
     /// A normalized finite value has a positive denominator so that any negative sign belongs in the numerator.
     /// Nonfinite values have a zero denominator and are already normalized. Normalization does not imply that the terms
@@ -879,22 +885,22 @@ extension Fraction: Normalizable {
         return self.denominator >= 0
     }
 
-    /// Returns an equivalent representation with canonical sign placement.
+    /// Returns the normalized representation of this value.
     ///
     /// If a finite denominator is negative, this method reverses the signs of both terms. For example, `1/-2` becomes
     /// `-1/2`, and `-1/-2` becomes `1/2`. Nonfinite values are returned unchanged. This method does not simplify common
     /// factors.
     ///
-    /// - Precondition: When the denominator is negative, the negation of both terms must be representable by `Term`.
+    /// - Precondition: `isNormalizable` is `true`.
     package func normalized() -> Self {
+        guard self.isNormalized == false else {
+            return self
+        }
+
         precondition(
             self.isNormalizable,
             "The fraction must be normalizable."
         )
-
-        guard self.isNormalized == false else {
-            return self
-        }
 
         return .init(0 - self.numerator, 0 - self.denominator)
     }
@@ -1082,9 +1088,21 @@ where Term: SignedInteger {}
 // MARK: - Simplifiable
 
 extension Fraction: Simplifiable {
+    /// A boolean value indicating whether this value can be converted to its simplified representation.
+    ///
+    /// This property is always `true` because simplification cannot overflow and leaves fractions that are already
+    /// simplified unchanged.
     package var isSimplifiable: Bool {
+        return true
+    }
+
+    /// A boolean value indicating whether this value is in its simplified representation.
+    ///
+    /// A finite fraction is simplified when its terms have no common factor greater than one. Nonfinite fractions are
+    /// already simplified.
+    package var isSimplified: Bool {
         guard self.isNaN == false && self.isInfinite == false else {
-            return false
+            return true
         }
 
         let divisor: Term.Magnitude = gcd(
@@ -1092,9 +1110,13 @@ extension Fraction: Simplifiable {
             self.denominator
         )
 
-        return divisor > 1
+        return divisor <= 1
     }
 
+    /// Returns the simplified representation of this value.
+    ///
+    /// Simplification divides both terms by their greatest common divisor without changing sign placement. A fraction
+    /// that is already simplified is returned unchanged.
     package func simplified() -> Self {
         guard self.isNaN == false && self.isInfinite == false else {
             return self

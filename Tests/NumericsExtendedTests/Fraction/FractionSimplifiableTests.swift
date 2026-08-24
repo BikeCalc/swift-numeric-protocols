@@ -11,7 +11,7 @@ import Testing
 
 @Suite("Fraction Simplifiable Tests")
 internal struct FractionSimplifiableTests {
-    private static let simplicationArguments: [(Fraction<Int>, Fraction<Int>)] = [
+    private static let simplificationArguments: [(Fraction<Int>, Fraction<Int>)] = [
         (Fraction<Int>(2, 4), Fraction<Int>(1, 2)),
         (Fraction<Int>(-2, 4), Fraction<Int>(-1, 2)),
         (Fraction<Int>(2, -4), Fraction<Int>(1, -2)),
@@ -29,10 +29,10 @@ internal struct FractionSimplifiableTests {
             (Fraction<Int>(-2, 4), true),
             (Fraction<Int>(2, -4), true),
             (Fraction<Int>(-2, -4), true),
-            (Fraction<Int>(1, 2), false),
-            (Fraction<Int>(-1, 2), false),
-            (Fraction<Int>(1, -2), false),
-            (Fraction<Int>(-1, -2), false)
+            (Fraction<Int>(1, 2), true),
+            (Fraction<Int>(-1, 2), true),
+            (Fraction<Int>(1, -2), true),
+            (Fraction<Int>(-1, -2), true)
         ]
     )
     internal func isSimplifiable(
@@ -40,12 +40,31 @@ internal struct FractionSimplifiableTests {
         result: Bool
     ) {
         #expect(value.isSimplifiable == result)
-        #expect(value.isSimplified == !result)
+    }
+
+    @Test(
+        "Is simplified",
+        arguments: [
+            (Fraction<Int>(2, 4), false),
+            (Fraction<Int>(-2, 4), false),
+            (Fraction<Int>(2, -4), false),
+            (Fraction<Int>(-2, -4), false),
+            (Fraction<Int>(1, 2), true),
+            (Fraction<Int>(-1, 2), true),
+            (Fraction<Int>(1, -2), true),
+            (Fraction<Int>(-1, -2), true)
+        ]
+    )
+    internal func isSimplified(
+        value: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(value.isSimplified == result)
     }
 
     @Test(
         "Simplification succeeds",
-        arguments: Self.simplicationArguments
+        arguments: Self.simplificationArguments
     )
     internal func simplificationSucceeds(
         value: Fraction<Int>,
@@ -56,7 +75,7 @@ internal struct FractionSimplifiableTests {
 
     @Test(
         "Simplify succeeds",
-        arguments: Self.simplicationArguments
+        arguments: Self.simplificationArguments
     )
     internal func simplifySucceeds(
         value: Fraction<Int>,
@@ -66,6 +85,21 @@ internal struct FractionSimplifiableTests {
         runningValue.simplify()
         #expect(runningValue == result)
     }
+
+    @Test(
+        "Simplification is idempotent",
+        arguments: [
+            Fraction<Int>(1, 2),
+            Fraction<Int>(2, 4),
+            Fraction<Int>(1, -2),
+            Fraction<Int>(2, -4)
+        ]
+    )
+    internal func simplificationIsIdempotent(value: Fraction<Int>) {
+        let result: Fraction<Int> = value.simplified().simplified()
+
+        #expect(result == value.simplified())
+    }
 }
 
 // MARK: - Rational Rules
@@ -74,38 +108,39 @@ extension FractionSimplifiableTests {
     @Test(
         "Zero simplification follows rational rules",
         arguments: [
-            (Fraction<Int>(0, 1), false, Fraction<Int>(0, 1)),
-            (Fraction<Int>(0, 2), true, Fraction<Int>(0, 1)),
-            (Fraction<Int>(0, -2), true, Fraction<Int>(0, -1))
+            (Fraction<Int>(0, 1), true, true, Fraction<Int>(0, 1)),
+            (Fraction<Int>(0, 2), true, false, Fraction<Int>(0, 1)),
+            (Fraction<Int>(0, -2), true, false, Fraction<Int>(0, -1))
         ]
     )
     internal func zeroSimplificationFollowsRationalRules(
         value: Fraction<Int>,
         isSimplifiable: Bool,
+        isSimplified: Bool,
         result: Fraction<Int>
     ) {
         #expect(value.isSimplifiable == isSimplifiable)
-        #expect(value.isSimplified == !isSimplifiable)
+        #expect(value.isSimplified == isSimplified)
         #expect(value.simplified() == result)
     }
 
     @Test("Positive infinity simplification follows rational rules")
     internal func positiveInfinitySimplificationFollowsRationalRules() {
-        #expect(Fraction<Int>.infinity.isSimplifiable == false)
+        #expect(Fraction<Int>.infinity.isSimplifiable == true)
         #expect(Fraction<Int>.infinity.isSimplified == true)
         #expect(Fraction<Int>.infinity.simplified() == .infinity)
     }
 
     @Test("Negative infinity simplification follows rational rules")
     internal func negativeInfinitySimplificationFollowsRationalRules() {
-        #expect(Fraction<Int>.negativeInfinity.isSimplifiable == false)
+        #expect(Fraction<Int>.negativeInfinity.isSimplifiable == true)
         #expect(Fraction<Int>.negativeInfinity.isSimplified == true)
         #expect(Fraction<Int>.negativeInfinity.simplified() == .negativeInfinity)
     }
 
     @Test("NaN simplification follows rational rules")
     internal func nanSimplificationFollowsRationalRules() {
-        #expect(Fraction<Int>.nan.isSimplifiable == false)
+        #expect(Fraction<Int>.nan.isSimplifiable == true)
         #expect(Fraction<Int>.nan.isSimplified == true)
         #expect(Fraction<Int>.nan.simplified().isNaN == true)
     }

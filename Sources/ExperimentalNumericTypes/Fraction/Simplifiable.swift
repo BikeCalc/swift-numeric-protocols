@@ -6,21 +6,22 @@
 // See LICENSE.md for license information
 // See CONTRIBUTORS.txt for the list of Numerics Extended project authors
 
-/// A type that can be reduced to a simpler equivalent representation.
+/// A type that can be converted to a simplified equivalent representation.
 package protocol Simplifiable {
-    /// A boolean value indicating whether this value can be simplified further.
+    /// A boolean value indicating whether this value can be converted to its simplified representation.
+    ///
+    /// This property is `true` when simplification can be performed safely, including when the value is already
+    /// simplified and the operation leaves it unchanged.
     var isSimplifiable: Bool { get }
 
-    /// Returns a simpler equivalent representation of this value.
+    /// A boolean value indicating whether this value is in its simplified representation.
+    var isSimplified: Bool { get }
+
+    /// Returns the simplified representation of this value.
     func simplified() -> Self
 }
 
 extension Simplifiable {
-    /// A boolean value indicating whether this value is already simplified.
-    package var isSimplified: Bool {
-        return self.isSimplifiable == false
-    }
-
     /// Replaces this value with its simplified representation.
     package mutating func simplify() {
         self = self.simplified()

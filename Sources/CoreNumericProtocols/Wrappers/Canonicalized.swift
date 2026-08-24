@@ -51,8 +51,8 @@ where Value: Decodable {
     /// Creates a wrapper by decoding and canonicalizing a value.
     ///
     /// - Parameter decoder: The decoder to read data from.
-    /// - Throws: Any error thrown while decoding `Value`, or `DecodingError.dataCorrupted` when the decoded value
-    ///   cannot be canonicalized.
+    /// - Throws: Any error thrown while decoding `Value`, or `DecodingError.dataCorrupted` when the decoded value is
+    ///   not canonicalizable.
     public init(from decoder: any Decoder) throws {
         let value: Value = try .init(from: decoder)
 

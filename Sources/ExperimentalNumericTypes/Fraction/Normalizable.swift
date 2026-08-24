@@ -8,13 +8,16 @@
 
 /// A type that can be converted to a normalized equivalent representation.
 package protocol Normalizable {
-    /// A boolean value indicating whether this value can be normalized.
+    /// A boolean value indicating whether this value can be converted to its normalized representation.
+    ///
+    /// This property is `true` when normalization can be performed safely, including when the value is already
+    /// normalized and the operation leaves it unchanged.
     var isNormalizable: Bool { get }
 
-    /// A boolean value indicating whether this value is normalized.
+    /// A boolean value indicating whether this value is in its normalized representation.
     var isNormalized: Bool { get }
 
-    /// Returns a normalized equivalent representation of this value.
+    /// Returns the normalized representation of this value.
     func normalized() -> Self
 }
 
