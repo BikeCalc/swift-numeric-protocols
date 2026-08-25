@@ -84,7 +84,7 @@ extension Int4AddableTests {
         ] as Array<Int4>
     )
     internal func addingZeroPreservesAugend(augend: Int4) {
-        #expect(augend + .zero == augend)
+        #expect(augend + Int4.zero == augend)
     }
 
     @Test(
@@ -100,7 +100,7 @@ extension Int4AddableTests {
         augend: Int4,
         addend: Int4
     ) {
-        #expect(augend + addend == .zero)
+        #expect(augend + addend == Int4.zero)
     }
 
     @Test(

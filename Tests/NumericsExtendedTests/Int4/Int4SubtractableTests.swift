@@ -84,7 +84,7 @@ extension Int4SubtractableTests {
         ] as Array<Int4>
     )
     internal func subtractingZeroPreservesMinuend(minuend: Int4) {
-        #expect(minuend - .zero == minuend)
+        #expect(minuend - Int4.zero == minuend)
     }
 
     @Test(
@@ -97,7 +97,7 @@ extension Int4SubtractableTests {
         ] as Array<Int4>
     )
     internal func subtractingSelfReturnsZero(value: Int4) {
-        #expect(value - value == .zero)
+        #expect(value - value == Int4.zero)
     }
 
     @Test(

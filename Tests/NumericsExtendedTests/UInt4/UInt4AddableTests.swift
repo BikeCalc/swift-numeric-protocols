@@ -80,7 +80,7 @@ extension UInt4AddableTests {
         ] as Array<UInt4>
     )
     internal func addingZeroPreservesAugend(augend: UInt4) {
-        #expect(augend + .zero == augend)
+        #expect(augend + UInt4.zero == augend)
     }
 
     @Test(

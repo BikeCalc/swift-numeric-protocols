@@ -118,7 +118,7 @@ internal struct UInt4MultipliableTests {
 extension UInt4MultipliableTests {
     @Test("Zero is multiple of zero")
     internal func zeroIsMultipleOfZero() {
-        #expect(UInt4.zero.isMultiple(of: .zero) == true)
+        #expect(UInt4.zero.isMultiple(of: UInt4.zero) == true)
     }
 
     @Test(
@@ -129,7 +129,7 @@ extension UInt4MultipliableTests {
         ] as Array<UInt4>
     )
     internal func isMultipleOfZeroReturnsFalse(multiplicand: UInt4) {
-        #expect(multiplicand.isMultiple(of: .zero) == false)
+        #expect(multiplicand.isMultiple(of: UInt4.zero) == false)
     }
 
     @Test(
@@ -140,7 +140,7 @@ extension UInt4MultipliableTests {
         ] as Array<UInt4>
     )
     internal func multiplyingByZeroReturnsZero(multiplicand: UInt4) {
-        #expect(multiplicand * .zero == .zero)
+        #expect(multiplicand * UInt4.zero == UInt4.zero)
     }
 
     @Test(

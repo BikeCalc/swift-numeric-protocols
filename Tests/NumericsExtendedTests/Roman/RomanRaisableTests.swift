@@ -157,7 +157,7 @@ extension RomanRaisableTests {
         ] as Array<Roman>
     )
     internal func raisingToZeroReturnsOne(base: Roman) {
-        #expect(base ** .zero == 1)
+        #expect(base ** Roman.Exponent.zero == 1)
     }
 
     @Test(
@@ -232,7 +232,7 @@ extension RomanRaisableTests {
         value: Roman,
         result: Bool
     ) {
-        #expect(value.isPower(of: .zero) == result)
+        #expect(value.isPower(of: Roman.zero) == result)
     }
 
     @Test(

@@ -80,7 +80,7 @@ extension UInt4SubtractableTests {
         ] as Array<UInt4>
     )
     internal func subtractingZeroPreservesMinuend(minuend: UInt4) {
-        #expect(minuend - .zero == minuend)
+        #expect(minuend - UInt4.zero == minuend)
     }
 
     @Test(
@@ -91,7 +91,7 @@ extension UInt4SubtractableTests {
         ] as Array<UInt4>
     )
     internal func subtractingSelfReturnsZero(value: UInt4) {
-        #expect(value - value == .zero)
+        #expect(value - value == UInt4.zero)
     }
 
     @Test(

@@ -51,7 +51,7 @@ extension DoubleDecreasableTests {
         ]
     )
     internal func decreasingByZeroPreservesValue(value: Double) {
-        let decreasedValue: Double = value.decreasing(by: .zero)
+        let decreasedValue: Double = value.decreasing(by: Double.zero)
         #expect(decreasedValue == value)
     }
 
@@ -65,8 +65,8 @@ extension DoubleDecreasableTests {
         ]
     )
     internal func decreasingZeroReturnsZero(percentage: Double) {
-        let decreasedValue: Double = .zero.decreasing(by: percentage)
-        #expect(decreasedValue == .zero)
+        let decreasedValue: Double = Double.zero.decreasing(by: percentage)
+        #expect(decreasedValue == Double.zero)
     }
 
     @Test(

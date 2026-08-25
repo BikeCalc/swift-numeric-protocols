@@ -57,7 +57,7 @@ extension RomanStrideableTests {
         ] as Array<Roman>
     )
     internal func advancingByZeroPreservesValue(value: Roman) {
-        #expect(value.advanced(by: .zero) == value)
+        #expect(value.advanced(by: Int.zero) == value)
     }
 
     @Test(
@@ -68,6 +68,6 @@ extension RomanStrideableTests {
         ] as Array<Roman>
     )
     internal func distanceToSelfReturnsZero(value: Roman) {
-        #expect(value.distance(to: value) == .zero)
+        #expect(value.distance(to: value) == Int.zero)
     }
 }

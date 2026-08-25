@@ -118,7 +118,7 @@ internal struct RomanMultipliableTests {
 extension RomanMultipliableTests {
     @Test("Zero is multiple of zero")
     internal func zeroIsMultipleOfZero() {
-        #expect(Roman.zero.isMultiple(of: .zero) == true)
+        #expect(Roman.zero.isMultiple(of: Roman.zero) == true)
     }
 
     @Test(
@@ -129,7 +129,7 @@ extension RomanMultipliableTests {
         ] as Array<Roman>
     )
     internal func isMultipleOfZeroReturnsFalse(multiplicand: Roman) {
-        #expect(multiplicand.isMultiple(of: .zero) == false)
+        #expect(multiplicand.isMultiple(of: Roman.zero) == false)
     }
 
     @Test(
@@ -140,7 +140,7 @@ extension RomanMultipliableTests {
         ] as Array<Roman>
     )
     internal func multiplyingByZeroReturnsZero(multiplicand: Roman) {
-        #expect(multiplicand * .zero == .zero)
+        #expect(multiplicand * Roman.zero == Roman.zero)
     }
 
     @Test(

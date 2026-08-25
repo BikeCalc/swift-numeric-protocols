@@ -25,7 +25,7 @@ internal struct Int4BinaryIntegerTests {
         word: UInt
     ) {
         #expect(value.words.count == 1)
-        #expect(value.words.startIndex == .zero)
+        #expect(value.words.startIndex == Int4.zero)
         #expect(value.words.endIndex == 1)
         #expect(value.words[value.words.startIndex] == word)
         #expect(Array(value.words) == [word])
