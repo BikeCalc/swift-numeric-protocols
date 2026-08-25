@@ -79,7 +79,7 @@ internal struct CanonicalizedFractionDecodableTests {
             from: data
         )
 
-        #expect(result.wrappedValue.isNaN)
+        #expect(result.wrappedValue.isNaN == true)
     }
 
     @Test(

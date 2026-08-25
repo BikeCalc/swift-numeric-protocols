@@ -16,13 +16,17 @@ internal struct FractionMultipliableTests {
         (.init(1, 2), .init(2, 3), .init(2, 6)),
         (.init(-1, 2), .init(1, 2), .init(-1, 4)),
         (.init(-1, 2), .init(-2, 3), .init(2, 6))
+        (Fraction<Int>(1, 2), Fraction<Int>(1, 2), Fraction<Int>(1, 4)),
+        (Fraction<Int>(1, 2), Fraction<Int>(2, 3), Fraction<Int>(2, 6)),
+        (Fraction<Int>(-1, 2), Fraction<Int>(1, 2), Fraction<Int>(-1, 4)),
+        (Fraction<Int>(-1, 2), Fraction<Int>(-2, 3), Fraction<Int>(2, 6))
     ]
 
     private static let doublingArguments: [(Fraction<Int>, Fraction<Int>)] = [
-        (.init(1, 2), .init(2, 2)),
-        (.init(-1, 2), .init(-2, 2)),
-        (.init(-1, -2), .init(-2, -2)),
-        (.init(1, -2), .init(2, -2))
+        (Fraction<Int>(1, 2), Fraction<Int>(2, 2)),
+        (Fraction<Int>(-1, 2), Fraction<Int>(-2, 2)),
+        (Fraction<Int>(-1, -2), Fraction<Int>(-2, -2)),
+        (Fraction<Int>(1, -2), Fraction<Int>(2, -2))
     ]
 
     @Test(

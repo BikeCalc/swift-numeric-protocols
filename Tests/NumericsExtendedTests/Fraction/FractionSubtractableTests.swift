@@ -13,9 +13,12 @@ import Testing
 internal struct FractionSubtractableTests {
     private static let subtractionArguments: [(Fraction<Int>, Fraction<Int>, Fraction<Int>)] = [
         (.init(2, 3), .init(1, 2), .init(1, 6)),
-        (.init(3, 4), .init(1, 2), .init(2, 8)),
         (.init(-2, 3), .init(1, 2), .init(-7, 6)),
         (.init(-3, 4), .init(-1, 2), .init(-2, 8))
+        (Fraction<Int>(2, 3), Fraction<Int>(1, 2), Fraction<Int>(1, 6)),
+        (Fraction<Int>(3, 4), Fraction<Int>(1, 2), Fraction<Int>(2, 8)),
+        (Fraction<Int>(-2, 3), Fraction<Int>(1, 2), Fraction<Int>(-7, 6)),
+        (Fraction<Int>(-3, 4), Fraction<Int>(-1, 2), Fraction<Int>(-2, 8))
     ]
 
     @Test(
@@ -98,6 +101,7 @@ extension FractionSubtractableTests {
     )
     internal func subtractingSelfReturnsRepresentedZero(value: Fraction<Int>) {
         #expect((value - value).isZero)
+        #expect((value - value).isZero == true)
     }
 
     @Test(

@@ -79,7 +79,7 @@ internal struct FractionDecodableTests {
             from: data
         )
 
-        #expect(result.isNaN)
+        #expect(result.isNaN == true)
     }
 
     @Test(

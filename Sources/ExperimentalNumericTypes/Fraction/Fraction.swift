@@ -288,10 +288,6 @@ extension Fraction: Canonicalizable {
     ///
     /// - Precondition: `isCanonicalizable` is `true`.
     public func canonicalized() -> Self {
-        guard self.isCanonicalized == false else {
-            return self
-        }
-
         let simplified: Self = self.simplified()
 
         precondition(
@@ -864,7 +860,7 @@ extension Fraction: Normalizable {
     /// the operation leaves it unchanged. When the denominator is negative, normalization is safe when the negations of
     /// both terms can be represented by `Term` without arithmetic overflow.
     package var isNormalizable: Bool {
-        guard self.isNormalized == false else {
+        guard self.denominator < 0 else {
             return true
         }
 
@@ -893,7 +889,7 @@ extension Fraction: Normalizable {
     ///
     /// - Precondition: `isNormalizable` is `true`.
     package func normalized() -> Self {
-        guard self.isNormalized == false else {
+        guard self.denominator < 0 else {
             return self
         }
 

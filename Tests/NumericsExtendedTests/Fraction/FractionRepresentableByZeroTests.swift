@@ -29,7 +29,7 @@ internal struct FractionRepresentableByZeroTests {
 
     @Test("Negative zero is zero")
     internal func negativeZeroIsZero() {
-        #expect(Fraction<Int>.negativeZero.isZero)
+        #expect(Fraction<Int>.negativeZero.isZero == true)
     }
 
     @Test(
@@ -40,6 +40,6 @@ internal struct FractionRepresentableByZeroTests {
         ]
     )
     internal func storedZeroRepresentationsAreZero(value: Fraction<Int>) {
-        #expect(value.isZero)
+        #expect(value.isZero == true)
     }
 }
