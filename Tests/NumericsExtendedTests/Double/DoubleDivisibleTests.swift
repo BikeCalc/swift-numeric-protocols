@@ -78,7 +78,7 @@ internal struct DoubleDivisibleTests {
         ]
     )
     internal func isInvertible(dividend: Double) {
-        #expect(dividend.isInvertible)
+        #expect(dividend.isInvertible == true)
     }
 
     @Test(
@@ -474,7 +474,7 @@ extension DoubleDivisibleTests {
         dividend: Double,
         divisor: Double
     ) {
-        #expect((dividend / divisor).isNaN)
+        #expect((dividend / divisor).isNaN == true)
     }
 
     @Test(
@@ -541,7 +541,7 @@ extension DoubleDivisibleTests {
         dividend: Double,
         divisor: Double
     ) {
-        #expect((dividend / divisor).isNaN)
+        #expect((dividend / divisor).isNaN == true)
     }
 
     @Test(
@@ -555,7 +555,7 @@ extension DoubleDivisibleTests {
         ]
     )
     internal func dividingNaNReturnsNaN(divisor: Double) {
-        #expect((Double.nan / divisor).isNaN)
+        #expect((Double.nan / divisor).isNaN == true)
     }
 
     @Test(
@@ -569,6 +569,6 @@ extension DoubleDivisibleTests {
         ]
     )
     internal func dividingByNaNReturnsNaN(dividend: Double) {
-        #expect((dividend / Double.nan).isNaN)
+        #expect((dividend / Double.nan).isNaN == true)
     }
 }

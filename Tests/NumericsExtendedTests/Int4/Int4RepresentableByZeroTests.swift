@@ -29,6 +29,6 @@ internal struct Int4RepresentableByZeroTests {
 
     @Test("Negative zero is zero")
     internal func negativeZeroIsZero() {
-        #expect(Int4.negativeZero.isZero)
+        #expect(Int4.negativeZero.isZero == true)
     }
 }

@@ -179,7 +179,7 @@ extension DoubleSubtractableTests {
         minuend: Double,
         subtrahend: Double
     ) {
-        #expect((minuend - subtrahend).isNaN)
+        #expect((minuend - subtrahend).isNaN == true)
     }
 
     @Test(
@@ -195,6 +195,6 @@ extension DoubleSubtractableTests {
         minuend: Double,
         subtrahend: Double
     ) {
-        #expect((minuend - subtrahend).isNaN)
+        #expect((minuend - subtrahend).isNaN == true)
     }
 }

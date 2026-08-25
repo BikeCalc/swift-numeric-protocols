@@ -64,7 +64,7 @@ extension Comparable {
 
         let closedRange: ClosedRange<Self> = lowerBound...upperBound
 
-        return self.isWithin(closedRange)
+        return self.isWithin(closedRange) == true
     }
 
     /// Returns a boolean value indicating whether this value is between two specified values.

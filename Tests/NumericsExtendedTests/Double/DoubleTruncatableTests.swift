@@ -121,7 +121,7 @@ extension DoubleTruncatableTests {
         value: Double,
         decimalPlace: Double.DecimalPlace
     ) {
-        #expect(value.truncated(to: decimalPlace).isNaN)
+        #expect(value.truncated(to: decimalPlace).isNaN == true)
     }
 
     @Test(

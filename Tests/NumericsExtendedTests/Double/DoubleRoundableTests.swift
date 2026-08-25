@@ -121,7 +121,7 @@ extension DoubleRoundableTests {
         value: Double,
         decimalPlace: Double.DecimalPlace
     ) {
-        #expect(value.rounded(to: decimalPlace).isNaN)
+        #expect(value.rounded(to: decimalPlace).isNaN == true)
     }
 
     @Test(

@@ -153,8 +153,8 @@ extension IntNegateableTests {
 
     @Test("One and negative one are opposites")
     internal func oneAndNegativeOneAreOpposites() {
-        #expect(1.isOpposite(of: -1))
-        #expect((-1).isOpposite(of: 1))
+        #expect(1.isOpposite(of: -1) == true)
+        #expect((-1).isOpposite(of: 1) == true)
         #expect(1.negating() == -1)
         #expect((-1).negating() == 1)
     }

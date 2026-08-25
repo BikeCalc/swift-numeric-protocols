@@ -24,7 +24,7 @@ extension FloatingPoint
 where Self: Divisible {
     /// Returns the reciprocal of this instance.
     public var reciprocal: Self? {
-        guard self.isInvertible else {
+        guard self.isInvertible == true else {
             return nil
         }
 
@@ -47,13 +47,13 @@ where Self: Divisible {
     /// - Returns: `true` if dividing this value by the specified value produces an exactly zero remainder, and `false`
     ///   otherwise.
     public func isDivisible(by other: Self) -> Bool {
-        guard self.isFinite,
-              other.isFinite,
+        guard self.isFinite == true,
+              other.isFinite == true,
               other.isZero == false else {
             return false
         }
 
-        return (self % other).isZero
+        return (self % other).isZero == true
     }
 }
 
@@ -107,15 +107,15 @@ where Self: Divisible & Negateable & Raisable {
         }
 
         // Handle zero and infinity without entering the iterative search.
-        if other.isZero || other.isInfinite {
-            guard self.isZero || self.isInfinite else {
+        if other.isZero == true || other.isInfinite == true {
+            guard self.isZero == true || self.isInfinite == true else {
                 return false
             }
 
-            return self.isZero || other.sign == .minus || self.sign == .plus
+            return self.isZero == true || other.sign == .minus || self.sign == .plus
         }
 
-        guard self.isFinite, self.isZero == false else {
+        guard self.isFinite == true, self.isZero == false else {
             return false
         }
 
@@ -139,7 +139,7 @@ where Self: Divisible & Negateable & Raisable {
                 return true
             }
 
-            guard nextPower.isFinite, nextPower.isZero == false, nextPower != power else {
+            guard nextPower.isFinite == true, nextPower.isZero == false, nextPower != power else {
                 return false
             }
 

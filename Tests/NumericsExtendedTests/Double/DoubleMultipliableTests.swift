@@ -136,7 +136,7 @@ internal struct DoubleMultipliableTests {
 extension DoubleMultipliableTests {
     @Test("Zero is multiple of zero")
     internal func zeroIsMultipleOfZero() {
-        #expect(Double.zero.isMultiple(of: .zero))
+        #expect(Double.zero.isMultiple(of: .zero) == true)
     }
 
     @Test(
@@ -281,7 +281,7 @@ extension DoubleMultipliableTests {
         multiplicand: Double,
         multiplier: Double
     ) {
-        #expect((multiplicand * multiplier).isNaN)
+        #expect((multiplicand * multiplier).isNaN == true)
     }
 
     @Test(
@@ -297,6 +297,6 @@ extension DoubleMultipliableTests {
         multiplicand: Double,
         multiplier: Double
     ) {
-        #expect((multiplicand * multiplier).isNaN)
+        #expect((multiplicand * multiplier).isNaN == true)
     }
 }

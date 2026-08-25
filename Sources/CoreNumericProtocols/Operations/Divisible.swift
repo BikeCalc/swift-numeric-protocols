@@ -53,7 +53,7 @@ extension Divisible {
     /// - Parameter other: The value to test.
     /// - Returns: `true` if the specified value is divisible by this value, and `false` otherwise.
     public func isFactor(of other: Self) -> Bool {
-        return other.isDivisible(by: self)
+        return other.isDivisible(by: self) == true
     }
 
     /// Divides the first specified value by the second and stores the quotient in the left-hand-side variable.

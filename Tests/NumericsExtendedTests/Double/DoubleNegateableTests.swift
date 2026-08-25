@@ -173,8 +173,8 @@ extension DoubleNegateableTests {
 
     @Test("One and negative one are opposites")
     internal func oneAndNegativeOneAreOpposites() {
-        #expect(1.0.isOpposite(of: -1.0))
-        #expect((-1.0).isOpposite(of: 1.0))
+        #expect(1.0.isOpposite(of: -1.0) == true)
+        #expect((-1.0).isOpposite(of: 1.0) == true)
         #expect(1.0.negating() == -1.0)
         #expect((-1.0).negating() == 1.0)
     }
@@ -265,6 +265,6 @@ extension DoubleNegateableTests {
 
     @Test("Negating NaN returns NaN")
     internal func negatingNaNReturnsNaN() {
-        #expect(Double.nan.negating().isNaN)
+        #expect(Double.nan.negating().isNaN == true)
     }
 }

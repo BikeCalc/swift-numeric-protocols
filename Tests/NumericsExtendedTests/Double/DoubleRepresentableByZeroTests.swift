@@ -31,6 +31,6 @@ internal struct DoubleRepresentableByZeroTests {
 
     @Test("Negative zero is zero")
     internal func negativeZeroIsZero() {
-        #expect(Double.negativeZero.isZero)
+        #expect(Double.negativeZero.isZero == true)
     }
 }

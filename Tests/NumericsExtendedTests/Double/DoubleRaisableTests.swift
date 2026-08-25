@@ -446,7 +446,7 @@ extension DoubleRaisableTests {
 
     @Test("NaN power predicate follows floating-point rules")
     internal func nanPowerPredicateFollowsFloatingPointRules() {
-        #expect(1.0.isPower(of: Double.nan))
+        #expect(1.0.isPower(of: Double.nan) == true)
         #expect(2.0.isPower(of: Double.nan) == false)
         #expect(Double.nan.isPower(of: 2.0) == false)
     }
@@ -515,7 +515,7 @@ extension DoubleRaisableTests {
         base: Double,
         exponent: Double.Exponent
     ) {
-        #expect((base ** exponent).isNaN)
+        #expect((base ** exponent).isNaN == true)
     }
 
     @Test("NaN raised to zero returns one")

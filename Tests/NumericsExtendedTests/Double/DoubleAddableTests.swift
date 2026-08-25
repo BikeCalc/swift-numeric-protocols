@@ -182,7 +182,7 @@ extension DoubleAddableTests {
         augend: Double,
         addend: Double
     ) {
-        #expect((augend + addend).isNaN)
+        #expect((augend + addend).isNaN == true)
     }
 
     @Test(
@@ -199,6 +199,6 @@ extension DoubleAddableTests {
         augend: Double,
         addend: Double
     ) {
-        #expect((augend + addend).isNaN)
+        #expect((augend + addend).isNaN == true)
     }
 }

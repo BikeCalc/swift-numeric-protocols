@@ -124,7 +124,7 @@ internal struct IntMultipliableTests {
 extension IntMultipliableTests {
     @Test("Zero is multiple of zero")
     internal func zeroIsMultipleOfZero() {
-        #expect(Int.zero.isMultiple(of: .zero))
+        #expect(Int.zero.isMultiple(of: .zero) == true)
     }
 
     @Test(
@@ -208,6 +208,6 @@ extension IntMultipliableTests {
         ]
     )
     internal func isMultipleOfOneReturnsTrue(multiplicand: Int) {
-        #expect(multiplicand.isMultiple(of: 1))
+        #expect(multiplicand.isMultiple(of: 1) == true)
     }
 }

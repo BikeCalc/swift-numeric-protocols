@@ -153,8 +153,8 @@ extension Int4NegateableTests {
 
     @Test("One and negative one are opposites")
     internal func oneAndNegativeOneAreOpposites() {
-        #expect(Int4(1).isOpposite(of: -1))
-        #expect(Int4(-1).isOpposite(of: 1))
+        #expect(Int4(1).isOpposite(of: -1) == true)
+        #expect(Int4(-1).isOpposite(of: 1) == true)
         #expect(Int4(1).negating() == -1)
         #expect(Int4(-1).negating() == 1)
     }

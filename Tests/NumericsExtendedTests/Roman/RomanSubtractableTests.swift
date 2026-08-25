@@ -107,6 +107,6 @@ extension RomanSubtractableTests {
 
         #expect(minuend - subtrahend == difference)
         #expect(reversedDifferenceReport.partialValue != difference)
-        #expect(reversedDifferenceReport.overflow)
+        #expect(reversedDifferenceReport.overflow == true)
     }
 }

@@ -94,7 +94,7 @@ internal struct RomanNumeralParser {
             }
 
             if let previousSymbol = symbols.last,
-               previousSymbol.isSubtractable(from: symbol) {
+               previousSymbol.isSubtractable(from: symbol) == true {
                 do {
                     let concatenatedSymbol: RomanSymbol = try previousSymbol.concatenate(with: symbol)
                     symbols.removeLast()

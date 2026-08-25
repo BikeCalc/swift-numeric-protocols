@@ -107,6 +107,6 @@ extension UInt4SubtractableTests {
 
         #expect(minuend - subtrahend == difference)
         #expect(reversedDifferenceReport.partialValue != difference)
-        #expect(reversedDifferenceReport.overflow)
+        #expect(reversedDifferenceReport.overflow == true)
     }
 }
