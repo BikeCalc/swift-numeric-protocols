@@ -297,7 +297,7 @@ extension Roman: Decodable {
 
 extension Roman: Divisible {
     public var reciprocal: Self? {
-        guard self.isInvertible else {
+        guard self.isInvertible == true else {
             return nil
         }
 
@@ -313,7 +313,7 @@ extension Roman: Divisible {
             return false
         }
 
-        return (self % other).isZero
+        return (self % other).isZero == true
     }
 
     /// Returns the quotient of dividing the first specified value by the second.
@@ -506,7 +506,7 @@ extension Roman: Raisable {
         default:
             var number: Self = self
 
-            while number > 1 && number.isDivisible(by: other) {
+            while number > 1 && number.isDivisible(by: other) == true {
                 let quotient: Self = number / other
 
                 guard quotient != number else {

@@ -116,7 +116,7 @@ internal struct DoubleComparableTests {
         let isWithin: Bool = value.isWithin(
             lowerBound,
             through: upperBound
-        )
+        ) == true
         #expect(isWithin == (value >= lowerBound && value <= upperBound))
     }
 
@@ -132,7 +132,7 @@ internal struct DoubleComparableTests {
         let isBetween: Bool = value.isBetween(
             lowerBound,
             and: upperBound
-        )
+        ) == true
         #expect(isBetween == (value > lowerBound && value < upperBound))
     }
 }

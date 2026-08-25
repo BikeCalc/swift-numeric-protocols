@@ -78,7 +78,7 @@ internal struct DoubleDivisibleTests {
         ]
     )
     internal func isInvertible(dividend: Double) {
-        #expect(dividend.isInvertible)
+        #expect(dividend.isInvertible == true)
     }
 
     @Test(
@@ -252,7 +252,7 @@ extension DoubleDivisibleTests {
         ]
     )
     internal func dividingZeroByNonzeroValueReturnsZero(divisor: Double) {
-        #expect(Double.zero / divisor == .zero)
+        #expect(Double.zero / divisor == Double.zero)
     }
 
     @Test(
@@ -306,7 +306,7 @@ extension DoubleDivisibleTests {
         ]
     )
     internal func remainderBySelfReturnsZero(value: Double) {
-        #expect(value % value == .zero)
+        #expect(value % value == Double.zero)
     }
 
     @Test(
@@ -380,7 +380,7 @@ extension DoubleDivisibleTests {
     internal func reciprocalOfNegativeInfinityPreservesNegativeZeroSign() {
         let reciprocal: Double? = Double.negativeInfinity.reciprocal
 
-        #expect(reciprocal == .zero)
+        #expect(reciprocal == Double.zero)
         #expect(reciprocal?.sign == .minus)
     }
 
@@ -440,7 +440,7 @@ extension DoubleDivisibleTests {
     ) {
         let quotient: Double = dividend / divisor
 
-        #expect(quotient == .zero)
+        #expect(quotient == Double.zero)
         #expect(quotient.sign == .minus)
     }
 
@@ -474,7 +474,7 @@ extension DoubleDivisibleTests {
         dividend: Double,
         divisor: Double
     ) {
-        #expect((dividend / divisor).isNaN)
+        #expect((dividend / divisor).isNaN == true)
     }
 
     @Test(
@@ -524,7 +524,7 @@ extension DoubleDivisibleTests {
     ) {
         let quotient: Double = dividend / divisor
 
-        #expect(quotient == .zero)
+        #expect(quotient == Double.zero)
         #expect(quotient.sign == .minus)
     }
 
@@ -541,7 +541,7 @@ extension DoubleDivisibleTests {
         dividend: Double,
         divisor: Double
     ) {
-        #expect((dividend / divisor).isNaN)
+        #expect((dividend / divisor).isNaN == true)
     }
 
     @Test(
@@ -555,7 +555,7 @@ extension DoubleDivisibleTests {
         ]
     )
     internal func dividingNaNReturnsNaN(divisor: Double) {
-        #expect((Double.nan / divisor).isNaN)
+        #expect((Double.nan / divisor).isNaN == true)
     }
 
     @Test(
@@ -569,6 +569,6 @@ extension DoubleDivisibleTests {
         ]
     )
     internal func dividingByNaNReturnsNaN(dividend: Double) {
-        #expect((dividend / Double.nan).isNaN)
+        #expect((dividend / Double.nan).isNaN == true)
     }
 }

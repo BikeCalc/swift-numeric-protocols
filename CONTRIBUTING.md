@@ -330,6 +330,8 @@ When adding argument-based tests, keep the existing conventions in mind:
 - Keep floating-point and binary integer examples aligned where possible.
 - Put special values such as zero, one, minimum, maximum, infinity, and NaN in rule-specific tests.
 - Prefer explicit expected results over deriving expectations from the implementation being tested.
+- Compare Boolean properties and function results explicitly with `true`, `false`, or an argument-provided expected
+  result.
 
 ### Docs
 

@@ -168,13 +168,13 @@ extension DoubleNegateableTests {
         arguments: Self.additiveInverseArguments
     )
     internal func negatingFollowsAdditiveInverseRule(value: Double) {
-        #expect(value + value.negating() == .zero)
+        #expect(value + value.negating() == Double.zero)
     }
 
     @Test("One and negative one are opposites")
     internal func oneAndNegativeOneAreOpposites() {
-        #expect(1.0.isOpposite(of: -1.0))
-        #expect((-1.0).isOpposite(of: 1.0))
+        #expect(1.0.isOpposite(of: -1.0) == true)
+        #expect((-1.0).isOpposite(of: 1.0) == true)
         #expect(1.0.negating() == -1.0)
         #expect((-1.0).negating() == 1.0)
     }
@@ -245,7 +245,7 @@ extension DoubleNegateableTests {
     ) {
         let negatedValue: Double = value.negating()
 
-        #expect(negatedValue == .zero)
+        #expect(negatedValue == Double.zero)
         #expect(negatedValue.sign == sign)
     }
 
@@ -265,6 +265,6 @@ extension DoubleNegateableTests {
 
     @Test("Negating NaN returns NaN")
     internal func negatingNaNReturnsNaN() {
-        #expect(Double.nan.negating().isNaN)
+        #expect(Double.nan.negating().isNaN == true)
     }
 }

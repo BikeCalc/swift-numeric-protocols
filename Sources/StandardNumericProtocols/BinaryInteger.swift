@@ -20,7 +20,7 @@ where Self: Divisible & RepresentableByZero {
             return false
         }
 
-        return (self % other).isZero
+        return (self % other).isZero == true
     }
 }
 
@@ -73,7 +73,7 @@ where Self: Divisible & Raisable {
             var number: Self = self
 
             // Remove one factor of the base at a time until reaching one or finding a remainder.
-            while number > 1 && number.isDivisible(by: other) {
+            while number > 1 && number.isDivisible(by: other) == true {
                 let quotient: Self = number / other
 
                 guard quotient != number else {
@@ -109,7 +109,7 @@ where Self: Divisible & Negateable & Raisable {
             var number: Self = self
 
             // Remove one factor of the base at a time until reaching one or finding a remainder.
-            while number.isDivisible(by: other) {
+            while number.isDivisible(by: other) == true {
                 let quotient: Self = number / other
 
                 guard quotient != number else {
@@ -155,7 +155,7 @@ where Self: Raisable, Self.Exponent: BinaryInteger {
                 return 0
             }
 
-            return lhs == 1 || rhs.isMultiple(of: 2) ? 1 : lhs
+            return lhs == 1 || rhs.isMultiple(of: 2) == true ? 1 : lhs
         case 0:
             return 1
         case 1:

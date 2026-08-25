@@ -228,7 +228,7 @@ extension Int4DivisibleTests {
         ] as Array<Int4>
     )
     internal func dividingZeroByNonzeroValueReturnsZero(divisor: Int4) {
-        #expect(Int4.zero / divisor == .zero)
+        #expect(Int4.zero / divisor == Int4.zero)
     }
 
     @Test(
@@ -270,7 +270,7 @@ extension Int4DivisibleTests {
         ] as Array<Int4>
     )
     internal func remainderBySelfReturnsZero(value: Int4) {
-        #expect(value % value == .zero)
+        #expect(value % value == Int4.zero)
     }
 
     @Test(
@@ -350,7 +350,7 @@ extension Int4DivisibleTests {
         ] as Array<Int4>
     )
     internal func remainderByOneReturnsZero(dividend: Int4) {
-        #expect(dividend % 1 == .zero)
+        #expect(dividend % 1 == Int4.zero)
     }
 
     @Test(

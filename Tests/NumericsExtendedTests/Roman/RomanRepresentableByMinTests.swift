@@ -27,6 +27,6 @@ internal struct RomanRepresentableByMinTests {
 
     @Test("Min returns min")
     internal func minReturnsMin() {
-        #expect(Roman.min == .zero)
+        #expect(Roman.min == Roman.zero)
     }
 }

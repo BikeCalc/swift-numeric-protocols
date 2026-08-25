@@ -148,13 +148,13 @@ extension IntNegateableTests {
         arguments: Self.additiveInverseArguments
     )
     internal func negatingFollowsAdditiveInverseRule(value: Int) {
-        #expect(value + value.negating() == .zero)
+        #expect(value + value.negating() == Int.zero)
     }
 
     @Test("One and negative one are opposites")
     internal func oneAndNegativeOneAreOpposites() {
-        #expect(1.isOpposite(of: -1))
-        #expect((-1).isOpposite(of: 1))
+        #expect(1.isOpposite(of: -1) == true)
+        #expect((-1).isOpposite(of: 1) == true)
         #expect(1.negating() == -1)
         #expect((-1).negating() == 1)
     }
@@ -206,6 +206,6 @@ extension IntNegateableTests {
         ]
     )
     internal func negatingZeroReturnsZero(value: Int) {
-        #expect(value.negating() == .zero)
+        #expect(value.negating() == Int.zero)
     }
 }

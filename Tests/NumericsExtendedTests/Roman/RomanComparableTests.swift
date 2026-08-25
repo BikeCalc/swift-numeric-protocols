@@ -94,7 +94,7 @@ internal struct RomanComparableTests {
         let isWithin: Bool = value.isWithin(
             lowerBound,
             through: upperBound
-        )
+        ) == true
         #expect(isWithin == (value >= lowerBound && value <= upperBound))
     }
 
@@ -110,7 +110,7 @@ internal struct RomanComparableTests {
         let isBetween: Bool = value.isBetween(
             lowerBound,
             and: upperBound
-        )
+        ) == true
         #expect(isBetween == (value > lowerBound && value < upperBound))
     }
 }

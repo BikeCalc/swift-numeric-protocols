@@ -22,6 +22,6 @@ extension RepresentableByInfinity
 where Self: Negateable {
     /// The value representing negative infinity.
     public static var negativeInfinity: Self {
-        return .infinity.negating()
+        return Self.infinity.negating()
     }
 }

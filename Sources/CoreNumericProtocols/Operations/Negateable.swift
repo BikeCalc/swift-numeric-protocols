@@ -49,12 +49,12 @@ where Self: Comparable & RepresentableByZero {
     /// A boolean value indicating whether this value is negative.
     ///
     public var isNegative: Bool {
-        return self < .zero
+        return self < Self.zero
     }
 
     /// A boolean value indicating whether this value is positive.
     ///
     public var isPositive: Bool {
-        return .zero < self
+        return Self.zero < self
     }
 }

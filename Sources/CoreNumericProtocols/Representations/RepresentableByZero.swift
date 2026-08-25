@@ -16,7 +16,7 @@ extension RepresentableByZero
 where Self: Equatable {
     /// A boolean value indicating whether this instance is zero.
     public var isZero: Bool {
-        return self == .zero
+        return self == Self.zero
     }
 }
 
@@ -27,6 +27,6 @@ where Self: Negateable {
     /// This value is not necessarily represented differently from zero. Types that support signed zero may preserve a
     /// distinct negative-zero representation, while other types may represent both values identically.
     public static var negativeZero: Self {
-        return .zero.negating()
+        return Self.zero.negating()
     }
 }

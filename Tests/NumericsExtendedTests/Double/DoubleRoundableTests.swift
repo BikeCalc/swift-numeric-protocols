@@ -121,7 +121,7 @@ extension DoubleRoundableTests {
         value: Double,
         decimalPlace: Double.DecimalPlace
     ) {
-        #expect(value.rounded(to: decimalPlace).isNaN)
+        #expect(value.rounded(to: decimalPlace).isNaN == true)
     }
 
     @Test(
@@ -137,7 +137,7 @@ extension DoubleRoundableTests {
     ) {
         let roundedValue: Double = value.rounded(to: decimalPlace)
 
-        #expect(roundedValue == .zero)
+        #expect(roundedValue == Double.zero)
         #expect(roundedValue.sign == .minus)
     }
 }

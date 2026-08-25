@@ -199,7 +199,7 @@ extension DoubleRaisableTests {
         ]
     )
     internal func raisingToZeroReturnsOne(base: Double) {
-        #expect(base ** .zero == 1.0)
+        #expect(base ** Double.Exponent.zero == 1.0)
     }
 
     @Test(
@@ -387,7 +387,7 @@ extension DoubleRaisableTests {
         value: Double,
         result: Bool
     ) {
-        #expect(value.isPower(of: .zero) == result)
+        #expect(value.isPower(of: Double.zero) == result)
     }
 
     @Test(
@@ -446,7 +446,7 @@ extension DoubleRaisableTests {
 
     @Test("NaN power predicate follows floating-point rules")
     internal func nanPowerPredicateFollowsFloatingPointRules() {
-        #expect(1.0.isPower(of: Double.nan))
+        #expect(1.0.isPower(of: Double.nan) == true)
         #expect(2.0.isPower(of: Double.nan) == false)
         #expect(Double.nan.isPower(of: 2.0) == false)
     }
@@ -499,7 +499,7 @@ extension DoubleRaisableTests {
     ) {
         let power: Double = base ** exponent
 
-        #expect(power == .zero)
+        #expect(power == Double.zero)
         #expect(power.sign == .minus)
     }
 
@@ -515,12 +515,12 @@ extension DoubleRaisableTests {
         base: Double,
         exponent: Double.Exponent
     ) {
-        #expect((base ** exponent).isNaN)
+        #expect((base ** exponent).isNaN == true)
     }
 
     @Test("NaN raised to zero returns one")
     internal func nanRaisedToZeroReturnsOne() {
-        let power: Double = Double.nan ** .zero
+        let power: Double = Double.nan ** Double.Exponent.zero
 
         #expect(power == 1.0)
     }
@@ -572,7 +572,7 @@ extension DoubleRaisableTests {
     ) {
         let power: Double = base ** exponent
 
-        #expect(power == .zero)
+        #expect(power == Double.zero)
         #expect(power.sign == .minus)
     }
 }

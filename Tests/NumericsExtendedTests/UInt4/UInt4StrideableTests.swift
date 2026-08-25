@@ -57,7 +57,7 @@ extension UInt4StrideableTests {
         ] as Array<UInt4>
     )
     internal func advancingByZeroPreservesValue(value: UInt4) {
-        #expect(value.advanced(by: .zero) == value)
+        #expect(value.advanced(by: Int.zero) == value)
     }
 
     @Test(
@@ -68,6 +68,6 @@ extension UInt4StrideableTests {
         ] as Array<UInt4>
     )
     internal func distanceToSelfReturnsZero(value: UInt4) {
-        #expect(value.distance(to: value) == .zero)
+        #expect(value.distance(to: value) == Int.zero)
     }
 }

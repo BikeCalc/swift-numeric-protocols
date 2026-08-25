@@ -27,6 +27,6 @@ internal struct UInt4RepresentableByMinTests {
 
     @Test("Min returns min")
     internal func minReturnsMin() {
-        #expect(UInt4.min == .zero)
+        #expect(UInt4.min == UInt4.zero)
     }
 }

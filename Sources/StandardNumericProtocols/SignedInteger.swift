@@ -12,7 +12,7 @@ extension SignedInteger
 where Self: Divisible {
     /// Returns the reciprocal of this instance.
     public var reciprocal: Self? {
-        guard self.isInvertible else {
+        guard self.isInvertible == true else {
             return nil
         }
 
