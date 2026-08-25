@@ -11,23 +11,59 @@ import Testing
 
 @Suite("Int4 Equatable Tests")
 internal struct Int4EquatableTests {
-    private static let equalityArguments: Array<(Int4, Int4)> = [
-        (1, 1),
-        (1, 2),
-        (-1, -1),
-        (-1, 1)
+    private static let equalityArguments: Array<(Int4, Int4, Bool)> = [
+        (1, 1, true),
+        (1, 2, false),
+        (-1, -1, true),
+        (-1, 1, false)
     ]
 
     @Test(
-        "Equality predicates",
+        "Equality succeeds",
         arguments: Self.equalityArguments
     )
-    internal func equalityPredicates(
+    internal func equalitySucceeds(
         lhs: Int4,
-        rhs: Int4
+        rhs: Int4,
+        result: Bool
     ) {
-        #expect(lhs.isEqual(to: rhs) == (lhs == rhs))
-        #expect(lhs.isUnequal(to: rhs) == (lhs != rhs))
+        #expect((lhs == rhs) == result)
+    }
+
+    @Test(
+        "Inequality succeeds",
+        arguments: Self.equalityArguments
+    )
+    internal func inequalitySucceeds(
+        lhs: Int4,
+        rhs: Int4,
+        result: Bool
+    ) {
+        #expect((lhs != rhs) == !result)
+    }
+
+    @Test(
+        "Is equal succeeds",
+        arguments: Self.equalityArguments
+    )
+    internal func isEqualSucceeds(
+        lhs: Int4,
+        rhs: Int4,
+        result: Bool
+    ) {
+        #expect(lhs.isEqual(to: rhs) == result)
+    }
+
+    @Test(
+        "Is unequal succeeds",
+        arguments: Self.equalityArguments
+    )
+    internal func isUnequalSucceeds(
+        lhs: Int4,
+        rhs: Int4,
+        result: Bool
+    ) {
+        #expect(lhs.isUnequal(to: rhs) == !result)
     }
 }
 

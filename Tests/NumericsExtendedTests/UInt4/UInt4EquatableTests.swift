@@ -11,21 +11,57 @@ import Testing
 
 @Suite("UInt4 Equatable Tests")
 internal struct UInt4EquatableTests {
-    private static let equalityArguments: Array<(UInt4, UInt4)> = [
-        (1, 1),
-        (1, 2)
+    private static let equalityArguments: Array<(UInt4, UInt4, Bool)> = [
+        (1, 1, true),
+        (1, 2, false)
     ]
 
     @Test(
-        "Equality predicates",
+        "Equality succeeds",
         arguments: Self.equalityArguments
     )
-    internal func equalityPredicates(
+    internal func equalitySucceeds(
         lhs: UInt4,
-        rhs: UInt4
+        rhs: UInt4,
+        result: Bool
     ) {
-        #expect(lhs.isEqual(to: rhs) == (lhs == rhs))
-        #expect(lhs.isUnequal(to: rhs) == (lhs != rhs))
+        #expect((lhs == rhs) == result)
+    }
+
+    @Test(
+        "Inequality succeeds",
+        arguments: Self.equalityArguments
+    )
+    internal func inequalitySucceeds(
+        lhs: UInt4,
+        rhs: UInt4,
+        result: Bool
+    ) {
+        #expect((lhs != rhs) == !result)
+    }
+
+    @Test(
+        "Is equal succeeds",
+        arguments: Self.equalityArguments
+    )
+    internal func isEqualSucceeds(
+        lhs: UInt4,
+        rhs: UInt4,
+        result: Bool
+    ) {
+        #expect(lhs.isEqual(to: rhs) == result)
+    }
+
+    @Test(
+        "Is unequal succeeds",
+        arguments: Self.equalityArguments
+    )
+    internal func isUnequalSucceeds(
+        lhs: UInt4,
+        rhs: UInt4,
+        result: Bool
+    ) {
+        #expect(lhs.isUnequal(to: rhs) == !result)
     }
 }
 
