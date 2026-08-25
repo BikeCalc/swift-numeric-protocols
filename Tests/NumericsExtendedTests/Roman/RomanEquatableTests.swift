@@ -11,21 +11,57 @@ import Testing
 
 @Suite("Roman Equatable Tests")
 internal struct RomanEquatableTests {
-    private static let equalityArguments: Array<(Roman, Roman)> = [
-        (1, 1),
-        (1, 2)
+    private static let equalityArguments: Array<(Roman, Roman, Bool)> = [
+        (1, 1, true),
+        (1, 2, false)
     ]
 
     @Test(
-        "Equality predicates",
+        "Equality succeeds",
         arguments: Self.equalityArguments
     )
-    internal func equalityPredicates(
+    internal func equalitySucceeds(
         lhs: Roman,
-        rhs: Roman
+        rhs: Roman,
+        result: Bool
     ) {
-        #expect(lhs.isEqual(to: rhs) == (lhs == rhs))
-        #expect(lhs.isUnequal(to: rhs) == (lhs != rhs))
+        #expect((lhs == rhs) == result)
+    }
+
+    @Test(
+        "Inequality succeeds",
+        arguments: Self.equalityArguments
+    )
+    internal func inequalitySucceeds(
+        lhs: Roman,
+        rhs: Roman,
+        result: Bool
+    ) {
+        #expect((lhs != rhs) == !result)
+    }
+
+    @Test(
+        "Is equal succeeds",
+        arguments: Self.equalityArguments
+    )
+    internal func isEqualSucceeds(
+        lhs: Roman,
+        rhs: Roman,
+        result: Bool
+    ) {
+        #expect(lhs.isEqual(to: rhs) == result)
+    }
+
+    @Test(
+        "Is unequal succeeds",
+        arguments: Self.equalityArguments
+    )
+    internal func isUnequalSucceeds(
+        lhs: Roman,
+        rhs: Roman,
+        result: Bool
+    ) {
+        #expect(lhs.isUnequal(to: rhs) == !result)
     }
 }
 
