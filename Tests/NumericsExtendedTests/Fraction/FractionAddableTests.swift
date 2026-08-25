@@ -12,10 +12,6 @@ import Testing
 @Suite("Fraction Addable Tests")
 internal struct FractionAddableTests {
     private static let additionArguments: [(Fraction<Int>, Fraction<Int>, Fraction<Int>)] = [
-        (.init(1, 2), .init(1, 2), .init(2, 2)),
-        (.init(1, 2), .init(2, 3), .init(7, 6)),
-        (.init(-1, 2), .init(1, 2), .init(0, 2)),
-        (.init(-1, 2), .init(-2, 3), .init(-7, 6))
         (Fraction<Int>(1, 2), Fraction<Int>(1, 2), Fraction<Int>(2, 2)),
         (Fraction<Int>(1, 2), Fraction<Int>(2, 3), Fraction<Int>(7, 6)),
         (Fraction<Int>(-1, 2), Fraction<Int>(1, 2), Fraction<Int>(0, 2)),

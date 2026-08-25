@@ -12,10 +12,6 @@ import Testing
 @Suite("Fraction Multipliable Tests")
 internal struct FractionMultipliableTests {
     private static let multiplicationArguments: [(Fraction<Int>, Fraction<Int>, Fraction<Int>)] = [
-        (.init(1, 2), .init(1, 2), .init(1, 4)),
-        (.init(1, 2), .init(2, 3), .init(2, 6)),
-        (.init(-1, 2), .init(1, 2), .init(-1, 4)),
-        (.init(-1, 2), .init(-2, 3), .init(2, 6))
         (Fraction<Int>(1, 2), Fraction<Int>(1, 2), Fraction<Int>(1, 4)),
         (Fraction<Int>(1, 2), Fraction<Int>(2, 3), Fraction<Int>(2, 6)),
         (Fraction<Int>(-1, 2), Fraction<Int>(1, 2), Fraction<Int>(-1, 4)),
