@@ -71,3 +71,53 @@ internal struct FractionAddableTests {
     }
 }
 
+// MARK: - Arithmetic Rules
+
+extension FractionAddableTests {
+    @Test(
+        "Adding zero preserves augend",
+        arguments: [
+            Fraction<Int>(1, 2),
+            Fraction<Int>(2, 3),
+            Fraction<Int>(-1, 2),
+            Fraction<Int>(-2, 3)
+        ]
+    )
+    internal func addingZeroPreservesAugend(augend: Fraction<Int>) {
+        #expect(augend + .zero == augend)
+    }
+
+    @Test(
+        "Adding opposite values returns represented zero",
+        arguments: [
+            (Fraction<Int>(1, 2), Fraction<Int>(-1, 2)),
+            (Fraction<Int>(2, 3), Fraction<Int>(-2, 3)),
+            (Fraction<Int>(-1, 2), Fraction<Int>(1, 2)),
+            (Fraction<Int>(-2, 3), Fraction<Int>(2, 3))
+        ]
+    )
+    internal func addingOppositeValuesReturnsRepresentedZero(
+        augend: Fraction<Int>,
+        addend: Fraction<Int>
+    ) {
+        #expect((augend + addend).isZero == true)
+    }
+
+    @Test(
+        "Addition is commutative",
+        arguments: Self.additionArguments
+    )
+    internal func additionIsCommutative(
+        augend: Fraction<Int>,
+        addend: Fraction<Int>,
+        sum _: Fraction<Int>
+    ) {
+        #expect(augend + addend == addend + augend)
+    }
+}
+
+// MARK: - Rational Rules
+
+extension FractionAddableTests {
+    // // TODO: Rational Rules for FractionAddableTests
+}

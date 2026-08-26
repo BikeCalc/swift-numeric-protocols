@@ -14,7 +14,7 @@ internal struct FractionRepresentableByNaNTests {
     @Test("NaN is NaN")
     internal func nanIsNaN() {
         #expect(Fraction<Int>.nan.isNaN == true)
-        #expect(Fraction<Int>(.zero, .zero).isNaN == true)
+        #expect(Fraction<Int>(0, 0).isNaN == true)
     }
 
     @Test("Zero is not NaN")

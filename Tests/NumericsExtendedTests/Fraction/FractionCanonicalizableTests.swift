@@ -102,6 +102,27 @@ internal struct FractionCanonicalizableTests {
     }
 }
 
+// MARK: - Fixed-Width Integer Rules
+
+extension FractionCanonicalizableTests {
+    @Test("Reducible Int minimum denominator is canonicalizable")
+    internal func reducibleIntMinimumDenominatorIsCanonicalizable() {
+        let value: Fraction<Int> = .init(2, Int.min)
+        let expected: Fraction<Int> = .init(-1, Int.zero - (Int.min / 2))
+
+        #expect(value.isCanonicalizable == true)
+        #expect(value.canonicalized() == expected)
+    }
+
+    @Test("Irreducible Int minimum denominator is not canonicalizable")
+    internal func irreducibleIntMinimumDenominatorIsNotCanonicalizable() {
+        let value: Fraction<Int> = .init(1, Int.min)
+
+        #expect(value.isCanonicalizable == false)
+        #expect(value.isCanonicalized == false)
+    }
+}
+
 // MARK: - Rational Rules
 
 extension FractionCanonicalizableTests {
@@ -143,26 +164,5 @@ extension FractionCanonicalizableTests {
         #expect(Fraction<Int>.nan.isCanonicalizable == true)
         #expect(Fraction<Int>.nan.isCanonicalized == true)
         #expect(Fraction<Int>.nan.canonicalized().isNaN == true)
-    }
-}
-
-// MARK: - Fixed-Width Integer Rules
-
-extension FractionCanonicalizableTests {
-    @Test("Reducible Int minimum denominator is canonicalizable")
-    internal func reducibleIntMinimumDenominatorIsCanonicalizable() {
-        let value: Fraction<Int> = .init(2, Int.min)
-        let expected: Fraction<Int> = .init(-1, Int.zero - (Int.min / 2))
-
-        #expect(value.isCanonicalizable == true)
-        #expect(value.canonicalized() == expected)
-    }
-
-    @Test("Irreducible Int minimum denominator is not canonicalizable")
-    internal func irreducibleIntMinimumDenominatorIsNotCanonicalizable() {
-        let value: Fraction<Int> = .init(1, Int.min)
-
-        #expect(value.isCanonicalizable == false)
-        #expect(value.isCanonicalized == false)
     }
 }

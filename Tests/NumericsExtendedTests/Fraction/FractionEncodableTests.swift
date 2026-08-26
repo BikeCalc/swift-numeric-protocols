@@ -39,7 +39,7 @@ internal struct FractionEncodableTests {
         let encoder: JSONEncoder = .init()
         encoder.outputFormatting = .sortedKeys
 
-        let result: Data = try encoder.encode(Fraction<Int>(.zero, -2))
+        let result: Data = try encoder.encode(Fraction<Int>(0, -2))
         let expected: Data = try #require(#"{"den":-2,"num":0}"#.data(using: .utf8))
 
         #expect(result == expected)

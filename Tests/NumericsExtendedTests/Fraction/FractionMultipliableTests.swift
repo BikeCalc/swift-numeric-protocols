@@ -119,3 +119,84 @@ internal struct FractionMultipliableTests {
     }
 }
 
+// MARK: - Arithmetic Rules
+
+extension FractionMultipliableTests {
+    @Test("Zero is multiple of zero")
+    internal func zeroIsMultipleOfZero() {
+        #expect(Fraction<Int>.zero.isMultiple(of: .zero) == true)
+    }
+
+    @Test(
+        "Is multiple of zero returns false",
+        arguments: [
+            Fraction<Int>(1, 2),
+            Fraction<Int>(2, 3),
+            Fraction<Int>(-1, 2),
+            Fraction<Int>(-2, 3)
+        ]
+    )
+    internal func isMultipleOfZeroReturnsFalse(multiplicand: Fraction<Int>) {
+        #expect(multiplicand.isMultiple(of: .zero) == false)
+    }
+
+    @Test(
+        "Multiplying by zero returns represented zero",
+        arguments: [
+            Fraction<Int>(1, 2),
+            Fraction<Int>(2, 3),
+            Fraction<Int>(-1, 2),
+            Fraction<Int>(-2, 3)
+        ]
+    )
+    internal func multiplyingByZeroReturnsRepresentedZero(multiplicand: Fraction<Int>) {
+        #expect((multiplicand * .zero).isZero == true)
+    }
+
+    @Test(
+        "Multiplying by one preserves multiplicand",
+        arguments: [
+            Fraction<Int>(1, 2),
+            Fraction<Int>(2, 3),
+            Fraction<Int>(-1, 2),
+            Fraction<Int>(-2, 3)
+        ]
+    )
+    internal func multiplyingByOnePreservesMultiplicand(multiplicand: Fraction<Int>) {
+        #expect(multiplicand * 1 == multiplicand)
+    }
+
+    @Test(
+        "Multiplying by negative one returns opposite value",
+        arguments: [
+            (Fraction<Int>(1, 2), Fraction<Int>(-1, 2)),
+            (Fraction<Int>(2, 3), Fraction<Int>(-2, 3)),
+            (Fraction<Int>(-1, 2), Fraction<Int>(1, 2)),
+            (Fraction<Int>(-2, 3), Fraction<Int>(2, 3))
+        ]
+    )
+    internal func multiplyingByNegativeOneReturnsOppositeValue(
+        multiplicand: Fraction<Int>,
+        product: Fraction<Int>
+    ) {
+        #expect(multiplicand * -1 == product)
+    }
+
+    @Test(
+        "Multiplication is commutative",
+        arguments: Self.multiplicationArguments
+    )
+    internal func multiplicationIsCommutative(
+        multiplicand: Fraction<Int>,
+        multiplier: Fraction<Int>,
+        product _: Fraction<Int>
+    ) {
+        #expect(multiplicand * multiplier == multiplier * multiplicand)
+    }
+}
+
+// MARK: - Rational Rules
+
+extension FractionMultipliableTests {
+    // TODO: Rational Rules for FractionMultipliableTests
+}

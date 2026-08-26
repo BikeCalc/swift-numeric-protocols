@@ -11,13 +11,13 @@ import Testing
 
 @Suite("Fraction Comparable Tests")
 internal struct FractionComparableTests {
-    private static let comparisonArguments: [(Fraction<Int>, Fraction<Int>)] = [
-        (Fraction<Int>(1, 2), Fraction<Int>(1, 2)),
-        (Fraction<Int>(-1, 2), Fraction<Int>(-1, 2)),
-        (Fraction<Int>(2, 2), Fraction<Int>(3, 2)),
-        (Fraction<Int>(3, 2), Fraction<Int>(2, 2)),
-        (Fraction<Int>(-2, 2), Fraction<Int>(3, 2)),
-        (Fraction<Int>(-3, 2), Fraction<Int>(-2, 2))
+    private static let comparisonArguments: [(Fraction<Int>, Fraction<Int>, Bool, Bool, Bool, Bool)] = [
+        (Fraction<Int>(1, 2), Fraction<Int>(1, 2), false, true, false, true),
+        (Fraction<Int>(-1, 2), Fraction<Int>(-1, 2), false, true, false, true),
+        (Fraction<Int>(2, 2), Fraction<Int>(3, 2), true, true, false, false),
+        (Fraction<Int>(3, 2), Fraction<Int>(2, 2), false, false, true, true),
+        (Fraction<Int>(-2, 2), Fraction<Int>(3, 2), true, true, false, false),
+        (Fraction<Int>(-3, 2), Fraction<Int>(-2, 2), true, true, false, false)
     ]
 
     private static let rangeArguments: [(Fraction<Int>, Fraction<Int>, Fraction<Int>)] = [
@@ -39,9 +39,14 @@ internal struct FractionComparableTests {
     )
     internal func isLessThan(
         lhs: Fraction<Int>,
-        rhs: Fraction<Int>
+        rhs: Fraction<Int>,
+        isLess: Bool,
+        isLessThanOrEqual _: Bool,
+        isGreater _: Bool,
+        isGreaterThanOrEqual _: Bool
     ) {
-        #expect(lhs.isLess(than: rhs) == (lhs < rhs))
+        #expect((lhs < rhs) == isLess)
+        #expect(lhs.isLess(than: rhs) == isLess)
     }
 
     @Test(
@@ -50,9 +55,14 @@ internal struct FractionComparableTests {
     )
     internal func isLessThanOrEqualTo(
         lhs: Fraction<Int>,
-        rhs: Fraction<Int>
+        rhs: Fraction<Int>,
+        isLess _: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater _: Bool,
+        isGreaterThanOrEqual _: Bool
     ) {
-        #expect(lhs.isLessThanOrEqual(to: rhs) == (lhs <= rhs))
+        #expect((lhs <= rhs) == isLessThanOrEqual)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
     }
 
     @Test(
@@ -61,9 +71,14 @@ internal struct FractionComparableTests {
     )
     internal func isGreaterThan(
         lhs: Fraction<Int>,
-        rhs: Fraction<Int>
+        rhs: Fraction<Int>,
+        isLess _: Bool,
+        isLessThanOrEqual _: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual _: Bool
     ) {
-        #expect(lhs.isGreater(than: rhs) == (lhs > rhs))
+        #expect((lhs > rhs) == isGreater)
+        #expect(lhs.isGreater(than: rhs) == isGreater)
     }
 
     @Test(
@@ -72,9 +87,14 @@ internal struct FractionComparableTests {
     )
     internal func isGreaterThanOrEqualTo(
         lhs: Fraction<Int>,
-        rhs: Fraction<Int>
+        rhs: Fraction<Int>,
+        isLess _: Bool,
+        isLessThanOrEqual _: Bool,
+        isGreater _: Bool,
+        isGreaterThanOrEqual: Bool
     ) {
-        #expect(lhs.isGreaterThanOrEqual(to: rhs) == (lhs >= rhs))
+        #expect((lhs >= rhs) == isGreaterThanOrEqual)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
     }
 
     @Test(
@@ -123,5 +143,108 @@ internal struct FractionComparableTests {
 
         #expect(isBetween == (value > lowerBound && value < upperBound))
     }
+
+    @Test("Equivalent representations use stored terms as tie-breakers")
+    internal func equivalentRepresentationsUseStoredTermsAsTieBreakers() {
+        let reduced: Fraction<Int> = .init(1, 2)
+        let unreduced: Fraction<Int> = .init(2, 4)
+
+        #expect(reduced < unreduced)
+        #expect(unreduced > reduced)
+        #expect(reduced != unreduced)
+        #expect(reduced.isCanonicallyEquatable(to: unreduced) == true)
+    }
+
+    @Test("Comparison handles an Int minimum denominator")
+    internal func comparisonHandlesIntMinimumDenominator() {
+        let value: Fraction<Int> = .init(1, Int.min)
+
+        #expect(value < .zero)
+    }
+
+    @Test("Comparison handles an Int minimum numerator")
+    internal func comparisonHandlesIntMinimumNumerator() {
+        let value: Fraction<Int> = .init(Int.min, -1)
+        let maximum: Fraction<Int> = .init(Int.max, 1)
+
+        #expect(value > maximum)
+    }
 }
 
+// MARK: - Rational Rules
+
+extension FractionComparableTests {
+    @Test(
+        "Positive infinity comparison follows rational rules",
+        arguments: [
+            (Fraction<Int>.infinity, Fraction<Int>.infinity, false, true, false, true),
+            (Fraction<Int>.infinity, Fraction<Int>(1, 1), false, false, true, true),
+            (Fraction<Int>.infinity, Fraction<Int>.negativeInfinity, false, false, true, true)
+        ]
+    )
+    internal func positiveInfinityComparisonFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        isLess: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual: Bool
+    ) {
+        #expect((lhs < rhs) == isLess)
+        #expect((lhs <= rhs) == isLessThanOrEqual)
+        #expect((lhs > rhs) == isGreater)
+        #expect((lhs >= rhs) == isGreaterThanOrEqual)
+        #expect(lhs.isLess(than: rhs) == isLess)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
+        #expect(lhs.isGreater(than: rhs) == isGreater)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
+    }
+
+    @Test(
+        "Negative infinity comparison follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, false, true, false, true),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>(-1, 1), true, true, false, false),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, true, true, false, false)
+        ]
+    )
+    internal func negativeInfinityComparisonFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        isLess: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual: Bool
+    ) {
+        #expect((lhs < rhs) == isLess)
+        #expect((lhs <= rhs) == isLessThanOrEqual)
+        #expect((lhs > rhs) == isGreater)
+        #expect((lhs >= rhs) == isGreaterThanOrEqual)
+        #expect(lhs.isLess(than: rhs) == isLess)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
+        #expect(lhs.isGreater(than: rhs) == isGreater)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
+    }
+
+    @Test(
+        "NaN comparison follows rational rules",
+        arguments: [
+            (Fraction<Int>.nan, Fraction<Int>(1, 1)),
+            (Fraction<Int>(1, 1), Fraction<Int>.nan),
+            (Fraction<Int>.nan, Fraction<Int>.nan)
+        ]
+    )
+    internal func nanComparisonFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>
+    ) {
+        #expect((lhs < rhs) == false)
+        #expect((lhs > rhs) == false)
+        #expect((lhs <= rhs) == false)
+        #expect((lhs >= rhs) == false)
+        #expect(lhs.isLess(than: rhs) == false)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == false)
+        #expect(lhs.isGreater(than: rhs) == false)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == false)
+    }
+}
