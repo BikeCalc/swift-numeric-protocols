@@ -80,6 +80,8 @@ extension UInt4EquatableTests {
         rhs: UInt4,
         result: Bool
     ) {
+        #expect((lhs == rhs) == result)
+        #expect((lhs != rhs) == !result)
         #expect(lhs.isEqual(to: rhs) == result)
         #expect(lhs.isUnequal(to: rhs) == !result)
     }

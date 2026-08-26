@@ -206,6 +206,6 @@ extension Int4NegateableTests {
         ] as Array<Int4>
     )
     internal func negatingZeroReturnsZero(value: Int4) {
-        #expect(value.negating() == Int4.zero)
+        #expect(value.negating() == value)
     }
 }

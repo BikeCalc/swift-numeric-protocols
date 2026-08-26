@@ -12,23 +12,6 @@ import Testing
 @Suite("Roman Numeric Tests")
 internal struct RomanNumericTests {
     @Test(
-        "Magnitude succeeds",
-        arguments: [
-            (0, 0),
-            (2, 2),
-            (3, 3),
-            (Roman.min, Roman.min),
-            (Roman.max, Roman.max)
-        ] as Array<(Roman, Roman.Magnitude)>
-    )
-    internal func magnitudeSucceeds(
-        value: Roman,
-        magnitude: Roman.Magnitude
-    ) {
-        #expect(value.magnitude == magnitude)
-    }
-
-    @Test(
         "Initialized exactly succeeds",
         arguments: [
             (0, 0),
@@ -54,5 +37,22 @@ internal struct RomanNumericTests {
     )
     internal func initializedExactlyFails(source: Int) {
         #expect(Roman(exactly: source) == nil)
+    }
+
+    @Test(
+        "Magnitude succeeds",
+        arguments: [
+            (0, 0),
+            (2, 2),
+            (3, 3),
+            (Roman.min, Roman.min),
+            (Roman.max, Roman.max)
+        ] as Array<(Roman, Roman.Magnitude)>
+    )
+    internal func magnitudeSucceeds(
+        value: Roman,
+        magnitude: Roman.Magnitude
+    ) {
+        #expect(value.magnitude == magnitude)
     }
 }
