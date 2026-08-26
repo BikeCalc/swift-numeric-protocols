@@ -84,6 +84,8 @@ extension Int4EquatableTests {
         rhs: Int4,
         result: Bool
     ) {
+        #expect((lhs == rhs) == result)
+        #expect((lhs != rhs) == !result)
         #expect(lhs.isEqual(to: rhs) == result)
         #expect(lhs.isUnequal(to: rhs) == !result)
     }

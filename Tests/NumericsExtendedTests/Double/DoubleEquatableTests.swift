@@ -52,6 +52,44 @@ extension DoubleEquatableTests {
         rhs: Double,
         result: Bool
     ) {
+        #expect((lhs == rhs) == result)
+        #expect((lhs != rhs) == !result)
+        #expect(lhs.isEqual(to: rhs) == result)
+        #expect(lhs.isUnequal(to: rhs) == !result)
+    }
+
+    @Test(
+        "Positive infinity equality follows floating-point rules",
+        arguments: [
+            (Double.infinity, Double.infinity, true),
+            (Double.infinity, Double.negativeInfinity, false)
+        ]
+    )
+    internal func positiveInfinityEqualityFollowsFloatingPointRules(
+        lhs: Double,
+        rhs: Double,
+        result: Bool
+    ) {
+        #expect((lhs == rhs) == result)
+        #expect((lhs != rhs) == !result)
+        #expect(lhs.isEqual(to: rhs) == result)
+        #expect(lhs.isUnequal(to: rhs) == !result)
+    }
+
+    @Test(
+        "Negative infinity equality follows floating-point rules",
+        arguments: [
+            (Double.negativeInfinity, Double.negativeInfinity, true),
+            (Double.negativeInfinity, Double.infinity, false)
+        ]
+    )
+    internal func negativeInfinityEqualityFollowsFloatingPointRules(
+        lhs: Double,
+        rhs: Double,
+        result: Bool
+    ) {
+        #expect((lhs == rhs) == result)
+        #expect((lhs != rhs) == !result)
         #expect(lhs.isEqual(to: rhs) == result)
         #expect(lhs.isUnequal(to: rhs) == !result)
     }
@@ -69,6 +107,7 @@ extension DoubleEquatableTests {
         rhs: Double
     ) {
         #expect((lhs == rhs) == false)
+        #expect((lhs != rhs) == true)
         #expect(lhs.isEqual(to: rhs) == false)
         #expect(lhs.isUnequal(to: rhs) == true)
     }

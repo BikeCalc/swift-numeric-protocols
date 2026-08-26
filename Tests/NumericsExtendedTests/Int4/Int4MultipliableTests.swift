@@ -142,7 +142,9 @@ extension Int4MultipliableTests {
         "Multiplying by zero returns zero",
         arguments: [
             2,
-            -2
+            3,
+            -2,
+            -3
         ] as Array<Int4>
     )
     internal func multiplyingByZeroReturnsZero(multiplicand: Int4) {
@@ -153,7 +155,9 @@ extension Int4MultipliableTests {
         "Multiplying by one preserves multiplicand",
         arguments: [
             2,
-            -2
+            3,
+            -2,
+            -3
         ] as Array<Int4>
     )
     internal func multiplyingByOnePreservesMultiplicand(multiplicand: Int4) {

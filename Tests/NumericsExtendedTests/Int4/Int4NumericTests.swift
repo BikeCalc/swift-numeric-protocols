@@ -12,25 +12,6 @@ import Testing
 @Suite("Int4 Numeric Tests")
 internal struct Int4NumericTests {
     @Test(
-        "Magnitude succeeds",
-        arguments: [
-            (2, 2),
-            (3, 3),
-            (-2, 2),
-            (-3, 3),
-            (0, 0),
-            (Int4.min, 8),
-            (Int4.max, 7)
-        ] as Array<(Int4, UInt4)>
-    )
-    internal func magnitudeSucceeds(
-        value: Int4,
-        magnitude: UInt4
-    ) {
-        #expect(value.magnitude == magnitude)
-    }
-
-    @Test(
         "Initialized exactly succeeds",
         arguments: [
             (0, 0),
@@ -58,5 +39,24 @@ internal struct Int4NumericTests {
     )
     internal func initializedExactlyFails(source: Int) {
         #expect(Int4(exactly: source) == nil)
+    }
+
+    @Test(
+        "Magnitude succeeds",
+        arguments: [
+            (0, 0),
+            (2, 2),
+            (3, 3),
+            (-2, 2),
+            (-3, 3),
+            (Int4.min, 8),
+            (Int4.max, 7)
+        ] as Array<(Int4, UInt4)>
+    )
+    internal func magnitudeSucceeds(
+        value: Int4,
+        magnitude: UInt4
+    ) {
+        #expect(value.magnitude == magnitude)
     }
 }

@@ -11,13 +11,13 @@ import Testing
 
 @Suite("Int4 Comparable Tests")
 internal struct Int4ComparableTests {
-    private static let comparisonArguments: Array<(Int4, Int4)> = [
-        (1, 1),
-        (-1, -1),
-        (2, 3),
-        (3, 2),
-        (-2, 3),
-        (-3, -2)
+    private static let comparisonArguments: Array<(Int4, Int4, Bool, Bool, Bool, Bool)> = [
+        (1, 1, false, true, false, true),
+        (-1, -1, false, true, false, true),
+        (2, 3, true, true, false, false),
+        (3, 2, false, false, true, true),
+        (-2, 3, true, true, false, false),
+        (-3, -2, true, true, false, false)
     ]
 
     private static let rangeArguments: Array<(Int4, Int4, Int4)> = [
@@ -39,9 +39,14 @@ internal struct Int4ComparableTests {
     )
     internal func isLessThan(
         lhs: Int4,
-        rhs: Int4
+        rhs: Int4,
+        isLess: Bool,
+        isLessThanOrEqual _: Bool,
+        isGreater _: Bool,
+        isGreaterThanOrEqual _: Bool
     ) {
-        #expect(lhs.isLess(than: rhs) == (lhs < rhs))
+        #expect((lhs < rhs) == isLess)
+        #expect(lhs.isLess(than: rhs) == isLess)
     }
 
     @Test(
@@ -50,9 +55,14 @@ internal struct Int4ComparableTests {
     )
     internal func isLessThanOrEqualTo(
         lhs: Int4,
-        rhs: Int4
+        rhs: Int4,
+        isLess _: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater _: Bool,
+        isGreaterThanOrEqual _: Bool
     ) {
-        #expect(lhs.isLessThanOrEqual(to: rhs) == (lhs <= rhs))
+        #expect((lhs <= rhs) == isLessThanOrEqual)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
     }
 
     @Test(
@@ -61,9 +71,14 @@ internal struct Int4ComparableTests {
     )
     internal func isGreaterThan(
         lhs: Int4,
-        rhs: Int4
+        rhs: Int4,
+        isLess _: Bool,
+        isLessThanOrEqual _: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual _: Bool
     ) {
-        #expect(lhs.isGreater(than: rhs) == (lhs > rhs))
+        #expect((lhs > rhs) == isGreater)
+        #expect(lhs.isGreater(than: rhs) == isGreater)
     }
 
     @Test(
@@ -72,9 +87,14 @@ internal struct Int4ComparableTests {
     )
     internal func isGreaterThanOrEqualTo(
         lhs: Int4,
-        rhs: Int4
+        rhs: Int4,
+        isLess _: Bool,
+        isLessThanOrEqual _: Bool,
+        isGreater _: Bool,
+        isGreaterThanOrEqual: Bool
     ) {
-        #expect(lhs.isGreaterThanOrEqual(to: rhs) == (lhs >= rhs))
+        #expect((lhs >= rhs) == isGreaterThanOrEqual)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
     }
 
     @Test(

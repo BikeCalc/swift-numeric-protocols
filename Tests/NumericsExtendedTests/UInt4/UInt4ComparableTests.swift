@@ -11,10 +11,10 @@ import Testing
 
 @Suite("UInt4 Comparable Tests")
 internal struct UInt4ComparableTests {
-    private static let comparisonArguments: Array<(UInt4, UInt4)> = [
-        (1, 1),
-        (2, 3),
-        (3, 2)
+    private static let comparisonArguments: Array<(UInt4, UInt4, Bool, Bool, Bool, Bool)> = [
+        (1, 1, false, true, false, true),
+        (2, 3, true, true, false, false),
+        (3, 2, false, false, true, true)
     ]
 
     private static let rangeArguments: Array<(UInt4, UInt4, UInt4)> = [
@@ -31,9 +31,14 @@ internal struct UInt4ComparableTests {
     )
     internal func isLessThan(
         lhs: UInt4,
-        rhs: UInt4
+        rhs: UInt4,
+        isLess: Bool,
+        isLessThanOrEqual _: Bool,
+        isGreater _: Bool,
+        isGreaterThanOrEqual _: Bool
     ) {
-        #expect(lhs.isLess(than: rhs) == (lhs < rhs))
+        #expect((lhs < rhs) == isLess)
+        #expect(lhs.isLess(than: rhs) == isLess)
     }
 
     @Test(
@@ -42,9 +47,14 @@ internal struct UInt4ComparableTests {
     )
     internal func isLessThanOrEqualTo(
         lhs: UInt4,
-        rhs: UInt4
+        rhs: UInt4,
+        isLess _: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater _: Bool,
+        isGreaterThanOrEqual _: Bool
     ) {
-        #expect(lhs.isLessThanOrEqual(to: rhs) == (lhs <= rhs))
+        #expect((lhs <= rhs) == isLessThanOrEqual)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
     }
 
     @Test(
@@ -53,9 +63,14 @@ internal struct UInt4ComparableTests {
     )
     internal func isGreaterThan(
         lhs: UInt4,
-        rhs: UInt4
+        rhs: UInt4,
+        isLess _: Bool,
+        isLessThanOrEqual _: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual _: Bool
     ) {
-        #expect(lhs.isGreater(than: rhs) == (lhs > rhs))
+        #expect((lhs > rhs) == isGreater)
+        #expect(lhs.isGreater(than: rhs) == isGreater)
     }
 
     @Test(
@@ -64,9 +79,14 @@ internal struct UInt4ComparableTests {
     )
     internal func isGreaterThanOrEqualTo(
         lhs: UInt4,
-        rhs: UInt4
+        rhs: UInt4,
+        isLess _: Bool,
+        isLessThanOrEqual _: Bool,
+        isGreater _: Bool,
+        isGreaterThanOrEqual: Bool
     ) {
-        #expect(lhs.isGreaterThanOrEqual(to: rhs) == (lhs >= rhs))
+        #expect((lhs >= rhs) == isGreaterThanOrEqual)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
     }
 
     @Test(
