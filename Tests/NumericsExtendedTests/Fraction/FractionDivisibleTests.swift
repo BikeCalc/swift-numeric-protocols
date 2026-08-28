@@ -290,5 +290,5 @@ extension FractionDivisibleTests {
 // MARK: - Rational Rules
 
 extension FractionDivisibleTests {
-    // TODO: Rational Rules for FractionDivisibleTests
+    // TODO:
 }

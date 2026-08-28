@@ -9,7 +9,12 @@
 import Testing
 @testable import NumericsExtended
 
-@Suite("Canonicalized Fraction Negateable Tests")
-internal struct CanonicalizedFractionNegateableTests {
+@Suite("Fraction Rational Tests")
+internal struct FractionRationalTests {
     // TODO:
+}
+
+// MARK: - Rational Rules
+
+extension FractionRationalTests {
 }

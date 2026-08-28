@@ -198,5 +198,5 @@ extension FractionMultipliableTests {
 // MARK: - Rational Rules
 
 extension FractionMultipliableTests {
-    // TODO: Rational Rules for FractionMultipliableTests
+    // TODO:
 }

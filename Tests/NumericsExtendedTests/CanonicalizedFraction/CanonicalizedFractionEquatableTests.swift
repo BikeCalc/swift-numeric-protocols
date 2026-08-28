@@ -79,3 +79,8 @@ internal struct CanonicalizedFractionEquatableTests {
     }
 }
 
+// MARK: - Rational Rules
+
+extension CanonicalizedFractionEquatableTests {
+    // TODO:
+}
