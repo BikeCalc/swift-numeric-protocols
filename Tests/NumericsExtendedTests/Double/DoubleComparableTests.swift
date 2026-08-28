@@ -161,6 +161,58 @@ internal struct DoubleComparableTests {
 
 extension DoubleComparableTests {
     @Test(
+        "Positive zero comparison follows floating-point rules",
+        arguments: [
+            (Double.zero, Double.zero, false, true, false, true),
+            (Double.zero, Double.negativeZero, false, true, false, true),
+            (Double.zero, 1.0, true, true, false, false)
+        ]
+    )
+    internal func positiveZeroComparisonFollowsFloatingPointRules(
+        lhs: Double,
+        rhs: Double,
+        isLess: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual: Bool
+    ) {
+        #expect((lhs < rhs) == isLess)
+        #expect((lhs <= rhs) == isLessThanOrEqual)
+        #expect((lhs > rhs) == isGreater)
+        #expect((lhs >= rhs) == isGreaterThanOrEqual)
+        #expect(lhs.isLess(than: rhs) == isLess)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
+        #expect(lhs.isGreater(than: rhs) == isGreater)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
+    }
+
+    @Test(
+        "Negative zero comparison follows floating-point rules",
+        arguments: [
+            (Double.negativeZero, Double.negativeZero, false, true, false, true),
+            (Double.negativeZero, Double.zero, false, true, false, true),
+            (Double.negativeZero, -1.0, false, false, true, true)
+        ]
+    )
+    internal func negativeZeroComparisonFollowsFloatingPointRules(
+        lhs: Double,
+        rhs: Double,
+        isLess: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual: Bool
+    ) {
+        #expect((lhs < rhs) == isLess)
+        #expect((lhs <= rhs) == isLessThanOrEqual)
+        #expect((lhs > rhs) == isGreater)
+        #expect((lhs >= rhs) == isGreaterThanOrEqual)
+        #expect(lhs.isLess(than: rhs) == isLess)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
+        #expect(lhs.isGreater(than: rhs) == isGreater)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
+    }
+
+    @Test(
         "Positive infinity comparison follows floating-point rules",
         arguments: [
             (Double.infinity, Double.infinity, false, true, false, true),

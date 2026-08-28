@@ -39,15 +39,33 @@ internal struct DoubleEquatableTests {
 
 extension DoubleEquatableTests {
     @Test(
-        "Zero equality follows floating-point rules",
+        "Positive zero equality follows floating-point rules",
         arguments: [
-            (0.0, 0.0, true),
-            (-0.0, 0.0, true),
-            (0.0, 1.0, false),
-            (-0.0, 1.0, false)
+            (Double.zero, Double.zero, true),
+            (Double.zero, Double.negativeZero, true),
+            (Double.zero, 1.0, false)
         ]
     )
-    internal func zeroEqualityFollowsFloatingPointRules(
+    internal func positiveZeroEqualityFollowsFloatingPointRules(
+        lhs: Double,
+        rhs: Double,
+        result: Bool
+    ) {
+        #expect((lhs == rhs) == result)
+        #expect((lhs != rhs) == !result)
+        #expect(lhs.isEqual(to: rhs) == result)
+        #expect(lhs.isUnequal(to: rhs) == !result)
+    }
+
+    @Test(
+        "Negative zero equality follows floating-point rules",
+        arguments: [
+            (Double.negativeZero, Double.negativeZero, true),
+            (Double.negativeZero, Double.zero, true),
+            (Double.negativeZero, -1.0, false)
+        ]
+    )
+    internal func negativeZeroEqualityFollowsFloatingPointRules(
         lhs: Double,
         rhs: Double,
         result: Bool

@@ -25,8 +25,8 @@ internal struct DoubleRepresentableByInfinityTests {
         #expect(value.isInfinite == false)
     }
 
-    @Test("Zero is finite")
-    internal func zeroIsFinite() {
+    @Test("Positive zero is finite")
+    internal func positiveZeroIsFinite() {
         #expect(Double.zero.isFinite == true)
         #expect(Double.zero.isInfinite == false)
     }
