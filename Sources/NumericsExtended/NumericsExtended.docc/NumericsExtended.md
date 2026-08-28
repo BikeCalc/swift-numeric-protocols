@@ -24,6 +24,7 @@ standard-library conformances, and experimental numeric types from one place.
 ### Articles
 
 - <doc:UnderstandingFourBitIntegers>
+- <doc:UnderstandingRationalTypes>
 - <doc:UnderstandingRomanNumerals>
 
 ### Operations
