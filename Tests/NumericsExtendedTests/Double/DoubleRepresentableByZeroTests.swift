@@ -12,25 +12,27 @@ import Testing
 @Suite("Double RepresentableByZero Tests")
 internal struct DoubleRepresentableByZeroTests {
     @Test(
-        "Is zero",
+        "Nonzero values are not zero",
         arguments: [
-            (0.0, true),
-            (-0.0, true),
-            (1.0, false),
-            (-1.0, false),
-            (0.5, false),
-            (-0.5, false)
+            1.0,
+            -1.0,
+            0.5,
+            -0.5
         ]
     )
-    internal func isZero(
-        value: Double,
-        result: Bool
-    ) {
-        #expect(value.isZero == result)
+    internal func nonzeroValuesAreNotZero(value: Double) {
+        #expect(value.isZero == false)
+    }
+
+    @Test("Positive zero is zero")
+    internal func positiveZeroIsZero() {
+        #expect(Double.zero.isZero == true)
+        #expect(Double.zero.sign == .plus)
     }
 
     @Test("Negative zero is zero")
     internal func negativeZeroIsZero() {
         #expect(Double.negativeZero.isZero == true)
+        #expect(Double.negativeZero.sign == .minus)
     }
 }
