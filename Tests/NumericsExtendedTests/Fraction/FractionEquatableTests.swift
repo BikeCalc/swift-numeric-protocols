@@ -14,8 +14,10 @@ internal struct FractionEquatableTests {
     private static let equalityArguments: [(Fraction<Int>, Fraction<Int>, Bool)] = [
         (Fraction<Int>(1, 2), Fraction<Int>(1, 2), true),
         (Fraction<Int>(1, 2), Fraction<Int>(2, 3), false),
+        (Fraction<Int>(1, 2), Fraction<Int>(2, 4), false),
         (Fraction<Int>(-1, 2), Fraction<Int>(-1, 2), true),
-        (Fraction<Int>(-1, 2), Fraction<Int>(1, -2), false)
+        (Fraction<Int>(-1, 2), Fraction<Int>(1, -2), false),
+        (Fraction<Int>(-1, 2), Fraction<Int>(-2, 4), false),
     ]
 
     @Test(
@@ -70,27 +72,34 @@ internal struct FractionEquatableTests {
 // MARK: - Rational Rules
 
 extension FractionEquatableTests {
-    @Test("Equivalent representations follow stored representation rules")
-    internal func equivalentRepresentationsFollowStoredRepresentationRules() {
-        let lhs = Fraction<Int>(1, 2)
-        let rhs = Fraction<Int>(2, 4)
-
-        #expect((lhs == rhs) == false)
-        #expect((lhs != rhs) == true)
-        #expect(lhs.isEqual(to: rhs) == false)
-        #expect(lhs.isUnequal(to: rhs) == true)
+    @Test(
+        "Positive zero equality follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.zero, Fraction<Int>.zero, true),
+            (Fraction<Int>.zero, Fraction<Int>.negativeZero, false),
+            (Fraction<Int>.zero, Fraction<Int>(1, 1), false)
+        ]
+    )
+    internal func positiveZeroEqualityFollowsStoredRepresentationRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect((lhs == rhs) == result)
+        #expect((lhs != rhs) == !result)
+        #expect(lhs.isEqual(to: rhs) == result)
+        #expect(lhs.isUnequal(to: rhs) == !result)
     }
 
     @Test(
-        "Zero equality follows stored representation rules",
+        "Negative zero equality follows stored representation rules",
         arguments: [
-            (Fraction<Int>(0, 1), Fraction<Int>(0, 1), true),
-            (Fraction<Int>(0, -1), Fraction<Int>(0, 1), false),
-            (Fraction<Int>(0, 1), Fraction<Int>(1, 1), false),
-            (Fraction<Int>(0, -1), Fraction<Int>(1, 1), false)
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero, true),
+            (Fraction<Int>.negativeZero, Fraction<Int>.zero, false),
+            (Fraction<Int>.negativeZero, Fraction<Int>(-1, 1), false)
         ]
     )
-    internal func zeroEqualityFollowsStoredRepresentationRules(
+    internal func negativeZeroEqualityFollowsStoredRepresentationRules(
         lhs: Fraction<Int>,
         rhs: Fraction<Int>,
         result: Bool

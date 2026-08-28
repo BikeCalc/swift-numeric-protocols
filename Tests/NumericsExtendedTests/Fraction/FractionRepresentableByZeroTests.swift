@@ -12,24 +12,29 @@ import Testing
 @Suite("Fraction RepresentableByZero Tests")
 internal struct FractionRepresentableByZeroTests {
     @Test(
-        "Is zero",
+        "Nonzero values are not zero",
         arguments: [
-            (Fraction<Int>(0, 1), true),
-            (Fraction<Int>(0, -1), true),
-            (Fraction<Int>(1, 1), false),
-            (Fraction<Int>(-1, 1), false)
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1)
         ]
     )
-    internal func isZero(
-        value: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect(value.isZero == result)
+    internal func nonzeroValuesAreNotZero(value: Fraction<Int>) {
+        #expect(value.isZero == false)
+    }
+
+    @Test("Positive zero is zero")
+    internal func positiveZeroIsZero() {
+        #expect(Fraction<Int>.zero.numerator == 0)
+        #expect(Fraction<Int>.zero.denominator == 1)
+        #expect(Fraction<Int>.zero.isZero == true)
     }
 
     @Test("Negative zero is zero")
     internal func negativeZeroIsZero() {
+        #expect(Fraction<Int>.negativeZero.numerator == 0)
+        #expect(Fraction<Int>.negativeZero.denominator == -1)
         #expect(Fraction<Int>.negativeZero.isZero == true)
+        #expect(Fraction<Int>.negativeZero != .zero)
     }
 
     @Test(

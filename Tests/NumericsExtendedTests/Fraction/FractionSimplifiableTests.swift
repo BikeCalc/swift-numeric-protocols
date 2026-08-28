@@ -106,22 +106,35 @@ internal struct FractionSimplifiableTests {
 
 extension FractionSimplifiableTests {
     @Test(
-        "Zero simplification follows rational rules",
+        "Positive zero simplification follows rational rules",
         arguments: [
-            (Fraction<Int>(0, 1), true, true, Fraction<Int>(0, 1)),
-            (Fraction<Int>(0, 2), true, false, Fraction<Int>(0, 1)),
-            (Fraction<Int>(0, -2), true, false, Fraction<Int>(0, -1))
+            (Fraction<Int>.zero, true),
+            (Fraction<Int>(0, 2), false)
         ]
     )
-    internal func zeroSimplificationFollowsRationalRules(
+    internal func positiveZeroSimplificationFollowsRationalRules(
         value: Fraction<Int>,
-        isSimplifiable: Bool,
-        isSimplified: Bool,
-        result: Fraction<Int>
+        isSimplified: Bool
     ) {
-        #expect(value.isSimplifiable == isSimplifiable)
+        #expect(value.isSimplifiable == true)
         #expect(value.isSimplified == isSimplified)
-        #expect(value.simplified() == result)
+        #expect(value.simplified() == .zero)
+    }
+
+    @Test(
+        "Negative zero simplification follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeZero, true),
+            (Fraction<Int>(0, -2), false)
+        ]
+    )
+    internal func negativeZeroSimplificationFollowsRationalRules(
+        value: Fraction<Int>,
+        isSimplified: Bool
+    ) {
+        #expect(value.isSimplifiable == true)
+        #expect(value.isSimplified == isSimplified)
+        #expect(value.simplified() == .negativeZero)
     }
 
     @Test("Positive infinity simplification follows rational rules")

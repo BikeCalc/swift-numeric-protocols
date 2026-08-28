@@ -54,20 +54,35 @@ internal struct CanonicalizedFractionTests {
 
 extension CanonicalizedFractionTests {
     @Test(
-        "Zero canonicalization follows rational rules",
+        "Positive zero canonicalization follows rational rules",
         arguments: [
-            (1, Fraction<Int>(0, 1)),
-            (2, Fraction<Int>(0, 1)),
-            (-2, Fraction<Int>(0, 1))
+            Fraction<Int>.zero,
+            Fraction<Int>(0, 2)
         ]
     )
-    internal func zeroCanonicalizationFollowsRationalRules(
-        denominator: Int,
-        result: Fraction<Int>
-    ) {
-        @Canonicalized var canonicalizedValue: Fraction<Int> = .init(0, denominator)
+    internal func positiveZeroCanonicalizationFollowsRationalRules(value: Fraction<Int>) {
+        @Canonicalized var initializedValue: Fraction<Int> = value
+        @Canonicalized var assignedValue: Fraction<Int> = .init(1, 2)
+        assignedValue = value
 
-        #expect(canonicalizedValue == result)
+        #expect(initializedValue == .zero)
+        #expect(assignedValue == .zero)
+    }
+
+    @Test(
+        "Negative zero canonicalization follows rational rules",
+        arguments: [
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(0, -2)
+        ]
+    )
+    internal func negativeZeroCanonicalizationFollowsRationalRules(value: Fraction<Int>) {
+        @Canonicalized var initializedValue: Fraction<Int> = value
+        @Canonicalized var assignedValue: Fraction<Int> = .init(1, 2)
+        assignedValue = value
+
+        #expect(initializedValue == .zero)
+        #expect(assignedValue == .zero)
     }
 
     @Test("Positive infinity is preserved")

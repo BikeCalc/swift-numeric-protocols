@@ -106,21 +106,31 @@ internal struct FractionNormalizableTests {
 
 extension FractionNormalizableTests {
     @Test(
-        "Zero normalization follows rational rules",
+        "Positive zero normalization follows rational rules",
         arguments: [
-            (Fraction<Int>(0, 1), true, true, Fraction<Int>(0, 1)),
-            (Fraction<Int>(0, 2), true, true, Fraction<Int>(0, 2)),
-            (Fraction<Int>(0, -2), true, false, Fraction<Int>(0, 2))
+            Fraction<Int>.zero,
+            Fraction<Int>(0, 2)
         ]
     )
-    internal func zeroNormalizationFollowsRationalRules(
+    internal func positiveZeroNormalizationFollowsRationalRules(value: Fraction<Int>) {
+        #expect(value.isNormalizable == true)
+        #expect(value.isNormalized == true)
+        #expect(value.normalized() == value)
+    }
+
+    @Test(
+        "Negative zero normalization follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeZero, Fraction<Int>.zero),
+            (Fraction<Int>(0, -2), Fraction<Int>(0, 2))
+        ]
+    )
+    internal func negativeZeroNormalizationFollowsRationalRules(
         value: Fraction<Int>,
-        isNormalizable: Bool,
-        isNormalized: Bool,
         result: Fraction<Int>
     ) {
-        #expect(value.isNormalizable == isNormalizable)
-        #expect(value.isNormalized == isNormalized)
+        #expect(value.isNormalizable == true)
+        #expect(value.isNormalized == false)
         #expect(value.normalized() == result)
     }
 

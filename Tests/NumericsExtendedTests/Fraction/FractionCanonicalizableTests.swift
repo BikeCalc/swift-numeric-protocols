@@ -127,22 +127,32 @@ extension FractionCanonicalizableTests {
 
 extension FractionCanonicalizableTests {
     @Test(
-        "Zero canonicalization follows rational rules",
+        "Positive zero canonicalization follows rational rules",
         arguments: [
-            (Fraction<Int>(0, 1), true, true, Fraction<Int>(0, 1)),
-            (Fraction<Int>(0, 2), true, false, Fraction<Int>(0, 1)),
-            (Fraction<Int>(0, -2), true, false, Fraction<Int>(0, 1))
+            (Fraction<Int>.zero, true),
+            (Fraction<Int>(0, 2), false)
         ]
     )
-    internal func zeroCanonicalizationFollowsRationalRules(
+    internal func positiveZeroCanonicalizationFollowsRationalRules(
         value: Fraction<Int>,
-        isCanonicalizable: Bool,
-        isCanonicalized: Bool,
-        result: Fraction<Int>
+        isCanonicalized: Bool
     ) {
-        #expect(value.isCanonicalizable == isCanonicalizable)
+        #expect(value.isCanonicalizable == true)
         #expect(value.isCanonicalized == isCanonicalized)
-        #expect(value.canonicalized() == result)
+        #expect(value.canonicalized() == .zero)
+    }
+
+    @Test(
+        "Negative zero canonicalization follows rational rules",
+        arguments: [
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(0, -2)
+        ]
+    )
+    internal func negativeZeroCanonicalizationFollowsRationalRules(value: Fraction<Int>) {
+        #expect(value.isCanonicalizable == true)
+        #expect(value.isCanonicalized == false)
+        #expect(value.canonicalized() == .zero)
     }
 
     @Test("Positive infinity canonicalization follows rational rules")

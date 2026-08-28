@@ -54,14 +54,27 @@ internal struct FractionTests {
 
 extension FractionTests {
     @Test(
-        "Zero initialization preserves terms",
+        "Positive zero initialization preserves terms",
         arguments: [
             1,
-            2,
+            2
+        ]
+    )
+    internal func positiveZeroInitializationPreservesTerms(denominator: Int) {
+        let value: Fraction<Int> = .init(0, denominator)
+
+        #expect(value.numerator == 0)
+        #expect(value.denominator == denominator)
+    }
+
+    @Test(
+        "Negative zero initialization preserves terms",
+        arguments: [
+            -1,
             -2
         ]
     )
-    internal func zeroInitializationPreservesTerms(denominator: Int) {
+    internal func negativeZeroInitializationPreservesTerms(denominator: Int) {
         let value: Fraction<Int> = .init(0, denominator)
 
         #expect(value.numerator == 0)

@@ -160,14 +160,14 @@ extension FractionNegateableTests {
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Rational Rules
 
-extension IntNegateableTests {
+extension FractionNegateableTests {
     @Test(
         "Zero sign predicates follow stored denominator rules",
         arguments: [
-            (Fraction<Int>(0, 1), false, false, true),
-            (Fraction<Int>(0, -1), true, false, true)
+            (Fraction<Int>.zero, false, false, true),
+            (Fraction<Int>.negativeZero, true, false, true)
         ]
     )
     internal func zeroSignPredicatesFollowStoredDenominatorRules(
@@ -182,15 +182,15 @@ extension IntNegateableTests {
     }
 
     @Test(
-        "Zero opposite follows rational rules",
+        "Zero opposite follows stored representation rules",
         arguments: [
-            (Fraction<Int>(0, 1), Fraction<Int>(0, 1), true),
-            (Fraction<Int>(0, -2), Fraction<Int>(0, 1), false),
-            (Fraction<Int>(0, 1), Fraction<Int>(0, -2), false),
-            (Fraction<Int>(0, -2), Fraction<Int>(0, -2), true)
+            (Fraction<Int>.zero, Fraction<Int>.zero, true),
+            (Fraction<Int>.zero, Fraction<Int>.negativeZero, false),
+            (Fraction<Int>.negativeZero, Fraction<Int>.zero, false),
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero, true)
         ]
     )
-    internal func zeroOppositeFollowsRationalRules(
+    internal func zeroOppositeFollowsStoredRepresentationRules(
         value: Fraction<Int>,
         other: Fraction<Int>,
         result: Bool
@@ -201,17 +201,11 @@ extension IntNegateableTests {
     @Test(
         "Negating zero preserves stored representation",
         arguments: [
-            Fraction<Int>(0, 1),
-            Fraction<Int>(0, -1)
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero
         ]
     )
     internal func negatingZeroPreservesStoredRepresentation(value: Fraction<Int>) {
         #expect(value.negating() == value)
     }
-}
-
-// MARK: - Rational Rules
-
-extension FractionNegateableTests {
-    // TODO: Rational Rules for FractionNegateableTests
 }

@@ -25,10 +25,16 @@ internal struct FractionRepresentableByInfinityTests {
         #expect(value.isInfinite == false)
     }
 
-    @Test("Zero is finite")
-    internal func zeroIsFinite() {
+    @Test("Positive zero is finite")
+    internal func positiveZeroIsFinite() {
         #expect(Fraction<Int>.zero.isFinite == true)
         #expect(Fraction<Int>.zero.isInfinite == false)
+    }
+
+    @Test("Negative zero is finite")
+    internal func negativeZeroIsFinite() {
+        #expect(Fraction<Int>.negativeZero.isFinite == true)
+        #expect(Fraction<Int>.negativeZero.isInfinite == false)
     }
 
     @Test("Positive infinity is infinite")

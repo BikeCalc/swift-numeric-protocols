@@ -208,4 +208,17 @@ extension Rational {
     public static var zero: Self {
         return .init(0, 1)
     }
+
+    /// Negative zero, represented by `0/-1` when the term type is signed.
+    ///
+    /// The negative sign is stored in the denominator because an integer numerator cannot preserve a distinct negative
+    /// zero. Canonicalizing this value produces `0/1`. An unsigned term type cannot preserve the sign and therefore
+    /// uses the ordinary zero representation.
+    public static var negativeZero: Self {
+        guard Self.Term.isSigned else {
+            return .zero
+        }
+
+        return .init(0, 0 - 1)
+    }
 }
