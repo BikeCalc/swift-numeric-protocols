@@ -20,7 +20,6 @@ internal struct Int4NegateableTests {
 
     private static let additiveInverseArguments: Array<Int4> = [
         0,
-        -0,
         1,
         -1,
         5,
@@ -163,49 +162,27 @@ extension Int4NegateableTests {
 // MARK: - Integer Rules
 
 extension Int4NegateableTests {
-    @Test(
-        "Zero sign predicates follow integer rules",
-        arguments: [
-            (0, false, false, true),
-            (-0, false, false, true)
-        ] as Array<(Int4, Bool, Bool, Bool)>
-    )
-    internal func zeroSignPredicatesFollowIntegerRules(
-        value: Int4,
-        isNegative: Bool,
-        isPositive: Bool,
-        isSigned: Bool
-    ) {
-        #expect(value.isNegative == isNegative)
-        #expect(value.isPositive == isPositive)
-        #expect(value.isSigned == isSigned)
+    @Test("Zero sign predicates follow integer rules")
+    internal func zeroSignPredicatesFollowIntegerRules() {
+        #expect(Int4.zero.isNegative == false)
+        #expect(Int4.zero.isPositive == false)
+        #expect(Int4.zero.isSigned == true)
     }
 
-    @Test(
-        "Zero opposite follows integer rules",
-        arguments: [
-            (0, 0, true),
-            (-0, 0, true),
-            (0, -0, true),
-            (-0, -0, true)
-        ] as Array<(Int4, Int4, Bool)>
-    )
-    internal func zeroOppositeFollowsIntegerRules(
-        value: Int4,
-        other: Int4,
-        result: Bool
-    ) {
-        #expect(value.isOpposite(of: other) == result)
+    @Test("Zero opposite follows integer rules")
+    internal func zeroOppositeFollowsIntegerRules() {
+        #expect(Int4.zero.isOpposite(of: .zero) == true)
     }
 
-    @Test(
-        "Negating zero returns zero",
-        arguments: [
-            0,
-            -0
-        ] as Array<Int4>
-    )
-    internal func negatingZeroReturnsZero(value: Int4) {
-        #expect(value.negating() == value)
+    @Test("Negating zero returns zero")
+    internal func negatingZeroReturnsZero() {
+        let operatorNegation: Int4 = -Int4.zero
+        let methodNegation: Int4 = Int4.zero.negating()
+        var mutatingNegation: Int4 = Int4.zero
+        mutatingNegation.negate()
+
+        #expect(operatorNegation == .zero)
+        #expect(methodNegation == .zero)
+        #expect(mutatingNegation == .zero)
     }
 }

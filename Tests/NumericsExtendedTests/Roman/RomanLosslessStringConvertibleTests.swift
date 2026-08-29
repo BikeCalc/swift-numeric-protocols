@@ -12,7 +12,7 @@ import Testing
 @Suite("Roman LosslessStringConvertible Tests")
 internal struct RomanLosslessStringConvertibleTests {
     @Test(
-        "Initialized with decimal string succeeds",
+        "Decimal String initialization succeeds",
         arguments: [
             ("0", 0),
             ("00", 0),
@@ -21,7 +21,7 @@ internal struct RomanLosslessStringConvertibleTests {
             ("3999", 3_999)
         ] as Array<(String, Roman)>
     )
-    internal func initializedWithDecimalStringSucceeds(
+    internal func decimalStringInitializationSucceeds(
         description: String,
         value: Roman
     ) {
@@ -29,7 +29,7 @@ internal struct RomanLosslessStringConvertibleTests {
     }
 
     @Test(
-        "Initialized with Roman numeral string succeeds",
+        "String initialization succeeds",
         arguments: [
             ("N", 0),
             ("I", 1),
@@ -47,7 +47,7 @@ internal struct RomanLosslessStringConvertibleTests {
             ("MMMCMXCIX", 3_999)
         ] as Array<(String, Roman)>
     )
-    internal func initializedWithStringSucceeds(
+    internal func stringInitializationSucceeds(
         description: String,
         value: Roman
     ) {
@@ -55,7 +55,7 @@ internal struct RomanLosslessStringConvertibleTests {
     }
 
     @Test(
-        "Initialized with string fails",
+        "String initialization fails",
         arguments: [
             "",
             "-1",
@@ -84,7 +84,7 @@ internal struct RomanLosslessStringConvertibleTests {
             "iv"
         ]
     )
-    internal func initializedWithStringFails(description: String) {
+    internal func stringInitializationFails(description: String) {
         #expect(Roman(description) == nil)
     }
 }

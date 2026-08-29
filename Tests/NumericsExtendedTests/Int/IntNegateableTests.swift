@@ -20,7 +20,6 @@ internal struct IntNegateableTests {
 
     private static let additiveInverseArguments: Array<Int> = [
         0,
-        -0,
         1,
         -1,
         5,
@@ -163,49 +162,27 @@ extension IntNegateableTests {
 // MARK: - Integer Rules
 
 extension IntNegateableTests {
-    @Test(
-        "Zero sign predicates follow integer rules",
-        arguments: [
-            (0, false, false, true),
-            (-0, false, false, true)
-        ]
-    )
-    internal func zeroSignPredicatesFollowIntegerRules(
-        value: Int,
-        isNegative: Bool,
-        isPositive: Bool,
-        isSigned: Bool
-    ) {
-        #expect(value.isNegative == isNegative)
-        #expect(value.isPositive == isPositive)
-        #expect(value.isSigned == isSigned)
+    @Test("Zero sign predicates follow integer rules")
+    internal func zeroSignPredicatesFollowIntegerRules() {
+        #expect(Int.zero.isNegative == false)
+        #expect(Int.zero.isPositive == false)
+        #expect(Int.zero.isSigned == true)
     }
 
-    @Test(
-        "Zero opposite follows integer rules",
-        arguments: [
-            (0, 0, true),
-            (-0, 0, true),
-            (0, -0, true),
-            (-0, -0, true)
-        ]
-    )
-    internal func zeroOppositeFollowsIntegerRules(
-        value: Int,
-        other: Int,
-        result: Bool
-    ) {
-        #expect(value.isOpposite(of: other) == result)
+    @Test("Zero opposite follows integer rules")
+    internal func zeroOppositeFollowsIntegerRules() {
+        #expect(Int.zero.isOpposite(of: .zero) == true)
     }
 
-    @Test(
-        "Negating zero returns zero",
-        arguments: [
-            0,
-            -0
-        ]
-    )
-    internal func negatingZeroReturnsZero(value: Int) {
-        #expect(value.negating() == value)
+    @Test("Negating zero returns zero")
+    internal func negatingZeroReturnsZero() {
+        let operatorNegation: Int = -Int.zero
+        let methodNegation: Int = Int.zero.negating()
+        var mutatingNegation: Int = Int.zero
+        mutatingNegation.negate()
+
+        #expect(operatorNegation == .zero)
+        #expect(methodNegation == .zero)
+        #expect(mutatingNegation == .zero)
     }
 }

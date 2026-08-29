@@ -12,14 +12,14 @@ import Testing
 @Suite("UInt4 LosslessStringConvertible Tests")
 internal struct UInt4LosslessStringConvertibleTests {
     @Test(
-        "Initialized with string succeeds",
+        "String initialization succeeds",
         arguments: [
             ("0", 0),
             ("1", 1),
             ("15", 15)
         ] as Array<(String, UInt4)>
     )
-    internal func initializedWithStringSucceeds(
+    internal func stringInitializationSucceeds(
         description: String,
         value: UInt4
     ) {
@@ -27,7 +27,7 @@ internal struct UInt4LosslessStringConvertibleTests {
     }
 
     @Test(
-        "Initialized with string fails",
+        "String initialization fails",
         arguments: [
             "",
             "-1",
@@ -36,7 +36,7 @@ internal struct UInt4LosslessStringConvertibleTests {
             "1.0"
         ]
     )
-    internal func initializedWithStringFails(description: String) {
+    internal func stringInitializationFails(description: String) {
         #expect(UInt4(description) == nil)
     }
 }
