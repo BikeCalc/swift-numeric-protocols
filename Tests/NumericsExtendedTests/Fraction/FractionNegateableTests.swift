@@ -163,49 +163,121 @@ extension FractionNegateableTests {
 // MARK: - Rational Rules
 
 extension FractionNegateableTests {
-    @Test(
-        "Zero sign predicates follow stored denominator rules",
-        arguments: [
-            (Fraction<Int>.zero, false, false, true),
-            (Fraction<Int>.negativeZero, true, false, true)
-        ]
-    )
-    internal func zeroSignPredicatesFollowStoredDenominatorRules(
-        value: Fraction<Int>,
-        isNegative: Bool,
-        isPositive: Bool,
-        isSigned: Bool
-    ) {
-        #expect(value.isNegative == isNegative)
-        #expect(value.isPositive == isPositive)
-        #expect(value.isSigned == isSigned)
+    @Test("Positive zero sign predicates follow stored denominator rules")
+    internal func positiveZeroSignPredicatesFollowStoredDenominatorRules() {
+        let value: Fraction<Int> = .zero
+
+        #expect(value.isNegative == false)
+        #expect(value.isPositive == false)
+        #expect(value.isSigned == true)
+    }
+
+    @Test("Negative zero sign predicates follow stored denominator rules")
+    internal func negativeZeroSignPredicatesFollowStoredDenominatorRules() {
+        let value: Fraction<Int> = .negativeZero
+
+        #expect(value.isNegative == true)
+        #expect(value.isPositive == false)
+        #expect(value.isSigned == true)
     }
 
     @Test(
-        "Zero opposite follows stored representation rules",
+        "Positive zero opposite follows stored representation rules",
         arguments: [
-            (Fraction<Int>.zero, Fraction<Int>.zero, true),
-            (Fraction<Int>.zero, Fraction<Int>.negativeZero, false),
-            (Fraction<Int>.negativeZero, Fraction<Int>.zero, false),
-            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero, true)
+            (Fraction<Int>.zero, true),
+            (Fraction<Int>.negativeZero, false)
         ]
     )
-    internal func zeroOppositeFollowsStoredRepresentationRules(
-        value: Fraction<Int>,
+    internal func positiveZeroOppositeFollowsStoredRepresentationRules(
         other: Fraction<Int>,
         result: Bool
     ) {
-        #expect(value.isOpposite(of: other) == result)
+        #expect(Fraction<Int>.zero.isOpposite(of: other) == result)
     }
 
     @Test(
-        "Negating zero preserves stored representation",
+        "Negative zero opposite follows stored representation rules",
         arguments: [
-            Fraction<Int>.zero,
-            Fraction<Int>.negativeZero
+            (Fraction<Int>.negativeZero, true),
+            (Fraction<Int>.zero, false)
         ]
     )
-    internal func negatingZeroPreservesStoredRepresentation(value: Fraction<Int>) {
-        #expect(value.negating() == value)
+    internal func negativeZeroOppositeFollowsStoredRepresentationRules(
+        other: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(Fraction<Int>.negativeZero.isOpposite(of: other) == result)
+    }
+
+    @Test(
+        "Negating positive zero preserves stored representation",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>(0, 2)
+        ]
+    )
+    internal func negatingPositiveZeroPreservesStoredRepresentation(value: Fraction<Int>) {
+        let operatorNegation: Fraction<Int> = -value
+        let methodNegation: Fraction<Int> = value.negating()
+        var mutatingNegation: Fraction<Int> = value
+        mutatingNegation.negate()
+
+        #expect(operatorNegation == value)
+        #expect(methodNegation == value)
+        #expect(mutatingNegation == value)
+    }
+
+    @Test(
+        "Negating negative zero preserves stored representation",
+        arguments: [
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(0, -2)
+        ]
+    )
+    internal func negatingNegativeZeroPreservesStoredRepresentation(value: Fraction<Int>) {
+        let operatorNegation: Fraction<Int> = -value
+        let methodNegation: Fraction<Int> = value.negating()
+        var mutatingNegation: Fraction<Int> = value
+        mutatingNegation.negate()
+
+        #expect(operatorNegation == value)
+        #expect(methodNegation == value)
+        #expect(mutatingNegation == value)
+    }
+
+    @Test("Negating positive infinity follows rational rules")
+    internal func negatingPositiveInfinityFollowsRationalRules() {
+        let operatorNegation: Fraction<Int> = -Fraction<Int>.infinity
+        let methodNegation: Fraction<Int> = Fraction<Int>.infinity.negating()
+        var mutatingNegation: Fraction<Int> = Fraction<Int>.infinity
+        mutatingNegation.negate()
+
+        #expect(operatorNegation == .negativeInfinity)
+        #expect(methodNegation == .negativeInfinity)
+        #expect(mutatingNegation == .negativeInfinity)
+    }
+
+    @Test("Negating negative infinity follows rational rules")
+    internal func negatingNegativeInfinityFollowsRationalRules() {
+        let operatorNegation: Fraction<Int> = -Fraction<Int>.negativeInfinity
+        let methodNegation: Fraction<Int> = Fraction<Int>.negativeInfinity.negating()
+        var mutatingNegation: Fraction<Int> = Fraction<Int>.negativeInfinity
+        mutatingNegation.negate()
+
+        #expect(operatorNegation == .infinity)
+        #expect(methodNegation == .infinity)
+        #expect(mutatingNegation == .infinity)
+    }
+
+    @Test("Negating NaN returns NaN")
+    internal func negatingNaNReturnsNaN() {
+        let operatorNegation: Fraction<Int> = -Fraction<Int>.nan
+        let methodNegation: Fraction<Int> = Fraction<Int>.nan.negating()
+        var mutatingNegation: Fraction<Int> = Fraction<Int>.nan
+        mutatingNegation.negate()
+
+        #expect(operatorNegation.isNaN == true)
+        #expect(methodNegation.isNaN == true)
+        #expect(mutatingNegation.isNaN == true)
     }
 }
