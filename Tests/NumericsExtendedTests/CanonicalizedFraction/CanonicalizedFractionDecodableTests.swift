@@ -103,8 +103,13 @@ internal struct CanonicalizedFractionDecodableTests {
         }
     }
 
-    @Test("Decode noncanonicalizable value throws")
-    internal func decodeNoncanonicalizableValueThrows() throws {
+}
+
+// MARK: - Fixed-Width Integer Rules
+
+extension CanonicalizedFractionDecodableTests {
+    @Test("Int minimum denominator decoding throws")
+    internal func intMinimumDenominatorDecodingThrows() throws {
         let json: String = #"{"num":1,"den":\#(Int.min)}"#
         let data: Data = try #require(json.data(using: .utf8))
 

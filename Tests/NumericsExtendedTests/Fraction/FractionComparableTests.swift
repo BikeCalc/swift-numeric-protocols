@@ -155,6 +155,11 @@ internal struct FractionComparableTests {
         #expect(reduced.isCanonicallyEquatable(to: unreduced) == true)
     }
 
+}
+
+// MARK: - Fixed-Width Integer Rules
+
+extension FractionComparableTests {
     @Test("Comparison handles an Int minimum denominator")
     internal func comparisonHandlesIntMinimumDenominator() {
         let value: Fraction<Int> = .init(1, Int.min)

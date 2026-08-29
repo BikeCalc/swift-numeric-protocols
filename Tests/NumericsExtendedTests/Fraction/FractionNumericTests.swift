@@ -46,4 +46,19 @@ internal struct FractionNumericTests {
     ) {
         #expect(value.magnitude == magnitude)
     }
+
+}
+
+// MARK: - Fixed-Width Integer Rules
+
+extension FractionNumericTests {
+    @Test("Int minimum magnitude uses the unsigned term type")
+    internal func intMinimumMagnitudeUsesUnsignedTerm() {
+        let value: Fraction<Int> = .init(Int.min, 1)
+        let magnitude: Fraction<UInt> = value.magnitude
+
+        let expected: Fraction<UInt> = .init(UInt(Int.max) + 1, 1)
+
+        #expect(magnitude == expected)
+    }
 }

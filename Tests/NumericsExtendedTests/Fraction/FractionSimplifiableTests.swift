@@ -102,6 +102,18 @@ internal struct FractionSimplifiableTests {
     }
 }
 
+// MARK: - Fixed-Width Integer Rules
+
+extension FractionSimplifiableTests {
+    @Test("Int minimum terms simplify without overflow")
+    internal func intMinimumTermsSimplifyWithoutOverflow() {
+        let value: Fraction<Int> = .init(Int.min, Int.min)
+        let expected: Fraction<Int> = .init(-1, -1)
+
+        #expect(value.simplified() == expected)
+    }
+}
+
 // MARK: - Rational Rules
 
 extension FractionSimplifiableTests {
@@ -156,17 +168,5 @@ extension FractionSimplifiableTests {
         #expect(Fraction<Int>.nan.isSimplifiable == true)
         #expect(Fraction<Int>.nan.isSimplified == true)
         #expect(Fraction<Int>.nan.simplified().isNaN == true)
-    }
-}
-
-// MARK: - Fixed-Width Integer Rules
-
-extension FractionSimplifiableTests {
-    @Test("Int minimum terms simplify without overflow")
-    internal func intMinimumTermsSimplifyWithoutOverflow() {
-        let value: Fraction<Int> = .init(Int.min, Int.min)
-        let expected: Fraction<Int> = .init(-1, -1)
-
-        #expect(value.simplified() == expected)
     }
 }

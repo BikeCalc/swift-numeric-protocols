@@ -102,6 +102,26 @@ internal struct FractionNormalizableTests {
     }
 }
 
+// MARK: - Fixed-Width Integer Rules
+
+extension FractionNormalizableTests {
+    @Test(
+        "Int minimum terms determine normalizability",
+        arguments: [
+            (Fraction<Int>(Int.min, 2), true),
+            (Fraction<Int>(Int.min, -2), false),
+            (Fraction<Int>(1, Int.min), false),
+            (Fraction<Int>(2, Int.min), false)
+        ]
+    )
+    internal func intMinimumTermsDetermineNormalizability(
+        value: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(value.isNormalizable == result)
+    }
+}
+
 // MARK: - Rational Rules
 
 extension FractionNormalizableTests {
@@ -153,25 +173,5 @@ extension FractionNormalizableTests {
         #expect(Fraction<Int>.nan.isNormalizable == true)
         #expect(Fraction<Int>.nan.isNormalized == true)
         #expect(Fraction<Int>.nan.normalized().isNaN == true)
-    }
-}
-
-// MARK: - Fixed-Width Integer Rules
-
-extension FractionNormalizableTests {
-    @Test(
-        "Int minimum terms determine normalizability",
-        arguments: [
-            (Fraction<Int>(Int.min, 2), true),
-            (Fraction<Int>(Int.min, -2), false),
-            (Fraction<Int>(1, Int.min), false),
-            (Fraction<Int>(2, Int.min), false)
-        ]
-    )
-    internal func intMinimumTermsDetermineNormalizability(
-        value: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect(value.isNormalizable == result)
     }
 }
