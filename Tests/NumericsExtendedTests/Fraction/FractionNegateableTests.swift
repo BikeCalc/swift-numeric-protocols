@@ -160,6 +160,17 @@ extension FractionNegateableTests {
     }
 }
 
+// MARK: - Fixed-Width Integer Rules
+
+extension FractionNegateableTests {
+    @Test("Negating Int minimum numerator traps")
+    internal func negatingIntMinimumNumeratorTraps() async {
+        await #expect(processExitsWith: .failure) {
+            _ = -Fraction<Int>(Int.min, 1)
+        }
+    }
+}
+
 // MARK: - Rational Rules
 
 extension FractionNegateableTests {
