@@ -692,17 +692,31 @@ where Term: LosslessStringConvertible {
     /// - Parameter description: A string such as `"2"`, `"1/2"`, `"inf"`, `"-infinity"`, or `"nan"`.
     public init?(_ description: String) {
         switch description.lowercased() {
-        case "inf", "+inf", "infinity", "+infinity", "∞", "+∞":
+        case "-0":
+            guard Term.isSigned else {
+                return nil
+            }
+
+            self = .negativeZero
+            return
+        case "inf", "+inf", "infinity", "+infinity":
             self = .infinity
             return
-        case "-inf", "-infinity", "-∞":
+        case "-inf", "-infinity":
             guard Term.isSigned else {
                 return nil
             }
 
             self = .init(0 - 1, 0)
             return
-        case "nan", "+nan", "-nan":
+        case "nan", "+nan":
+            self = .nan
+            return
+        case "-nan":
+            guard Term.isSigned else {
+                return nil
+            }
+
             self = .nan
             return
         default:
