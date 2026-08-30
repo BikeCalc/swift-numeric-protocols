@@ -134,11 +134,6 @@ internal struct DoubleMultipliableTests {
 // MARK: - Arithmetic Rules
 
 extension DoubleMultipliableTests {
-    @Test("Zero is multiple of zero")
-    internal func zeroIsMultipleOfZero() {
-        #expect(Double.zero.isMultiple(of: Double.zero) == true)
-    }
-
     @Test(
         "Is multiple of zero returns false",
         arguments: [
@@ -227,57 +222,178 @@ extension DoubleMultipliableTests {
 
 extension DoubleMultipliableTests {
     @Test(
-        "Multiplying by zero preserves negative zero sign",
+        "Positive zero multiple predicate follows floating-point rules",
         arguments: [
-            (-1.0, 0.0),
-            (0.0, -1.0)
+            (Double.zero, true),
+            (Double.negativeZero, true),
+            (2.0, true),
+            (Double.infinity, true),
+            (Double.negativeInfinity, true)
         ]
     )
-    internal func multiplyingByZeroPreservesNegativeZeroSign(
-        multiplicand: Double,
-        multiplier: Double
+    internal func positiveZeroMultiplePredicateFollowsFloatingPointRules(
+        other: Double,
+        result: Bool
     ) {
-        let product: Double = multiplicand * multiplier
-
-        #expect(product == Double.zero)
-        #expect(product.sign == .minus)
+        #expect(Double.zero.isMultiple(of: other) == result)
     }
 
     @Test(
-        "Multiplying infinity follows floating-point rules",
+        "Negative zero multiple predicate follows floating-point rules",
         arguments: [
-            (Double.infinity, Double.infinity, Double.infinity),
-            (Double.infinity, Double.negativeInfinity, Double.negativeInfinity),
-            (Double.negativeInfinity, Double.infinity, Double.negativeInfinity),
-            (Double.negativeInfinity, Double.negativeInfinity, Double.infinity),
-            (Double.infinity, 1.0, Double.infinity),
-            (Double.infinity, -1.0, Double.negativeInfinity),
-            (Double.negativeInfinity, 1.0, Double.negativeInfinity),
-            (Double.negativeInfinity, -1.0, Double.infinity),
-            (1.0, Double.infinity, Double.infinity),
-            (1.0, Double.negativeInfinity, Double.negativeInfinity),
-            (-1.0, Double.infinity, Double.negativeInfinity),
-            (-1.0, Double.negativeInfinity, Double.infinity)
+            (Double.zero, true),
+            (Double.negativeZero, true),
+            (2.0, true),
+            (Double.infinity, true),
+            (Double.negativeInfinity, true)
         ]
     )
-    internal func multiplyingInfinityFollowsFloatingPointRules(
-        multiplicand: Double,
+    internal func negativeZeroMultiplePredicateFollowsFloatingPointRules(
+        other: Double,
+        result: Bool
+    ) {
+        #expect(Double.negativeZero.isMultiple(of: other) == result)
+    }
+
+    @Test(
+        "Positive infinity multiple predicate follows floating-point rules",
+        arguments: [
+            Double.zero,
+            Double.negativeZero,
+            2.0,
+            Double.infinity,
+            Double.negativeInfinity
+        ]
+    )
+    internal func positiveInfinityMultiplePredicateFollowsFloatingPointRules(other: Double) {
+        #expect(Double.infinity.isMultiple(of: other) == false)
+    }
+
+    @Test(
+        "Negative infinity multiple predicate follows floating-point rules",
+        arguments: [
+            Double.zero,
+            Double.negativeZero,
+            2.0,
+            Double.infinity,
+            Double.negativeInfinity
+        ]
+    )
+    internal func negativeInfinityMultiplePredicateFollowsFloatingPointRules(other: Double) {
+        #expect(Double.negativeInfinity.isMultiple(of: other) == false)
+    }
+
+    @Test(
+        "NaN multiple predicate follows floating-point rules",
+        arguments: [
+            Double.zero,
+            Double.negativeZero,
+            2.0,
+            Double.infinity,
+            Double.negativeInfinity
+        ]
+    )
+    internal func nanMultiplePredicateFollowsFloatingPointRules(other: Double) {
+        #expect(Double.nan.isMultiple(of: other) == false)
+        #expect(other.isMultiple(of: .nan) == false)
+    }
+
+    @Test(
+        "Multiplying positive zero follows floating-point rules",
+        arguments: [
+            (Double.zero, Double.zero),
+            (Double.negativeZero, Double.negativeZero),
+            (1.0, Double.zero),
+            (-1.0, Double.negativeZero)
+        ]
+    )
+    internal func multiplyingPositiveZeroFollowsFloatingPointRules(
         multiplier: Double,
         product: Double
     ) {
-        #expect(multiplicand * multiplier == product)
+        let result: Double = Double.zero * multiplier
+
+        #expect(result == product)
+        #expect(result.sign == product.sign)
     }
 
     @Test(
-        "Multiplying infinity by zero returns NaN",
+        "Multiplying negative zero follows floating-point rules",
         arguments: [
-            (Double.infinity, 0.0),
-            (Double.negativeInfinity, 0.0),
-            (0.0, Double.infinity),
-            (0.0, Double.negativeInfinity)
+            (Double.zero, Double.negativeZero),
+            (Double.negativeZero, Double.zero),
+            (1.0, Double.negativeZero),
+            (-1.0, Double.zero)
         ]
     )
-    internal func multiplyingInfinityByZeroReturnsNaN(
+    internal func multiplyingNegativeZeroFollowsFloatingPointRules(
+        multiplier: Double,
+        product: Double
+    ) {
+        let result: Double = Double.negativeZero * multiplier
+
+        #expect(result == product)
+        #expect(result.sign == product.sign)
+    }
+
+    @Test(
+        "Multiplying positive infinity follows floating-point rules",
+        arguments: [
+            (Double.infinity, Double.infinity),
+            (Double.negativeInfinity, Double.negativeInfinity),
+            (1.0, Double.infinity),
+            (-1.0, Double.negativeInfinity)
+        ]
+    )
+    internal func multiplyingPositiveInfinityFollowsFloatingPointRules(
+        multiplier: Double,
+        product: Double
+    ) {
+        #expect(Double.infinity * multiplier == product)
+    }
+
+    @Test(
+        "Multiplying negative infinity follows floating-point rules",
+        arguments: [
+            (Double.infinity, Double.negativeInfinity),
+            (Double.negativeInfinity, Double.infinity),
+            (1.0, Double.negativeInfinity),
+            (-1.0, Double.infinity)
+        ]
+    )
+    internal func multiplyingNegativeInfinityFollowsFloatingPointRules(
+        multiplier: Double,
+        product: Double
+    ) {
+        #expect(Double.negativeInfinity * multiplier == product)
+    }
+
+    @Test(
+        "Multiplying positive zero by infinity returns NaN",
+        arguments: [
+            (Double.zero, Double.infinity),
+            (Double.zero, Double.negativeInfinity),
+            (Double.infinity, Double.zero),
+            (Double.negativeInfinity, Double.zero)
+        ]
+    )
+    internal func multiplyingPositiveZeroByInfinityReturnsNaN(
+        multiplicand: Double,
+        multiplier: Double
+    ) {
+        #expect((multiplicand * multiplier).isNaN == true)
+    }
+
+    @Test(
+        "Multiplying negative zero by infinity returns NaN",
+        arguments: [
+            (Double.negativeZero, Double.infinity),
+            (Double.negativeZero, Double.negativeInfinity),
+            (Double.infinity, Double.negativeZero),
+            (Double.negativeInfinity, Double.negativeZero)
+        ]
+    )
+    internal func multiplyingNegativeZeroByInfinityReturnsNaN(
         multiplicand: Double,
         multiplier: Double
     ) {
@@ -287,16 +403,30 @@ extension DoubleMultipliableTests {
     @Test(
         "Multiplying NaN returns NaN",
         arguments: [
-            (Double.nan, Double.nan),
-            (Double.nan, 1.0),
-            (1.0, Double.nan),
-            (Double.nan, Double.infinity)
+            Double.nan,
+            Double.zero,
+            Double.negativeZero,
+            1.0,
+            Double.infinity,
+            Double.negativeInfinity
         ]
     )
-    internal func multiplyingNaNReturnsNaN(
-        multiplicand: Double,
-        multiplier: Double
-    ) {
-        #expect((multiplicand * multiplier).isNaN == true)
+    internal func multiplyingNaNReturnsNaN(multiplier: Double) {
+        #expect((Double.nan * multiplier).isNaN == true)
+    }
+
+    @Test(
+        "Multiplying by NaN returns NaN",
+        arguments: [
+            Double.zero,
+            Double.negativeZero,
+            1.0,
+            -1.0,
+            Double.infinity,
+            Double.negativeInfinity
+        ]
+    )
+    internal func multiplyingByNaNReturnsNaN(multiplicand: Double) {
+        #expect((multiplicand * Double.nan).isNaN == true)
     }
 }
