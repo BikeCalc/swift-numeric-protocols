@@ -189,25 +189,14 @@ internal struct FractionDivisibleTests {
 
 extension FractionDivisibleTests {
     @Test(
-        "Zero is not invertible",
-        arguments: [
-            Fraction<Int>(0, 1),
-            Fraction<Int>(0, -1)
-        ]
-    )
-    internal func zeroIsNotInvertible(dividend: Fraction<Int>) {
-        #expect(dividend.isInvertible == false)
-    }
-
-    @Test(
-        "Dividing zero by nonzero value returns represented zero",
+        "Dividing positive zero by nonzero value returns represented zero",
         arguments: [
             Fraction<Int>(2, 1),
             Fraction<Int>(-3, 1),
             Fraction<Int>(3, 1)
         ]
     )
-    internal func dividingZeroByNonzeroValueReturnsRepresentedZero(divisor: Fraction<Int>) {
+    internal func dividingPositiveZeroByNonzeroValueReturnsRepresentedZero(divisor: Fraction<Int>) {
         #expect((Fraction<Int>.zero / divisor).isZero == true)
     }
 
@@ -290,5 +279,432 @@ extension FractionDivisibleTests {
 // MARK: - Rational Rules
 
 extension FractionDivisibleTests {
-    // TODO:
+    @Test(
+        "Positive zero divisibility follows rational rules",
+        arguments: [
+            (Fraction<Int>.zero, false, false),
+            (Fraction<Int>.negativeZero, false, false),
+            (Fraction<Int>(2, 1), true, false),
+            (Fraction<Int>.infinity, false, false),
+            (Fraction<Int>.negativeInfinity, false, false)
+        ]
+    )
+    internal func positiveZeroDivisibilityFollowsRationalRules(
+        other: Fraction<Int>,
+        isDivisible: Bool,
+        isFactor: Bool
+    ) {
+        #expect(Fraction<Int>.zero.isDivisible(by: other) == isDivisible)
+        #expect(Fraction<Int>.zero.isFactor(of: other) == isFactor)
+    }
+
+    @Test(
+        "Negative zero divisibility follows rational rules",
+        arguments: [
+            (Fraction<Int>.zero, false, false),
+            (Fraction<Int>.negativeZero, false, false),
+            (Fraction<Int>(2, 1), true, false),
+            (Fraction<Int>.infinity, false, false),
+            (Fraction<Int>.negativeInfinity, false, false)
+        ]
+    )
+    internal func negativeZeroDivisibilityFollowsRationalRules(
+        other: Fraction<Int>,
+        isDivisible: Bool,
+        isFactor: Bool
+    ) {
+        #expect(Fraction<Int>.negativeZero.isDivisible(by: other) == isDivisible)
+        #expect(Fraction<Int>.negativeZero.isFactor(of: other) == isFactor)
+    }
+
+    @Test(
+        "Positive infinity divisibility follows rational rules",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(2, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func positiveInfinityDivisibilityFollowsRationalRules(other: Fraction<Int>) {
+        #expect(Fraction<Int>.infinity.isDivisible(by: other) == false)
+        #expect(Fraction<Int>.infinity.isFactor(of: other) == false)
+    }
+
+    @Test(
+        "Negative infinity divisibility follows rational rules",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(2, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func negativeInfinityDivisibilityFollowsRationalRules(other: Fraction<Int>) {
+        #expect(Fraction<Int>.negativeInfinity.isDivisible(by: other) == false)
+        #expect(Fraction<Int>.negativeInfinity.isFactor(of: other) == false)
+    }
+
+    @Test(
+        "NaN divisibility follows rational rules",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(2, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func nanDivisibilityFollowsRationalRules(other: Fraction<Int>) {
+        #expect(Fraction<Int>.nan.isDivisible(by: other) == false)
+        #expect(Fraction<Int>.nan.isFactor(of: other) == false)
+    }
+
+    @Test("Reciprocal of positive zero returns nil")
+    internal func reciprocalOfPositiveZeroReturnsNil() {
+        #expect(Fraction<Int>.zero.reciprocal == nil)
+    }
+
+    @Test("Reciprocal of negative zero returns nil")
+    internal func reciprocalOfNegativeZeroReturnsNil() {
+        #expect(Fraction<Int>.negativeZero.reciprocal == nil)
+    }
+
+    @Test("Reciprocal of positive infinity returns positive zero")
+    internal func reciprocalOfPositiveInfinityReturnsPositiveZero() {
+        #expect(Fraction<Int>.infinity.reciprocal == Fraction<Int>.zero)
+    }
+
+    @Test("Reciprocal of negative infinity returns negative zero")
+    internal func reciprocalOfNegativeInfinityReturnsNegativeZero() {
+        #expect(Fraction<Int>.negativeInfinity.reciprocal == Fraction<Int>.negativeZero)
+    }
+
+    @Test("Reciprocal of NaN returns nil")
+    internal func reciprocalOfNaNReturnsNil() {
+        #expect(Fraction<Int>.nan.reciprocal == nil)
+    }
+
+    @Test("Positive zero is not invertible")
+    internal func positiveZeroIsNotInvertible() {
+        #expect(Fraction<Int>.zero.isInvertible == false)
+    }
+
+    @Test("Negative zero is not invertible")
+    internal func negativeZeroIsNotInvertible() {
+        #expect(Fraction<Int>.negativeZero.isInvertible == false)
+    }
+
+    @Test("Positive infinity is invertible")
+    internal func positiveInfinityIsInvertible() {
+        #expect(Fraction<Int>.infinity.isInvertible == true)
+    }
+
+    @Test("Negative infinity is invertible")
+    internal func negativeInfinityIsInvertible() {
+        #expect(Fraction<Int>.negativeInfinity.isInvertible == true)
+    }
+
+    @Test("NaN is not invertible")
+    internal func nanIsNotInvertible() {
+        #expect(Fraction<Int>.nan.isInvertible == false)
+    }
+
+    @Test(
+        "Dividing positive zero follows rational rules",
+        arguments: [
+            (Fraction<Int>(1, 1), Fraction<Int>.zero),
+            (Fraction<Int>(-1, 1), Fraction<Int>.negativeZero)
+        ]
+    )
+    internal func dividingPositiveZeroFollowsRationalRules(
+        divisor: Fraction<Int>,
+        quotient: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.zero / divisor == quotient)
+    }
+
+    @Test(
+        "Dividing negative zero follows rational rules",
+        arguments: [
+            (Fraction<Int>(1, 1), Fraction<Int>.negativeZero),
+            (Fraction<Int>(-1, 1), Fraction<Int>.zero)
+        ]
+    )
+    internal func dividingNegativeZeroFollowsRationalRules(
+        divisor: Fraction<Int>,
+        quotient: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.negativeZero / divisor == quotient)
+    }
+
+    @Test(
+        "Dividing by positive zero follows rational rules",
+        arguments: [
+            (Fraction<Int>(1, 1), Fraction<Int>.infinity),
+            (Fraction<Int>(-1, 1), Fraction<Int>.negativeInfinity)
+        ]
+    )
+    internal func dividingByPositiveZeroFollowsRationalRules(
+        dividend: Fraction<Int>,
+        quotient: Fraction<Int>
+    ) {
+        #expect(dividend / Fraction<Int>.zero == quotient)
+    }
+
+    @Test(
+        "Dividing by negative zero follows rational rules",
+        arguments: [
+            (Fraction<Int>(1, 1), Fraction<Int>.negativeInfinity),
+            (Fraction<Int>(-1, 1), Fraction<Int>.infinity)
+        ]
+    )
+    internal func dividingByNegativeZeroFollowsRationalRules(
+        dividend: Fraction<Int>,
+        quotient: Fraction<Int>
+    ) {
+        #expect(dividend / Fraction<Int>.negativeZero == quotient)
+    }
+
+    @Test(
+        "Dividing positive zero by zero returns NaN",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero
+        ]
+    )
+    internal func dividingPositiveZeroByZeroReturnsNaN(divisor: Fraction<Int>) {
+        #expect((Fraction<Int>.zero / divisor).isNaN == true)
+    }
+
+    @Test(
+        "Dividing negative zero by zero returns NaN",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero
+        ]
+    )
+    internal func dividingNegativeZeroByZeroReturnsNaN(divisor: Fraction<Int>) {
+        #expect((Fraction<Int>.negativeZero / divisor).isNaN == true)
+    }
+
+    @Test(
+        "Dividing positive infinity follows rational rules",
+        arguments: [
+            (Fraction<Int>(1, 1), Fraction<Int>.infinity),
+            (Fraction<Int>(-1, 1), Fraction<Int>.negativeInfinity)
+        ]
+    )
+    internal func dividingPositiveInfinityFollowsRationalRules(
+        divisor: Fraction<Int>,
+        quotient: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.infinity / divisor == quotient)
+    }
+
+    @Test(
+        "Dividing negative infinity follows rational rules",
+        arguments: [
+            (Fraction<Int>(1, 1), Fraction<Int>.negativeInfinity),
+            (Fraction<Int>(-1, 1), Fraction<Int>.infinity)
+        ]
+    )
+    internal func dividingNegativeInfinityFollowsRationalRules(
+        divisor: Fraction<Int>,
+        quotient: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.negativeInfinity / divisor == quotient)
+    }
+
+    @Test(
+        "Dividing by positive infinity follows rational rules",
+        arguments: [
+            (Fraction<Int>(1, 1), Fraction<Int>.zero),
+            (Fraction<Int>(-1, 1), Fraction<Int>.negativeZero)
+        ]
+    )
+    internal func dividingByPositiveInfinityFollowsRationalRules(
+        dividend: Fraction<Int>,
+        quotient: Fraction<Int>
+    ) {
+        #expect(dividend / Fraction<Int>.infinity == quotient)
+    }
+
+    @Test(
+        "Dividing by negative infinity follows rational rules",
+        arguments: [
+            (Fraction<Int>(1, 1), Fraction<Int>.negativeZero),
+            (Fraction<Int>(-1, 1), Fraction<Int>.zero)
+        ]
+    )
+    internal func dividingByNegativeInfinityFollowsRationalRules(
+        dividend: Fraction<Int>,
+        quotient: Fraction<Int>
+    ) {
+        #expect(dividend / Fraction<Int>.negativeInfinity == quotient)
+    }
+
+    @Test(
+        "Dividing positive infinity by infinity returns NaN",
+        arguments: [
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func dividingPositiveInfinityByInfinityReturnsNaN(divisor: Fraction<Int>) {
+        #expect((Fraction<Int>.infinity / divisor).isNaN == true)
+    }
+
+    @Test(
+        "Dividing negative infinity by infinity returns NaN",
+        arguments: [
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func dividingNegativeInfinityByInfinityReturnsNaN(divisor: Fraction<Int>) {
+        #expect((Fraction<Int>.negativeInfinity / divisor).isNaN == true)
+    }
+
+    @Test(
+        "Dividing NaN returns NaN",
+        arguments: [
+            Fraction<Int>.nan,
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func dividingNaNReturnsNaN(divisor: Fraction<Int>) {
+        #expect((Fraction<Int>.nan / divisor).isNaN == true)
+    }
+
+    @Test(
+        "Dividing by NaN returns NaN",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func dividingByNaNReturnsNaN(dividend: Fraction<Int>) {
+        #expect((dividend / Fraction<Int>.nan).isNaN == true)
+    }
+
+    @Test(
+        "Remainder by positive infinity preserves dividend",
+        arguments: [
+            Fraction<Int>(1, 2),
+            Fraction<Int>(-1, 2),
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero
+        ]
+    )
+    internal func remainderByPositiveInfinityPreservesDividend(dividend: Fraction<Int>) {
+        #expect(dividend % Fraction<Int>.infinity == dividend)
+    }
+
+    @Test(
+        "Remainder by negative infinity preserves dividend",
+        arguments: [
+            Fraction<Int>(1, 2),
+            Fraction<Int>(-1, 2),
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero
+        ]
+    )
+    internal func remainderByNegativeInfinityPreservesDividend(dividend: Fraction<Int>) {
+        #expect(dividend % Fraction<Int>.negativeInfinity == dividend)
+    }
+
+    @Test(
+        "Remainder of positive infinity returns NaN",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func remainderOfPositiveInfinityReturnsNaN(divisor: Fraction<Int>) {
+        #expect((Fraction<Int>.infinity % divisor).isNaN == true)
+    }
+
+    @Test(
+        "Remainder of negative infinity returns NaN",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func remainderOfNegativeInfinityReturnsNaN(divisor: Fraction<Int>) {
+        #expect((Fraction<Int>.negativeInfinity % divisor).isNaN == true)
+    }
+
+    @Test(
+        "Remainder by positive zero returns NaN",
+        arguments: [
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1)
+        ]
+    )
+    internal func remainderByPositiveZeroReturnsNaN(dividend: Fraction<Int>) {
+        #expect((dividend % Fraction<Int>.zero).isNaN == true)
+    }
+
+    @Test(
+        "Remainder by negative zero returns NaN",
+        arguments: [
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1)
+        ]
+    )
+    internal func remainderByNegativeZeroReturnsNaN(dividend: Fraction<Int>) {
+        #expect((dividend % Fraction<Int>.negativeZero).isNaN == true)
+    }
+
+    @Test(
+        "Remainder of NaN returns NaN",
+        arguments: [
+            Fraction<Int>.nan,
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func remainderOfNaNReturnsNaN(divisor: Fraction<Int>) {
+        #expect((Fraction<Int>.nan % divisor).isNaN == true)
+    }
+
+    @Test(
+        "Remainder by NaN returns NaN",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func remainderByNaNReturnsNaN(dividend: Fraction<Int>) {
+        #expect((dividend % Fraction<Int>.nan).isNaN == true)
+    }
 }

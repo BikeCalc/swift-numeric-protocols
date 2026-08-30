@@ -176,20 +176,37 @@ extension FractionNegateableTests {
 extension FractionNegateableTests {
     @Test("Positive zero sign predicates follow stored denominator rules")
     internal func positiveZeroSignPredicatesFollowStoredDenominatorRules() {
-        let value: Fraction<Int> = .zero
-
-        #expect(value.isNegative == false)
-        #expect(value.isPositive == false)
-        #expect(value.isSigned == true)
+        #expect(Fraction<Int>.zero.isNegative == false)
+        #expect(Fraction<Int>.zero.isPositive == false)
+        #expect(Fraction<Int>.zero.isSigned == true)
     }
 
     @Test("Negative zero sign predicates follow stored denominator rules")
     internal func negativeZeroSignPredicatesFollowStoredDenominatorRules() {
-        let value: Fraction<Int> = .negativeZero
+        #expect(Fraction<Int>.negativeZero.isNegative == true)
+        #expect(Fraction<Int>.negativeZero.isPositive == false)
+        #expect(Fraction<Int>.negativeZero.isSigned == true)
+    }
 
-        #expect(value.isNegative == true)
-        #expect(value.isPositive == false)
-        #expect(value.isSigned == true)
+    @Test("Positive infinity sign predicates follow rational rules")
+    internal func positiveInfinitySignPredicatesFollowRationalRules() {
+        #expect(Fraction<Int>.infinity.isNegative == false)
+        #expect(Fraction<Int>.infinity.isPositive == true)
+        #expect(Fraction<Int>.infinity.isSigned == true)
+    }
+
+    @Test("Negative infinity sign predicates follow rational rules")
+    internal func negativeInfinitySignPredicatesFollowRationalRules() {
+        #expect(Fraction<Int>.negativeInfinity.isNegative == true)
+        #expect(Fraction<Int>.negativeInfinity.isPositive == false)
+        #expect(Fraction<Int>.negativeInfinity.isSigned == true)
+    }
+
+    @Test("NaN sign predicates follow rational rules")
+    internal func nanSignPredicatesFollowRationalRules() {
+        #expect(Fraction<Int>.nan.isNegative == false)
+        #expect(Fraction<Int>.nan.isPositive == false)
+        #expect(Fraction<Int>.nan.isSigned == true)
     }
 
     @Test(
@@ -218,6 +235,49 @@ extension FractionNegateableTests {
         result: Bool
     ) {
         #expect(Fraction<Int>.negativeZero.isOpposite(of: other) == result)
+    }
+
+    @Test(
+        "Positive infinity opposite follows rational rules",
+        arguments: [
+            (Fraction<Int>.infinity, false),
+            (Fraction<Int>.negativeInfinity, true)
+        ]
+    )
+    internal func positiveInfinityOppositeFollowsRationalRules(
+        other: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(Fraction<Int>.infinity.isOpposite(of: other) == result)
+    }
+
+    @Test(
+        "Negative infinity opposite follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeInfinity, false),
+            (Fraction<Int>.infinity, true)
+        ]
+    )
+    internal func negativeInfinityOppositeFollowsRationalRules(
+        other: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(Fraction<Int>.negativeInfinity.isOpposite(of: other) == result)
+    }
+
+    @Test(
+        "NaN opposite follows rational rules",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func nanOppositeFollowsRationalRules(other: Fraction<Int>) {
+        #expect(Fraction<Int>.nan.isOpposite(of: other) == false)
+        #expect(other.isOpposite(of: .nan) == false)
     }
 
     @Test(

@@ -122,11 +122,6 @@ internal struct FractionMultipliableTests {
 // MARK: - Arithmetic Rules
 
 extension FractionMultipliableTests {
-    @Test("Zero is multiple of zero")
-    internal func zeroIsMultipleOfZero() {
-        #expect(Fraction<Int>.zero.isMultiple(of: .zero) == true)
-    }
-
     @Test(
         "Is multiple of zero returns false",
         arguments: [
@@ -198,5 +193,206 @@ extension FractionMultipliableTests {
 // MARK: - Rational Rules
 
 extension FractionMultipliableTests {
-    // TODO:
+    @Test(
+        "Positive zero multiple predicate follows rational rules",
+        arguments: [
+            (Fraction<Int>.zero, true),
+            (Fraction<Int>.negativeZero, true),
+            (Fraction<Int>(2, 1), true),
+            (Fraction<Int>.infinity, false),
+            (Fraction<Int>.negativeInfinity, false)
+        ]
+    )
+    internal func positiveZeroMultiplePredicateFollowsRationalRules(
+        other: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(Fraction<Int>.zero.isMultiple(of: other) == result)
+    }
+
+    @Test(
+        "Negative zero multiple predicate follows rational rules",
+        arguments: [
+            (Fraction<Int>.zero, true),
+            (Fraction<Int>.negativeZero, true),
+            (Fraction<Int>(2, 1), true),
+            (Fraction<Int>.infinity, false),
+            (Fraction<Int>.negativeInfinity, false)
+        ]
+    )
+    internal func negativeZeroMultiplePredicateFollowsRationalRules(
+        other: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(Fraction<Int>.negativeZero.isMultiple(of: other) == result)
+    }
+
+    @Test(
+        "Positive infinity multiple predicate follows rational rules",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(2, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func positiveInfinityMultiplePredicateFollowsRationalRules(other: Fraction<Int>) {
+        #expect(Fraction<Int>.infinity.isMultiple(of: other) == false)
+    }
+
+    @Test(
+        "Negative infinity multiple predicate follows rational rules",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(2, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func negativeInfinityMultiplePredicateFollowsRationalRules(other: Fraction<Int>) {
+        #expect(Fraction<Int>.negativeInfinity.isMultiple(of: other) == false)
+    }
+
+    @Test(
+        "NaN multiple predicate follows rational rules",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(2, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func nanMultiplePredicateFollowsRationalRules(other: Fraction<Int>) {
+        #expect(Fraction<Int>.nan.isMultiple(of: other) == false)
+        #expect(other.isMultiple(of: .nan) == false)
+    }
+
+    @Test(
+        "Multiplying positive zero follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.zero, Fraction<Int>.zero),
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
+            (Fraction<Int>(1, 1), Fraction<Int>.zero),
+            (Fraction<Int>(-1, 1), Fraction<Int>.zero)
+        ]
+    )
+    internal func multiplyingPositiveZeroFollowsStoredRepresentationRules(
+        multiplier: Fraction<Int>,
+        product: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.zero * multiplier == product)
+    }
+
+    @Test(
+        "Multiplying negative zero follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.zero, Fraction<Int>.negativeZero),
+            (Fraction<Int>.negativeZero, Fraction<Int>.zero),
+            (Fraction<Int>(1, 1), Fraction<Int>.negativeZero),
+            (Fraction<Int>(-1, 1), Fraction<Int>.negativeZero)
+        ]
+    )
+    internal func multiplyingNegativeZeroFollowsStoredRepresentationRules(
+        multiplier: Fraction<Int>,
+        product: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.negativeZero * multiplier == product)
+    }
+
+    @Test(
+        "Multiplying positive infinity follows rational rules",
+        arguments: [
+            (Fraction<Int>.infinity, Fraction<Int>.infinity),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity),
+            (Fraction<Int>(1, 1), Fraction<Int>.infinity),
+            (Fraction<Int>(-1, 1), Fraction<Int>.negativeInfinity)
+        ]
+    )
+    internal func multiplyingPositiveInfinityFollowsRationalRules(
+        multiplier: Fraction<Int>,
+        product: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.infinity * multiplier == product)
+    }
+
+    @Test(
+        "Multiplying negative infinity follows rational rules",
+        arguments: [
+            (Fraction<Int>.infinity, Fraction<Int>.negativeInfinity),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity),
+            (Fraction<Int>(1, 1), Fraction<Int>.negativeInfinity),
+            (Fraction<Int>(-1, 1), Fraction<Int>.infinity)
+        ]
+    )
+    internal func multiplyingNegativeInfinityFollowsRationalRules(
+        multiplier: Fraction<Int>,
+        product: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.negativeInfinity * multiplier == product)
+    }
+
+    @Test(
+        "Multiplying positive zero by infinity returns NaN",
+        arguments: [
+            (Fraction<Int>.zero, Fraction<Int>.infinity),
+            (Fraction<Int>.zero, Fraction<Int>.negativeInfinity),
+            (Fraction<Int>.infinity, Fraction<Int>.zero),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.zero)
+        ]
+    )
+    internal func multiplyingPositiveZeroByInfinityReturnsNaN(
+        multiplicand: Fraction<Int>,
+        multiplier: Fraction<Int>
+    ) {
+        #expect((multiplicand * multiplier).isNaN == true)
+    }
+
+    @Test(
+        "Multiplying negative zero by infinity returns NaN",
+        arguments: [
+            (Fraction<Int>.negativeZero, Fraction<Int>.infinity),
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeInfinity),
+            (Fraction<Int>.infinity, Fraction<Int>.negativeZero),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeZero)
+        ]
+    )
+    internal func multiplyingNegativeZeroByInfinityReturnsNaN(
+        multiplicand: Fraction<Int>,
+        multiplier: Fraction<Int>
+    ) {
+        #expect((multiplicand * multiplier).isNaN == true)
+    }
+
+    @Test(
+        "Multiplying NaN returns NaN",
+        arguments: [
+            Fraction<Int>.nan,
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func multiplyingNaNReturnsNaN(multiplier: Fraction<Int>) {
+        #expect((Fraction<Int>.nan * multiplier).isNaN == true)
+    }
+
+    @Test(
+        "Multiplying by NaN returns NaN",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func multiplyingByNaNReturnsNaN(multiplicand: Fraction<Int>) {
+        #expect((multiplicand * Fraction<Int>.nan).isNaN == true)
+    }
 }

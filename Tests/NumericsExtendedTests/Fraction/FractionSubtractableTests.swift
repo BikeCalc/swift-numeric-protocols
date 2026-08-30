@@ -75,7 +75,7 @@ internal struct FractionSubtractableTests {
 
 extension FractionSubtractableTests {
     @Test(
-        "Subtracting zero preserves minuend",
+        "Subtracting positive zero preserves minuend",
         arguments: [
             Fraction<Int>(2, 3),
             Fraction<Int>(3, 4),
@@ -83,7 +83,7 @@ extension FractionSubtractableTests {
             Fraction<Int>(-3, 4)
         ]
     )
-    internal func subtractingZeroPreservesMinuend(minuend: Fraction<Int>) {
+    internal func subtractingPositiveZeroPreservesMinuend(minuend: Fraction<Int>) {
         #expect(minuend - .zero == minuend)
     }
 
@@ -191,19 +191,32 @@ extension FractionSubtractableTests {
     }
 
     @Test(
-        "Subtracting NaN returns NaN",
+        "Subtracting from NaN returns NaN",
         arguments: [
-            (Fraction<Int>.nan, Fraction<Int>.nan),
-            (Fraction<Int>.nan, Fraction<Int>(1, 1)),
-            (Fraction<Int>(1, 1), Fraction<Int>.nan),
-            (Fraction<Int>.nan, Fraction<Int>.infinity),
-            (Fraction<Int>.nan, Fraction<Int>.negativeInfinity)
+            Fraction<Int>.nan,
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
         ]
     )
-    internal func subtractingNaNReturnsNaN(
-        minuend: Fraction<Int>,
-        subtrahend: Fraction<Int>
-    ) {
-        #expect((minuend - subtrahend).isNaN == true)
+    internal func subtractingFromNaNReturnsNaN(subtrahend: Fraction<Int>) {
+        #expect((Fraction<Int>.nan - subtrahend).isNaN == true)
+    }
+
+    @Test(
+        "Subtracting NaN returns NaN",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func subtractingNaNReturnsNaN(minuend: Fraction<Int>) {
+        #expect((minuend - Fraction<Int>.nan).isNaN == true)
     }
 }

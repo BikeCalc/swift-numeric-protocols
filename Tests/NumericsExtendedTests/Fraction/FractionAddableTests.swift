@@ -75,7 +75,7 @@ internal struct FractionAddableTests {
 
 extension FractionAddableTests {
     @Test(
-        "Adding zero preserves augend",
+        "Adding positive zero preserves augend",
         arguments: [
             Fraction<Int>(1, 2),
             Fraction<Int>(2, 3),
@@ -83,7 +83,7 @@ extension FractionAddableTests {
             Fraction<Int>(-2, 3)
         ]
     )
-    internal func addingZeroPreservesAugend(augend: Fraction<Int>) {
+    internal func addingPositiveZeroPreservesAugend(augend: Fraction<Int>) {
         #expect(augend + .zero == augend)
     }
 
@@ -186,19 +186,32 @@ extension FractionAddableTests {
     }
 
     @Test(
-        "Adding NaN returns NaN",
+        "Adding to NaN returns NaN",
         arguments: [
-            (Fraction<Int>.nan, Fraction<Int>.nan),
-            (Fraction<Int>.nan, Fraction<Int>(1, 1)),
-            (Fraction<Int>(1, 1), Fraction<Int>.nan),
-            (Fraction<Int>.nan, Fraction<Int>.infinity),
-            (Fraction<Int>.nan, Fraction<Int>.negativeInfinity)
+            Fraction<Int>.nan,
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
         ]
     )
-    internal func addingNaNReturnsNaN(
-        augend: Fraction<Int>,
-        addend: Fraction<Int>
-    ) {
-        #expect((augend + addend).isNaN == true)
+    internal func addingToNaNReturnsNaN(addend: Fraction<Int>) {
+        #expect((Fraction<Int>.nan + addend).isNaN == true)
+    }
+
+    @Test(
+        "Adding NaN returns NaN",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>.infinity,
+            Fraction<Int>.negativeInfinity
+        ]
+    )
+    internal func addingNaNReturnsNaN(augend: Fraction<Int>) {
+        #expect((augend + Fraction<Int>.nan).isNaN == true)
     }
 }
