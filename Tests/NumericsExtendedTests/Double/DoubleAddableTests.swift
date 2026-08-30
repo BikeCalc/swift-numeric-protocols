@@ -79,7 +79,7 @@ internal struct DoubleAddableTests {
 
 extension DoubleAddableTests {
     @Test(
-        "Adding zero preserves augend",
+        "Adding positive zero preserves augend",
         arguments: [
             2.0,
             3.0,
@@ -91,7 +91,7 @@ extension DoubleAddableTests {
             -1.5
         ]
     )
-    internal func addingZeroPreservesAugend(augend: Double) {
+    internal func addingPositiveZeroPreservesAugend(augend: Double) {
         #expect(augend + Double.zero == augend)
     }
 
@@ -132,73 +132,104 @@ extension DoubleAddableTests {
 
 extension DoubleAddableTests {
     @Test(
-        "Adding zero follows floating-point rules",
+        "Adding to positive zero follows floating-point rules",
         arguments: [
-            (0.0, 0.0, 0.0),
-            (-0.0, 0.0, 0.0),
-            (0.0, -0.0, 0.0),
-            (-0.0, -0.0, -0.0),
-            (2.0, 0.0, 2.0),
-            (-2.0, 0.0, -2.0),
-            (0.5, 0.0, 0.5),
-            (-0.5, 0.0, -0.5)
+            (Double.zero, Double.zero),
+            (Double.negativeZero, Double.zero),
+            (1.0, 1.0),
+            (-1.0, -1.0)
         ]
     )
-    internal func addingZeroFollowsFloatingPointRules(
-        augend: Double,
+    internal func addingToPositiveZeroFollowsFloatingPointRules(
         addend: Double,
         sum: Double
     ) {
-        #expect(augend + addend == sum)
+        let result: Double = Double.zero + addend
+
+        #expect(result == sum)
+        #expect(result.sign == sum.sign)
     }
 
     @Test(
-        "Adding infinity follows floating-point rules",
+        "Adding to negative zero follows floating-point rules",
         arguments: [
-            (Double.infinity, Double.infinity, Double.infinity),
-            (Double.negativeInfinity, Double.negativeInfinity, Double.negativeInfinity),
-            (Double.infinity, 1.0, Double.infinity),
-            (Double.negativeInfinity, 1.0, Double.negativeInfinity),
-            (1.0, Double.infinity, Double.infinity),
-            (1.0, Double.negativeInfinity, Double.negativeInfinity)
+            (Double.zero, Double.zero),
+            (Double.negativeZero, Double.negativeZero),
+            (1.0, 1.0),
+            (-1.0, -1.0)
         ]
     )
-    internal func addingInfinityFollowsFloatingPointRules(
-        augend: Double,
+    internal func addingToNegativeZeroFollowsFloatingPointRules(
         addend: Double,
         sum: Double
     ) {
-        #expect(augend + addend == sum)
+        let result: Double = Double.negativeZero + addend
+
+        #expect(result == sum)
+        #expect(result.sign == sum.sign)
     }
 
     @Test(
-        "Adding opposite infinities returns NaN",
+        "Adding to positive infinity follows floating-point rules",
         arguments: [
-            (Double.infinity, Double.negativeInfinity),
-            (Double.negativeInfinity, Double.infinity)
+            Double.infinity,
+            1.0,
+            -1.0
         ]
     )
-    internal func addingOppositeInfinitiesReturnsNaN(
-        augend: Double,
-        addend: Double
-    ) {
-        #expect((augend + addend).isNaN == true)
+    internal func addingToPositiveInfinityFollowsFloatingPointRules(addend: Double) {
+        #expect(Double.infinity + addend == .infinity)
+    }
+
+    @Test(
+        "Adding to negative infinity follows floating-point rules",
+        arguments: [
+            Double.negativeInfinity,
+            1.0,
+            -1.0
+        ]
+    )
+    internal func addingToNegativeInfinityFollowsFloatingPointRules(addend: Double) {
+        #expect(Double.negativeInfinity + addend == .negativeInfinity)
+    }
+
+    @Test("Adding positive infinity to negative infinity returns NaN")
+    internal func addingPositiveInfinityToNegativeInfinityReturnsNaN() {
+        #expect((Double.negativeInfinity + .infinity).isNaN == true)
+    }
+
+    @Test("Adding negative infinity to positive infinity returns NaN")
+    internal func addingNegativeInfinityToPositiveInfinityReturnsNaN() {
+        #expect((Double.infinity + .negativeInfinity).isNaN == true)
+    }
+
+    @Test(
+        "Adding to NaN returns NaN",
+        arguments: [
+            Double.nan,
+            Double.zero,
+            Double.negativeZero,
+            1.0,
+            Double.infinity,
+            Double.negativeInfinity
+        ]
+    )
+    internal func addingToNaNReturnsNaN(addend: Double) {
+        #expect((Double.nan + addend).isNaN == true)
     }
 
     @Test(
         "Adding NaN returns NaN",
         arguments: [
-            (Double.nan, Double.nan),
-            (Double.nan, 1.0),
-            (1.0, Double.nan),
-            (Double.nan, Double.infinity),
-            (Double.nan, Double.negativeInfinity)
+            Double.zero,
+            Double.negativeZero,
+            1.0,
+            -1.0,
+            Double.infinity,
+            Double.negativeInfinity
         ]
     )
-    internal func addingNaNReturnsNaN(
-        augend: Double,
-        addend: Double
-    ) {
-        #expect((augend + addend).isNaN == true)
+    internal func addingNaNReturnsNaN(augend: Double) {
+        #expect((augend + Double.nan).isNaN == true)
     }
 }
