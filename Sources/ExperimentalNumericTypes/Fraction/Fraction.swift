@@ -65,12 +65,10 @@ import StandardNumericTypes
 /// - Note: `Fraction` is intentionally experimental. Its API may evolve across major releases.
 public struct Fraction<Term>
 where Term: BinaryInteger {
-    /// The compact and legacy keys used to encode and decode a rational value.
+    /// The keys used to encode and decode a rational value.
     private enum CodingKeys: String, CodingKey {
         case numerator = "num"
         case denominator = "den"
-        case legacyNumerator = "numerator"
-        case legacyDenominator = "denominator"
     }
 
     /// The numerator of this value.
@@ -429,37 +427,23 @@ extension Fraction: Decodable
 where Term: Decodable {
     /// Creates a rational value by decoding keyed numerator and denominator terms.
     ///
-    /// Compact `"num"` and `"den"` keys are preferred. The legacy `"numerator"` and `"denominator"` keys are also
-    /// accepted. A decoded nonzero numerator with a zero denominator is canonicalized to `1/0` or `-1/0`.
+    /// The `"num"` and `"den"` keys contain the stored terms. A decoded nonzero numerator with a zero denominator is
+    /// canonicalized to `1/0` or `-1/0`.
     ///
     /// - Parameter decoder: The decoder to read data from.
     /// - Throws: Any error encountered while decoding the numerator or denominator.
     public init(from decoder: any Decoder) throws {
         let container: KeyedDecodingContainer<Self.CodingKeys> = try decoder.container(keyedBy: Self.CodingKeys.self)
+        let numerator: Term = try container.decode(
+            Term.self,
+            forKey: .numerator
+        )
+        let denominator: Term = try container.decode(
+            Term.self,
+            forKey: .denominator
+        )
 
-        if container.contains(.numerator) || container.contains(.denominator) {
-            let numerator: Term = try container.decode(
-                Term.self,
-                forKey: .numerator
-            )
-            let denominator: Term = try container.decode(
-                Term.self,
-                forKey: .denominator
-            )
-
-            self.init(numerator, denominator)
-        } else {
-            let numerator: Term = try container.decode(
-                Term.self,
-                forKey: .legacyNumerator
-            )
-            let denominator: Term = try container.decode(
-                Term.self,
-                forKey: .legacyDenominator
-            )
-
-            self.init(numerator, denominator)
-        }
+        self.init(numerator, denominator)
     }
 }
 
