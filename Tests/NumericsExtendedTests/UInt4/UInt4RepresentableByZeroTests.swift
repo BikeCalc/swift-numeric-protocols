@@ -12,16 +12,18 @@ import Testing
 @Suite("UInt4 RepresentableByZero Tests")
 internal struct UInt4RepresentableByZeroTests {
     @Test(
-        "Is zero",
+        "Nonzero values are not zero",
         arguments: [
-            (0, true),
-            (1, false)
-        ] as Array<(UInt4, Bool)>
+            1,
+            2
+        ] as Array<UInt4>
     )
-    internal func isZero(
-        value: UInt4,
-        result: Bool
-    ) {
-        #expect(value.isZero == result)
+    internal func nonzeroValuesAreNotZero(value: UInt4) {
+        #expect(value.isZero == false)
+    }
+
+    @Test("Positive zero is zero")
+    internal func positiveZeroIsZero() {
+        #expect(UInt4.zero.isZero == true)
     }
 }

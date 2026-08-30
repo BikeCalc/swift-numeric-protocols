@@ -12,16 +12,18 @@ import Testing
 @Suite("Roman RepresentableByZero Tests")
 internal struct RomanRepresentableByZeroTests {
     @Test(
-        "Is zero",
+        "Nonzero values are not zero",
         arguments: [
-            (0, true),
-            (1, false)
-        ] as Array<(Roman, Bool)>
+            1,
+            2
+        ] as Array<Roman>
     )
-    internal func isZero(
-        value: Roman,
-        result: Bool
-    ) {
-        #expect(value.isZero == result)
+    internal func nonzeroValuesAreNotZero(value: Roman) {
+        #expect(value.isZero == false)
+    }
+
+    @Test("Positive zero is zero")
+    internal func positiveZeroIsZero() {
+        #expect(Roman.zero.isZero == true)
     }
 }
