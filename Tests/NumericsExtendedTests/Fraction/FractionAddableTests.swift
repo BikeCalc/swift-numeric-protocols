@@ -119,5 +119,86 @@ extension FractionAddableTests {
 // MARK: - Rational Rules
 
 extension FractionAddableTests {
-    // // TODO:
+    @Test(
+        "Adding to positive zero follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.zero, Fraction<Int>.zero),
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
+            (Fraction<Int>(1, 1), Fraction<Int>(1, 1)),
+            (Fraction<Int>(-1, 1), Fraction<Int>(-1, 1))
+        ]
+    )
+    internal func addingToPositiveZeroFollowsStoredRepresentationRules(
+        addend: Fraction<Int>,
+        sum: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.zero + addend == sum)
+    }
+
+    @Test(
+        "Adding to negative zero follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.zero, Fraction<Int>.negativeZero),
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
+            (Fraction<Int>(1, 1), Fraction<Int>(-1, -1)),
+            (Fraction<Int>(-1, 1), Fraction<Int>(1, -1))
+        ]
+    )
+    internal func addingToNegativeZeroFollowsStoredRepresentationRules(
+        addend: Fraction<Int>,
+        sum: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.negativeZero + addend == sum)
+    }
+
+    @Test(
+        "Adding to positive infinity follows rational rules",
+        arguments: [
+            Fraction<Int>.infinity,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1)
+        ]
+    )
+    internal func addingToPositiveInfinityFollowsRationalRules(addend: Fraction<Int>) {
+        #expect(Fraction<Int>.infinity + addend == .infinity)
+    }
+
+    @Test(
+        "Adding to negative infinity follows rational rules",
+        arguments: [
+            Fraction<Int>.negativeInfinity,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1)
+        ]
+    )
+    internal func addingToNegativeInfinityFollowsRationalRules(addend: Fraction<Int>) {
+        #expect(Fraction<Int>.negativeInfinity + addend == .negativeInfinity)
+    }
+
+    @Test("Adding positive infinity to negative infinity returns NaN")
+    internal func addingPositiveInfinityToNegativeInfinityReturnsNaN() {
+        #expect((Fraction<Int>.negativeInfinity + .infinity).isNaN == true)
+    }
+
+    @Test("Adding negative infinity to positive infinity returns NaN")
+    internal func addingNegativeInfinityToPositiveInfinityReturnsNaN() {
+        #expect((Fraction<Int>.infinity + .negativeInfinity).isNaN == true)
+    }
+
+    @Test(
+        "Adding NaN returns NaN",
+        arguments: [
+            (Fraction<Int>.nan, Fraction<Int>.nan),
+            (Fraction<Int>.nan, Fraction<Int>(1, 1)),
+            (Fraction<Int>(1, 1), Fraction<Int>.nan),
+            (Fraction<Int>.nan, Fraction<Int>.infinity),
+            (Fraction<Int>.nan, Fraction<Int>.negativeInfinity)
+        ]
+    )
+    internal func addingNaNReturnsNaN(
+        augend: Fraction<Int>,
+        addend: Fraction<Int>
+    ) {
+        #expect((augend + addend).isNaN == true)
+    }
 }
