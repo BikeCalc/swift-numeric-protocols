@@ -44,6 +44,59 @@ where Value: Canonicalizable {
     }
 }
 
+// MARK: - Comparable
+
+extension Canonicalized: Comparable
+where Value: Comparable {
+    /// Returns a boolean value indicating whether the first canonicalized value precedes the second.
+    ///
+    /// - Parameter lhs: The first canonicalized value to compare.
+    /// - Parameter rhs: The second canonicalized value to compare.
+    /// - Returns: The result of comparing the wrapped canonical values.
+    public static func < (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
+        return lhs.wrappedValue < rhs.wrappedValue
+    }
+
+    /// Returns a boolean value indicating whether the first canonicalized value precedes or equals the second.
+    ///
+    /// - Parameter lhs: The first canonicalized value to compare.
+    /// - Parameter rhs: The second canonicalized value to compare.
+    /// - Returns: `true` when the first value precedes or equals the second, and `false` otherwise.
+    public static func <= (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
+        return lhs.wrappedValue <= rhs.wrappedValue
+    }
+
+    /// Returns a boolean value indicating whether the first canonicalized value follows the second.
+    ///
+    /// - Parameter lhs: The first canonicalized value to compare.
+    /// - Parameter rhs: The second canonicalized value to compare.
+    /// - Returns: `true` when the first value follows the second, and `false` otherwise.
+    public static func > (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
+        return lhs.wrappedValue > rhs.wrappedValue
+    }
+
+    /// Returns a boolean value indicating whether the first canonicalized value follows or equals the second.
+    ///
+    /// - Parameter lhs: The first canonicalized value to compare.
+    /// - Parameter rhs: The second canonicalized value to compare.
+    /// - Returns: `true` when the first value follows or equals the second, and `false` otherwise.
+    public static func >= (
+        _ lhs: Self,
+        _ rhs: Self
+    ) -> Bool {
+        return lhs.wrappedValue >= rhs.wrappedValue
+    }
+}
+
 // MARK: - Decodable
 
 extension Canonicalized: Decodable
