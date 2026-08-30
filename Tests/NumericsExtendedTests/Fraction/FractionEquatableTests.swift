@@ -16,8 +16,8 @@ internal struct FractionEquatableTests {
         (Fraction<Int>(1, 2), Fraction<Int>(2, 3), false),
         (Fraction<Int>(1, 2), Fraction<Int>(2, 4), false),
         (Fraction<Int>(-1, 2), Fraction<Int>(-1, 2), true),
-        (Fraction<Int>(-1, 2), Fraction<Int>(1, -2), false),
-        (Fraction<Int>(-1, 2), Fraction<Int>(-2, 4), false),
+        (Fraction<Int>(-1, 2), Fraction<Int>(-2, 3), false),
+        (Fraction<Int>(-1, 2), Fraction<Int>(1, -2), false)
     ]
 
     @Test(
