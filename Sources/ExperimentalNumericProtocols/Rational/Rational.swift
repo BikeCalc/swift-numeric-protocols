@@ -31,9 +31,17 @@ public protocol Rational:
     RepresentableByNaN,
     RepresentableByZero {
     /// The integer type used for the numerator and denominator.
+    ///
+    /// A signed term type permits negative rational representations, including negative zero and negative infinity.
+    /// An unsigned term type can represent only nonnegative terms, so conforming types may be unable to express results
+    /// that require a negative representation.
     associatedtype Term: BinaryInteger
 
     /// Creates a rational representation with the specified numerator and denominator.
+    ///
+    /// A zero denominator represents infinity when the numerator is nonzero and NaN when the numerator is zero. A
+    /// conforming type determines whether it preserves the supplied terms or converts them to another equivalent
+    /// representation.
     ///
     /// - Parameter numerator: The numerator.
     /// - Parameter denominator: The denominator. Zero creates a nonfinite value.
@@ -205,11 +213,12 @@ extension Rational {
             && self.denominator != 0
     }
 
+    /// The value representing zero, represented by `0/1`.
     public static var zero: Self {
         return .init(0, 1)
     }
 
-    /// Negative zero, represented by `0/-1` when the term type is signed.
+    /// The value representing negative zero, represented by `0/-1` when the term type is signed.
     ///
     /// The negative sign is stored in the denominator because an integer numerator cannot preserve a distinct negative
     /// zero. Canonicalizing this value produces `0/1`. An unsigned term type cannot preserve the sign and therefore

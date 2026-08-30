@@ -54,6 +54,10 @@ import StandardNumericTypes
 /// // Prints "-1/2"
 /// ```
 ///
+/// The term type determines which signs and magnitudes can be represented. A signed term type supports negative finite
+/// values, negative zero, and negative infinity. An unsigned term type supports only nonnegative terms; operations that
+/// require an unrepresentable negative finite result can trap, while an unrepresentable negative infinity produces NaN.
+///
 /// A zero denominator represents a nonfinite value. A nonzero numerator over zero is infinity, while `0/0` is NaN.
 /// Arithmetic propagates these values without trapping for division by zero. Finite arithmetic can still trap when an
 /// intermediate or result cannot be represented by `Term`.
@@ -686,8 +690,9 @@ where Term: LosslessStringConvertible {
     /// Creates a rational value from a whole number, slash-separated ratio, infinity, or NaN.
     ///
     /// Slash-separated finite values preserve both parsed terms. Special-value names are case-insensitive and produce
-    /// canonical nonfinite representations. Signed NaN spellings produce the single `0/0` NaN representation because
-    /// integer terms cannot preserve a NaN sign.
+    /// canonical nonfinite representations. Negative zero, negative infinity, negative NaN, and negative finite terms
+    /// require a signed `Term`; these descriptions fail when `Term` is unsigned. A negative NaN spelling produces the
+    /// single `0/0` NaN representation because integer terms cannot preserve a NaN sign.
     ///
     /// - Parameter description: A string such as `"2"`, `"1/2"`, `"inf"`, `"-infinity"`, or `"nan"`.
     public init?(_ description: String) {
@@ -849,8 +854,14 @@ where Term: Negateable {
 // MARK: - Numeric
 
 extension Fraction: Numeric {
+    /// A fraction whose terms use the unsigned magnitude of `Term`.
     public typealias Magnitude = Fraction<Term.Magnitude>
 
+    /// Creates a whole fraction from the specified binary integer when it is exactly representable by `Term`.
+    ///
+    /// A successful conversion stores the converted source as the numerator and one as the denominator.
+    ///
+    /// - Parameter source: The binary integer to convert.
     public init?<Source>(exactly source: Source)
     where Source: BinaryInteger {
         guard let value: Term = .init(exactly: source) else {
@@ -860,6 +871,10 @@ extension Fraction: Numeric {
         self.init(value)
     }
 
+    /// The magnitude of this fraction.
+    ///
+    /// The magnitude contains the unsigned magnitudes of the stored numerator and denominator. It therefore removes any
+    /// sign carried by either term without requiring that magnitude to fit back into `Term`.
     public var magnitude: Self.Magnitude {
         return .init(self.numerator.magnitude, self.denominator.magnitude)
     }
@@ -919,6 +934,7 @@ extension Fraction: Normalizable {
 // MARK: - Raisable
 
 extension Fraction: Raisable {
+    /// The integer type used to represent an exponent.
     public typealias Exponent = Int
 
     /// Returns a boolean value indicating whether this value is a power of the specified value.
@@ -1161,7 +1177,9 @@ extension Fraction: Subtractable {
     ///
     /// Fractions with the same stored denominator retain that denominator. Other finite fractions use
     /// cross-multiplication and preserve the resulting terms without automatically canonicalizing them. Subtracting
-    /// infinities with the same sign produces NaN; otherwise, an infinite operand determines the result.
+    /// infinities with the same sign produces NaN; otherwise, an infinite operand determines the result. When `Term`
+    /// is unsigned, subtracting positive infinity from a finite value also produces NaN because negative infinity
+    /// cannot be represented.
     ///
     /// Finite subtraction can trap when an intermediate or result cannot be represented by `Term`.
     ///
@@ -1177,7 +1195,8 @@ extension Fraction: Subtractable {
     ///
     /// - Parameter lhs: The value to subtract from.
     /// - Parameter rhs: The value to subtract.
-    /// - Returns: The difference, or NaN when the operation is indeterminate.
+    /// - Returns: The difference, or NaN when the operation is indeterminate or requires an unrepresentable negative
+    ///            infinity.
     public static func - (
         _ lhs: Self,
         _ rhs: Self
