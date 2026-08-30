@@ -33,10 +33,17 @@ let package = Package(
             name: "ExperimentalNumericConstants"
         ),
         .target(
+            name: "ExperimentalNumericProtocols",
+            dependencies: [
+                "CoreNumericProtocols"
+            ]
+        ),
+        .target(
             name: "ExperimentalNumericTypes",
             dependencies: [
                 "CoreNumericOperators",
                 "CoreNumericProtocols",
+                "ExperimentalNumericProtocols",
                 "StandardNumericProtocols",
                 "StandardNumericTypes"
             ]
@@ -47,6 +54,7 @@ let package = Package(
                 "CoreNumericOperators",
                 "CoreNumericProtocols",
                 "ExperimentalNumericConstants",
+                "ExperimentalNumericProtocols",
                 "ExperimentalNumericTypes",
                 "StandardNumericProtocols",
                 "StandardNumericTypes"
@@ -62,7 +70,6 @@ let package = Package(
         .target(
             name: "StandardNumericTypes",
             dependencies: [
-                "CoreNumericOperators",
                 "CoreNumericProtocols",
                 "StandardNumericProtocols"
             ]

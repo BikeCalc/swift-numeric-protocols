@@ -18,10 +18,13 @@ standard-library conformances, and experimental numeric types from one place.
 ### Start Here
 
 - <doc:Installation>
+- <doc:PackageArchitecture>
+- <doc:NumericProtocolHierarchy>
 
 ### Articles
 
 - <doc:UnderstandingFourBitIntegers>
+- <doc:UnderstandingRationalTypes>
 - <doc:UnderstandingRomanNumerals>
 
 ### Operations
@@ -48,6 +51,7 @@ standard-library conformances, and experimental numeric types from one place.
 
 ### Transformations
 
+- ``Canonicalizable``
 - ``Roundable``
 - ``Truncatable``
 
@@ -60,8 +64,18 @@ standard-library conformances, and experimental numeric types from one place.
 
 - ``ReportableAsOverflow``
 
+### Experimental Numeric Protocols
+
+- ``Rational``
+- ``SymbolicInteger``
+
 ### Experimental Numeric Types
 
+- ``Fraction``
 - ``Int4``
 - ``UInt4``
 - ``Roman``
+
+### Wrappers
+
+- ``Canonicalized``

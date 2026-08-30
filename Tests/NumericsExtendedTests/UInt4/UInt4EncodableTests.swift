@@ -15,7 +15,11 @@ import Testing
 internal struct UInt4EncodableTests {
     @Test(
         "Encode to JSON succeeds",
-        arguments: [(0, "0"), (1, "1"), (15, "15")] as Array<(UInt4, String)>
+        arguments: [
+            (0, "0"),
+            (1, "1"),
+            (15, "15")
+        ] as Array<(UInt4, String)>
     )
     internal func encodeToJSONSucceeds(
         value: UInt4,

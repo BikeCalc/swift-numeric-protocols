@@ -8,6 +8,7 @@
 
 import CoreNumericOperators
 import CoreNumericProtocols
+import ExperimentalNumericProtocols
 import StandardNumericProtocols
 import StandardNumericTypes
 
@@ -717,3 +718,7 @@ extension Roman: Subtractable {
         return .init(value: newValue)
     }
 }
+
+// MARK: - SymbolicInteger
+
+extension Roman: SymbolicInteger {}
