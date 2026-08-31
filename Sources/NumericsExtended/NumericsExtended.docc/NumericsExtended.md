@@ -29,53 +29,53 @@ standard-library conformances, and experimental numeric types from one place.
 
 ### Operations
 
-- ``Operatable``
-- ``Addable``
-- ``Subtractable``
-- ``Multipliable``
-- ``Divisible``
-- ``Negateable``
-- ``Raisable``
+- ``/CoreNumericProtocols/Operatable``
+- ``/CoreNumericProtocols/Addable``
+- ``/CoreNumericProtocols/Subtractable``
+- ``/CoreNumericProtocols/Multipliable``
+- ``/CoreNumericProtocols/Divisible``
+- ``/CoreNumericProtocols/Negateable``
+- ``/CoreNumericProtocols/Raisable``
 
 ### Relations
 
-- ``CanonicallyEquatable``
+- ``/CoreNumericProtocols/CanonicallyEquatable``
 
 ### Representations
 
-- ``RepresentableByZero``
-- ``RepresentableByMin``
-- ``RepresentableByMax``
-- ``RepresentableByInfinity``
-- ``RepresentableByNaN``
+- ``/CoreNumericProtocols/RepresentableByZero``
+- ``/CoreNumericProtocols/RepresentableByMin``
+- ``/CoreNumericProtocols/RepresentableByMax``
+- ``/CoreNumericProtocols/RepresentableByInfinity``
+- ``/CoreNumericProtocols/RepresentableByNaN``
 
 ### Transformations
 
-- ``Canonicalizable``
-- ``Roundable``
-- ``Truncatable``
+- ``/CoreNumericProtocols/Canonicalizable``
+- ``/CoreNumericProtocols/Roundable``
+- ``/CoreNumericProtocols/Truncatable``
 
 ### Adjustments
 
-- ``Increasable``
-- ``Decreasable``
+- ``/CoreNumericProtocols/Increasable``
+- ``/CoreNumericProtocols/Decreasable``
 
 ### Overflow Reporting
 
-- ``ReportableAsOverflow``
+- ``/CoreNumericProtocols/ReportableAsOverflow``
 
 ### Experimental Numeric Protocols
 
-- ``Rational``
-- ``SymbolicInteger``
+- ``/ExperimentalNumericProtocols/Rational``
+- ``/ExperimentalNumericProtocols/SymbolicInteger``
 
 ### Experimental Numeric Types
 
-- ``Fraction``
-- ``Int4``
-- ``UInt4``
-- ``Roman``
+- ``/ExperimentalNumericTypes/Fraction``
+- ``/ExperimentalNumericTypes/Int4``
+- ``/ExperimentalNumericTypes/UInt4``
+- ``/ExperimentalNumericTypes/Roman``
 
 ### Wrappers
 
-- ``Canonicalized``
+- ``/CoreNumericProtocols/Canonicalized``

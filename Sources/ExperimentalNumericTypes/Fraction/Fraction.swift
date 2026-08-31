@@ -42,8 +42,8 @@ import StandardNumericTypes
 /// // Prints "2/1"
 /// ```
 ///
-/// Use ``Canonicalized`` when storage should always use the canonical representation. Canonicalization removes common
-/// factors and stores any negative sign in the numerator.
+/// Use `Canonicalized` when storage should always use the canonical representation.
+/// Canonicalization removes common factors and stores any negative sign in the numerator.
 ///
 /// For example:
 ///
@@ -615,7 +615,7 @@ extension Fraction: Equatable {
     /// Returns a boolean value indicating whether two values have the same stored representation.
     ///
     /// Ordinary equality is representation-sensitive. For example, `1/2` and `2/4` represent the same canonical value
-    /// but are not equal because their stored terms differ. Use ``isCanonicallyEquatable(to:)`` to compare their
+    /// but are not equal because their stored terms differ. Use `isCanonicallyEquatable(to:)` to compare their
     /// canonical values instead. NaN is not equal to any value, including itself.
     ///
     /// - Parameter lhs: A value to compare.
@@ -1023,7 +1023,7 @@ extension Fraction: Raisable {
     ///
     /// A negative exponent raises the reciprocal of the base to the corresponding positive magnitude. An exponent of
     /// zero returns one, including when the base is NaN. Raising zero to a negative exponent produces signed infinity.
-    /// Other NaN and infinity results follow the extended arithmetic rules of ``Fraction``.
+    /// Other NaN and infinity results follow the extended arithmetic rules of `Fraction`.
     ///
     /// Exponentiation preserves the terms produced by rational multiplication rather than automatically canonicalizing
     /// the result. Finite exponentiation can trap when an intermediate or result cannot be represented by `Term`.
