@@ -137,7 +137,7 @@ internal enum RomanSymbol: String, RawRepresentable, CaseIterable {
     ///
     /// - Throws: A Roman symbol error if is inseparable.
     /// - Returns: An array of separated values.
-    internal func separate() throws -> [Self] {
+    internal func separate() throws -> Array<Self> {
         switch self {
         case .IV:
             return [.I, .V]
