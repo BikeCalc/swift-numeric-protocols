@@ -69,31 +69,7 @@ internal struct UInt4SubtractableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension UInt4SubtractableTests {
-    @Test(
-        "Subtracting zero preserves minuend",
-        arguments: [
-            3,
-            5
-        ] as Array<UInt4>
-    )
-    internal func subtractingZeroPreservesMinuend(minuend: UInt4) {
-        #expect(minuend - UInt4.zero == minuend)
-    }
-
-    @Test(
-        "Subtracting self returns zero",
-        arguments: [
-            3,
-            5
-        ] as Array<UInt4>
-    )
-    internal func subtractingSelfReturnsZero(value: UInt4) {
-        #expect(value - value == UInt4.zero)
-    }
-
     @Test(
         "Subtraction is not commutative",
         arguments: Self.subtractionArguments
@@ -108,5 +84,31 @@ extension UInt4SubtractableTests {
         #expect(minuend - subtrahend == difference)
         #expect(reversedDifferenceReport.partialValue != difference)
         #expect(reversedDifferenceReport.overflow == true)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension UInt4SubtractableTests {
+    @Test(
+        "Subtracting positive zero preserves minuend",
+        arguments: [
+            3,
+            5
+        ] as Array<UInt4>
+    )
+    internal func subtractingPositiveZeroPreservesMinuend(minuend: UInt4) {
+        #expect(minuend - UInt4.zero == minuend)
+    }
+
+    @Test(
+        "Subtracting self returns positive zero",
+        arguments: [
+            3,
+            5
+        ] as Array<UInt4>
+    )
+    internal func subtractingSelfReturnsPositiveZero(value: UInt4) {
+        #expect(value - value == UInt4.zero)
     }
 }

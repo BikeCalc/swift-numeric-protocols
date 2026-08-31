@@ -143,62 +143,7 @@ internal struct UInt4RaisableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension UInt4RaisableTests {
-    @Test(
-        "Raising to zero returns one",
-        arguments: [
-            0,
-            1,
-            2,
-            3
-        ] as Array<UInt4>
-    )
-    internal func raisingToZeroReturnsOne(base: UInt4) {
-        #expect(base ** UInt4.Exponent.zero == 1)
-    }
-
-    @Test(
-        "Raising to one preserves base",
-        arguments: [
-            0,
-            1,
-            2,
-            3
-        ] as Array<UInt4>
-    )
-    internal func raisingToOnePreservesBase(base: UInt4) {
-        #expect(base ** 1 == base)
-    }
-
-    @Test(
-        "One base exponentiation returns one",
-        arguments: [
-            0,
-            1,
-            2,
-            3
-        ] as Array<UInt4.Exponent>
-    )
-    internal func oneBaseExponentiationReturnsOne(exponent: UInt4.Exponent) {
-        #expect(UInt4(1) ** exponent == 1)
-    }
-
-    @Test(
-        "One base power predicate follows identity rule",
-        arguments: [
-            (1, true),
-            (2, false)
-        ] as Array<(UInt4, Bool)>
-    )
-    internal func oneBasePowerPredicateFollowsIdentityRule(
-        value: UInt4,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: 1) == result)
-    }
-
     @Test(
         "Exponentiation is not commutative",
         arguments: [
@@ -216,18 +161,75 @@ extension UInt4RaisableTests {
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Positive One
 
 extension UInt4RaisableTests {
     @Test(
-        "Zero base power predicate follows unsigned integer rules",
+        "Raising to positive one preserves base",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ] as Array<UInt4>
+    )
+    internal func raisingToPositiveOnePreservesBase(base: UInt4) {
+        #expect(base ** 1 == base)
+    }
+
+    @Test(
+        "Positive one base exponentiation returns positive one",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ] as Array<UInt4.Exponent>
+    )
+    internal func positiveOneBaseExponentiationReturnsPositiveOne(exponent: UInt4.Exponent) {
+        #expect(UInt4(1) ** exponent == 1)
+    }
+
+    @Test(
+        "Positive one base power predicate follows identity rule",
+        arguments: [
+            (1, true),
+            (2, false)
+        ] as Array<(UInt4, Bool)>
+    )
+    internal func positiveOneBasePowerPredicateFollowsIdentityRule(
+        value: UInt4,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: 1) == result)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension UInt4RaisableTests {
+    @Test(
+        "Raising to positive zero returns one",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ] as Array<UInt4>
+    )
+    internal func raisingToPositiveZeroReturnsOne(base: UInt4) {
+        #expect(base ** UInt4.Exponent.zero == 1)
+    }
+
+    @Test(
+        "Positive zero base power predicate follows unsigned integer rules",
         arguments: [
             (0, true),
             (1, true),
             (2, false)
         ] as Array<(UInt4, Bool)>
     )
-    internal func zeroBasePowerPredicateFollowsUnsignedIntegerRules(
+    internal func positiveZeroBasePowerPredicateFollowsUnsignedIntegerRules(
         value: UInt4,
         result: Bool
     ) {
@@ -235,14 +237,14 @@ extension UInt4RaisableTests {
     }
 
     @Test(
-        "Zero base exponentiation follows unsigned integer rules",
+        "Positive zero base exponentiation follows unsigned integer rules",
         arguments: [
             (0, 0, 1),
             (0, 1, 0),
             (0, 2, 0)
         ] as Array<(UInt4, UInt4.Exponent, UInt4)>
     )
-    internal func zeroBaseExponentiationFollowsUnsignedIntegerRules(
+    internal func positiveZeroBaseExponentiationFollowsUnsignedIntegerRules(
         base: UInt4,
         exponent: UInt4.Exponent,
         power: UInt4

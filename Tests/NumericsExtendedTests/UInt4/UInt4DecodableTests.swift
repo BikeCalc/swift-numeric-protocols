@@ -16,7 +16,6 @@ internal struct UInt4DecodableTests {
     @Test(
         "Decode from JSON succeeds",
         arguments: [
-            ("0", 0),
             ("1", 1),
             ("15", 15)
         ] as Array<(String, UInt4)>
@@ -52,6 +51,21 @@ internal struct UInt4DecodableTests {
                 from: data
             )
         }
+    }
+}
+
+// MARK: - Positive Zero
+
+extension UInt4DecodableTests {
+    @Test("Positive zero decodes from JSON")
+    internal func positiveZeroDecodesFromJSON() throws {
+        let data: Data = try #require("0".data(using: .utf8))
+        let result: UInt4 = try JSONDecoder().decode(
+            UInt4.self,
+            from: data
+        )
+
+        #expect(result == .zero)
     }
 }
 #endif

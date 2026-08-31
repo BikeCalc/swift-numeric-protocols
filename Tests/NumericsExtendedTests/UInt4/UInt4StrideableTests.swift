@@ -46,28 +46,28 @@ internal struct UInt4StrideableTests {
     }
 }
 
-// MARK: - Stride Rules
+// MARK: - Positive Zero
 
 extension UInt4StrideableTests {
     @Test(
-        "Advancing by zero preserves value",
+        "Advancing by positive zero preserves value",
         arguments: [
             1,
             2
         ] as Array<UInt4>
     )
-    internal func advancingByZeroPreservesValue(value: UInt4) {
+    internal func advancingByPositiveZeroPreservesValue(value: UInt4) {
         #expect(value.advanced(by: Int.zero) == value)
     }
 
     @Test(
-        "Distance to self returns zero",
+        "Distance to self returns positive zero",
         arguments: [
             1,
             2
         ] as Array<UInt4>
     )
-    internal func distanceToSelfReturnsZero(value: UInt4) {
+    internal func distanceToSelfReturnsPositiveZero(value: UInt4) {
         #expect(value.distance(to: value) == Int.zero)
     }
 }

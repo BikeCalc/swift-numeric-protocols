@@ -190,47 +190,7 @@ internal struct UInt4DivisibleTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension UInt4DivisibleTests {
-    @Test("Zero is not invertible")
-    internal func zeroIsNotInvertible() {
-        #expect(UInt4.zero.isInvertible == false)
-    }
-
-    @Test(
-        "Dividing zero by nonzero value returns zero",
-        arguments: [
-            2,
-            3
-        ] as Array<UInt4>
-    )
-    internal func dividingZeroByNonzeroValueReturnsZero(divisor: UInt4) {
-        #expect(UInt4.zero / divisor == UInt4.zero)
-    }
-
-    @Test(
-        "Dividing by one preserves dividend",
-        arguments: [
-            6,
-            4
-        ] as Array<UInt4>
-    )
-    internal func dividingByOnePreservesDividend(dividend: UInt4) {
-        #expect(dividend / 1 == dividend)
-    }
-
-    @Test(
-        "Remainder by self returns zero",
-        arguments: [
-            6,
-            4
-        ] as Array<UInt4>
-    )
-    internal func remainderBySelfReturnsZero(value: UInt4) {
-        #expect(value % value == UInt4.zero)
-    }
-
     @Test(
         "Division is not commutative",
         arguments: Self.divisionArguments
@@ -241,24 +201,6 @@ extension UInt4DivisibleTests {
         quotient _: UInt4
     ) {
         #expect(dividend / divisor != divisor / dividend)
-    }
-}
-
-// MARK: - Integer Rules
-
-extension UInt4DivisibleTests {
-    @Test(
-        "Only one is invertible",
-        arguments: [
-            (1, true),
-            (2, false)
-        ] as Array<(UInt4, Bool)>
-    )
-    internal func onlyOneIsInvertible(
-        dividend: UInt4,
-        result: Bool
-    ) {
-        #expect(dividend.isInvertible == result)
     }
 
     @Test(
@@ -275,15 +217,75 @@ extension UInt4DivisibleTests {
     ) {
         #expect(dividend.halved() == quotient)
     }
+}
 
+// MARK: - Positive One
+
+extension UInt4DivisibleTests {
     @Test(
-        "Remainder by one returns zero",
+        "Dividing by positive one preserves dividend",
         arguments: [
             6,
             4
         ] as Array<UInt4>
     )
-    internal func remainderByOneReturnsZero(dividend: UInt4) {
+    internal func dividingByPositiveOnePreservesDividend(dividend: UInt4) {
+        #expect(dividend / 1 == dividend)
+    }
+
+    @Test(
+        "Positive one invertibility follows unsigned integer rules",
+        arguments: [
+            (1, true),
+            (2, false)
+        ] as Array<(UInt4, Bool)>
+    )
+    internal func positiveOneInvertibilityFollowsUnsignedIntegerRules(
+        dividend: UInt4,
+        result: Bool
+    ) {
+        #expect(dividend.isInvertible == result)
+    }
+
+    @Test(
+        "Remainder by positive one returns positive zero",
+        arguments: [
+            6,
+            4
+        ] as Array<UInt4>
+    )
+    internal func remainderByPositiveOneReturnsPositiveZero(dividend: UInt4) {
         #expect(dividend % 1 == UInt4.zero)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension UInt4DivisibleTests {
+    @Test("Positive zero is not invertible")
+    internal func positiveZeroIsNotInvertible() {
+        #expect(UInt4.zero.isInvertible == false)
+    }
+
+    @Test(
+        "Dividing positive zero by nonzero value returns positive zero",
+        arguments: [
+            2,
+            3
+        ] as Array<UInt4>
+    )
+    internal func dividingPositiveZeroByNonzeroValueReturnsPositiveZero(divisor: UInt4) {
+        #expect(UInt4.zero / divisor == UInt4.zero)
+    }
+
+    @Test(
+        "Remainder by self returns positive zero",
+        arguments: [
+            6,
+            4
+        ] as Array<UInt4>
+    )
+    internal func remainderBySelfReturnsPositiveZero(value: UInt4) {
+        #expect(value % value == UInt4.zero)
     }
 }

@@ -21,7 +21,11 @@ internal struct UInt4RepresentableByZeroTests {
     internal func nonzeroValuesAreNotZero(value: UInt4) {
         #expect(value.isZero == false)
     }
+}
 
+// MARK: - Positive Zero
+
+extension UInt4RepresentableByZeroTests {
     @Test("Positive zero is zero")
     internal func positiveZeroIsZero() {
         #expect(UInt4.zero.isZero == true)

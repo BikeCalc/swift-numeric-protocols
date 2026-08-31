@@ -65,17 +65,17 @@ internal struct UInt4EquatableTests {
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Positive Zero
 
 extension UInt4EquatableTests {
     @Test(
-        "Zero equality follows integer rules",
+        "Positive zero equality follows integer rules",
         arguments: [
             (0, 0, true),
             (0, 1, false)
         ] as Array<(UInt4, UInt4, Bool)>
     )
-    internal func zeroEqualityFollowsIntegerRules(
+    internal func positiveZeroEqualityFollowsIntegerRules(
         lhs: UInt4,
         rhs: UInt4,
         result: Bool

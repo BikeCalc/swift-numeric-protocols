@@ -14,7 +14,6 @@ internal struct UInt4LosslessStringConvertibleTests {
     @Test(
         "String initialization succeeds",
         arguments: [
-            ("0", 0),
             ("1", 1),
             ("15", 15)
         ] as Array<(String, UInt4)>
@@ -38,5 +37,14 @@ internal struct UInt4LosslessStringConvertibleTests {
     )
     internal func stringInitializationFails(description: String) {
         #expect(UInt4(description) == nil)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension UInt4LosslessStringConvertibleTests {
+    @Test("Positive zero string initialization succeeds")
+    internal func positiveZeroStringInitializationSucceeds() {
+        #expect(UInt4("0") == .zero)
     }
 }

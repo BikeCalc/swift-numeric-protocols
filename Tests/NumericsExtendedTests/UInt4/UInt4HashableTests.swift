@@ -30,11 +30,11 @@ internal struct UInt4HashableTests {
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Positive Zero
 
 extension UInt4HashableTests {
-    @Test("Equal zero values produce equal hashes")
-    internal func equalZeroValuesProduceEqualHashes() {
+    @Test("Equal positive zero values produce equal hashes")
+    internal func equalPositiveZeroValuesProduceEqualHashes() {
         #expect(UInt4.zero.hashValue == UInt4.zero.hashValue)
         #expect(Set([UInt4.zero, UInt4.zero]).count == 1)
     }

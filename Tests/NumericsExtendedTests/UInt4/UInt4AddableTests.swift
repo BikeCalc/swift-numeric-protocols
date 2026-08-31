@@ -69,20 +69,7 @@ internal struct UInt4AddableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension UInt4AddableTests {
-    @Test(
-        "Adding zero preserves augend",
-        arguments: [
-            2,
-            3
-        ] as Array<UInt4>
-    )
-    internal func addingZeroPreservesAugend(augend: UInt4) {
-        #expect(augend + UInt4.zero == augend)
-    }
-
     @Test(
         "Addition is commutative",
         arguments: Self.additionArguments
@@ -93,5 +80,20 @@ extension UInt4AddableTests {
         sum _: UInt4
     ) {
         #expect(augend + addend == addend + augend)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension UInt4AddableTests {
+    @Test(
+        "Adding positive zero preserves augend",
+        arguments: [
+            2,
+            3
+        ] as Array<UInt4>
+    )
+    internal func addingPositiveZeroPreservesAugend(augend: UInt4) {
+        #expect(augend + UInt4.zero == augend)
     }
 }
