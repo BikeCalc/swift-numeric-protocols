@@ -26,38 +26,38 @@ jobs:
           BEFORE_SHA: ${{ github.event.before }}
           EVENT_NAME: ${{ github.event_name }}
         run: |
-          target_sha=""
+          baseline_sha=""
 
           if [ "$EVENT_NAME" = "pull_request" ]; then
-            target_sha="$BASE_SHA"
+            baseline_sha="$BASE_SHA"
           elif [ "$EVENT_NAME" = "push" ] && ! printf '%s' "$BEFORE_SHA" | grep -q '^0*$'; then
-            target_sha="$BEFORE_SHA"
+            baseline_sha="$BEFORE_SHA"
           fi
 
-          echo "target_sha=$target_sha" >> "$GITHUB_OUTPUT"
-      - name: Run Target Benchmarks
-        id: target
-        if: steps.comparison.outputs.target_sha != ''
+          echo "baseline_sha=$baseline_sha" >> "$GITHUB_OUTPUT"
+      - name: Run Baseline Benchmarks
+        id: baseline
+        if: steps.comparison.outputs.baseline_sha != ''
         env:
-          TARGET_SHA: ${{ steps.comparison.outputs.target_sha }}
+          BASELINE_SHA: ${{ steps.comparison.outputs.baseline_sha }}
         run: |
-          target_directory="$RUNNER_TEMP/numerics-extended-target"
-          git worktree add --detach "$target_directory" "$TARGET_SHA"
+          baseline_directory="$RUNNER_TEMP/numerics-extended-baseline"
+          git worktree add --detach "$baseline_directory" "$BASELINE_SHA"
 
-          if ! grep -q 'name: "NumericsExtendedBenchmarks"' "$target_directory/Package.swift"; then
+          if ! grep -q 'name: "NumericsExtendedBenchmarks"' "$baseline_directory/Package.swift"; then
             echo "available=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          rm -rf "$target_directory/Benchmarks/NumericsExtendedBenchmarks"
-          mkdir -p "$target_directory/Benchmarks"
-          cp -R Benchmarks/NumericsExtendedBenchmarks "$target_directory/Benchmarks/NumericsExtendedBenchmarks"
+          rm -rf "$baseline_directory/Benchmarks/NumericsExtendedBenchmarks"
+          mkdir -p "$baseline_directory/Benchmarks"
+          cp -R Benchmarks/NumericsExtendedBenchmarks "$baseline_directory/Benchmarks/NumericsExtendedBenchmarks"
 
           swift run \
-            --package-path "$target_directory" \
+            --package-path "$baseline_directory" \
             --configuration release \
             NumericsExtendedBenchmarks \
-            --output "$RUNNER_TEMP/benchmark-target.json"
+            --output "$RUNNER_TEMP/benchmark-baseline.json"
           echo "available=true" >> "$GITHUB_OUTPUT"
       - name: Run Current Benchmarks
         run: |
@@ -67,15 +67,15 @@ jobs:
             --output "$RUNNER_TEMP/benchmark-current.json"
       - name: Summarize Performance
         env:
-          TARGET_AVAILABLE: ${{ steps.target.outputs.available }}
+          BASELINE_AVAILABLE: ${{ steps.baseline.outputs.available }}
         run: |
           comparison_arguments=(
             --current "$RUNNER_TEMP/benchmark-current.json"
           )
 
-          if [ "$TARGET_AVAILABLE" = "true" ]; then
+          if [ "$BASELINE_AVAILABLE" = "true" ]; then
             comparison_arguments+=(
-              --target "$RUNNER_TEMP/benchmark-target.json"
+              --baseline "$RUNNER_TEMP/benchmark-baseline.json"
             )
           fi
 

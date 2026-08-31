@@ -33,12 +33,12 @@ assigned back to `wrappedValue`. Initial operand construction is not included in
 ## Continuous Integration
 
 The `Benchmark` workflow runs the `NumericsExtendedBenchmarks` executable for the current revision and, when available,
-a comparison revision on the same GitHub Actions runner. Pull requests compare against their target branch, while
-pushes compare against the preceding revision. Manual runs report only the selected revision.
+a baseline revision on the same GitHub Actions runner. Pull requests use their base branch as the baseline, while pushes
+use the preceding revision. Manual runs report only the selected revision.
 
-If the comparison revision predates the executable target, the workflow reports only the current measurements. Once the
-target exists on the comparison branch, both revisions use the current benchmark definitions so that their measurements
-remain comparable.
+If the baseline revision predates the executable target, the workflow reports only the current measurements. Once the
+executable target exists in the baseline, both revisions use the current benchmark definitions so that their
+measurements remain comparable.
 
 The workflow is informational: performance differences do not fail the job. Build failures, execution failures, and
 invalid reports do fail it.
@@ -49,5 +49,5 @@ it locally with:
 ```shell
 swift Scripts/CompareBenchmarkResults.swift \
     --current current-results.json \
-    --target target-results.json
+    --baseline baseline-results.json
 ```

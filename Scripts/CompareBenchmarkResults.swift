@@ -20,12 +20,12 @@ extension ComparisonError: CustomStringConvertible {
         switch self {
         case .duplicateBenchmark(let name, let url):
             return "Duplicate benchmark '\(name)' in \(url.path)"
-        case .incompatibleConfiguration(let currentURL, let targetURL):
-            return "Benchmark configurations differ between \(currentURL.path) and \(targetURL.path)"
+        case .incompatibleConfiguration(let currentURL, let baselineURL):
+            return "Benchmark configurations differ between \(currentURL.path) and \(baselineURL.path)"
         case .incompatibleFormat(let url):
             return "Unsupported benchmark report format in \(url.path)"
         case .invalidArguments:
-            return "Usage: CompareBenchmarkResults.swift --current <path> [--target <path>]"
+            return "Usage: CompareBenchmarkResults.swift --current <path> [--baseline <path>]"
         }
     }
 }
@@ -34,11 +34,11 @@ extension ComparisonError: Error {}
 
 fileprivate struct Arguments {
     fileprivate let currentURL: URL
-    fileprivate let targetURL: URL?
+    fileprivate let baselineURL: URL?
 
     fileprivate init(_ arguments: Array<String>) throws {
         var currentURL: URL?
-        var targetURL: URL?
+        var baselineURL: URL?
         var index: Int = 0
 
         while index < arguments.count {
@@ -51,8 +51,8 @@ fileprivate struct Arguments {
             switch arguments[index] {
             case "--current" where currentURL == nil:
                 currentURL = url
-            case "--target" where targetURL == nil:
-                targetURL = url
+            case "--baseline" where baselineURL == nil:
+                baselineURL = url
             default:
                 throw ComparisonError.invalidArguments
             }
@@ -65,7 +65,7 @@ fileprivate struct Arguments {
         }
 
         self.currentURL = currentURL
-        self.targetURL = targetURL
+        self.baselineURL = baselineURL
     }
 }
 
@@ -107,12 +107,12 @@ extension BenchmarkResult: Decodable {}
 
 fileprivate struct BenchmarkComparator {
     private let current: Dictionary<String, Double>
-    private let target: Dictionary<String, Double>?
+    private let baseline: Dictionary<String, Double>?
     private let measuredSamples: Int
 
     fileprivate init(
         currentURL: URL,
-        targetURL: URL?
+        baselineURL: URL?
     ) throws {
         let currentReport: BenchmarkReport = try Self.report(at: currentURL)
 
@@ -122,21 +122,21 @@ fileprivate struct BenchmarkComparator {
         )
         self.measuredSamples = currentReport.measuredSamples
 
-        if let targetURL {
-            let targetReport: BenchmarkReport = try Self.report(at: targetURL)
+        if let baselineURL {
+            let baselineReport: BenchmarkReport = try Self.report(at: baselineURL)
 
-            guard currentReport.iterationsPerSample == targetReport.iterationsPerSample
-                && currentReport.measuredSamples == targetReport.measuredSamples
+            guard currentReport.iterationsPerSample == baselineReport.iterationsPerSample
+                && currentReport.measuredSamples == baselineReport.measuredSamples
             else {
-                throw ComparisonError.incompatibleConfiguration(currentURL, targetURL)
+                throw ComparisonError.incompatibleConfiguration(currentURL, baselineURL)
             }
 
-            self.target = try Self.results(
-                in: targetReport,
-                at: targetURL
+            self.baseline = try Self.results(
+                in: baselineReport,
+                at: baselineURL
             )
         } else {
-            self.target = nil
+            self.baseline = nil
         }
     }
 
@@ -149,8 +149,8 @@ fileprivate struct BenchmarkComparator {
         )
         Swift.print()
 
-        guard let target else {
-            Swift.print("No comparable target measurement is available, so only the current revision is shown.")
+        guard let baseline else {
+            Swift.print("No comparable baseline measurement is available, so only the current revision is shown.")
             Swift.print()
             Swift.print("| Benchmark | Current |")
             Swift.print("|---|---:|")
@@ -168,30 +168,30 @@ fileprivate struct BenchmarkComparator {
 
         Swift.print("Positive changes are slower; negative changes are faster.")
         Swift.print()
-        Swift.print("| Benchmark | Target | Current | Change |")
+        Swift.print("| Benchmark | Baseline | Current | Change |")
         Swift.print("|---|---:|---:|---:|")
 
-        for name in Set(self.current.keys).union(target.keys).sorted() {
+        for name in Set(self.current.keys).union(baseline.keys).sorted() {
             let currentValue: Double? = self.current[name]
-            let targetValue: Double? = target[name]
+            let baselineValue: Double? = baseline[name]
 
-            switch (targetValue, currentValue) {
-            case (.some(let targetValue), nil):
-                Swift.print("| `\(name)` | \(String(format: "%.2f ns", targetValue)) | — | Removed |")
+            switch (baselineValue, currentValue) {
+            case (.some(let baselineValue), nil):
+                Swift.print("| `\(name)` | \(String(format: "%.2f ns", baselineValue)) | — | Removed |")
             case (nil, .some(let currentValue)):
                 Swift.print("| `\(name)` | — | \(String(format: "%.2f ns", currentValue)) | Added |")
-            case (.some(let targetValue), .some(let currentValue)):
+            case (.some(let baselineValue), .some(let currentValue)):
                 let difference: String
 
-                if targetValue == 0 {
+                if baselineValue == 0 {
                     difference = "—"
                 } else {
-                    let percentage: Double = (currentValue - targetValue) / targetValue * 100
+                    let percentage: Double = (currentValue - baselineValue) / baselineValue * 100
                     difference = String(format: "%+.2f%%", percentage)
                 }
 
                 Swift.print(
-                    "| `\(name)` | \(String(format: "%.2f ns", targetValue)) | "
+                    "| `\(name)` | \(String(format: "%.2f ns", baselineValue)) | "
                         + "\(String(format: "%.2f ns", currentValue)) | \(difference) |"
                 )
             case (nil, nil):
@@ -235,7 +235,7 @@ do {
     let arguments: Arguments = try .init(Array(CommandLine.arguments.dropFirst()))
     let comparator: BenchmarkComparator = try .init(
         currentURL: arguments.currentURL,
-        targetURL: arguments.targetURL
+        baselineURL: arguments.baselineURL
     )
 
     comparator.print()
