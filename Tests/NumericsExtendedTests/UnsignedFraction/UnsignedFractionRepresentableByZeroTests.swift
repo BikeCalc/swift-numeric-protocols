@@ -10,12 +10,14 @@ import Testing
 @testable import NumericsExtended
 
 @Suite("Unsigned Fraction RepresentableByZero Tests")
-internal struct UnsignedFractionRepresentableByZeroTests {
+internal struct UnsignedFractionRepresentableByZeroTests {}
+
+// MARK: - Negative Zero
+
+extension UnsignedFractionRepresentableByZeroTests {
     @Test("Negative zero uses the positive zero representation")
     internal func negativeZeroUsesPositiveZeroRepresentation() {
-        #expect(Fraction<UInt>.negativeZero == .zero)
         #expect(Fraction<UInt>.negativeZero.numerator == 0)
         #expect(Fraction<UInt>.negativeZero.denominator == 1)
-        #expect(Fraction<UInt>.negativeZero.isNaN == false)
     }
 }

@@ -10,7 +10,11 @@ import Testing
 @testable import NumericsExtended
 
 @Suite("Unsigned Fraction Subtractable Tests")
-internal struct UnsignedFractionSubtractableTests {
+internal struct UnsignedFractionSubtractableTests {}
+
+// MARK: - NaN
+
+extension UnsignedFractionSubtractableTests {
     @Test(
         "Subtracting positive infinity returns NaN when negative infinity is unrepresentable",
         arguments: [

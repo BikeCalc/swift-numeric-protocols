@@ -22,18 +22,11 @@ internal struct UnsignedFractionLosslessStringConvertibleTests {
     internal func negativeFiniteStringInitializationFails(description: String) {
         #expect(Fraction<UInt>(description) == nil)
     }
+}
 
-    @Test(
-        "Negative zero string initialization fails",
-        arguments: [
-            "-0",
-            "0/-1"
-        ]
-    )
-    internal func negativeZeroStringInitializationFails(description: String) {
-        #expect(Fraction<UInt>(description) == nil)
-    }
+// MARK: - Negative Infinity
 
+extension UnsignedFractionLosslessStringConvertibleTests {
     @Test(
         "Negative infinity string initialization fails",
         arguments: [
@@ -44,9 +37,28 @@ internal struct UnsignedFractionLosslessStringConvertibleTests {
     internal func negativeInfinityStringInitializationFails(description: String) {
         #expect(Fraction<UInt>(description) == nil)
     }
+}
 
+// MARK: - Negative NaN
+
+extension UnsignedFractionLosslessStringConvertibleTests {
     @Test("Negative NaN string initialization fails")
     internal func negativeNanStringInitializationFails() {
         #expect(Fraction<UInt>("-nan") == nil)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension UnsignedFractionLosslessStringConvertibleTests {
+    @Test(
+        "Negative zero string initialization fails",
+        arguments: [
+            "-0",
+            "0/-1"
+        ]
+    )
+    internal func negativeZeroStringInitializationFails(description: String) {
+        #expect(Fraction<UInt>(description) == nil)
     }
 }
