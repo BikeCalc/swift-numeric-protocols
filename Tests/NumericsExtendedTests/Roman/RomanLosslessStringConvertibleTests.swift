@@ -14,8 +14,6 @@ internal struct RomanLosslessStringConvertibleTests {
     @Test(
         "Decimal String initialization succeeds",
         arguments: [
-            ("0", 0),
-            ("00", 0),
             ("01", 1),
             ("1", 1),
             ("3999", 3_999)
@@ -31,7 +29,6 @@ internal struct RomanLosslessStringConvertibleTests {
     @Test(
         "String initialization succeeds",
         arguments: [
-            ("N", 0),
             ("I", 1),
             ("III", 3),
             ("IV", 4),
@@ -86,5 +83,25 @@ internal struct RomanLosslessStringConvertibleTests {
     )
     internal func stringInitializationFails(description: String) {
         #expect(Roman(description) == nil)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension RomanLosslessStringConvertibleTests {
+    @Test(
+        "Positive zero decimal string initialization succeeds",
+        arguments: [
+            "0",
+            "00"
+        ]
+    )
+    internal func positiveZeroDecimalStringInitializationSucceeds(description: String) {
+        #expect(Roman(description) == .zero)
+    }
+
+    @Test("Positive zero Roman numeral string initialization succeeds")
+    internal func positiveZeroRomanNumeralStringInitializationSucceeds() {
+        #expect(Roman("N") == .zero)
     }
 }

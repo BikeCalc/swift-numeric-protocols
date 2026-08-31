@@ -190,47 +190,7 @@ internal struct RomanDivisibleTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension RomanDivisibleTests {
-    @Test("Zero is not invertible")
-    internal func zeroIsNotInvertible() {
-        #expect(Roman.zero.isInvertible == false)
-    }
-
-    @Test(
-        "Dividing zero by nonzero value returns zero",
-        arguments: [
-            2,
-            3
-        ] as Array<Roman>
-    )
-    internal func dividingZeroByNonzeroValueReturnsZero(divisor: Roman) {
-        #expect(Roman.zero / divisor == Roman.zero)
-    }
-
-    @Test(
-        "Dividing by one preserves dividend",
-        arguments: [
-            6,
-            4
-        ] as Array<Roman>
-    )
-    internal func dividingByOnePreservesDividend(dividend: Roman) {
-        #expect(dividend / 1 == dividend)
-    }
-
-    @Test(
-        "Remainder by self returns zero",
-        arguments: [
-            6,
-            4
-        ] as Array<Roman>
-    )
-    internal func remainderBySelfReturnsZero(value: Roman) {
-        #expect(value % value == Roman.zero)
-    }
-
     @Test(
         "Division is not commutative",
         arguments: Self.divisionArguments
@@ -241,24 +201,6 @@ extension RomanDivisibleTests {
         quotient _: Roman
     ) {
         #expect(dividend / divisor != divisor / dividend)
-    }
-}
-
-// MARK: - Integer Rules
-
-extension RomanDivisibleTests {
-    @Test(
-        "Only one is invertible",
-        arguments: [
-            (1, true),
-            (2, false)
-        ] as Array<(Roman, Bool)>
-    )
-    internal func onlyOneIsInvertible(
-        dividend: Roman,
-        result: Bool
-    ) {
-        #expect(dividend.isInvertible == result)
     }
 
     @Test(
@@ -275,15 +217,75 @@ extension RomanDivisibleTests {
     ) {
         #expect(dividend.halved() == quotient)
     }
+}
 
+// MARK: - Positive One
+
+extension RomanDivisibleTests {
     @Test(
-        "Remainder by one returns zero",
+        "Dividing by positive one preserves dividend",
         arguments: [
             6,
             4
         ] as Array<Roman>
     )
-    internal func remainderByOneReturnsZero(dividend: Roman) {
+    internal func dividingByPositiveOnePreservesDividend(dividend: Roman) {
+        #expect(dividend / 1 == dividend)
+    }
+
+    @Test(
+        "Positive one invertibility follows unsigned integer rules",
+        arguments: [
+            (1, true),
+            (2, false)
+        ] as Array<(Roman, Bool)>
+    )
+    internal func positiveOneInvertibilityFollowsUnsignedIntegerRules(
+        dividend: Roman,
+        result: Bool
+    ) {
+        #expect(dividend.isInvertible == result)
+    }
+
+    @Test(
+        "Remainder by positive one returns positive zero",
+        arguments: [
+            6,
+            4
+        ] as Array<Roman>
+    )
+    internal func remainderByPositiveOneReturnsPositiveZero(dividend: Roman) {
         #expect(dividend % 1 == Roman.zero)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension RomanDivisibleTests {
+    @Test("Positive zero is not invertible")
+    internal func positiveZeroIsNotInvertible() {
+        #expect(Roman.zero.isInvertible == false)
+    }
+
+    @Test(
+        "Dividing positive zero by nonzero value returns positive zero",
+        arguments: [
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func dividingPositiveZeroByNonzeroValueReturnsPositiveZero(divisor: Roman) {
+        #expect(Roman.zero / divisor == Roman.zero)
+    }
+
+    @Test(
+        "Remainder by self returns positive zero",
+        arguments: [
+            6,
+            4
+        ] as Array<Roman>
+    )
+    internal func remainderBySelfReturnsPositiveZero(value: Roman) {
+        #expect(value % value == Roman.zero)
     }
 }

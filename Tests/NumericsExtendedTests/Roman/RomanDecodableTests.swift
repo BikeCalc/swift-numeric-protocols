@@ -16,7 +16,6 @@ internal struct RomanDecodableTests {
     @Test(
         "Decode from JSON string succeeds",
         arguments: [
-            ("\"N\"", 0),
             ("\"I\"", 1),
             ("\"IV\"", 4),
             ("\"XVI\"", 16),
@@ -39,7 +38,6 @@ internal struct RomanDecodableTests {
     @Test(
         "Decode from JSON integer succeeds",
         arguments: [
-            ("0", 0),
             ("1", 1),
             ("4", 4),
             ("16", 16),
@@ -82,6 +80,32 @@ internal struct RomanDecodableTests {
                 from: data
             )
         }
+    }
+}
+
+// MARK: - Positive Zero
+
+extension RomanDecodableTests {
+    @Test("Positive zero decodes from JSON string")
+    internal func positiveZeroDecodesFromJSONString() throws {
+        let data: Data = try #require("\"N\"".data(using: .utf8))
+        let result: Roman = try JSONDecoder().decode(
+            Roman.self,
+            from: data
+        )
+
+        #expect(result == .zero)
+    }
+
+    @Test("Positive zero decodes from JSON integer")
+    internal func positiveZeroDecodesFromJSONInteger() throws {
+        let data: Data = try #require("0".data(using: .utf8))
+        let result: Roman = try JSONDecoder().decode(
+            Roman.self,
+            from: data
+        )
+
+        #expect(result == .zero)
     }
 }
 #endif

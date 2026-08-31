@@ -16,7 +16,6 @@ internal struct RomanEncodableTests {
     @Test(
         "Encode to JSON succeeds",
         arguments: [
-            (0, "\"N\""),
             (1, "\"I\""),
             (4, "\"IV\""),
             (16, "\"XVI\""),
@@ -29,6 +28,18 @@ internal struct RomanEncodableTests {
     ) throws {
         let result: Data = try JSONEncoder().encode(value)
         let expected: Data = try #require(json.data(using: .utf8))
+
+        #expect(result == expected)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension RomanEncodableTests {
+    @Test("Positive zero encodes to JSON")
+    internal func positiveZeroEncodesToJSON() throws {
+        let result: Data = try JSONEncoder().encode(Roman.zero)
+        let expected: Data = try #require("\"N\"".data(using: .utf8))
 
         #expect(result == expected)
     }

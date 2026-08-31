@@ -69,31 +69,7 @@ internal struct RomanSubtractableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension RomanSubtractableTests {
-    @Test(
-        "Subtracting zero preserves minuend",
-        arguments: [
-            3,
-            5
-        ] as Array<Roman>
-    )
-    internal func subtractingZeroPreservesMinuend(minuend: Roman) {
-        #expect(minuend - Roman.zero == minuend)
-    }
-
-    @Test(
-        "Subtracting self returns zero",
-        arguments: [
-            3,
-            5
-        ] as Array<Roman>
-    )
-    internal func subtractingSelfReturnsZero(value: Roman) {
-        #expect(value - value == Roman.zero)
-    }
-
     @Test(
         "Subtraction is not commutative",
         arguments: Self.subtractionArguments
@@ -108,5 +84,31 @@ extension RomanSubtractableTests {
         #expect(minuend - subtrahend == difference)
         #expect(reversedDifferenceReport.partialValue != difference)
         #expect(reversedDifferenceReport.overflow == true)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension RomanSubtractableTests {
+    @Test(
+        "Subtracting positive zero preserves minuend",
+        arguments: [
+            3,
+            5
+        ] as Array<Roman>
+    )
+    internal func subtractingPositiveZeroPreservesMinuend(minuend: Roman) {
+        #expect(minuend - Roman.zero == minuend)
+    }
+
+    @Test(
+        "Subtracting self returns positive zero",
+        arguments: [
+            3,
+            5
+        ] as Array<Roman>
+    )
+    internal func subtractingSelfReturnsPositiveZero(value: Roman) {
+        #expect(value - value == Roman.zero)
     }
 }

@@ -69,20 +69,7 @@ internal struct RomanAddableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension RomanAddableTests {
-    @Test(
-        "Adding zero preserves augend",
-        arguments: [
-            2,
-            3
-        ] as Array<Roman>
-    )
-    internal func addingZeroPreservesAugend(augend: Roman) {
-        #expect(augend + Roman.zero == augend)
-    }
-
     @Test(
         "Addition is commutative",
         arguments: Self.additionArguments
@@ -93,5 +80,20 @@ extension RomanAddableTests {
         sum _: Roman
     ) {
         #expect(augend + addend == addend + augend)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension RomanAddableTests {
+    @Test(
+        "Adding positive zero preserves augend",
+        arguments: [
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func addingPositiveZeroPreservesAugend(augend: Roman) {
+        #expect(augend + Roman.zero == augend)
     }
 }

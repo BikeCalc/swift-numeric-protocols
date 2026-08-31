@@ -28,11 +28,11 @@ internal struct RomanHashableTests {
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Positive Zero
 
 extension RomanHashableTests {
-    @Test("Equal zero values produce equal hashes")
-    internal func equalZeroValuesProduceEqualHashes() {
+    @Test("Equal positive zero values produce equal hashes")
+    internal func equalPositiveZeroValuesProduceEqualHashes() {
         #expect(Roman.zero.hashValue == Roman.zero.hashValue)
         #expect(Set([Roman.zero, Roman.zero]).count == 1)
     }

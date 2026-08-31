@@ -113,47 +113,7 @@ internal struct RomanMultipliableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension RomanMultipliableTests {
-    @Test("Zero is multiple of zero")
-    internal func zeroIsMultipleOfZero() {
-        #expect(Roman.zero.isMultiple(of: Roman.zero) == true)
-    }
-
-    @Test(
-        "Is multiple of zero returns false",
-        arguments: [
-            2,
-            3
-        ] as Array<Roman>
-    )
-    internal func isMultipleOfZeroReturnsFalse(multiplicand: Roman) {
-        #expect(multiplicand.isMultiple(of: Roman.zero) == false)
-    }
-
-    @Test(
-        "Multiplying by zero returns zero",
-        arguments: [
-            2,
-            3
-        ] as Array<Roman>
-    )
-    internal func multiplyingByZeroReturnsZero(multiplicand: Roman) {
-        #expect(multiplicand * Roman.zero == Roman.zero)
-    }
-
-    @Test(
-        "Multiplying by one preserves multiplicand",
-        arguments: [
-            2,
-            3
-        ] as Array<Roman>
-    )
-    internal func multiplyingByOnePreservesMultiplicand(multiplicand: Roman) {
-        #expect(multiplicand * 1 == multiplicand)
-    }
-
     @Test(
         "Multiplication is commutative",
         arguments: Self.multiplicationArguments
@@ -167,17 +127,59 @@ extension RomanMultipliableTests {
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Positive One
 
 extension RomanMultipliableTests {
     @Test(
-        "Is multiple of one returns true",
+        "Multiplying by positive one preserves multiplicand",
         arguments: [
             2,
             3
         ] as Array<Roman>
     )
-    internal func isMultipleOfOneReturnsTrue(multiplicand: Roman) {
+    internal func multiplyingByPositiveOnePreservesMultiplicand(multiplicand: Roman) {
+        #expect(multiplicand * 1 == multiplicand)
+    }
+
+    @Test(
+        "Is multiple of positive one returns true",
+        arguments: [
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func isMultipleOfPositiveOneReturnsTrue(multiplicand: Roman) {
         #expect(multiplicand.isMultiple(of: 1) == true)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension RomanMultipliableTests {
+    @Test("Positive zero is multiple of positive zero")
+    internal func positiveZeroIsMultipleOfPositiveZero() {
+        #expect(Roman.zero.isMultiple(of: Roman.zero) == true)
+    }
+
+    @Test(
+        "Is multiple of positive zero returns false",
+        arguments: [
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func isMultipleOfPositiveZeroReturnsFalse(multiplicand: Roman) {
+        #expect(multiplicand.isMultiple(of: Roman.zero) == false)
+    }
+
+    @Test(
+        "Multiplying by positive zero returns positive zero",
+        arguments: [
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func multiplyingByPositiveZeroReturnsPositiveZero(multiplicand: Roman) {
+        #expect(multiplicand * Roman.zero == Roman.zero)
     }
 }

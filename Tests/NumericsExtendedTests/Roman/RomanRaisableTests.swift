@@ -144,62 +144,7 @@ internal struct RomanRaisableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension RomanRaisableTests {
-    @Test(
-        "Raising to zero returns one",
-        arguments: [
-            0,
-            1,
-            2,
-            3
-        ] as Array<Roman>
-    )
-    internal func raisingToZeroReturnsOne(base: Roman) {
-        #expect(base ** Roman.Exponent.zero == 1)
-    }
-
-    @Test(
-        "Raising to one preserves base",
-        arguments: [
-            0,
-            1,
-            2,
-            3
-        ] as Array<Roman>
-    )
-    internal func raisingToOnePreservesBase(base: Roman) {
-        #expect(base ** 1 == base)
-    }
-
-    @Test(
-        "One base exponentiation returns one",
-        arguments: [
-            0,
-            1,
-            2,
-            3
-        ] as Array<Roman.Exponent>
-    )
-    internal func oneBaseExponentiationReturnsOne(exponent: Roman.Exponent) {
-        #expect(Roman(1) ** exponent == 1)
-    }
-
-    @Test(
-        "One base power predicate follows identity rule",
-        arguments: [
-            (1, true),
-            (2, false)
-        ] as Array<(Roman, Bool)>
-    )
-    internal func oneBasePowerPredicateFollowsIdentityRule(
-        value: Roman,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: 1) == result)
-    }
-
     @Test(
         "Exponentiation is not commutative",
         arguments: [
@@ -217,18 +162,75 @@ extension RomanRaisableTests {
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Positive One
 
 extension RomanRaisableTests {
     @Test(
-        "Zero base power predicate follows unsigned integer rules",
+        "Raising to positive one preserves base",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func raisingToPositiveOnePreservesBase(base: Roman) {
+        #expect(base ** 1 == base)
+    }
+
+    @Test(
+        "Positive one base exponentiation returns positive one",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ] as Array<Roman.Exponent>
+    )
+    internal func positiveOneBaseExponentiationReturnsPositiveOne(exponent: Roman.Exponent) {
+        #expect(Roman(1) ** exponent == 1)
+    }
+
+    @Test(
+        "Positive one base power predicate follows identity rule",
+        arguments: [
+            (1, true),
+            (2, false)
+        ] as Array<(Roman, Bool)>
+    )
+    internal func positiveOneBasePowerPredicateFollowsIdentityRule(
+        value: Roman,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: 1) == result)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension RomanRaisableTests {
+    @Test(
+        "Raising to positive zero returns one",
+        arguments: [
+            0,
+            1,
+            2,
+            3
+        ] as Array<Roman>
+    )
+    internal func raisingToPositiveZeroReturnsOne(base: Roman) {
+        #expect(base ** Roman.Exponent.zero == 1)
+    }
+
+    @Test(
+        "Positive zero base power predicate follows unsigned integer rules",
         arguments: [
             (0, true),
             (1, true),
             (2, false)
         ] as Array<(Roman, Bool)>
     )
-    internal func zeroBasePowerPredicateFollowsIntegerRules(
+    internal func positiveZeroBasePowerPredicateFollowsIntegerRules(
         value: Roman,
         result: Bool
     ) {
@@ -236,14 +238,14 @@ extension RomanRaisableTests {
     }
 
     @Test(
-        "Zero base exponentiation follows unsigned integer rules",
+        "Positive zero base exponentiation follows unsigned integer rules",
         arguments: [
             (0, 0, 1),
             (0, 1, 0),
             (0, 2, 0)
         ] as Array<(Roman, Roman.Exponent, Roman)>
     )
-    internal func zeroBaseExponentiationFollowsIntegerRules(
+    internal func positiveZeroBaseExponentiationFollowsIntegerRules(
         base: Roman,
         exponent: Roman.Exponent,
         power: Roman

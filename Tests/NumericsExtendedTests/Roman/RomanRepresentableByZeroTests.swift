@@ -21,7 +21,11 @@ internal struct RomanRepresentableByZeroTests {
     internal func nonzeroValuesAreNotZero(value: Roman) {
         #expect(value.isZero == false)
     }
+}
 
+// MARK: - Positive Zero
+
+extension RomanRepresentableByZeroTests {
     @Test("Positive zero is zero")
     internal func positiveZeroIsZero() {
         #expect(Roman.zero.isZero == true)

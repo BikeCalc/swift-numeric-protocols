@@ -46,28 +46,28 @@ internal struct RomanStrideableTests {
     }
 }
 
-// MARK: - Stride Rules
+// MARK: - Positive Zero
 
 extension RomanStrideableTests {
     @Test(
-        "Advancing by zero preserves value",
+        "Advancing by positive zero preserves value",
         arguments: [
             1,
             2
         ] as Array<Roman>
     )
-    internal func advancingByZeroPreservesValue(value: Roman) {
+    internal func advancingByPositiveZeroPreservesValue(value: Roman) {
         #expect(value.advanced(by: Int.zero) == value)
     }
 
     @Test(
-        "Distance to self returns zero",
+        "Distance to self returns positive zero",
         arguments: [
             1,
             2
         ] as Array<Roman>
     )
-    internal func distanceToSelfReturnsZero(value: Roman) {
+    internal func distanceToSelfReturnsPositiveZero(value: Roman) {
         #expect(value.distance(to: value) == Int.zero)
     }
 }

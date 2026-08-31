@@ -65,17 +65,17 @@ internal struct RomanEquatableTests {
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Positive Zero
 
 extension RomanEquatableTests {
     @Test(
-        "Zero equality follows integer rules",
+        "Positive zero equality follows integer rules",
         arguments: [
             (0, 0, true),
             (0, 1, false)
         ] as Array<(Roman, Roman, Bool)>
     )
-    internal func zeroEqualityFollowsIntegerRules(
+    internal func positiveZeroEqualityFollowsIntegerRules(
         lhs: Roman,
         rhs: Roman,
         result: Bool
