@@ -37,7 +37,7 @@ Reporting bugs is an important part of improving software. Nearly as important i
 they are reproducible, small, and unique.
 
 There are a number of things you can do to help triage bugs in the repository's
-[issues](https://github.com/bikecalc/swift-numeric-protocols/issues).
+[issues](https://github.com/bikecalc/swift-numerics-extended/issues).
 
 - **Reproduce bugs.** For a bug to be actionable, it needs to be reproducible. If you cannot reproduce the bug, try to
   figure out why. Get in touch with the submitter if you need more information.
