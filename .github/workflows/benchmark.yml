@@ -8,7 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  continuous-clock:
+  benchmarks:
+    name: Compare Benchmarks
     runs-on: macos-26
     timeout-minutes: 20
     steps:

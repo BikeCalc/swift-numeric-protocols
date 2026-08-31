@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Build and Test Package
     runs-on: macos-26
     steps:
       - name: Checkout Repository
