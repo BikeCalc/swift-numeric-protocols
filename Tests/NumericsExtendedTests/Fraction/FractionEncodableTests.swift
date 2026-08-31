@@ -33,29 +33,26 @@ internal struct FractionEncodableTests {
 
         #expect(result == expected)
     }
+}
 
-    @Test("Zero encodes to JSON")
-    internal func zeroEncodesToJSON() throws {
+// MARK: - NaN
+
+extension FractionEncodableTests {
+    @Test("NaN encodes to JSON")
+    internal func nanEncodesToJSON() throws {
         let encoder: JSONEncoder = .init()
         encoder.outputFormatting = .sortedKeys
 
-        let result: Data = try encoder.encode(Fraction<Int>(0, -2))
-        let expected: Data = try #require(#"{"den":-2,"num":0}"#.data(using: .utf8))
+        let result: Data = try encoder.encode(Fraction<Int>.nan)
+        let expected: Data = try #require(#"{"den":0,"num":0}"#.data(using: .utf8))
 
         #expect(result == expected)
     }
+}
 
-    @Test("Positive infinity encodes to JSON")
-    internal func positiveInfinityEncodesToJSON() throws {
-        let encoder: JSONEncoder = .init()
-        encoder.outputFormatting = .sortedKeys
+// MARK: - Negative Infinity
 
-        let result: Data = try encoder.encode(Fraction<Int>.infinity)
-        let expected: Data = try #require(#"{"den":0,"num":1}"#.data(using: .utf8))
-
-        #expect(result == expected)
-    }
-
+extension FractionEncodableTests {
     @Test("Negative infinity encodes to JSON")
     internal func negativeInfinityEncodesToJSON() throws {
         let encoder: JSONEncoder = .init()
@@ -66,14 +63,48 @@ internal struct FractionEncodableTests {
 
         #expect(result == expected)
     }
+}
 
-    @Test("NaN encodes to JSON")
-    internal func nanEncodesToJSON() throws {
+// MARK: - Negative Zero
+
+extension FractionEncodableTests {
+    @Test("Negative zero encodes to JSON")
+    internal func negativeZeroEncodesToJSON() throws {
         let encoder: JSONEncoder = .init()
         encoder.outputFormatting = .sortedKeys
 
-        let result: Data = try encoder.encode(Fraction<Int>.nan)
-        let expected: Data = try #require(#"{"den":0,"num":0}"#.data(using: .utf8))
+        let result: Data = try encoder.encode(Fraction<Int>(0, -2))
+        let expected: Data = try #require(#"{"den":-2,"num":0}"#.data(using: .utf8))
+
+        #expect(result == expected)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionEncodableTests {
+    @Test("Positive infinity encodes to JSON")
+    internal func positiveInfinityEncodesToJSON() throws {
+        let encoder: JSONEncoder = .init()
+        encoder.outputFormatting = .sortedKeys
+
+        let result: Data = try encoder.encode(Fraction<Int>.infinity)
+        let expected: Data = try #require(#"{"den":0,"num":1}"#.data(using: .utf8))
+
+        #expect(result == expected)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension FractionEncodableTests {
+    @Test("Positive zero encodes to JSON")
+    internal func positiveZeroEncodesToJSON() throws {
+        let encoder: JSONEncoder = .init()
+        encoder.outputFormatting = .sortedKeys
+
+        let result: Data = try encoder.encode(Fraction<Int>(0, 2))
+        let expected: Data = try #require(#"{"den":2,"num":0}"#.data(using: .utf8))
 
         #expect(result == expected)
     }

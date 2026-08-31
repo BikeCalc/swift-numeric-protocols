@@ -69,18 +69,18 @@ internal struct FractionEquatableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
 
 extension FractionEquatableTests {
     @Test(
-        "Positive zero equality follows stored representation rules",
+        "NaN equality follows rational rules",
         arguments: [
-            (Fraction<Int>.zero, Fraction<Int>.zero, true),
-            (Fraction<Int>.zero, Fraction<Int>.negativeZero, false),
-            (Fraction<Int>.zero, Fraction<Int>(1, 1), false)
+            (Fraction<Int>.nan, Fraction<Int>.nan, false),
+            (Fraction<Int>.nan, Fraction<Int>(1, 1), false),
+            (Fraction<Int>(1, 1), Fraction<Int>.nan, false)
         ]
     )
-    internal func positiveZeroEqualityFollowsStoredRepresentationRules(
+    internal func nanEqualityFollowsRationalRules(
         lhs: Fraction<Int>,
         rhs: Fraction<Int>,
         result: Bool
@@ -90,7 +90,33 @@ extension FractionEquatableTests {
         #expect(lhs.isEqual(to: rhs) == result)
         #expect(lhs.isUnequal(to: rhs) == !result)
     }
+}
 
+// MARK: - Negative Infinity
+
+extension FractionEquatableTests {
+    @Test(
+        "Negative infinity equality follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, true),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, false)
+        ]
+    )
+    internal func negativeInfinityEqualityFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect((lhs == rhs) == result)
+        #expect((lhs != rhs) == !result)
+        #expect(lhs.isEqual(to: rhs) == result)
+        #expect(lhs.isUnequal(to: rhs) == !result)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionEquatableTests {
     @Test(
         "Negative zero equality follows stored representation rules",
         arguments: [
@@ -109,7 +135,11 @@ extension FractionEquatableTests {
         #expect(lhs.isEqual(to: rhs) == result)
         #expect(lhs.isUnequal(to: rhs) == !result)
     }
+}
 
+// MARK: - Positive Infinity
+
+extension FractionEquatableTests {
     @Test(
         "Positive infinity equality follows rational rules",
         arguments: [
@@ -127,34 +157,20 @@ extension FractionEquatableTests {
         #expect(lhs.isEqual(to: rhs) == result)
         #expect(lhs.isUnequal(to: rhs) == !result)
     }
+}
 
+// MARK: - Positive Zero
+
+extension FractionEquatableTests {
     @Test(
-        "Negative infinity equality follows rational rules",
+        "Positive zero equality follows stored representation rules",
         arguments: [
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, true),
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, false)
+            (Fraction<Int>.zero, Fraction<Int>.zero, true),
+            (Fraction<Int>.zero, Fraction<Int>.negativeZero, false),
+            (Fraction<Int>.zero, Fraction<Int>(1, 1), false)
         ]
     )
-    internal func negativeInfinityEqualityFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect((lhs == rhs) == result)
-        #expect((lhs != rhs) == !result)
-        #expect(lhs.isEqual(to: rhs) == result)
-        #expect(lhs.isUnequal(to: rhs) == !result)
-    }
-
-    @Test(
-        "NaN equality follows rational rules",
-        arguments: [
-            (Fraction<Int>.nan, Fraction<Int>.nan, false),
-            (Fraction<Int>.nan, Fraction<Int>(1, 1), false),
-            (Fraction<Int>(1, 1), Fraction<Int>.nan, false)
-        ]
-    )
-    internal func nanEqualityFollowsRationalRules(
+    internal func positiveZeroEqualityFollowsStoredRepresentationRules(
         lhs: Fraction<Int>,
         rhs: Fraction<Int>,
         result: Bool

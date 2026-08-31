@@ -44,26 +44,37 @@ internal struct FractionLosslessStringConvertibleTests {
     }
 }
 
-// MARK: - Arithmetic Rules
+// MARK: - Negative Infinity
 
 extension FractionLosslessStringConvertibleTests {
     @Test(
-        "Zero string initialization succeeds",
+        "Negative infinity string initialization succeeds",
         arguments: [
-            ("0", Fraction<Int>(0, 1)),
-            ("0/1", Fraction<Int>(0, 1)),
-            ("0/2", Fraction<Int>(0, 2))
+            "-inf",
+            "-infinity"
         ]
     )
-    internal func zeroStringInitializationSucceeds(
-        description: String,
-        value: Fraction<Int>
-    ) {
-        #expect(Fraction<Int>(description) == value)
+    internal func negativeInfinityStringInitializationSucceeds(description: String) {
+        #expect(Fraction<Int>(description) == .negativeInfinity)
     }
+}
 
+// MARK: - Negative NaN
+
+extension FractionLosslessStringConvertibleTests {
+    @Test("Negative NaN string initialization succeeds")
+    internal func negativeNanStringInitializationSucceeds() {
+        let description: String = "-nan"
+
+        #expect(Fraction<Int>(description)?.isNaN == true)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionLosslessStringConvertibleTests {
     @Test(
-        "negative zero string initialization succeeds",
+        "Negative zero string initialization succeeds",
         arguments: [
             ("-0", Fraction<Int>(0, -1)),
             ("0/-1", Fraction<Int>(0, -1)),
@@ -78,7 +89,7 @@ extension FractionLosslessStringConvertibleTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - Positive Infinity
 
 extension FractionLosslessStringConvertibleTests {
     @Test(
@@ -93,27 +104,38 @@ extension FractionLosslessStringConvertibleTests {
     internal func positiveInfinityStringInitializationSucceeds(description: String) {
         #expect(Fraction<Int>(description) == .infinity)
     }
+}
 
-    @Test(
-        "Negative infinity string initialization succeeds",
-        arguments: [
-            "-inf",
-            "-infinity"
-        ]
-    )
-    internal func negativeInfinityStringInitializationSucceeds(description: String) {
-        #expect(Fraction<Int>(description) == .negativeInfinity)
-    }
+// MARK: - Positive NaN
 
+extension FractionLosslessStringConvertibleTests {
     @Test(
-        "NaN string initialization succeeds",
+        "Positive NaN string initialization succeeds",
         arguments: [
             "nan",
-            "+nan",
-            "-nan"
+            "+nan"
         ]
     )
-    internal func nanStringInitializationSucceeds(description: String) {
+    internal func positiveNanStringInitializationSucceeds(description: String) {
         #expect(Fraction<Int>(description)?.isNaN == true)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension FractionLosslessStringConvertibleTests {
+    @Test(
+        "Positive zero string initialization succeeds",
+        arguments: [
+            ("0", Fraction<Int>(0, 1)),
+            ("0/1", Fraction<Int>(0, 1)),
+            ("0/2", Fraction<Int>(0, 2))
+        ]
+    )
+    internal func positiveZeroStringInitializationSucceeds(
+        description: String,
+        value: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>(description) == value)
     }
 }

@@ -102,7 +102,7 @@ internal struct FractionNormalizableTests {
     }
 }
 
-// MARK: - Fixed-Width Integer Rules
+// MARK: - IntMin
 
 extension FractionNormalizableTests {
     @Test(
@@ -122,22 +122,31 @@ extension FractionNormalizableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
 
 extension FractionNormalizableTests {
-    @Test(
-        "Positive zero normalization follows rational rules",
-        arguments: [
-            Fraction<Int>.zero,
-            Fraction<Int>(0, 2)
-        ]
-    )
-    internal func positiveZeroNormalizationFollowsRationalRules(value: Fraction<Int>) {
-        #expect(value.isNormalizable == true)
-        #expect(value.isNormalized == true)
-        #expect(value.normalized() == value)
+    @Test("NaN normalization follows rational rules")
+    internal func nanNormalizationFollowsRationalRules() {
+        #expect(Fraction<Int>.nan.isNormalizable == true)
+        #expect(Fraction<Int>.nan.isNormalized == true)
+        #expect(Fraction<Int>.nan.normalized().isNaN == true)
     }
+}
 
+// MARK: - Negative Infinity
+
+extension FractionNormalizableTests {
+    @Test("Negative infinity normalization follows rational rules")
+    internal func negativeInfinityNormalizationFollowsRationalRules() {
+        #expect(Fraction<Int>.negativeInfinity.isNormalizable == true)
+        #expect(Fraction<Int>.negativeInfinity.isNormalized == true)
+        #expect(Fraction<Int>.negativeInfinity.normalized() == .negativeInfinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionNormalizableTests {
     @Test(
         "Negative zero normalization follows rational rules",
         arguments: [
@@ -153,25 +162,32 @@ extension FractionNormalizableTests {
         #expect(value.isNormalized == false)
         #expect(value.normalized() == result)
     }
+}
 
+// MARK: - Positive Infinity
+
+extension FractionNormalizableTests {
     @Test("Positive infinity normalization follows rational rules")
     internal func positiveInfinityNormalizationFollowsRationalRules() {
         #expect(Fraction<Int>.infinity.isNormalizable == true)
         #expect(Fraction<Int>.infinity.isNormalized == true)
         #expect(Fraction<Int>.infinity.normalized() == .infinity)
     }
+}
 
-    @Test("Negative infinity normalization follows rational rules")
-    internal func negativeInfinityNormalizationFollowsRationalRules() {
-        #expect(Fraction<Int>.negativeInfinity.isNormalizable == true)
-        #expect(Fraction<Int>.negativeInfinity.isNormalized == true)
-        #expect(Fraction<Int>.negativeInfinity.normalized() == .negativeInfinity)
-    }
+// MARK: - Positive Zero
 
-    @Test("NaN normalization follows rational rules")
-    internal func nanNormalizationFollowsRationalRules() {
-        #expect(Fraction<Int>.nan.isNormalizable == true)
-        #expect(Fraction<Int>.nan.isNormalized == true)
-        #expect(Fraction<Int>.nan.normalized().isNaN == true)
+extension FractionNormalizableTests {
+    @Test(
+        "Positive zero normalization follows rational rules",
+        arguments: [
+            Fraction<Int>.zero,
+            Fraction<Int>(0, 2)
+        ]
+    )
+    internal func positiveZeroNormalizationFollowsRationalRules(value: Fraction<Int>) {
+        #expect(value.isNormalizable == true)
+        #expect(value.isNormalized == true)
+        #expect(value.normalized() == value)
     }
 }

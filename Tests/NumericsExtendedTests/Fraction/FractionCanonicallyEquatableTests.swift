@@ -29,7 +29,7 @@ internal struct FractionCanonicallyEquatableTests {
     }
 }
 
-// MARK: - Fixed-Width Integer Rules
+// MARK: - IntMin
 
 extension FractionCanonicallyEquatableTests {
     @Test("Canonical equality handles an Int minimum denominator")
@@ -40,26 +40,48 @@ extension FractionCanonicallyEquatableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
 
 extension FractionCanonicallyEquatableTests {
     @Test(
-        "Positive zero canonical equality follows rational rules",
+        "NaN canonical equality follows rational rules",
         arguments: [
-            (Fraction<Int>.zero, Fraction<Int>.zero, true),
-            (Fraction<Int>.zero, Fraction<Int>.negativeZero, true),
-            (Fraction<Int>.zero, Fraction<Int>(0, 2), true),
-            (Fraction<Int>.zero, Fraction<Int>(1, 1), false)
+            (Fraction<Int>.nan, Fraction<Int>.nan, false),
+            (Fraction<Int>.nan, Fraction<Int>(1, 1), false),
+            (Fraction<Int>(1, 1), Fraction<Int>.nan, false)
         ]
     )
-    internal func positiveZeroCanonicalEqualityFollowsRationalRules(
+    internal func nanCanonicalEqualityFollowsRationalRules(
         lhs: Fraction<Int>,
         rhs: Fraction<Int>,
         result: Bool
     ) {
         #expect(lhs.isCanonicallyEquatable(to: rhs) == result)
     }
+}
 
+// MARK: - Negative Infinity
+
+extension FractionCanonicallyEquatableTests {
+    @Test(
+        "Negative infinity canonical equality follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, true),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, false)
+        ]
+    )
+    internal func negativeInfinityCanonicalEqualityFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(lhs.isCanonicallyEquatable(to: rhs) == result)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionCanonicallyEquatableTests {
     @Test(
         "Negative zero canonical equality follows rational rules",
         arguments: [
@@ -76,7 +98,11 @@ extension FractionCanonicallyEquatableTests {
     ) {
         #expect(lhs.isCanonicallyEquatable(to: rhs) == result)
     }
+}
 
+// MARK: - Positive Infinity
+
+extension FractionCanonicallyEquatableTests {
     @Test(
         "Positive infinity canonical equality follows rational rules",
         arguments: [
@@ -91,31 +117,21 @@ extension FractionCanonicallyEquatableTests {
     ) {
         #expect(lhs.isCanonicallyEquatable(to: rhs) == result)
     }
+}
 
+// MARK: - Positive Zero
+
+extension FractionCanonicallyEquatableTests {
     @Test(
-        "Negative infinity canonical equality follows rational rules",
+        "Positive zero canonical equality follows rational rules",
         arguments: [
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, true),
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, false)
+            (Fraction<Int>.zero, Fraction<Int>.zero, true),
+            (Fraction<Int>.zero, Fraction<Int>.negativeZero, true),
+            (Fraction<Int>.zero, Fraction<Int>(0, 2), true),
+            (Fraction<Int>.zero, Fraction<Int>(1, 1), false)
         ]
     )
-    internal func negativeInfinityCanonicalEqualityFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect(lhs.isCanonicallyEquatable(to: rhs) == result)
-    }
-
-    @Test(
-        "NaN canonical equality follows rational rules",
-        arguments: [
-            (Fraction<Int>.nan, Fraction<Int>.nan, false),
-            (Fraction<Int>.nan, Fraction<Int>(1, 1), false),
-            (Fraction<Int>(1, 1), Fraction<Int>.nan, false)
-        ]
-    )
-    internal func nanCanonicalEqualityFollowsRationalRules(
+    internal func positiveZeroCanonicalEqualityFollowsRationalRules(
         lhs: Fraction<Int>,
         rhs: Fraction<Int>,
         result: Bool

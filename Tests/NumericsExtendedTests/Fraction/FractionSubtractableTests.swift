@@ -71,35 +71,7 @@ internal struct FractionSubtractableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension FractionSubtractableTests {
-    @Test(
-        "Subtracting positive zero preserves minuend",
-        arguments: [
-            Fraction<Int>(2, 3),
-            Fraction<Int>(3, 4),
-            Fraction<Int>(-2, 3),
-            Fraction<Int>(-3, 4)
-        ]
-    )
-    internal func subtractingPositiveZeroPreservesMinuend(minuend: Fraction<Int>) {
-        #expect(minuend - .zero == minuend)
-    }
-
-    @Test(
-        "Subtracting self returns represented zero",
-        arguments: [
-            Fraction<Int>(2, 3),
-            Fraction<Int>(3, 4),
-            Fraction<Int>(-2, 3),
-            Fraction<Int>(-3, 4)
-        ]
-    )
-    internal func subtractingSelfReturnsRepresentedZero(value: Fraction<Int>) {
-        #expect((value - value).isZero == true)
-    }
-
     @Test(
         "Subtraction is not commutative",
         arguments: Self.subtractionArguments
@@ -113,73 +85,9 @@ extension FractionSubtractableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
 
 extension FractionSubtractableTests {
-    @Test(
-        "Subtracting from positive zero follows stored representation rules",
-        arguments: [
-            (Fraction<Int>.zero, Fraction<Int>.zero),
-            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
-            (Fraction<Int>(1, 1), Fraction<Int>(-1, 1)),
-            (Fraction<Int>(-1, 1), Fraction<Int>(1, 1))
-        ]
-    )
-    internal func subtractingFromPositiveZeroFollowsStoredRepresentationRules(
-        subtrahend: Fraction<Int>,
-        difference: Fraction<Int>
-    ) {
-        #expect(Fraction<Int>.zero - subtrahend == difference)
-    }
-
-    @Test(
-        "Subtracting from negative zero follows stored representation rules",
-        arguments: [
-            (Fraction<Int>.zero, Fraction<Int>.negativeZero),
-            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
-            (Fraction<Int>(1, 1), Fraction<Int>(1, -1)),
-            (Fraction<Int>(-1, 1), Fraction<Int>(-1, -1))
-        ]
-    )
-    internal func subtractingFromNegativeZeroFollowsStoredRepresentationRules(
-        subtrahend: Fraction<Int>,
-        difference: Fraction<Int>
-    ) {
-        #expect(Fraction<Int>.negativeZero - subtrahend == difference)
-    }
-
-    @Test(
-        "Subtracting positive infinity follows rational rules",
-        arguments: [
-            (Fraction<Int>.infinity, Fraction<Int>.negativeInfinity, Fraction<Int>.infinity),
-            (Fraction<Int>.infinity, Fraction<Int>(1, 1), Fraction<Int>.infinity),
-            (Fraction<Int>(1, 1), Fraction<Int>.infinity, Fraction<Int>.negativeInfinity)
-        ]
-    )
-    internal func subtractingPositiveInfinityFollowsRationalRules(
-        minuend: Fraction<Int>,
-        subtrahend: Fraction<Int>,
-        difference: Fraction<Int>
-    ) {
-        #expect(minuend - subtrahend == difference)
-    }
-
-    @Test(
-        "Subtracting negative infinity follows rational rules",
-        arguments: [
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, Fraction<Int>.negativeInfinity),
-            (Fraction<Int>.negativeInfinity, Fraction<Int>(1, 1), Fraction<Int>.negativeInfinity),
-            (Fraction<Int>(1, 1), Fraction<Int>.negativeInfinity, Fraction<Int>.infinity)
-        ]
-    )
-    internal func subtractingNegativeInfinityFollowsRationalRules(
-        minuend: Fraction<Int>,
-        subtrahend: Fraction<Int>,
-        difference: Fraction<Int>
-    ) {
-        #expect(minuend - subtrahend == difference)
-    }
-
     @Test("Subtracting positive infinity from itself returns NaN")
     internal func subtractingPositiveInfinityFromItselfReturnsNaN() {
         #expect((Fraction<Int>.infinity - .infinity).isNaN == true)
@@ -218,5 +126,113 @@ extension FractionSubtractableTests {
     )
     internal func subtractingNaNReturnsNaN(minuend: Fraction<Int>) {
         #expect((minuend - Fraction<Int>.nan).isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension FractionSubtractableTests {
+    @Test(
+        "Subtracting negative infinity follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, Fraction<Int>.negativeInfinity),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>(1, 1), Fraction<Int>.negativeInfinity),
+            (Fraction<Int>(1, 1), Fraction<Int>.negativeInfinity, Fraction<Int>.infinity)
+        ]
+    )
+    internal func subtractingNegativeInfinityFollowsRationalRules(
+        minuend: Fraction<Int>,
+        subtrahend: Fraction<Int>,
+        difference: Fraction<Int>
+    ) {
+        #expect(minuend - subtrahend == difference)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionSubtractableTests {
+    @Test(
+        "Subtracting from negative zero follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.zero, Fraction<Int>.negativeZero),
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
+            (Fraction<Int>(1, 1), Fraction<Int>(1, -1)),
+            (Fraction<Int>(-1, 1), Fraction<Int>(-1, -1))
+        ]
+    )
+    internal func subtractingFromNegativeZeroFollowsStoredRepresentationRules(
+        subtrahend: Fraction<Int>,
+        difference: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.negativeZero - subtrahend == difference)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionSubtractableTests {
+    @Test(
+        "Subtracting positive infinity follows rational rules",
+        arguments: [
+            (Fraction<Int>.infinity, Fraction<Int>.negativeInfinity, Fraction<Int>.infinity),
+            (Fraction<Int>.infinity, Fraction<Int>(1, 1), Fraction<Int>.infinity),
+            (Fraction<Int>(1, 1), Fraction<Int>.infinity, Fraction<Int>.negativeInfinity)
+        ]
+    )
+    internal func subtractingPositiveInfinityFollowsRationalRules(
+        minuend: Fraction<Int>,
+        subtrahend: Fraction<Int>,
+        difference: Fraction<Int>
+    ) {
+        #expect(minuend - subtrahend == difference)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension FractionSubtractableTests {
+    @Test(
+        "Subtracting positive zero preserves minuend",
+        arguments: [
+            Fraction<Int>(2, 3),
+            Fraction<Int>(3, 4),
+            Fraction<Int>(-2, 3),
+            Fraction<Int>(-3, 4)
+        ]
+    )
+    internal func subtractingPositiveZeroPreservesMinuend(minuend: Fraction<Int>) {
+        #expect(minuend - .zero == minuend)
+    }
+
+    @Test(
+        "Subtracting from positive zero follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.zero, Fraction<Int>.zero),
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
+            (Fraction<Int>(1, 1), Fraction<Int>(-1, 1)),
+            (Fraction<Int>(-1, 1), Fraction<Int>(1, 1))
+        ]
+    )
+    internal func subtractingFromPositiveZeroFollowsStoredRepresentationRules(
+        subtrahend: Fraction<Int>,
+        difference: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.zero - subtrahend == difference)
+    }
+
+    @Test(
+        "Subtracting self returns positive zero",
+        arguments: [
+            Fraction<Int>(2, 3),
+            Fraction<Int>(3, 4),
+            Fraction<Int>(-2, 3),
+            Fraction<Int>(-3, 4)
+        ]
+    )
+    internal func subtractingSelfReturnsPositiveZero(value: Fraction<Int>) {
+        let difference: Fraction<Int> = value - value
+        #expect(difference.isZero == true)
+        #expect(difference.denominator > 0)
     }
 }

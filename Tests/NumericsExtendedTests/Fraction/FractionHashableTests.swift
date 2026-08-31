@@ -47,7 +47,78 @@ internal struct FractionHashableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
+
+extension FractionHashableTests {
+    @Test("NaN values remain distinct hash keys")
+    internal func nanValuesRemainDistinctHashKeys() {
+        let value: Fraction<Int> = .nan
+
+        #expect(Set([value, value]).count == 2)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension FractionHashableTests {
+    @Test(
+        "Negative infinity hashing follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>(-2, 0))
+        ]
+    )
+    internal func negativeInfinityHashingFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>
+    ) {
+        #expect(lhs == rhs)
+        #expect(lhs.hashValue == rhs.hashValue)
+        #expect(Set([lhs, rhs]).count == 1)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionHashableTests {
+    @Test(
+        "Negative zero hashing follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero, 1),
+            (Fraction<Int>.negativeZero, Fraction<Int>(0, -2), 2),
+            (Fraction<Int>.negativeZero, Fraction<Int>.zero, 2)
+        ]
+    )
+    internal func negativeZeroHashingFollowsStoredRepresentationRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        count: Int
+    ) {
+        #expect(Set([lhs, rhs]).count == count)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionHashableTests {
+    @Test(
+        "Positive infinity hashing follows rational rules",
+        arguments: [
+            (Fraction<Int>.infinity, Fraction<Int>.infinity),
+            (Fraction<Int>.infinity, Fraction<Int>(2, 0))
+        ]
+    )
+    internal func positiveInfinityHashingFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>
+    ) {
+        #expect(lhs == rhs)
+        #expect(lhs.hashValue == rhs.hashValue)
+        #expect(Set([lhs, rhs]).count == 1)
+    }
+}
+
+// MARK: - Positive Zero
 
 extension FractionHashableTests {
     @Test(
@@ -64,60 +135,5 @@ extension FractionHashableTests {
         count: Int
     ) {
         #expect(Set([lhs, rhs]).count == count)
-    }
-
-    @Test(
-        "Negative zero hashing follows stored representation rules",
-        arguments: [
-            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero, 1),
-            (Fraction<Int>.negativeZero, Fraction<Int>(0, -2), 2),
-            (Fraction<Int>.negativeZero, Fraction<Int>.zero, 2)
-        ]
-    )
-    internal func negativeZeroHashingFollowsStoredRepresentationRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>,
-        count: Int
-    ) {
-        #expect(Set([lhs, rhs]).count == count)
-    }
-
-    @Test(
-        "Positive infinity hashing follows rational rules",
-        arguments: [
-            (Fraction<Int>.infinity, Fraction<Int>.infinity),
-            (Fraction<Int>.infinity, Fraction<Int>(2, 0))
-        ]
-    )
-    internal func positiveInfinityHashingFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>
-    ) {
-        #expect(lhs == rhs)
-        #expect(lhs.hashValue == rhs.hashValue)
-        #expect(Set([lhs, rhs]).count == 1)
-    }
-
-    @Test(
-        "Negative infinity hashing follows rational rules",
-        arguments: [
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity),
-            (Fraction<Int>.negativeInfinity, Fraction<Int>(-2, 0))
-        ]
-    )
-    internal func negativeInfinityHashingFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>
-    ) {
-        #expect(lhs == rhs)
-        #expect(lhs.hashValue == rhs.hashValue)
-        #expect(Set([lhs, rhs]).count == 1)
-    }
-
-    @Test("NaN values remain distinct hash keys")
-    internal func nanValuesRemainDistinctHashKeys() {
-        let value: Fraction<Int> = .nan
-
-        #expect(Set([value, value]).count == 2)
     }
 }

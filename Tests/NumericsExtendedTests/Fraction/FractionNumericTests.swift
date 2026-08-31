@@ -49,7 +49,7 @@ internal struct FractionNumericTests {
 
 }
 
-// MARK: - Fixed-Width Integer Rules
+// MARK: - IntMin
 
 extension FractionNumericTests {
     @Test("Int minimum magnitude uses the unsigned term type")

@@ -21,14 +21,11 @@ internal struct FractionRepresentableByZeroTests {
     internal func nonzeroValuesAreNotZero(value: Fraction<Int>) {
         #expect(value.isZero == false)
     }
+}
 
-    @Test("Positive zero is zero")
-    internal func positiveZeroIsZero() {
-        #expect(Fraction<Int>.zero.numerator == 0)
-        #expect(Fraction<Int>.zero.denominator == 1)
-        #expect(Fraction<Int>.zero.isZero == true)
-    }
+// MARK: - Negative Zero
 
+extension FractionRepresentableByZeroTests {
     @Test("Negative zero is zero")
     internal func negativeZeroIsZero() {
         #expect(Fraction<Int>.negativeZero.numerator == 0)
@@ -37,14 +34,24 @@ internal struct FractionRepresentableByZeroTests {
         #expect(Fraction<Int>.negativeZero != .zero)
     }
 
-    @Test(
-        "Stored zero representations are zero",
-        arguments: [
-            Fraction<Int>(0, 2),
-            Fraction<Int>(0, -2)
-        ]
-    )
-    internal func storedZeroRepresentationsAreZero(value: Fraction<Int>) {
-        #expect(value.isZero == true)
+    @Test("Stored negative-zero representation is zero")
+    internal func storedNegativeZeroRepresentationIsZero() {
+        #expect(Fraction<Int>(0, -2).isZero == true)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension FractionRepresentableByZeroTests {
+    @Test("Positive zero is zero")
+    internal func positiveZeroIsZero() {
+        #expect(Fraction<Int>.zero.numerator == 0)
+        #expect(Fraction<Int>.zero.denominator == 1)
+        #expect(Fraction<Int>.zero.isZero == true)
+    }
+
+    @Test("Stored positive-zero representation is zero")
+    internal func storedPositiveZeroRepresentationIsZero() {
+        #expect(Fraction<Int>(0, 2).isZero == true)
     }
 }

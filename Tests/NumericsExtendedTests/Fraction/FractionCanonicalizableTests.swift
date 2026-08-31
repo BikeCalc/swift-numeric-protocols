@@ -102,7 +102,7 @@ internal struct FractionCanonicalizableTests {
     }
 }
 
-// MARK: - Fixed-Width Integer Rules
+// MARK: - IntMin
 
 extension FractionCanonicalizableTests {
     @Test("Reducible Int minimum denominator is canonicalizable")
@@ -123,7 +123,57 @@ extension FractionCanonicalizableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
+
+extension FractionCanonicalizableTests {
+    @Test("NaN canonicalization follows rational rules")
+    internal func nanCanonicalizationFollowsRationalRules() {
+        #expect(Fraction<Int>.nan.isCanonicalizable == true)
+        #expect(Fraction<Int>.nan.isCanonicalized == true)
+        #expect(Fraction<Int>.nan.canonicalized().isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension FractionCanonicalizableTests {
+    @Test("Negative infinity canonicalization follows rational rules")
+    internal func negativeInfinityCanonicalizationFollowsRationalRules() {
+        #expect(Fraction<Int>.negativeInfinity.isCanonicalizable == true)
+        #expect(Fraction<Int>.negativeInfinity.isCanonicalized == true)
+        #expect(Fraction<Int>.negativeInfinity.canonicalized() == .negativeInfinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionCanonicalizableTests {
+    @Test(
+        "Negative zero canonicalization follows rational rules",
+        arguments: [
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(0, -2)
+        ]
+    )
+    internal func negativeZeroCanonicalizationFollowsRationalRules(value: Fraction<Int>) {
+        #expect(value.isCanonicalizable == true)
+        #expect(value.isCanonicalized == false)
+        #expect(value.canonicalized() == .zero)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionCanonicalizableTests {
+    @Test("Positive infinity canonicalization follows rational rules")
+    internal func positiveInfinityCanonicalizationFollowsRationalRules() {
+        #expect(Fraction<Int>.infinity.isCanonicalizable == true)
+        #expect(Fraction<Int>.infinity.isCanonicalized == true)
+        #expect(Fraction<Int>.infinity.canonicalized() == .infinity)
+    }
+}
+
+// MARK: - Positive Zero
 
 extension FractionCanonicalizableTests {
     @Test(
@@ -140,39 +190,5 @@ extension FractionCanonicalizableTests {
         #expect(value.isCanonicalizable == true)
         #expect(value.isCanonicalized == isCanonicalized)
         #expect(value.canonicalized() == .zero)
-    }
-
-    @Test(
-        "Negative zero canonicalization follows rational rules",
-        arguments: [
-            Fraction<Int>.negativeZero,
-            Fraction<Int>(0, -2)
-        ]
-    )
-    internal func negativeZeroCanonicalizationFollowsRationalRules(value: Fraction<Int>) {
-        #expect(value.isCanonicalizable == true)
-        #expect(value.isCanonicalized == false)
-        #expect(value.canonicalized() == .zero)
-    }
-
-    @Test("Positive infinity canonicalization follows rational rules")
-    internal func positiveInfinityCanonicalizationFollowsRationalRules() {
-        #expect(Fraction<Int>.infinity.isCanonicalizable == true)
-        #expect(Fraction<Int>.infinity.isCanonicalized == true)
-        #expect(Fraction<Int>.infinity.canonicalized() == .infinity)
-    }
-
-    @Test("Negative infinity canonicalization follows rational rules")
-    internal func negativeInfinityCanonicalizationFollowsRationalRules() {
-        #expect(Fraction<Int>.negativeInfinity.isCanonicalizable == true)
-        #expect(Fraction<Int>.negativeInfinity.isCanonicalized == true)
-        #expect(Fraction<Int>.negativeInfinity.canonicalized() == .negativeInfinity)
-    }
-
-    @Test("NaN canonicalization follows rational rules")
-    internal func nanCanonicalizationFollowsRationalRules() {
-        #expect(Fraction<Int>.nan.isCanonicalizable == true)
-        #expect(Fraction<Int>.nan.isCanonicalized == true)
-        #expect(Fraction<Int>.nan.canonicalized().isNaN == true)
     }
 }

@@ -50,7 +50,73 @@ internal struct FractionTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
+
+extension FractionTests {
+    @Test("NaN initialization preserves terms")
+    internal func nanInitializationPreservesTerms() {
+        let value: Fraction<Int> = .nan
+
+        #expect(value.numerator == 0)
+        #expect(value.denominator == 0)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension FractionTests {
+    @Test(
+        "Negative infinity initialization canonicalizes terms",
+        arguments: [
+            -2,
+            Int.min
+        ]
+    )
+    internal func negativeInfinityInitializationCanonicalizesTerms(numerator: Int) {
+        let value: Fraction<Int> = .init(numerator, 0)
+
+        #expect(value.numerator == -1)
+        #expect(value.denominator == 0)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionTests {
+    @Test(
+        "Negative zero initialization preserves terms",
+        arguments: [
+            -1,
+            -2
+        ]
+    )
+    internal func negativeZeroInitializationPreservesTerms(denominator: Int) {
+        let value: Fraction<Int> = .init(0, denominator)
+
+        #expect(value.numerator == 0)
+        #expect(value.denominator == denominator)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionTests {
+    @Test(
+        "Positive infinity initialization canonicalizes terms",
+        arguments: [
+            2,
+            Int.max
+        ]
+    )
+    internal func positiveInfinityInitializationCanonicalizesTerms(numerator: Int) {
+        let value: Fraction<Int> = .init(numerator, 0)
+
+        #expect(value.numerator == 1)
+        #expect(value.denominator == 0)
+    }
+}
+
+// MARK: - Positive Zero
 
 extension FractionTests {
     @Test(
@@ -65,55 +131,5 @@ extension FractionTests {
 
         #expect(value.numerator == 0)
         #expect(value.denominator == denominator)
-    }
-
-    @Test(
-        "Negative zero initialization preserves terms",
-        arguments: [
-            -1,
-            -2
-        ]
-    )
-    internal func negativeZeroInitializationPreservesTerms(denominator: Int) {
-        let value: Fraction<Int> = .init(0, denominator)
-
-        #expect(value.numerator == 0)
-        #expect(value.denominator == denominator)
-    }
-
-    @Test(
-        "Positive infinity initialization canonicalizes terms",
-        arguments: [
-            2,
-            Int.max
-        ]
-    )
-    internal func positiveInfinityInitializationCanonicalizesTerms(numerator: Int) {
-        let value: Fraction<Int> = .init(numerator, 0)
-
-        #expect(value.numerator == 1)
-        #expect(value.denominator == 0)
-    }
-
-    @Test(
-        "Negative infinity initialization canonicalizes terms",
-        arguments: [
-            -2,
-            Int.min
-        ]
-    )
-    internal func negativeInfinityInitializationCanonicalizesTerms(numerator: Int) {
-        let value: Fraction<Int> = .init(numerator, 0)
-
-        #expect(value.numerator == -1)
-        #expect(value.denominator == 0)
-    }
-
-    @Test("NaN initialization preserves terms")
-    internal func nanInitializationPreservesTerms() {
-        let value: Fraction<Int> = .nan
-
-        #expect(value.numerator == 0)
-        #expect(value.denominator == 0)
     }
 }

@@ -14,12 +14,8 @@ internal struct FractionCustomStringConvertibleTests {
     @Test(
         "Description succeeds",
         arguments: [
-            (Fraction<Int>(-0, 1), "0/1"),
-            (Fraction<Int>(-00, 1), "0/1"),
             (Fraction<Int>(-01, 1), "-1/1"),
             (Fraction<Int>(-1, 1), "-1/1"),
-            (Fraction<Int>(0, 1), "0/1"),
-            (Fraction<Int>(00, 1), "0/1"),
             (Fraction<Int>(01, 1), "1/1"),
             (Fraction<Int>(1, 1), "1/1")
         ]
@@ -30,19 +26,67 @@ internal struct FractionCustomStringConvertibleTests {
     ) {
         #expect(value.description == result)
     }
+}
 
-    @Test("Positive infinity description")
-    internal func positiveInfinityDescription() {
-        #expect(Fraction<Int>.infinity.description == "inf")
+// MARK: - NaN
+
+extension FractionCustomStringConvertibleTests {
+    @Test("NaN description")
+    internal func nanDescription() {
+        #expect(Fraction<Int>.nan.description == "nan")
     }
+}
 
+// MARK: - Negative Infinity
+
+extension FractionCustomStringConvertibleTests {
     @Test("Negative infinity description")
     internal func negativeInfinityDescription() {
         #expect(Fraction<Int>.negativeInfinity.description == "-inf")
     }
+}
 
-    @Test("NaN description")
-    internal func nanDescription() {
-        #expect(Fraction<Int>.nan.description == "nan")
+// MARK: - Negative Zero
+
+extension FractionCustomStringConvertibleTests {
+    @Test(
+        "Negative zero description",
+        arguments: [
+            (Fraction<Int>.negativeZero, "0/-1"),
+            (Fraction<Int>(0, -2), "0/-2")
+        ]
+    )
+    internal func negativeZeroDescription(
+        value: Fraction<Int>,
+        result: String
+    ) {
+        #expect(value.description == result)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionCustomStringConvertibleTests {
+    @Test("Positive infinity description")
+    internal func positiveInfinityDescription() {
+        #expect(Fraction<Int>.infinity.description == "inf")
+    }
+}
+
+// MARK: - Positive Zero
+
+extension FractionCustomStringConvertibleTests {
+    @Test(
+        "Positive zero description",
+        arguments: [
+            (Fraction<Int>.zero, "0/1"),
+            (Fraction<Int>(0, 2), "0/2")
+        ]
+    )
+    internal func positiveZeroDescription(
+        value: Fraction<Int>,
+        result: String
+    ) {
+        #expect(value.description == result)
     }
 }

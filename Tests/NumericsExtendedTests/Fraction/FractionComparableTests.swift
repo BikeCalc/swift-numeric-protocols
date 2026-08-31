@@ -157,7 +157,7 @@ internal struct FractionComparableTests {
 
 }
 
-// MARK: - Fixed-Width Integer Rules
+// MARK: - IntMin
 
 extension FractionComparableTests {
     @Test("Comparison handles an Int minimum denominator")
@@ -176,7 +176,124 @@ extension FractionComparableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
+
+extension FractionComparableTests {
+    @Test(
+        "NaN comparison follows rational rules",
+        arguments: [
+            (Fraction<Int>.nan, Fraction<Int>(1, 1)),
+            (Fraction<Int>(1, 1), Fraction<Int>.nan),
+            (Fraction<Int>.nan, Fraction<Int>.nan)
+        ]
+    )
+    internal func nanComparisonFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>
+    ) {
+        #expect((lhs < rhs) == false)
+        #expect((lhs > rhs) == false)
+        #expect((lhs <= rhs) == false)
+        #expect((lhs >= rhs) == false)
+        #expect(lhs.isLess(than: rhs) == false)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == false)
+        #expect(lhs.isGreater(than: rhs) == false)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == false)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension FractionComparableTests {
+    @Test(
+        "Negative infinity comparison follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, false, true, false, true),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>(-1, 1), true, true, false, false),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, true, true, false, false)
+        ]
+    )
+    internal func negativeInfinityComparisonFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        isLess: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual: Bool
+    ) {
+        #expect((lhs < rhs) == isLess)
+        #expect((lhs <= rhs) == isLessThanOrEqual)
+        #expect((lhs > rhs) == isGreater)
+        #expect((lhs >= rhs) == isGreaterThanOrEqual)
+        #expect(lhs.isLess(than: rhs) == isLess)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
+        #expect(lhs.isGreater(than: rhs) == isGreater)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionComparableTests {
+    @Test(
+        "Negative zero comparison follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero, false, true, false, true),
+            (Fraction<Int>.negativeZero, Fraction<Int>.zero, true, true, false, false),
+            (Fraction<Int>.negativeZero, Fraction<Int>(1, 1), true, true, false, false),
+            (Fraction<Int>.negativeZero, Fraction<Int>(-1, 1), false, false, true, true)
+        ]
+    )
+    internal func negativeZeroComparisonFollowsStoredRepresentationRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        isLess: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual: Bool
+    ) {
+        #expect((lhs < rhs) == isLess)
+        #expect((lhs <= rhs) == isLessThanOrEqual)
+        #expect((lhs > rhs) == isGreater)
+        #expect((lhs >= rhs) == isGreaterThanOrEqual)
+        #expect(lhs.isLess(than: rhs) == isLess)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
+        #expect(lhs.isGreater(than: rhs) == isGreater)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionComparableTests {
+    @Test(
+        "Positive infinity comparison follows rational rules",
+        arguments: [
+            (Fraction<Int>.infinity, Fraction<Int>.infinity, false, true, false, true),
+            (Fraction<Int>.infinity, Fraction<Int>(1, 1), false, false, true, true),
+            (Fraction<Int>.infinity, Fraction<Int>.negativeInfinity, false, false, true, true)
+        ]
+    )
+    internal func positiveInfinityComparisonFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        isLess: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual: Bool
+    ) {
+        #expect((lhs < rhs) == isLess)
+        #expect((lhs <= rhs) == isLessThanOrEqual)
+        #expect((lhs > rhs) == isGreater)
+        #expect((lhs >= rhs) == isGreaterThanOrEqual)
+        #expect(lhs.isLess(than: rhs) == isLess)
+        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
+        #expect(lhs.isGreater(than: rhs) == isGreater)
+        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
+    }
+}
+
+// MARK: - Positive Zero
 
 extension FractionComparableTests {
     @Test(
@@ -204,106 +321,5 @@ extension FractionComparableTests {
         #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
         #expect(lhs.isGreater(than: rhs) == isGreater)
         #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
-    }
-
-    @Test(
-        "Negative zero comparison follows stored representation rules",
-        arguments: [
-            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero, false, true, false, true),
-            (Fraction<Int>.negativeZero, Fraction<Int>.zero, true, true, false, false),
-            (Fraction<Int>.negativeZero, Fraction<Int>(1, 1), true, true, false, false),
-            (Fraction<Int>.negativeZero, Fraction<Int>(-1, 1), false, false, true, true)
-        ]
-    )
-    internal func negativeZeroComparisonFollowsStoredRepresentationRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>,
-        isLess: Bool,
-        isLessThanOrEqual: Bool,
-        isGreater: Bool,
-        isGreaterThanOrEqual: Bool
-    ) {
-        #expect((lhs < rhs) == isLess)
-        #expect((lhs <= rhs) == isLessThanOrEqual)
-        #expect((lhs > rhs) == isGreater)
-        #expect((lhs >= rhs) == isGreaterThanOrEqual)
-        #expect(lhs.isLess(than: rhs) == isLess)
-        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
-        #expect(lhs.isGreater(than: rhs) == isGreater)
-        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
-    }
-
-    @Test(
-        "Positive infinity comparison follows rational rules",
-        arguments: [
-            (Fraction<Int>.infinity, Fraction<Int>.infinity, false, true, false, true),
-            (Fraction<Int>.infinity, Fraction<Int>(1, 1), false, false, true, true),
-            (Fraction<Int>.infinity, Fraction<Int>.negativeInfinity, false, false, true, true)
-        ]
-    )
-    internal func positiveInfinityComparisonFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>,
-        isLess: Bool,
-        isLessThanOrEqual: Bool,
-        isGreater: Bool,
-        isGreaterThanOrEqual: Bool
-    ) {
-        #expect((lhs < rhs) == isLess)
-        #expect((lhs <= rhs) == isLessThanOrEqual)
-        #expect((lhs > rhs) == isGreater)
-        #expect((lhs >= rhs) == isGreaterThanOrEqual)
-        #expect(lhs.isLess(than: rhs) == isLess)
-        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
-        #expect(lhs.isGreater(than: rhs) == isGreater)
-        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
-    }
-
-    @Test(
-        "Negative infinity comparison follows rational rules",
-        arguments: [
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, false, true, false, true),
-            (Fraction<Int>.negativeInfinity, Fraction<Int>(-1, 1), true, true, false, false),
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, true, true, false, false)
-        ]
-    )
-    internal func negativeInfinityComparisonFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>,
-        isLess: Bool,
-        isLessThanOrEqual: Bool,
-        isGreater: Bool,
-        isGreaterThanOrEqual: Bool
-    ) {
-        #expect((lhs < rhs) == isLess)
-        #expect((lhs <= rhs) == isLessThanOrEqual)
-        #expect((lhs > rhs) == isGreater)
-        #expect((lhs >= rhs) == isGreaterThanOrEqual)
-        #expect(lhs.isLess(than: rhs) == isLess)
-        #expect(lhs.isLessThanOrEqual(to: rhs) == isLessThanOrEqual)
-        #expect(lhs.isGreater(than: rhs) == isGreater)
-        #expect(lhs.isGreaterThanOrEqual(to: rhs) == isGreaterThanOrEqual)
-    }
-
-    @Test(
-        "NaN comparison follows rational rules",
-        arguments: [
-            (Fraction<Int>.nan, Fraction<Int>(1, 1)),
-            (Fraction<Int>(1, 1), Fraction<Int>.nan),
-            (Fraction<Int>.nan, Fraction<Int>.nan)
-        ]
-    )
-    internal func nanComparisonFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>
-    ) {
-        #expect((lhs < rhs) == false)
-        #expect((lhs > rhs) == false)
-        #expect((lhs <= rhs) == false)
-        #expect((lhs >= rhs) == false)
-        #expect(lhs.isLess(than: rhs) == false)
-        #expect(lhs.isLessThanOrEqual(to: rhs) == false)
-        #expect(lhs.isGreater(than: rhs) == false)
-        #expect(lhs.isGreaterThanOrEqual(to: rhs) == false)
     }
 }

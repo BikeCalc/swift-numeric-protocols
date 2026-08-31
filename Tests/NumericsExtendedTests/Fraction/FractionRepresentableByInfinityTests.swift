@@ -24,26 +24,21 @@ internal struct FractionRepresentableByInfinityTests {
         #expect(value.isFinite == true)
         #expect(value.isInfinite == false)
     }
+}
 
-    @Test("Positive zero is finite")
-    internal func positiveZeroIsFinite() {
-        #expect(Fraction<Int>.zero.isFinite == true)
-        #expect(Fraction<Int>.zero.isInfinite == false)
+// MARK: - NaN
+
+extension FractionRepresentableByInfinityTests {
+    @Test("NaN is neither finite nor infinite")
+    internal func nanIsNeitherFiniteNorInfinite() {
+        #expect(Fraction<Int>.nan.isFinite == false)
+        #expect(Fraction<Int>.nan.isInfinite == false)
     }
+}
 
-    @Test("Negative zero is finite")
-    internal func negativeZeroIsFinite() {
-        #expect(Fraction<Int>.negativeZero.isFinite == true)
-        #expect(Fraction<Int>.negativeZero.isInfinite == false)
-    }
+// MARK: - Negative Infinity
 
-    @Test("Positive infinity is infinite")
-    internal func positiveInfinityIsInfinite() {
-        #expect(Fraction<Int>.infinity.isFinite == false)
-        #expect(Fraction<Int>.infinity.isInfinite == true)
-        #expect(Fraction<Int>(1, 0).isInfinite == true)
-    }
-
+extension FractionRepresentableByInfinityTests {
     @Test("Negative infinity is infinite")
     internal func negativeInfinityIsInfinite() {
         #expect(Fraction<Int>.negativeInfinity.isFinite == false)
@@ -51,14 +46,39 @@ internal struct FractionRepresentableByInfinityTests {
         #expect(Fraction<Int>(-1, 0).isInfinite == true)
     }
 
-    @Test("NaN is neither finite nor infinite")
-    internal func nanIsNeitherFiniteNorInfinite() {
-        #expect(Fraction<Int>.nan.isFinite == false)
-        #expect(Fraction<Int>.nan.isInfinite == false)
-    }
-
     @Test("Negative infinity equals negated infinity")
     internal func negativeInfinityEqualsNegatedInfinity() {
         #expect(Fraction<Int>.negativeInfinity == -Fraction<Int>.infinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionRepresentableByInfinityTests {
+    @Test("Negative zero is finite")
+    internal func negativeZeroIsFinite() {
+        #expect(Fraction<Int>.negativeZero.isFinite == true)
+        #expect(Fraction<Int>.negativeZero.isInfinite == false)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionRepresentableByInfinityTests {
+    @Test("Positive infinity is infinite")
+    internal func positiveInfinityIsInfinite() {
+        #expect(Fraction<Int>.infinity.isFinite == false)
+        #expect(Fraction<Int>.infinity.isInfinite == true)
+        #expect(Fraction<Int>(1, 0).isInfinite == true)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension FractionRepresentableByInfinityTests {
+    @Test("Positive zero is finite")
+    internal func positiveZeroIsFinite() {
+        #expect(Fraction<Int>.zero.isFinite == true)
+        #expect(Fraction<Int>.zero.isInfinite == false)
     }
 }

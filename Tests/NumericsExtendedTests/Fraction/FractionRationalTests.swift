@@ -142,7 +142,7 @@ internal struct FractionRationalTests {
 
 }
 
-// MARK: - Fixed-Width Integer Rules
+// MARK: - IntMin
 
 extension FractionRationalTests {
     @Test("Int minimum over negative one is whole")
@@ -153,7 +153,79 @@ extension FractionRationalTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
+
+extension FractionRationalTests {
+    @Test("NaN properties follow rational rules")
+    internal func nanPropertiesFollowRationalRules() {
+        let value: Fraction<Int> = .nan
+
+        #expect(value.isOne == false)
+        #expect(value.isWhole == false)
+        #expect(value.isProper == false)
+        #expect(value.isImproper == false)
+        #expect(value.isUnit == false)
+        #expect(value.quotient.isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension FractionRationalTests {
+    @Test("Negative infinity properties follow rational rules")
+    internal func negativeInfinityPropertiesFollowRationalRules() {
+        let value: Fraction<Int> = .negativeInfinity
+
+        #expect(value.isOne == false)
+        #expect(value.isWhole == false)
+        #expect(value.isProper == false)
+        #expect(value.isImproper == false)
+        #expect(value.isUnit == false)
+        #expect(value.quotient == Double.negativeInfinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionRationalTests {
+    @Test(
+        "Negative zero properties follow rational rules",
+        arguments: [
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(0, -2)
+        ]
+    )
+    internal func negativeZeroPropertiesFollowRationalRules(value: Fraction<Int>) {
+        #expect(value.isOne == false)
+        #expect(value.isWhole == true)
+        #expect(value.isProper == false)
+        #expect(value.isImproper == false)
+        #expect(value.isUnit == false)
+
+        let quotient: Double = value.quotient
+
+        #expect(quotient == .zero)
+        #expect(quotient.sign == .minus)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionRationalTests {
+    @Test("Positive infinity properties follow rational rules")
+    internal func positiveInfinityPropertiesFollowRationalRules() {
+        let value: Fraction<Int> = .infinity
+
+        #expect(value.isOne == false)
+        #expect(value.isWhole == false)
+        #expect(value.isProper == false)
+        #expect(value.isImproper == false)
+        #expect(value.isUnit == false)
+        #expect(value.quotient == Double.infinity)
+    }
+}
+
+// MARK: - Positive Zero
 
 extension FractionRationalTests {
     @Test(
@@ -174,61 +246,5 @@ extension FractionRationalTests {
 
         #expect(quotient == .zero)
         #expect(quotient.sign == .plus)
-    }
-
-    @Test(
-        "Negative zero properties follow rational rules",
-        arguments: [
-            Fraction<Int>.negativeZero,
-            Fraction<Int>(0, -2)
-        ]
-    )
-    internal func negativeZeroPropertiesFollowRationalRules(value: Fraction<Int>) {
-        #expect(value.isOne == false)
-        #expect(value.isWhole == true)
-        #expect(value.isProper == false)
-        #expect(value.isImproper == false)
-        #expect(value.isUnit == false)
-
-        let quotient: Double = value.quotient
-
-        #expect(quotient == .zero)
-        #expect(quotient.sign == .minus)
-    }
-
-    @Test("Positive infinity properties follow rational rules")
-    internal func positiveInfinityPropertiesFollowRationalRules() {
-        let value: Fraction<Int> = .infinity
-
-        #expect(value.isOne == false)
-        #expect(value.isWhole == false)
-        #expect(value.isProper == false)
-        #expect(value.isImproper == false)
-        #expect(value.isUnit == false)
-        #expect(value.quotient == Double.infinity)
-    }
-
-    @Test("Negative infinity properties follow rational rules")
-    internal func negativeInfinityPropertiesFollowRationalRules() {
-        let value: Fraction<Int> = .negativeInfinity
-
-        #expect(value.isOne == false)
-        #expect(value.isWhole == false)
-        #expect(value.isProper == false)
-        #expect(value.isImproper == false)
-        #expect(value.isUnit == false)
-        #expect(value.quotient == Double.negativeInfinity)
-    }
-
-    @Test("NaN properties follow rational rules")
-    internal func nanPropertiesFollowRationalRules() {
-        let value: Fraction<Int> = .nan
-
-        #expect(value.isOne == false)
-        #expect(value.isWhole == false)
-        #expect(value.isProper == false)
-        #expect(value.isImproper == false)
-        #expect(value.isUnit == false)
-        #expect(value.quotient.isNaN == true)
     }
 }

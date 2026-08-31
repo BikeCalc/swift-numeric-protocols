@@ -46,7 +46,14 @@ internal struct FractionRaisableTests {
             (Fraction<Int>(4, 1), Fraction<Int>(2, 1), true),
             (Fraction<Int>(6, 1), Fraction<Int>(2, 1), false),
             (Fraction<Int>(8, 1), Fraction<Int>(2, 1), true),
-            (Fraction<Int>(9, 1), Fraction<Int>(2, 1), false)
+            (Fraction<Int>(9, 1), Fraction<Int>(2, 1), false),
+            (Fraction<Int>(4, 1), Fraction<Int>(-2, 1), true),
+            (Fraction<Int>(-8, 1), Fraction<Int>(-2, 1), true),
+            (Fraction<Int>(6, 1), Fraction<Int>(-2, 1), false),
+            (Fraction<Int>(1, 4), Fraction<Int>(2, 1), true),
+            (Fraction<Int>(4, 1), Fraction<Int>(1, 2), true),
+            (Fraction<Int>(-1, 8), Fraction<Int>(-2, 1), true),
+            (Fraction<Int>(1, 8), Fraction<Int>(-2, 1), false)
         ]
     )
     internal func isPowerOf(
@@ -158,186 +165,7 @@ internal struct FractionRaisableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension FractionRaisableTests {
-    @Test(
-        "Raising to zero returns one",
-        arguments: [
-            Fraction<Int>(0, 1),
-            Fraction<Int>(0, -2),
-            Fraction<Int>(1, 1),
-            Fraction<Int>(-1, 1),
-            Fraction<Int>(2, 1),
-            Fraction<Int>(3, 1),
-            Fraction<Int>(-2, 1),
-            Fraction<Int>(-3, 1)
-        ]
-    )
-    internal func raisingToZeroReturnsOne(base: Fraction<Int>) {
-        #expect(base ** .zero == 1)
-    }
-
-    @Test(
-        "Raising to one preserves base",
-        arguments: [
-            Fraction<Int>(0, 1),
-            Fraction<Int>(0, -2),
-            Fraction<Int>(1, 1),
-            Fraction<Int>(-1, 1),
-            Fraction<Int>(2, 1),
-            Fraction<Int>(3, 1),
-            Fraction<Int>(-2, 1),
-            Fraction<Int>(-3, 1)
-        ]
-    )
-    internal func raisingToOnePreservesBase(base: Fraction<Int>) {
-        #expect(base ** 1 == base)
-    }
-
-    @Test(
-        "One base exponentiation returns one",
-        arguments: [
-            0,
-            1,
-            2,
-            3,
-            -2,
-            -3
-        ]
-    )
-    internal func oneBaseExponentiationReturnsOne(exponent: Fraction<Int>.Exponent) {
-        #expect(Fraction<Int>(1, 1) ** exponent == .one)
-    }
-
-    @Test(
-        "One base power predicate follows identity rule",
-        arguments: [
-            (Fraction<Int>(1, 1), true),
-            (Fraction<Int>(2, 1), false)
-        ]
-    )
-    internal func oneBasePowerPredicateFollowsIdentityRule(
-        value: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: .one) == result)
-    }
-
-    @Test(
-        "Negative base exponentiation follows parity rule",
-        arguments: [
-            (Fraction<Int>(-2, 3), 1, Fraction<Int>(-2, 3)),
-            (Fraction<Int>(-2, 3), 2, Fraction<Int>(4, 9)),
-            (Fraction<Int>(-2, 3), 3, Fraction<Int>(-8, 27))
-        ]
-    )
-    internal func negativeBaseExponentiationFollowsParityRule(
-        base: Fraction<Int>,
-        exponent: Fraction<Int>.Exponent,
-        power: Fraction<Int>
-    ) {
-        #expect(base ** exponent == power)
-    }
-
-    @Test(
-        "Negative one base exponentiation follows parity rule",
-        arguments: [
-            (0, Fraction<Int>(1, 1)),
-            (1, Fraction<Int>(-1, 1)),
-            (2, Fraction<Int>(1, 1)),
-            (3, Fraction<Int>(-1, 1)),
-            (-2, Fraction<Int>(1, 1)),
-            (-3, Fraction<Int>(1, -1))
-        ]
-    )
-    internal func negativeOneBaseExponentiationFollowsParityRule(
-        exponent: Fraction<Int>.Exponent,
-        power: Fraction<Int>
-    ) {
-        #expect(Fraction<Int>(-1, 1) ** exponent == power)
-    }
-
-    @Test(
-        "Negative base power predicate follows signed rules",
-        arguments: [
-            (Fraction<Int>(4, 1), Fraction<Int>(-2, 1), true),
-            (Fraction<Int>(-8, 1), Fraction<Int>(-2, 1), true),
-            (Fraction<Int>(6, 1), Fraction<Int>(-2, 1), false)
-        ]
-    )
-    internal func negativeBasePowerPredicateFollowsSignedRules(
-        value: Fraction<Int>,
-        other: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: other) == result)
-    }
-
-    @Test(
-        "Negative one base power predicate follows signed rules",
-        arguments: [
-            (Fraction<Int>(1, 1), true),
-            (Fraction<Int>(-1, 1), true),
-            (Fraction<Int>(2, 1), false)
-        ]
-    )
-    internal func negativeOneBasePowerPredicateFollowsSignedRules(
-        value: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: Fraction<Int>(-1, 1)) == result)
-    }
-
-    @Test(
-        "Negative exponent returns reciprocal power",
-        arguments: [
-            (Fraction<Int>(2, 1), -1, Fraction<Int>(1, 2)),
-            (Fraction<Int>(2, 1), -2, Fraction<Int>(1, 4)),
-            (Fraction<Int>(2, 1), -3, Fraction<Int>(1, 8))
-        ]
-    )
-    internal func negativeExponentReturnsReciprocalPower(
-        base: Fraction<Int>,
-        exponent: Fraction<Int>.Exponent,
-        power: Fraction<Int>
-    ) {
-        #expect(base ** exponent == power)
-    }
-
-    @Test(
-        "Reciprocal powers are recognized",
-        arguments: [
-            (Fraction<Int>(1, 4), Fraction<Int>(2, 1), true),
-            (Fraction<Int>(4, 1), Fraction<Int>(1, 2), true),
-            (Fraction<Int>(-1, 8), Fraction<Int>(-2, 1), true),
-            (Fraction<Int>(1, 8), Fraction<Int>(-2, 1), false)
-        ]
-    )
-    internal func reciprocalPowersAreRecognized(
-        value: Fraction<Int>,
-        other: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: other) == result)
-    }
-
-    @Test(
-        "Negative base with negative exponent follows reciprocal parity rule",
-        arguments: [
-            (Fraction<Int>(-2, 1), -1, Fraction<Int>(1, -2)),
-            (Fraction<Int>(-2, 1), -2, Fraction<Int>(1, 4)),
-            (Fraction<Int>(-2, 1), -3, Fraction<Int>(1, -8))
-        ]
-    )
-    internal func negativeBaseWithNegativeExponentFollowsReciprocalParityRule(
-        base: Fraction<Int>,
-        exponent: Fraction<Int>.Exponent,
-        power: Fraction<Int>
-    ) {
-        #expect(base ** exponent == power)
-    }
-
     @Test(
         "Exponentiation is not commutative",
         arguments: [
@@ -357,9 +185,25 @@ extension FractionRaisableTests {
     }
 }
 
-// MARK: - Fixed-Width Integer Rules
+// MARK: - IntMin
 
 extension FractionRaisableTests {
+    @Test(
+        "Raising to negative one returns reciprocal",
+        arguments: [
+            (Fraction<Int>(1, 1), Fraction<Int>(1, 1)),
+            (Fraction<Int>(-1, 1), Fraction<Int>(1, -1)),
+            (Fraction<Int>(2, 3), Fraction<Int>(3, 2)),
+            (Fraction<Int>(-2, 3), Fraction<Int>(3, -2))
+        ]
+    )
+    internal func raisingToNegativeOneReturnsReciprocal(
+        base: Fraction<Int>,
+        power: Fraction<Int>
+    ) {
+        #expect(base ** -1 == power)
+    }
+
     @Test("Int minimum exponent uses unsigned magnitude")
     internal func intMinimumExponentUsesUnsignedMagnitude() {
         #expect(Fraction<Int>(1, 1) ** Int.min == .one)
@@ -367,61 +211,64 @@ extension FractionRaisableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
+
+extension FractionRaisableTests {
+    @Test("NaN power predicate follows rational rules")
+    internal func nanPowerPredicateFollowsRationalRules() {
+        #expect(Fraction<Int>(1, 1).isPower(of: .nan) == true)
+        #expect(Fraction<Int>(2, 1).isPower(of: .nan) == false)
+        #expect(Fraction<Int>.nan.isPower(of: Fraction<Int>(2, 1)) == false)
+    }
+
+    @Test(
+        "NaN raised to nonzero exponent returns NaN",
+        arguments: [
+            (Fraction<Int>.nan, 1),
+            (Fraction<Int>.nan, 2),
+            (Fraction<Int>.nan, -1)
+        ]
+    )
+    internal func nanRaisedToNonzeroExponentReturnsNaN(
+        base: Fraction<Int>,
+        exponent: Fraction<Int>.Exponent
+    ) {
+        #expect((base ** exponent).isNaN == true)
+    }
+
+    @Test("NaN raised to positive zero returns one")
+    internal func nanRaisedToPositiveZeroReturnsOne() {
+        let power: Fraction<Int> = .nan ** .zero
+
+        #expect(power == .one)
+    }
+
+    @Test("NaN raised to negative zero returns one")
+    internal func nanRaisedToNegativeZeroReturnsOne() {
+        let power: Fraction<Int> = .nan ** Fraction<Int>.Exponent.negativeZero
+
+        #expect(power == .one)
+    }
+}
+
+// MARK: - Negative Infinity
 
 extension FractionRaisableTests {
     @Test(
-        "Positive zero base power predicate follows rational rules",
+        "Raising to negative zero returns one",
         arguments: [
-            (Fraction<Int>(0, 1), true),
-            (Fraction<Int>(0, -1), true),
-            (Fraction<Int>(1, 1), true),
-            (Fraction<Int>(2, 1), false),
-            (Fraction<Int>.infinity, true),
-            (Fraction<Int>.negativeInfinity, false)
+            Fraction<Int>(0, 1),
+            Fraction<Int>(0, -2),
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>(2, 1),
+            Fraction<Int>(3, 1),
+            Fraction<Int>(-2, 1),
+            Fraction<Int>(-3, 1)
         ]
     )
-    internal func positiveZeroBasePowerPredicateFollowsRationalRules(
-        value: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: .zero) == result)
-    }
-
-    @Test(
-        "Negative zero base power predicate follows rational rules",
-        arguments: [
-            (Fraction<Int>(0, 1), true),
-            (Fraction<Int>(0, -1), true),
-            (Fraction<Int>(1, 1), true),
-            (Fraction<Int>(2, 1), false),
-            (Fraction<Int>.infinity, true),
-            (Fraction<Int>.negativeInfinity, true)
-        ]
-    )
-    internal func negativeZeroBasePowerPredicateFollowsRationalRules(
-        value: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: Fraction<Int>(0, -1)) == result)
-    }
-
-    @Test(
-        "Positive infinity base power predicate follows rational rules",
-        arguments: [
-            (Fraction<Int>(0, 1), true),
-            (Fraction<Int>(0, -1), true),
-            (Fraction<Int>(1, 1), true),
-            (Fraction<Int>(2, 1), false),
-            (Fraction<Int>.infinity, true),
-            (Fraction<Int>.negativeInfinity, false)
-        ]
-    )
-    internal func positiveInfinityBasePowerPredicateFollowsRationalRules(
-        value: Fraction<Int>,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: .infinity) == result)
+    internal func raisingToNegativeZeroReturnsOne(base: Fraction<Int>) {
+        #expect(base ** Fraction<Int>.Exponent.negativeZero == 1)
     }
 
     @Test(
@@ -442,32 +289,85 @@ extension FractionRaisableTests {
         #expect(value.isPower(of: .negativeInfinity) == result)
     }
 
-    @Test("NaN power predicate follows rational rules")
-    internal func nanPowerPredicateFollowsRationalRules() {
-        #expect(Fraction<Int>(1, 1).isPower(of: .nan) == true)
-        #expect(Fraction<Int>(2, 1).isPower(of: .nan) == false)
-        #expect(Fraction<Int>.nan.isPower(of: Fraction<Int>(2, 1)) == false)
-    }
-
     @Test(
-        "Positive zero base exponentiation follows rational rules",
+        "Negative infinity exponentiation follows parity rule",
         arguments: [
-            (Fraction<Int>(0, 1), 0, Fraction<Int>(1, 1)),
-            (Fraction<Int>(0, 1), 1, Fraction<Int>(0, 1)),
-            (Fraction<Int>(0, 1), 2, Fraction<Int>(0, 1)),
-            (Fraction<Int>(0, 1), -1, Fraction<Int>.infinity)
+            (Fraction<Int>.negativeInfinity, 0, Fraction<Int>(1, 1)),
+            (Fraction<Int>.negativeInfinity, 1, Fraction<Int>.negativeInfinity),
+            (Fraction<Int>.negativeInfinity, 2, Fraction<Int>.infinity),
+            (Fraction<Int>.negativeInfinity, -1, Fraction<Int>(0, -1)),
+            (Fraction<Int>.negativeInfinity, -2, Fraction<Int>(0, 1))
         ]
     )
-    internal func positiveZeroBaseExponentiationFollowsRationalRules(
+    internal func negativeInfinityExponentiationFollowsParityRule(
         base: Fraction<Int>,
         exponent: Fraction<Int>.Exponent,
         power: Fraction<Int>
     ) {
         #expect(base ** exponent == power)
     }
+}
+
+// MARK: - Negative One
+
+extension FractionRaisableTests {
+    @Test(
+        "Negative one base exponentiation follows parity rule",
+        arguments: [
+            (0, Fraction<Int>(1, 1)),
+            (1, Fraction<Int>(-1, 1)),
+            (2, Fraction<Int>(1, 1)),
+            (3, Fraction<Int>(-1, 1)),
+            (-2, Fraction<Int>(1, 1)),
+            (-3, Fraction<Int>(1, -1))
+        ]
+    )
+    internal func negativeOneBaseExponentiationFollowsParityRule(
+        exponent: Fraction<Int>.Exponent,
+        power: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>(-1, 1) ** exponent == power)
+    }
 
     @Test(
-        "Negative zero exponentiation follows parity rule",
+        "Negative one base power predicate follows signed rules",
+        arguments: [
+            (Fraction<Int>(1, 1), true),
+            (Fraction<Int>(-1, 1), true),
+            (Fraction<Int>(2, 1), false)
+        ]
+    )
+    internal func negativeOneBasePowerPredicateFollowsSignedRules(
+        value: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: Fraction<Int>(-1, 1)) == result)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionRaisableTests {
+    @Test(
+        "Negative zero base power predicate follows rational rules",
+        arguments: [
+            (Fraction<Int>(0, 1), true),
+            (Fraction<Int>(0, -1), true),
+            (Fraction<Int>(1, 1), true),
+            (Fraction<Int>(2, 1), false),
+            (Fraction<Int>.infinity, true),
+            (Fraction<Int>.negativeInfinity, true)
+        ]
+    )
+    internal func negativeZeroBasePowerPredicateFollowsRationalRules(
+        value: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: Fraction<Int>(0, -1)) == result)
+    }
+
+    @Test(
+        "Negative zero base exponentiation follows parity rule",
         arguments: [
             (Fraction<Int>(0, -1), 0, Fraction<Int>(1, 1)),
             (Fraction<Int>(0, -1), 1, Fraction<Int>(0, -1)),
@@ -476,34 +376,34 @@ extension FractionRaisableTests {
             (Fraction<Int>(0, -1), -2, Fraction<Int>.infinity)
         ]
     )
-    internal func negativeZeroExponentiationFollowsParityRule(
+    internal func negativeZeroBaseExponentiationFollowsParityRule(
         base: Fraction<Int>,
         exponent: Fraction<Int>.Exponent,
         power: Fraction<Int>
     ) {
         #expect(base ** exponent == power)
     }
+}
 
+// MARK: - Positive Infinity
+
+extension FractionRaisableTests {
     @Test(
-        "NaN raised to nonzero exponent returns NaN",
+        "Positive infinity base power predicate follows rational rules",
         arguments: [
-            (Fraction<Int>.nan, 1),
-            (Fraction<Int>.nan, 2),
-            (Fraction<Int>.nan, -1)
+            (Fraction<Int>(0, 1), true),
+            (Fraction<Int>(0, -1), true),
+            (Fraction<Int>(1, 1), true),
+            (Fraction<Int>(2, 1), false),
+            (Fraction<Int>.infinity, true),
+            (Fraction<Int>.negativeInfinity, false)
         ]
     )
-    internal func nanRaisedToNonzeroExponentReturnsNaN(
-        base: Fraction<Int>,
-        exponent: Fraction<Int>.Exponent
+    internal func positiveInfinityBasePowerPredicateFollowsRationalRules(
+        value: Fraction<Int>,
+        result: Bool
     ) {
-        #expect((base ** exponent).isNaN == true)
-    }
-
-    @Test("NaN raised to zero returns one")
-    internal func nanRaisedToZeroReturnsOne() {
-        let power: Fraction<Int> = .nan ** .zero
-
-        #expect(power == .one)
+        #expect(value.isPower(of: .infinity) == result)
     }
 
     @Test(
@@ -521,18 +421,106 @@ extension FractionRaisableTests {
     ) {
         #expect(base ** exponent == power)
     }
+}
 
+// MARK: - Positive One
+
+extension FractionRaisableTests {
     @Test(
-        "Negative infinity exponentiation follows parity rule",
+        "Raising to positive one preserves base",
         arguments: [
-            (Fraction<Int>.negativeInfinity, 0, Fraction<Int>(1, 1)),
-            (Fraction<Int>.negativeInfinity, 1, Fraction<Int>.negativeInfinity),
-            (Fraction<Int>.negativeInfinity, 2, Fraction<Int>.infinity),
-            (Fraction<Int>.negativeInfinity, -1, Fraction<Int>(0, -1)),
-            (Fraction<Int>.negativeInfinity, -2, Fraction<Int>(0, 1))
+            Fraction<Int>(0, 1),
+            Fraction<Int>(0, -2),
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>(2, 1),
+            Fraction<Int>(3, 1),
+            Fraction<Int>(-2, 1),
+            Fraction<Int>(-3, 1)
         ]
     )
-    internal func negativeInfinityExponentiationFollowsParityRule(
+    internal func raisingToPositiveOnePreservesBase(base: Fraction<Int>) {
+        #expect(base ** 1 == base)
+    }
+
+    @Test(
+        "Positive one base exponentiation returns positive one",
+        arguments: [
+            0,
+            1,
+            2,
+            3,
+            -2,
+            -3
+        ]
+    )
+    internal func positiveOneBaseExponentiationReturnsPositiveOne(exponent: Fraction<Int>.Exponent) {
+        #expect(Fraction<Int>(1, 1) ** exponent == .one)
+    }
+
+    @Test(
+        "Positive one base power predicate follows identity rule",
+        arguments: [
+            (Fraction<Int>(1, 1), true),
+            (Fraction<Int>(2, 1), false)
+        ]
+    )
+    internal func positiveOneBasePowerPredicateFollowsIdentityRule(
+        value: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: .one) == result)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension FractionRaisableTests {
+    @Test(
+        "Raising to positive zero returns one",
+        arguments: [
+            Fraction<Int>(0, 1),
+            Fraction<Int>(0, -2),
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1),
+            Fraction<Int>(2, 1),
+            Fraction<Int>(3, 1),
+            Fraction<Int>(-2, 1),
+            Fraction<Int>(-3, 1)
+        ]
+    )
+    internal func raisingToPositiveZeroReturnsOne(base: Fraction<Int>) {
+        #expect(base ** .zero == 1)
+    }
+
+    @Test(
+        "Positive zero base power predicate follows rational rules",
+        arguments: [
+            (Fraction<Int>(0, 1), true),
+            (Fraction<Int>(0, -1), true),
+            (Fraction<Int>(1, 1), true),
+            (Fraction<Int>(2, 1), false),
+            (Fraction<Int>.infinity, true),
+            (Fraction<Int>.negativeInfinity, false)
+        ]
+    )
+    internal func positiveZeroBasePowerPredicateFollowsRationalRules(
+        value: Fraction<Int>,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: .zero) == result)
+    }
+
+    @Test(
+        "Positive zero base exponentiation follows rational rules",
+        arguments: [
+            (Fraction<Int>(0, 1), 0, Fraction<Int>(1, 1)),
+            (Fraction<Int>(0, 1), 1, Fraction<Int>(0, 1)),
+            (Fraction<Int>(0, 1), 2, Fraction<Int>(0, 1)),
+            (Fraction<Int>(0, 1), -1, Fraction<Int>.infinity)
+        ]
+    )
+    internal func positiveZeroBaseExponentiationFollowsRationalRules(
         base: Fraction<Int>,
         exponent: Fraction<Int>.Exponent,
         power: Fraction<Int>

@@ -102,7 +102,7 @@ internal struct FractionSimplifiableTests {
     }
 }
 
-// MARK: - Fixed-Width Integer Rules
+// MARK: - IntMin
 
 extension FractionSimplifiableTests {
     @Test("Int minimum terms simplify without overflow")
@@ -114,7 +114,60 @@ extension FractionSimplifiableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
+
+extension FractionSimplifiableTests {
+    @Test("NaN simplification follows rational rules")
+    internal func nanSimplificationFollowsRationalRules() {
+        #expect(Fraction<Int>.nan.isSimplifiable == true)
+        #expect(Fraction<Int>.nan.isSimplified == true)
+        #expect(Fraction<Int>.nan.simplified().isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension FractionSimplifiableTests {
+    @Test("Negative infinity simplification follows rational rules")
+    internal func negativeInfinitySimplificationFollowsRationalRules() {
+        #expect(Fraction<Int>.negativeInfinity.isSimplifiable == true)
+        #expect(Fraction<Int>.negativeInfinity.isSimplified == true)
+        #expect(Fraction<Int>.negativeInfinity.simplified() == .negativeInfinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionSimplifiableTests {
+    @Test(
+        "Negative zero simplification follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeZero, true),
+            (Fraction<Int>(0, -2), false)
+        ]
+    )
+    internal func negativeZeroSimplificationFollowsRationalRules(
+        value: Fraction<Int>,
+        isSimplified: Bool
+    ) {
+        #expect(value.isSimplifiable == true)
+        #expect(value.isSimplified == isSimplified)
+        #expect(value.simplified() == .negativeZero)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionSimplifiableTests {
+    @Test("Positive infinity simplification follows rational rules")
+    internal func positiveInfinitySimplificationFollowsRationalRules() {
+        #expect(Fraction<Int>.infinity.isSimplifiable == true)
+        #expect(Fraction<Int>.infinity.isSimplified == true)
+        #expect(Fraction<Int>.infinity.simplified() == .infinity)
+    }
+}
+
+// MARK: - Positive Zero
 
 extension FractionSimplifiableTests {
     @Test(
@@ -131,42 +184,5 @@ extension FractionSimplifiableTests {
         #expect(value.isSimplifiable == true)
         #expect(value.isSimplified == isSimplified)
         #expect(value.simplified() == .zero)
-    }
-
-    @Test(
-        "Negative zero simplification follows rational rules",
-        arguments: [
-            (Fraction<Int>.negativeZero, true),
-            (Fraction<Int>(0, -2), false)
-        ]
-    )
-    internal func negativeZeroSimplificationFollowsRationalRules(
-        value: Fraction<Int>,
-        isSimplified: Bool
-    ) {
-        #expect(value.isSimplifiable == true)
-        #expect(value.isSimplified == isSimplified)
-        #expect(value.simplified() == .negativeZero)
-    }
-
-    @Test("Positive infinity simplification follows rational rules")
-    internal func positiveInfinitySimplificationFollowsRationalRules() {
-        #expect(Fraction<Int>.infinity.isSimplifiable == true)
-        #expect(Fraction<Int>.infinity.isSimplified == true)
-        #expect(Fraction<Int>.infinity.simplified() == .infinity)
-    }
-
-    @Test("Negative infinity simplification follows rational rules")
-    internal func negativeInfinitySimplificationFollowsRationalRules() {
-        #expect(Fraction<Int>.negativeInfinity.isSimplifiable == true)
-        #expect(Fraction<Int>.negativeInfinity.isSimplified == true)
-        #expect(Fraction<Int>.negativeInfinity.simplified() == .negativeInfinity)
-    }
-
-    @Test("NaN simplification follows rational rules")
-    internal func nanSimplificationFollowsRationalRules() {
-        #expect(Fraction<Int>.nan.isSimplifiable == true)
-        #expect(Fraction<Int>.nan.isSimplified == true)
-        #expect(Fraction<Int>.nan.simplified().isNaN == true)
     }
 }

@@ -14,12 +14,8 @@ internal struct FractionCustomDebugStringConvertibleTests {
     @Test(
         "Debug description succeeds",
         arguments: [
-            (Fraction<Int>(-0, 1), "Fraction<Int>(0, 1)"),
-            (Fraction<Int>(-00, 1), "Fraction<Int>(0, 1)"),
             (Fraction<Int>(-01, 1), "Fraction<Int>(-1, 1)"),
             (Fraction<Int>(-1, 1), "Fraction<Int>(-1, 1)"),
-            (Fraction<Int>(0, 1), "Fraction<Int>(0, 1)"),
-            (Fraction<Int>(00, 1), "Fraction<Int>(0, 1)"),
             (Fraction<Int>(01, 1), "Fraction<Int>(1, 1)"),
             (Fraction<Int>(1, 1), "Fraction<Int>(1, 1)")
         ]
@@ -30,19 +26,67 @@ internal struct FractionCustomDebugStringConvertibleTests {
     ) {
         #expect(value.debugDescription == debugDescription)
     }
+}
 
-    @Test("Positive infinity debug description")
-    internal func positiveInfinityDebugDescription() {
-        #expect(Fraction<Int>.infinity.debugDescription == "Fraction<Int>(1, 0)")
+// MARK: - NaN
+
+extension FractionCustomDebugStringConvertibleTests {
+    @Test("NaN debug description")
+    internal func nanDebugDescription() {
+        #expect(Fraction<Int>.nan.debugDescription == "Fraction<Int>(0, 0)")
     }
+}
 
+// MARK: - Negative Infinity
+
+extension FractionCustomDebugStringConvertibleTests {
     @Test("Negative infinity debug description")
     internal func negativeInfinityDebugDescription() {
         #expect(Fraction<Int>.negativeInfinity.debugDescription == "Fraction<Int>(-1, 0)")
     }
+}
 
-    @Test("NaN debug description")
-    internal func nanDebugDescription() {
-        #expect(Fraction<Int>.nan.debugDescription == "Fraction<Int>(0, 0)")
+// MARK: - Negative Zero
+
+extension FractionCustomDebugStringConvertibleTests {
+    @Test(
+        "Negative zero debug description",
+        arguments: [
+            (Fraction<Int>.negativeZero, "Fraction<Int>(0, -1)"),
+            (Fraction<Int>(0, -2), "Fraction<Int>(0, -2)")
+        ]
+    )
+    internal func negativeZeroDebugDescription(
+        value: Fraction<Int>,
+        result: String
+    ) {
+        #expect(value.debugDescription == result)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionCustomDebugStringConvertibleTests {
+    @Test("Positive infinity debug description")
+    internal func positiveInfinityDebugDescription() {
+        #expect(Fraction<Int>.infinity.debugDescription == "Fraction<Int>(1, 0)")
+    }
+}
+
+// MARK: - Positive Zero
+
+extension FractionCustomDebugStringConvertibleTests {
+    @Test(
+        "Positive zero debug description",
+        arguments: [
+            (Fraction<Int>.zero, "Fraction<Int>(0, 1)"),
+            (Fraction<Int>(0, 2), "Fraction<Int>(0, 2)")
+        ]
+    )
+    internal func positiveZeroDebugDescription(
+        value: Fraction<Int>,
+        result: String
+    ) {
+        #expect(value.debugDescription == result)
     }
 }

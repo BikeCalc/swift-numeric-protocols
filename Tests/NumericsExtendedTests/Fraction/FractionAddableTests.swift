@@ -71,38 +71,7 @@ internal struct FractionAddableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension FractionAddableTests {
-    @Test(
-        "Adding positive zero preserves augend",
-        arguments: [
-            Fraction<Int>(1, 2),
-            Fraction<Int>(2, 3),
-            Fraction<Int>(-1, 2),
-            Fraction<Int>(-2, 3)
-        ]
-    )
-    internal func addingPositiveZeroPreservesAugend(augend: Fraction<Int>) {
-        #expect(augend + .zero == augend)
-    }
-
-    @Test(
-        "Adding opposite values returns represented zero",
-        arguments: [
-            (Fraction<Int>(1, 2), Fraction<Int>(-1, 2)),
-            (Fraction<Int>(2, 3), Fraction<Int>(-2, 3)),
-            (Fraction<Int>(-1, 2), Fraction<Int>(1, 2)),
-            (Fraction<Int>(-2, 3), Fraction<Int>(2, 3))
-        ]
-    )
-    internal func addingOppositeValuesReturnsRepresentedZero(
-        augend: Fraction<Int>,
-        addend: Fraction<Int>
-    ) {
-        #expect((augend + addend).isZero == true)
-    }
-
     @Test(
         "Addition is commutative",
         arguments: Self.additionArguments
@@ -116,65 +85,9 @@ extension FractionAddableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
 
 extension FractionAddableTests {
-    @Test(
-        "Adding to positive zero follows stored representation rules",
-        arguments: [
-            (Fraction<Int>.zero, Fraction<Int>.zero),
-            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
-            (Fraction<Int>(1, 1), Fraction<Int>(1, 1)),
-            (Fraction<Int>(-1, 1), Fraction<Int>(-1, 1))
-        ]
-    )
-    internal func addingToPositiveZeroFollowsStoredRepresentationRules(
-        addend: Fraction<Int>,
-        sum: Fraction<Int>
-    ) {
-        #expect(Fraction<Int>.zero + addend == sum)
-    }
-
-    @Test(
-        "Adding to negative zero follows stored representation rules",
-        arguments: [
-            (Fraction<Int>.zero, Fraction<Int>.negativeZero),
-            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
-            (Fraction<Int>(1, 1), Fraction<Int>(-1, -1)),
-            (Fraction<Int>(-1, 1), Fraction<Int>(1, -1))
-        ]
-    )
-    internal func addingToNegativeZeroFollowsStoredRepresentationRules(
-        addend: Fraction<Int>,
-        sum: Fraction<Int>
-    ) {
-        #expect(Fraction<Int>.negativeZero + addend == sum)
-    }
-
-    @Test(
-        "Adding to positive infinity follows rational rules",
-        arguments: [
-            Fraction<Int>.infinity,
-            Fraction<Int>(1, 1),
-            Fraction<Int>(-1, 1)
-        ]
-    )
-    internal func addingToPositiveInfinityFollowsRationalRules(addend: Fraction<Int>) {
-        #expect(Fraction<Int>.infinity + addend == .infinity)
-    }
-
-    @Test(
-        "Adding to negative infinity follows rational rules",
-        arguments: [
-            Fraction<Int>.negativeInfinity,
-            Fraction<Int>(1, 1),
-            Fraction<Int>(-1, 1)
-        ]
-    )
-    internal func addingToNegativeInfinityFollowsRationalRules(addend: Fraction<Int>) {
-        #expect(Fraction<Int>.negativeInfinity + addend == .negativeInfinity)
-    }
-
     @Test("Adding positive infinity to negative infinity returns NaN")
     internal func addingPositiveInfinityToNegativeInfinityReturnsNaN() {
         #expect((Fraction<Int>.negativeInfinity + .infinity).isNaN == true)
@@ -213,5 +126,108 @@ extension FractionAddableTests {
     )
     internal func addingNaNReturnsNaN(augend: Fraction<Int>) {
         #expect((augend + Fraction<Int>.nan).isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension FractionAddableTests {
+    @Test(
+        "Adding to negative infinity follows rational rules",
+        arguments: [
+            Fraction<Int>.negativeInfinity,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1)
+        ]
+    )
+    internal func addingToNegativeInfinityFollowsRationalRules(addend: Fraction<Int>) {
+        #expect(Fraction<Int>.negativeInfinity + addend == .negativeInfinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionAddableTests {
+    @Test(
+        "Adding to negative zero follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.zero, Fraction<Int>.negativeZero),
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
+            (Fraction<Int>(1, 1), Fraction<Int>(-1, -1)),
+            (Fraction<Int>(-1, 1), Fraction<Int>(1, -1))
+        ]
+    )
+    internal func addingToNegativeZeroFollowsStoredRepresentationRules(
+        addend: Fraction<Int>,
+        sum: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.negativeZero + addend == sum)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionAddableTests {
+    @Test(
+        "Adding to positive infinity follows rational rules",
+        arguments: [
+            Fraction<Int>.infinity,
+            Fraction<Int>(1, 1),
+            Fraction<Int>(-1, 1)
+        ]
+    )
+    internal func addingToPositiveInfinityFollowsRationalRules(addend: Fraction<Int>) {
+        #expect(Fraction<Int>.infinity + addend == .infinity)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension FractionAddableTests {
+    @Test(
+        "Adding opposite values returns positive zero",
+        arguments: [
+            (Fraction<Int>(1, 2), Fraction<Int>(-1, 2)),
+            (Fraction<Int>(2, 3), Fraction<Int>(-2, 3)),
+            (Fraction<Int>(-1, 2), Fraction<Int>(1, 2)),
+            (Fraction<Int>(-2, 3), Fraction<Int>(2, 3))
+        ]
+    )
+    internal func addingOppositeValuesReturnsPositiveZero(
+        augend: Fraction<Int>,
+        addend: Fraction<Int>
+    ) {
+        let sum: Fraction<Int> = augend + addend
+        #expect(sum.isZero == true)
+        #expect(sum.denominator > 0)
+    }
+
+    @Test(
+        "Adding positive zero preserves augend",
+        arguments: [
+            Fraction<Int>(1, 2),
+            Fraction<Int>(2, 3),
+            Fraction<Int>(-1, 2),
+            Fraction<Int>(-2, 3)
+        ]
+    )
+    internal func addingPositiveZeroPreservesAugend(augend: Fraction<Int>) {
+        #expect(augend + .zero == augend)
+    }
+
+    @Test(
+        "Adding to positive zero follows stored representation rules",
+        arguments: [
+            (Fraction<Int>.zero, Fraction<Int>.zero),
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero),
+            (Fraction<Int>(1, 1), Fraction<Int>(1, 1)),
+            (Fraction<Int>(-1, 1), Fraction<Int>(-1, 1))
+        ]
+    )
+    internal func addingToPositiveZeroFollowsStoredRepresentationRules(
+        addend: Fraction<Int>,
+        sum: Fraction<Int>
+    ) {
+        #expect(Fraction<Int>.zero + addend == sum)
     }
 }

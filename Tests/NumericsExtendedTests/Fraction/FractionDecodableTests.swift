@@ -34,54 +34,6 @@ internal struct FractionDecodableTests {
         #expect(result == value)
     }
 
-    @Test("Zero decodes from JSON")
-    internal func zeroDecodesFromJSON() throws {
-        let json: String = #"{"num":0,"den":-2}"#
-        let data: Data = try #require(json.data(using: .utf8))
-        let result: Fraction<Int> = try JSONDecoder().decode(
-            Fraction<Int>.self,
-            from: data
-        )
-
-        #expect(result == Fraction<Int>(0, -2))
-    }
-
-    @Test("Positive infinity decodes from JSON")
-    internal func positiveInfinityDecodesFromJSON() throws {
-        let json: String = #"{"num":2,"den":0}"#
-        let data: Data = try #require(json.data(using: .utf8))
-        let result: Fraction<Int> = try JSONDecoder().decode(
-            Fraction<Int>.self,
-            from: data
-        )
-
-        #expect(result == .infinity)
-    }
-
-    @Test("Negative infinity decodes from JSON")
-    internal func negativeInfinityDecodesFromJSON() throws {
-        let json: String = #"{"num":-2,"den":0}"#
-        let data: Data = try #require(json.data(using: .utf8))
-        let result: Fraction<Int> = try JSONDecoder().decode(
-            Fraction<Int>.self,
-            from: data
-        )
-
-        #expect(result == .negativeInfinity)
-    }
-
-    @Test("NaN decodes from JSON")
-    internal func nanDecodesFromJSON() throws {
-        let json: String = #"{"num":0,"den":0}"#
-        let data: Data = try #require(json.data(using: .utf8))
-        let result: Fraction<Int> = try JSONDecoder().decode(
-            Fraction<Int>.self,
-            from: data
-        )
-
-        #expect(result.isNaN == true)
-    }
-
     @Test(
         "Decode from JSON throws",
         arguments: [
@@ -101,6 +53,86 @@ internal struct FractionDecodableTests {
                 from: data
             )
         }
+    }
+}
+
+// MARK: - NaN
+
+extension FractionDecodableTests {
+    @Test("NaN decodes from JSON")
+    internal func nanDecodesFromJSON() throws {
+        let json: String = #"{"num":0,"den":0}"#
+        let data: Data = try #require(json.data(using: .utf8))
+        let result: Fraction<Int> = try JSONDecoder().decode(
+            Fraction<Int>.self,
+            from: data
+        )
+
+        #expect(result.isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension FractionDecodableTests {
+    @Test("Negative infinity decodes from JSON")
+    internal func negativeInfinityDecodesFromJSON() throws {
+        let json: String = #"{"num":-2,"den":0}"#
+        let data: Data = try #require(json.data(using: .utf8))
+        let result: Fraction<Int> = try JSONDecoder().decode(
+            Fraction<Int>.self,
+            from: data
+        )
+
+        #expect(result == .negativeInfinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension FractionDecodableTests {
+    @Test("Negative zero decodes from JSON")
+    internal func negativeZeroDecodesFromJSON() throws {
+        let json: String = #"{"num":0,"den":-2}"#
+        let data: Data = try #require(json.data(using: .utf8))
+        let result: Fraction<Int> = try JSONDecoder().decode(
+            Fraction<Int>.self,
+            from: data
+        )
+
+        #expect(result == Fraction<Int>(0, -2))
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension FractionDecodableTests {
+    @Test("Positive infinity decodes from JSON")
+    internal func positiveInfinityDecodesFromJSON() throws {
+        let json: String = #"{"num":2,"den":0}"#
+        let data: Data = try #require(json.data(using: .utf8))
+        let result: Fraction<Int> = try JSONDecoder().decode(
+            Fraction<Int>.self,
+            from: data
+        )
+
+        #expect(result == .infinity)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension FractionDecodableTests {
+    @Test("Positive zero decodes from JSON")
+    internal func positiveZeroDecodesFromJSON() throws {
+        let json: String = #"{"num":0,"den":2}"#
+        let data: Data = try #require(json.data(using: .utf8))
+        let result: Fraction<Int> = try JSONDecoder().decode(
+            Fraction<Int>.self,
+            from: data
+        )
+
+        #expect(result == Fraction<Int>(0, 2))
     }
 }
 #endif

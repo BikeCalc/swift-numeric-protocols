@@ -10,30 +10,50 @@ import Testing
 @testable import NumericsExtended
 
 @Suite("Fraction RepresentableByNaN Tests")
-internal struct FractionRepresentableByNaNTests {
+internal struct FractionRepresentableByNaNTests {}
+
+// MARK: - NaN
+
+extension FractionRepresentableByNaNTests {
     @Test("NaN is NaN")
     internal func nanIsNaN() {
         #expect(Fraction<Int>.nan.isNaN == true)
         #expect(Fraction<Int>(0, 0).isNaN == true)
     }
+}
 
-    @Test("Zero is not NaN")
-    internal func zeroIsNotNaN() {
-        #expect(Fraction<Int>.zero.isNaN == false)
+// MARK: - Negative Infinity
+
+extension FractionRepresentableByNaNTests {
+    @Test("Negative infinity is not NaN")
+    internal func negativeInfinityIsNotNaN() {
+        #expect(Fraction<Int>.negativeInfinity.isNaN == false)
     }
+}
 
+// MARK: - Negative Zero
+
+extension FractionRepresentableByNaNTests {
     @Test("Negative zero is not NaN")
     internal func negativeZeroIsNotNaN() {
         #expect(Fraction<Int>.negativeZero.isNaN == false)
     }
+}
 
+// MARK: - Positive Infinity
+
+extension FractionRepresentableByNaNTests {
     @Test("Positive infinity is not NaN")
     internal func positiveInfinityIsNotNaN() {
         #expect(Fraction<Int>.infinity.isNaN == false)
     }
+}
 
-    @Test("Negative infinity is not NaN")
-    internal func negativeInfinityIsNotNaN() {
-        #expect(Fraction<Int>.negativeInfinity.isNaN == false)
+// MARK: - Positive Zero
+
+extension FractionRepresentableByNaNTests {
+    @Test("Positive zero is not NaN")
+    internal func positiveZeroIsNotNaN() {
+        #expect(Fraction<Int>.zero.isNaN == false)
     }
 }
