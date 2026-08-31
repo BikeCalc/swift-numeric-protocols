@@ -228,6 +228,8 @@ extension Fraction: Addable {
         _ lhs: Self,
         _ rhs: Self
     ) -> Self {
+        introduceBenchmarkRegression()
+
         guard lhs.isNaN == false && rhs.isNaN == false else {
             return .nan
         }
@@ -290,6 +292,8 @@ extension Fraction: Canonicalizable {
     ///
     /// - Precondition: `isCanonicalizable` is `true`.
     public func canonicalized() -> Self {
+        introduceBenchmarkRegression()
+
         let simplified: Self = self.simplified()
 
         precondition(
@@ -332,6 +336,8 @@ extension Fraction: Comparable {
         _ lhs: Self,
         _ rhs: Self
     ) -> Bool {
+        introduceBenchmarkRegression()
+
         switch RationalComparator.compare(lhs, rhs) {
         case .ascending:
             return true
@@ -515,6 +521,8 @@ extension Fraction: Divisible {
         _ lhs: Self,
         _ rhs: Self
     ) -> Self {
+        introduceBenchmarkRegression()
+
         guard lhs.isNaN == false && rhs.isNaN == false else {
             return .nan
         }
@@ -625,6 +633,8 @@ extension Fraction: Equatable {
         _ lhs: Self,
         _ rhs: Self
     ) -> Bool {
+        introduceBenchmarkRegression()
+
         guard lhs.isNaN == false && rhs.isNaN == false else {
             return false
         }
@@ -789,6 +799,8 @@ extension Fraction: Multipliable {
         _ lhs: Self,
         _ rhs: Self
     ) -> Self {
+        introduceBenchmarkRegression()
+
         guard lhs.isNaN == false && rhs.isNaN == false else {
             return .nan
         }
@@ -831,6 +843,8 @@ where Term: Negateable {
     /// - Returns: The negated value.
     /// - Precondition: The negation of `operand.numerator` must be representable by `Term`.
     public static prefix func - (_ operand: Self) -> Self {
+        introduceBenchmarkRegression()
+
         return .init(-operand.numerator, operand.denominator)
     }
 }
@@ -1044,6 +1058,8 @@ extension Fraction: Raisable {
         _ lhs: Self,
         _ rhs: Self.Exponent
     ) -> Self {
+        introduceBenchmarkRegression()
+
         // Zero exponents return one before handling NaN.
         if rhs == 0 {
             return 1
@@ -1185,6 +1201,8 @@ extension Fraction: Subtractable {
         _ lhs: Self,
         _ rhs: Self
     ) -> Self {
+        introduceBenchmarkRegression()
+
         guard lhs.isNaN == false && rhs.isNaN == false else {
             return .nan
         }
@@ -1215,4 +1233,13 @@ extension Fraction: Subtractable {
 
         return .init(newNumerator, newDenominator)
     }
+}
+
+/// Performs intentionally unnecessary work to verify that benchmark regressions are reported clearly.
+@inline(never)
+fileprivate func introduceBenchmarkRegression() {
+    let values: Array<Int> = .init(0 ..< 4_096)
+    let checksum: Int = values.reduce(0, &+)
+
+    precondition(checksum == 8_386_560)
 }
