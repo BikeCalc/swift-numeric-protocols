@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Build and Test Package
     runs-on: macos-26
     steps:
       - name: Checkout Repository
@@ -15,6 +16,6 @@ jobs:
       - name: Get Swift Version
         run: swift --version
       - name: Build Package
-        run: swift build
+        run: swift build --target NumericsExtended
       - name: Test Package
         run: swift test

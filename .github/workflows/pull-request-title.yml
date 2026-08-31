@@ -7,6 +7,7 @@ on:
 
 jobs:
   title:
+    name: Validate Pull Request Title
     runs-on: ubuntu-latest
     steps:
       - name: Validate Conventional Commit Title

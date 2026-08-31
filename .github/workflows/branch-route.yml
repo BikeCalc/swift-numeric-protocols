@@ -6,6 +6,7 @@ on:
 
 jobs:
   route:
+    name: Validate Branch Route
     runs-on: ubuntu-latest
     steps:
       - name: Check Branch Route

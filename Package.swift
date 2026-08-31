@@ -20,6 +20,13 @@ let package = Package(
         )
     ],
     targets: [
+        .executableTarget(
+            name: "NumericsExtendedBenchmarks",
+            dependencies: [
+                "NumericsExtended"
+            ],
+            path: "Benchmarks/NumericsExtendedBenchmarks"
+        ),
         .target(
             name: "CoreNumericOperators"
         ),
