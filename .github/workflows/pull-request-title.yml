@@ -3,7 +3,7 @@ name: Pull Request Title
 on:
   pull_request:
     branches: ["main", "release/**"]
-    types: ["opened", "edited", "reopened"]
+    types: ["opened", "edited", "reopened", "synchronize"]
 
 jobs:
   title:

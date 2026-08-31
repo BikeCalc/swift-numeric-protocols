@@ -49,6 +49,9 @@
             "context": "Build and Test Package"
           },
           {
+            "context": "Compare Benchmarks"
+          },
+          {
             "context": "Validate Pull Request Title"
           }
         ],
