@@ -167,7 +167,136 @@ internal struct CanonicalizedFractionComparableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
+
+extension CanonicalizedFractionComparableTests {
+    @Test(
+        "NaN comparison follows rational rules",
+        arguments: [
+            (Fraction<Int>.nan, Fraction<Int>(1, 1)),
+            (Fraction<Int>(1, 1), Fraction<Int>.nan),
+            (Fraction<Int>.nan, Fraction<Int>.nan)
+        ]
+    )
+    internal func nanComparisonFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>
+    ) {
+        let lhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: lhs)
+        let rhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: rhs)
+
+        #expect((lhsWrapper < rhsWrapper) == false)
+        #expect((lhsWrapper <= rhsWrapper) == false)
+        #expect((lhsWrapper > rhsWrapper) == false)
+        #expect((lhsWrapper >= rhsWrapper) == false)
+        #expect(lhsWrapper.isLess(than: rhsWrapper) == false)
+        #expect(lhsWrapper.isLessThanOrEqual(to: rhsWrapper) == false)
+        #expect(lhsWrapper.isGreater(than: rhsWrapper) == false)
+        #expect(lhsWrapper.isGreaterThanOrEqual(to: rhsWrapper) == false)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension CanonicalizedFractionComparableTests {
+    @Test(
+        "Negative infinity comparison follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, false, true, false, true),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>(-1, 1), true, true, false, false),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, true, true, false, false)
+        ]
+    )
+    internal func negativeInfinityComparisonFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        isLess: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual: Bool
+    ) {
+        let lhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: lhs)
+        let rhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: rhs)
+
+        #expect((lhsWrapper < rhsWrapper) == isLess)
+        #expect((lhsWrapper <= rhsWrapper) == isLessThanOrEqual)
+        #expect((lhsWrapper > rhsWrapper) == isGreater)
+        #expect((lhsWrapper >= rhsWrapper) == isGreaterThanOrEqual)
+        #expect(lhsWrapper.isLess(than: rhsWrapper) == isLess)
+        #expect(lhsWrapper.isLessThanOrEqual(to: rhsWrapper) == isLessThanOrEqual)
+        #expect(lhsWrapper.isGreater(than: rhsWrapper) == isGreater)
+        #expect(lhsWrapper.isGreaterThanOrEqual(to: rhsWrapper) == isGreaterThanOrEqual)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension CanonicalizedFractionComparableTests {
+    @Test(
+        "Negative zero comparison follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero, false, true, false, true),
+            (Fraction<Int>.negativeZero, Fraction<Int>.zero, false, true, false, true),
+            (Fraction<Int>.negativeZero, Fraction<Int>(1, 1), true, true, false, false),
+            (Fraction<Int>.negativeZero, Fraction<Int>(-1, 1), false, false, true, true)
+        ]
+    )
+    internal func negativeZeroComparisonFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        isLess: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual: Bool
+    ) {
+        let lhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: lhs)
+        let rhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: rhs)
+
+        #expect((lhsWrapper < rhsWrapper) == isLess)
+        #expect((lhsWrapper <= rhsWrapper) == isLessThanOrEqual)
+        #expect((lhsWrapper > rhsWrapper) == isGreater)
+        #expect((lhsWrapper >= rhsWrapper) == isGreaterThanOrEqual)
+        #expect(lhsWrapper.isLess(than: rhsWrapper) == isLess)
+        #expect(lhsWrapper.isLessThanOrEqual(to: rhsWrapper) == isLessThanOrEqual)
+        #expect(lhsWrapper.isGreater(than: rhsWrapper) == isGreater)
+        #expect(lhsWrapper.isGreaterThanOrEqual(to: rhsWrapper) == isGreaterThanOrEqual)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension CanonicalizedFractionComparableTests {
+    @Test(
+        "Positive infinity comparison follows rational rules",
+        arguments: [
+            (Fraction<Int>.infinity, Fraction<Int>.infinity, false, true, false, true),
+            (Fraction<Int>.infinity, Fraction<Int>(1, 1), false, false, true, true),
+            (Fraction<Int>.infinity, Fraction<Int>.negativeInfinity, false, false, true, true)
+        ]
+    )
+    internal func positiveInfinityComparisonFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        isLess: Bool,
+        isLessThanOrEqual: Bool,
+        isGreater: Bool,
+        isGreaterThanOrEqual: Bool
+    ) {
+        let lhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: lhs)
+        let rhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: rhs)
+
+        #expect((lhsWrapper < rhsWrapper) == isLess)
+        #expect((lhsWrapper <= rhsWrapper) == isLessThanOrEqual)
+        #expect((lhsWrapper > rhsWrapper) == isGreater)
+        #expect((lhsWrapper >= rhsWrapper) == isGreaterThanOrEqual)
+        #expect(lhsWrapper.isLess(than: rhsWrapper) == isLess)
+        #expect(lhsWrapper.isLessThanOrEqual(to: rhsWrapper) == isLessThanOrEqual)
+        #expect(lhsWrapper.isGreater(than: rhsWrapper) == isGreater)
+        #expect(lhsWrapper.isGreaterThanOrEqual(to: rhsWrapper) == isGreaterThanOrEqual)
+    }
+}
+
+// MARK: - Positive Zero
 
 extension CanonicalizedFractionComparableTests {
     @Test(
@@ -198,118 +327,5 @@ extension CanonicalizedFractionComparableTests {
         #expect(lhsWrapper.isLessThanOrEqual(to: rhsWrapper) == isLessThanOrEqual)
         #expect(lhsWrapper.isGreater(than: rhsWrapper) == isGreater)
         #expect(lhsWrapper.isGreaterThanOrEqual(to: rhsWrapper) == isGreaterThanOrEqual)
-    }
-
-    @Test(
-        "Negative zero comparison follows rational rules",
-        arguments: [
-            (Fraction<Int>.negativeZero, Fraction<Int>.negativeZero, false, true, false, true),
-            (Fraction<Int>.negativeZero, Fraction<Int>.zero, false, true, false, true),
-            (Fraction<Int>.negativeZero, Fraction<Int>(1, 1), true, true, false, false),
-            (Fraction<Int>.negativeZero, Fraction<Int>(-1, 1), false, false, true, true)
-        ]
-    )
-    internal func negativeZeroComparisonFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>,
-        isLess: Bool,
-        isLessThanOrEqual: Bool,
-        isGreater: Bool,
-        isGreaterThanOrEqual: Bool
-    ) {
-        let lhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: lhs)
-        let rhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: rhs)
-
-        #expect((lhsWrapper < rhsWrapper) == isLess)
-        #expect((lhsWrapper <= rhsWrapper) == isLessThanOrEqual)
-        #expect((lhsWrapper > rhsWrapper) == isGreater)
-        #expect((lhsWrapper >= rhsWrapper) == isGreaterThanOrEqual)
-        #expect(lhsWrapper.isLess(than: rhsWrapper) == isLess)
-        #expect(lhsWrapper.isLessThanOrEqual(to: rhsWrapper) == isLessThanOrEqual)
-        #expect(lhsWrapper.isGreater(than: rhsWrapper) == isGreater)
-        #expect(lhsWrapper.isGreaterThanOrEqual(to: rhsWrapper) == isGreaterThanOrEqual)
-    }
-
-    @Test(
-        "Positive infinity comparison follows rational rules",
-        arguments: [
-            (Fraction<Int>.infinity, Fraction<Int>.infinity, false, true, false, true),
-            (Fraction<Int>.infinity, Fraction<Int>(1, 1), false, false, true, true),
-            (Fraction<Int>.infinity, Fraction<Int>.negativeInfinity, false, false, true, true)
-        ]
-    )
-    internal func positiveInfinityComparisonFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>,
-        isLess: Bool,
-        isLessThanOrEqual: Bool,
-        isGreater: Bool,
-        isGreaterThanOrEqual: Bool
-    ) {
-        let lhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: lhs)
-        let rhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: rhs)
-
-        #expect((lhsWrapper < rhsWrapper) == isLess)
-        #expect((lhsWrapper <= rhsWrapper) == isLessThanOrEqual)
-        #expect((lhsWrapper > rhsWrapper) == isGreater)
-        #expect((lhsWrapper >= rhsWrapper) == isGreaterThanOrEqual)
-        #expect(lhsWrapper.isLess(than: rhsWrapper) == isLess)
-        #expect(lhsWrapper.isLessThanOrEqual(to: rhsWrapper) == isLessThanOrEqual)
-        #expect(lhsWrapper.isGreater(than: rhsWrapper) == isGreater)
-        #expect(lhsWrapper.isGreaterThanOrEqual(to: rhsWrapper) == isGreaterThanOrEqual)
-    }
-
-    @Test(
-        "Negative infinity comparison follows rational rules",
-        arguments: [
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, false, true, false, true),
-            (Fraction<Int>.negativeInfinity, Fraction<Int>(-1, 1), true, true, false, false),
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, true, true, false, false)
-        ]
-    )
-    internal func negativeInfinityComparisonFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>,
-        isLess: Bool,
-        isLessThanOrEqual: Bool,
-        isGreater: Bool,
-        isGreaterThanOrEqual: Bool
-    ) {
-        let lhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: lhs)
-        let rhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: rhs)
-
-        #expect((lhsWrapper < rhsWrapper) == isLess)
-        #expect((lhsWrapper <= rhsWrapper) == isLessThanOrEqual)
-        #expect((lhsWrapper > rhsWrapper) == isGreater)
-        #expect((lhsWrapper >= rhsWrapper) == isGreaterThanOrEqual)
-        #expect(lhsWrapper.isLess(than: rhsWrapper) == isLess)
-        #expect(lhsWrapper.isLessThanOrEqual(to: rhsWrapper) == isLessThanOrEqual)
-        #expect(lhsWrapper.isGreater(than: rhsWrapper) == isGreater)
-        #expect(lhsWrapper.isGreaterThanOrEqual(to: rhsWrapper) == isGreaterThanOrEqual)
-    }
-
-    @Test(
-        "NaN comparison follows rational rules",
-        arguments: [
-            (Fraction<Int>.nan, Fraction<Int>(1, 1)),
-            (Fraction<Int>(1, 1), Fraction<Int>.nan),
-            (Fraction<Int>.nan, Fraction<Int>.nan)
-        ]
-    )
-    internal func nanComparisonFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>
-    ) {
-        let lhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: lhs)
-        let rhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: rhs)
-
-        #expect((lhsWrapper < rhsWrapper) == false)
-        #expect((lhsWrapper <= rhsWrapper) == false)
-        #expect((lhsWrapper > rhsWrapper) == false)
-        #expect((lhsWrapper >= rhsWrapper) == false)
-        #expect(lhsWrapper.isLess(than: rhsWrapper) == false)
-        #expect(lhsWrapper.isLessThanOrEqual(to: rhsWrapper) == false)
-        #expect(lhsWrapper.isGreater(than: rhsWrapper) == false)
-        #expect(lhsWrapper.isGreaterThanOrEqual(to: rhsWrapper) == false)
     }
 }

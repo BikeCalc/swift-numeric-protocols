@@ -81,19 +81,18 @@ internal struct CanonicalizedFractionEquatableTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
 
 extension CanonicalizedFractionEquatableTests {
     @Test(
-        "Positive zero equality follows rational rules",
+        "NaN equality follows rational rules",
         arguments: [
-            (Fraction<Int>.zero, Fraction<Int>.zero, true),
-            (Fraction<Int>.zero, Fraction<Int>.negativeZero, true),
-            (Fraction<Int>.zero, Fraction<Int>(0, 2), true),
-            (Fraction<Int>.zero, Fraction<Int>(1, 1), false)
+            (Fraction<Int>.nan, Fraction<Int>.nan, false),
+            (Fraction<Int>.nan, Fraction<Int>(1, 1), false),
+            (Fraction<Int>(1, 1), Fraction<Int>.nan, false)
         ]
     )
-    internal func positiveZeroEqualityFollowsRationalRules(
+    internal func nanEqualityFollowsRationalRules(
         lhs: Fraction<Int>,
         rhs: Fraction<Int>,
         result: Bool
@@ -106,7 +105,36 @@ extension CanonicalizedFractionEquatableTests {
         #expect(lhsWrapper.isEqual(to: rhsWrapper) == result)
         #expect(lhsWrapper.isUnequal(to: rhsWrapper) == !result)
     }
+}
 
+// MARK: - Negative Infinity
+
+extension CanonicalizedFractionEquatableTests {
+    @Test(
+        "Negative infinity equality follows rational rules",
+        arguments: [
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, true),
+            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, false)
+        ]
+    )
+    internal func negativeInfinityEqualityFollowsRationalRules(
+        lhs: Fraction<Int>,
+        rhs: Fraction<Int>,
+        result: Bool
+    ) {
+        let lhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: lhs)
+        let rhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: rhs)
+
+        #expect((lhsWrapper == rhsWrapper) == result)
+        #expect((lhsWrapper != rhsWrapper) == !result)
+        #expect(lhsWrapper.isEqual(to: rhsWrapper) == result)
+        #expect(lhsWrapper.isUnequal(to: rhsWrapper) == !result)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension CanonicalizedFractionEquatableTests {
     @Test(
         "Negative zero equality follows rational rules",
         arguments: [
@@ -129,7 +157,11 @@ extension CanonicalizedFractionEquatableTests {
         #expect(lhsWrapper.isEqual(to: rhsWrapper) == result)
         #expect(lhsWrapper.isUnequal(to: rhsWrapper) == !result)
     }
+}
 
+// MARK: - Positive Infinity
+
+extension CanonicalizedFractionEquatableTests {
     @Test(
         "Positive infinity equality follows rational rules",
         arguments: [
@@ -150,37 +182,21 @@ extension CanonicalizedFractionEquatableTests {
         #expect(lhsWrapper.isEqual(to: rhsWrapper) == result)
         #expect(lhsWrapper.isUnequal(to: rhsWrapper) == !result)
     }
+}
 
+// MARK: - Positive Zero
+
+extension CanonicalizedFractionEquatableTests {
     @Test(
-        "Negative infinity equality follows rational rules",
+        "Positive zero equality follows rational rules",
         arguments: [
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.negativeInfinity, true),
-            (Fraction<Int>.negativeInfinity, Fraction<Int>.infinity, false)
+            (Fraction<Int>.zero, Fraction<Int>.zero, true),
+            (Fraction<Int>.zero, Fraction<Int>.negativeZero, true),
+            (Fraction<Int>.zero, Fraction<Int>(0, 2), true),
+            (Fraction<Int>.zero, Fraction<Int>(1, 1), false)
         ]
     )
-    internal func negativeInfinityEqualityFollowsRationalRules(
-        lhs: Fraction<Int>,
-        rhs: Fraction<Int>,
-        result: Bool
-    ) {
-        let lhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: lhs)
-        let rhsWrapper: Canonicalized<Fraction<Int>> = .init(wrappedValue: rhs)
-
-        #expect((lhsWrapper == rhsWrapper) == result)
-        #expect((lhsWrapper != rhsWrapper) == !result)
-        #expect(lhsWrapper.isEqual(to: rhsWrapper) == result)
-        #expect(lhsWrapper.isUnequal(to: rhsWrapper) == !result)
-    }
-
-    @Test(
-        "NaN equality follows rational rules",
-        arguments: [
-            (Fraction<Int>.nan, Fraction<Int>.nan, false),
-            (Fraction<Int>.nan, Fraction<Int>(1, 1), false),
-            (Fraction<Int>(1, 1), Fraction<Int>.nan, false)
-        ]
-    )
-    internal func nanEqualityFollowsRationalRules(
+    internal func positiveZeroEqualityFollowsRationalRules(
         lhs: Fraction<Int>,
         rhs: Fraction<Int>,
         result: Bool

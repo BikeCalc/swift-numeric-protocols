@@ -34,54 +34,6 @@ internal struct CanonicalizedFractionDecodableTests {
         #expect(result.wrappedValue == value)
     }
 
-    @Test("Zero decodes from JSON")
-    internal func zeroDecodesFromJSON() throws {
-        let json: String = #"{"num":0,"den":-2}"#
-        let data: Data = try #require(json.data(using: .utf8))
-        let result: Canonicalized<Fraction<Int>> = try JSONDecoder().decode(
-            Canonicalized<Fraction<Int>>.self,
-            from: data
-        )
-
-        #expect(result.wrappedValue == .zero)
-    }
-
-    @Test("Positive infinity decodes from JSON")
-    internal func positiveInfinityDecodesFromJSON() throws {
-        let json: String = #"{"num":2,"den":0}"#
-        let data: Data = try #require(json.data(using: .utf8))
-        let result: Canonicalized<Fraction<Int>> = try JSONDecoder().decode(
-            Canonicalized<Fraction<Int>>.self,
-            from: data
-        )
-
-        #expect(result.wrappedValue == .infinity)
-    }
-
-    @Test("Negative infinity decodes from JSON")
-    internal func negativeInfinityDecodesFromJSON() throws {
-        let json: String = #"{"num":-2,"den":0}"#
-        let data: Data = try #require(json.data(using: .utf8))
-        let result: Canonicalized<Fraction<Int>> = try JSONDecoder().decode(
-            Canonicalized<Fraction<Int>>.self,
-            from: data
-        )
-
-        #expect(result.wrappedValue == .negativeInfinity)
-    }
-
-    @Test("NaN decodes from JSON")
-    internal func nanDecodesFromJSON() throws {
-        let json: String = #"{"num":0,"den":0}"#
-        let data: Data = try #require(json.data(using: .utf8))
-        let result: Canonicalized<Fraction<Int>> = try JSONDecoder().decode(
-            Canonicalized<Fraction<Int>>.self,
-            from: data
-        )
-
-        #expect(result.wrappedValue.isNaN == true)
-    }
-
     @Test(
         "Decode from JSON throws",
         arguments: [
@@ -102,10 +54,9 @@ internal struct CanonicalizedFractionDecodableTests {
             )
         }
     }
-
 }
 
-// MARK: - Fixed-Width Integer Rules
+// MARK: - IntMin
 
 extension CanonicalizedFractionDecodableTests {
     @Test("Int minimum denominator decoding throws")
@@ -119,6 +70,86 @@ extension CanonicalizedFractionDecodableTests {
                 from: data
             )
         }
+    }
+}
+
+// MARK: - NaN
+
+extension CanonicalizedFractionDecodableTests {
+    @Test("NaN decodes from JSON")
+    internal func nanDecodesFromJSON() throws {
+        let json: String = #"{"num":0,"den":0}"#
+        let data: Data = try #require(json.data(using: .utf8))
+        let result: Canonicalized<Fraction<Int>> = try JSONDecoder().decode(
+            Canonicalized<Fraction<Int>>.self,
+            from: data
+        )
+
+        #expect(result.wrappedValue.isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension CanonicalizedFractionDecodableTests {
+    @Test("Negative infinity decodes from JSON")
+    internal func negativeInfinityDecodesFromJSON() throws {
+        let json: String = #"{"num":-2,"den":0}"#
+        let data: Data = try #require(json.data(using: .utf8))
+        let result: Canonicalized<Fraction<Int>> = try JSONDecoder().decode(
+            Canonicalized<Fraction<Int>>.self,
+            from: data
+        )
+
+        #expect(result.wrappedValue == .negativeInfinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension CanonicalizedFractionDecodableTests {
+    @Test("Negative zero decodes from JSON")
+    internal func negativeZeroDecodesFromJSON() throws {
+        let json: String = #"{"num":0,"den":-2}"#
+        let data: Data = try #require(json.data(using: .utf8))
+        let result: Canonicalized<Fraction<Int>> = try JSONDecoder().decode(
+            Canonicalized<Fraction<Int>>.self,
+            from: data
+        )
+
+        #expect(result.wrappedValue == .zero)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension CanonicalizedFractionDecodableTests {
+    @Test("Positive infinity decodes from JSON")
+    internal func positiveInfinityDecodesFromJSON() throws {
+        let json: String = #"{"num":2,"den":0}"#
+        let data: Data = try #require(json.data(using: .utf8))
+        let result: Canonicalized<Fraction<Int>> = try JSONDecoder().decode(
+            Canonicalized<Fraction<Int>>.self,
+            from: data
+        )
+
+        #expect(result.wrappedValue == .infinity)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension CanonicalizedFractionDecodableTests {
+    @Test("Positive zero decodes from JSON")
+    internal func positiveZeroDecodesFromJSON() throws {
+        let json: String = #"{"num":0,"den":2}"#
+        let data: Data = try #require(json.data(using: .utf8))
+        let result: Canonicalized<Fraction<Int>> = try JSONDecoder().decode(
+            Canonicalized<Fraction<Int>>.self,
+            from: data
+        )
+
+        #expect(result.wrappedValue == .zero)
     }
 }
 #endif

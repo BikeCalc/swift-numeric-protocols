@@ -50,7 +50,60 @@ internal struct CanonicalizedFractionTests {
     }
 }
 
-// MARK: - Rational Rules
+// MARK: - NaN
+
+extension CanonicalizedFractionTests {
+    @Test("NaN is preserved")
+    internal func nanIsPreserved() {
+        @Canonicalized var value: Fraction<Int> = .nan
+
+        #expect(value.isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension CanonicalizedFractionTests {
+    @Test("Negative infinity is preserved")
+    internal func negativeInfinityIsPreserved() {
+        @Canonicalized var value: Fraction<Int> = .negativeInfinity
+
+        #expect(value == .negativeInfinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension CanonicalizedFractionTests {
+    @Test(
+        "Negative zero canonicalization follows rational rules",
+        arguments: [
+            Fraction<Int>.negativeZero,
+            Fraction<Int>(0, -2)
+        ]
+    )
+    internal func negativeZeroCanonicalizationFollowsRationalRules(value: Fraction<Int>) {
+        @Canonicalized var initializedValue: Fraction<Int> = value
+        @Canonicalized var assignedValue: Fraction<Int> = .init(1, 2)
+        assignedValue = value
+
+        #expect(initializedValue == .zero)
+        #expect(assignedValue == .zero)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension CanonicalizedFractionTests {
+    @Test("Positive infinity is preserved")
+    internal func positiveInfinityIsPreserved() {
+        @Canonicalized var value: Fraction<Int> = .infinity
+
+        #expect(value == .infinity)
+    }
+}
+
+// MARK: - Positive Zero
 
 extension CanonicalizedFractionTests {
     @Test(
@@ -67,42 +120,5 @@ extension CanonicalizedFractionTests {
 
         #expect(initializedValue == .zero)
         #expect(assignedValue == .zero)
-    }
-
-    @Test(
-        "Negative zero canonicalization follows rational rules",
-        arguments: [
-            Fraction<Int>.negativeZero,
-            Fraction<Int>(0, -2)
-        ]
-    )
-    internal func negativeZeroCanonicalizationFollowsRationalRules(value: Fraction<Int>) {
-        @Canonicalized var initializedValue: Fraction<Int> = value
-        @Canonicalized var assignedValue: Fraction<Int> = .init(1, 2)
-        assignedValue = value
-
-        #expect(initializedValue == .zero)
-        #expect(assignedValue == .zero)
-    }
-
-    @Test("Positive infinity is preserved")
-    internal func positiveInfinityIsPreserved() {
-        @Canonicalized var value: Fraction<Int> = .infinity
-
-        #expect(value == .infinity)
-    }
-
-    @Test("Negative infinity is preserved")
-    internal func negativeInfinityIsPreserved() {
-        @Canonicalized var value: Fraction<Int> = .negativeInfinity
-
-        #expect(value == .negativeInfinity)
-    }
-
-    @Test("NaN is preserved")
-    internal func nanIsPreserved() {
-        @Canonicalized var value: Fraction<Int> = .nan
-
-        #expect(value.isNaN == true)
     }
 }
