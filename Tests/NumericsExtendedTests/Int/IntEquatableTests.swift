@@ -31,19 +31,41 @@ internal struct IntEquatableTests {
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Negative Zero
 
 extension IntEquatableTests {
     @Test(
-        "Zero equality follows integer rules",
+        "Negative zero equality follows integer rules",
         arguments: [
-            (0, 0, true),
-            (-0, 0, true),
-            (0, 1, false),
-            (-0, 1, false)
+            (Int.negativeZero, Int.negativeZero, true),
+            (Int.negativeZero, Int.zero, true),
+            (Int.negativeZero, 1, false)
         ]
     )
-    internal func zeroEqualityFollowsIntegerRules(
+    internal func negativeZeroEqualityFollowsIntegerRules(
+        lhs: Int,
+        rhs: Int,
+        result: Bool
+    ) {
+        #expect((lhs == rhs) == result)
+        #expect((lhs != rhs) == !result)
+        #expect(lhs.isEqual(to: rhs) == result)
+        #expect(lhs.isUnequal(to: rhs) == !result)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension IntEquatableTests {
+    @Test(
+        "Positive zero equality follows integer rules",
+        arguments: [
+            (Int.zero, Int.zero, true),
+            (Int.zero, Int.negativeZero, true),
+            (Int.zero, 1, false)
+        ]
+    )
+    internal func positiveZeroEqualityFollowsIntegerRules(
         lhs: Int,
         rhs: Int,
         result: Bool

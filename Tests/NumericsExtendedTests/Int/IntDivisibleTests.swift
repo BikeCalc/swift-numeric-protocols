@@ -21,6 +21,7 @@ internal struct IntDivisibleTests {
     private static let remainderArguments: [(Int, Int, Int)] = [
         (4, 2, 0),
         (5, 2, 1),
+        (5, -2, 1),
         (-5, 2, -1),
         (-5, -2, -1)
     ]
@@ -205,91 +206,7 @@ internal struct IntDivisibleTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension IntDivisibleTests {
-    @Test(
-        "Zero is not invertible",
-        arguments: [
-            0,
-            -0
-        ]
-    )
-    internal func zeroIsNotInvertible(dividend: Int) {
-        #expect(dividend.isInvertible == false)
-    }
-
-    @Test(
-        "Dividing zero by nonzero value returns zero",
-        arguments: [
-            2,
-            -3,
-            3
-        ]
-    )
-    internal func dividingZeroByNonzeroValueReturnsZero(divisor: Int) {
-        #expect(Int.zero / divisor == Int.zero)
-    }
-
-    @Test(
-        "Dividing by one preserves dividend",
-        arguments: [
-            6,
-            4,
-            -6,
-            -4
-        ]
-    )
-    internal func dividingByOnePreservesDividend(dividend: Int) {
-        #expect(dividend / 1 == dividend)
-    }
-
-    @Test(
-        "Dividing by negative one returns opposite value",
-        arguments: [
-            (6, -6),
-            (4, -4),
-            (-6, 6),
-            (-4, 4)
-        ]
-    )
-    internal func dividingByNegativeOneReturnsOppositeValue(
-        dividend: Int,
-        quotient: Int
-    ) {
-        #expect(dividend / -1 == quotient)
-    }
-
-    @Test(
-        "Remainder by self returns zero",
-        arguments: [
-            6,
-            4,
-            -6,
-            -4
-        ]
-    )
-    internal func remainderBySelfReturnsZero(value: Int) {
-        #expect(value % value == Int.zero)
-    }
-
-    @Test(
-        "Remainder follows dividend sign",
-        arguments: [
-            (5, 2, 1),
-            (-5, 2, -1),
-            (5, -2, 1),
-            (-5, -2, -1)
-        ]
-    )
-    internal func remainderFollowsDividendSign(
-        dividend: Int,
-        divisor: Int,
-        remainder: Int
-    ) {
-        #expect(dividend % divisor == remainder)
-    }
-
     @Test(
         "Division is not commutative",
         arguments: Self.divisionArguments
@@ -300,26 +217,6 @@ extension IntDivisibleTests {
         quotient _: Int
     ) {
         #expect(dividend / divisor != divisor / dividend)
-    }
-}
-
-// MARK: - Integer Rules
-
-extension IntDivisibleTests {
-    @Test(
-        "Only one is invertible",
-        arguments: [
-            (1, true),
-            (-1, true),
-            (2, false),
-            (-2, false)
-        ]
-    )
-    internal func onlyOneIsInvertible(
-        dividend: Int,
-        result: Bool
-    ) {
-        #expect(dividend.isInvertible == result)
     }
 
     @Test(
@@ -341,19 +238,6 @@ extension IntDivisibleTests {
     }
 
     @Test(
-        "Remainder by one returns zero",
-        arguments: [
-            6,
-            4,
-            -6,
-            -4
-        ]
-    )
-    internal func remainderByOneReturnsZero(dividend: Int) {
-        #expect(dividend % 1 == Int.zero)
-    }
-
-    @Test(
         "Integer division truncates toward zero",
         arguments: [
             (7, 3, 2),
@@ -368,5 +252,164 @@ extension IntDivisibleTests {
         quotient: Int
     ) {
         #expect(dividend / divisor == quotient)
+    }
+}
+
+// MARK: - Negative One
+
+extension IntDivisibleTests {
+    @Test(
+        "Dividing by negative one returns opposite value",
+        arguments: [
+            (6, -6),
+            (4, -4),
+            (-6, 6),
+            (-4, 4)
+        ]
+    )
+    internal func dividingByNegativeOneReturnsOppositeValue(
+        dividend: Int,
+        quotient: Int
+    ) {
+        #expect(dividend / -1 == quotient)
+    }
+
+    @Test(
+        "Negative one invertibility follows integer rules",
+        arguments: [
+            (-1, true),
+            (-2, false)
+        ]
+    )
+    internal func negativeOneInvertibilityFollowsIntegerRules(
+        dividend: Int,
+        result: Bool
+    ) {
+        #expect(dividend.isInvertible == result)
+    }
+
+    @Test(
+        "Remainder by negative one returns positive zero",
+        arguments: [
+            6,
+            4,
+            -6,
+            -4
+        ]
+    )
+    internal func remainderByNegativeOneReturnsPositiveZero(dividend: Int) {
+        #expect(dividend % -1 == Int.zero)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension IntDivisibleTests {
+    @Test(
+        "Negative zero is not invertible",
+        arguments: [
+            0,
+            -0
+        ]
+    )
+    internal func negativeZeroIsNotInvertible(dividend: Int) {
+        #expect(dividend.isInvertible == false)
+    }
+
+    @Test(
+        "Dividing negative zero by nonzero value returns negative zero",
+        arguments: [
+            2,
+            -3,
+            3
+        ]
+    )
+    internal func dividingNegativeZeroByNonzeroValueReturnsNegativeZero(divisor: Int) {
+        #expect(Int.negativeZero / divisor == Int.negativeZero)
+    }
+
+}
+
+// MARK: - Positive One
+
+extension IntDivisibleTests {
+    @Test(
+        "Dividing by positive one preserves dividend",
+        arguments: [
+            6,
+            4,
+            -6,
+            -4
+        ]
+    )
+    internal func dividingByPositiveOnePreservesDividend(dividend: Int) {
+        #expect(dividend / 1 == dividend)
+    }
+
+    @Test(
+        "Positive one invertibility follows integer rules",
+        arguments: [
+            (1, true),
+            (2, false)
+        ]
+    )
+    internal func positiveOneInvertibilityFollowsIntegerRules(
+        dividend: Int,
+        result: Bool
+    ) {
+        #expect(dividend.isInvertible == result)
+    }
+
+    @Test(
+        "Remainder by positive one returns positive zero",
+        arguments: [
+            6,
+            4,
+            -6,
+            -4
+        ]
+    )
+    internal func remainderByPositiveOneReturnsPositiveZero(dividend: Int) {
+        #expect(dividend % 1 == Int.zero)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension IntDivisibleTests {
+    @Test(
+        "Positive zero is not invertible",
+        arguments: [
+            0,
+            -0
+        ]
+    )
+    internal func positiveZeroIsNotInvertible(dividend: Int) {
+        #expect(dividend.isInvertible == false)
+    }
+
+    @Test(
+        "Dividing positive zero by nonzero value returns positive zero",
+        arguments: [
+            2,
+            -3,
+            3
+        ]
+    )
+    internal func dividingPositiveZeroByNonzeroValueReturnsPositiveZero(divisor: Int) {
+        #expect(Int.zero / divisor == Int.zero)
+    }
+
+    @Test(
+        "Remainder by self returns positive zero",
+        arguments: [
+            6,
+            4,
+            -6,
+            -4
+        ]
+    )
+    internal func remainderBySelfReturnsPositiveZero(value: Int) {
+        #expect(value % value == Int.zero)
     }
 }

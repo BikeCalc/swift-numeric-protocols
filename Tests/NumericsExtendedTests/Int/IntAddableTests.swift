@@ -71,38 +71,7 @@ internal struct IntAddableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension IntAddableTests {
-    @Test(
-        "Adding zero preserves augend",
-        arguments: [
-            2,
-            3,
-            -2,
-            -3
-        ]
-    )
-    internal func addingZeroPreservesAugend(augend: Int) {
-        #expect(augend + Int.zero == augend)
-    }
-
-    @Test(
-        "Adding opposite values returns zero",
-        arguments: [
-            (2, -2),
-            (3, -3),
-            (-2, 2),
-            (-3, 3)
-        ]
-    )
-    internal func addingOppositeValuesReturnsZero(
-        augend: Int,
-        addend: Int
-    ) {
-        #expect(augend + addend == Int.zero)
-    }
-
     @Test(
         "Addition is commutative",
         arguments: Self.additionArguments
@@ -113,5 +82,55 @@ extension IntAddableTests {
         sum _: Int
     ) {
         #expect(augend + addend == addend + augend)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension IntAddableTests {
+    @Test(
+        "Adding negative zero preserves augend",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ]
+    )
+    internal func addingNegativeZeroPreservesAugend(augend: Int) {
+        #expect(augend + Int.negativeZero == augend)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension IntAddableTests {
+    @Test(
+        "Adding opposite values returns positive zero",
+        arguments: [
+            (2, -2),
+            (3, -3),
+            (-2, 2),
+            (-3, 3)
+        ]
+    )
+    internal func addingOppositeValuesReturnsPositiveZero(
+        augend: Int,
+        addend: Int
+    ) {
+        #expect(augend + addend == Int.zero)
+    }
+
+    @Test(
+        "Adding positive zero preserves augend",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ]
+    )
+    internal func addingPositiveZeroPreservesAugend(augend: Int) {
+        #expect(augend + Int.zero == augend)
     }
 }

@@ -30,11 +30,21 @@ internal struct IntHashableTests {
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Negative Zero
 
 extension IntHashableTests {
-    @Test("Equal zero values produce equal hashes")
-    internal func equalZeroValuesProduceEqualHashes() {
+    @Test("Equal negative zero values produce equal hashes")
+    internal func equalNegativeZeroValuesProduceEqualHashes() {
+        #expect(Int.negativeZero.hashValue == Int.negativeZero.hashValue)
+        #expect(Set([Int.negativeZero, Int.negativeZero]).count == 1)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension IntHashableTests {
+    @Test("Equal positive zero values produce equal hashes")
+    internal func equalPositiveZeroValuesProduceEqualHashes() {
         #expect(Int.zero.hashValue == Int.zero.hashValue)
         #expect(Set([Int.zero, Int.zero]).count == 1)
     }

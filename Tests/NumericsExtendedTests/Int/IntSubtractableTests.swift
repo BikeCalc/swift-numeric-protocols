@@ -71,35 +71,7 @@ internal struct IntSubtractableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension IntSubtractableTests {
-    @Test(
-        "Subtracting zero preserves minuend",
-        arguments: [
-            3,
-            5,
-            -3,
-            -5
-        ]
-    )
-    internal func subtractingZeroPreservesMinuend(minuend: Int) {
-        #expect(minuend - Int.zero == minuend)
-    }
-
-    @Test(
-        "Subtracting self returns zero",
-        arguments: [
-            3,
-            5,
-            -3,
-            -5
-        ]
-    )
-    internal func subtractingSelfReturnsZero(value: Int) {
-        #expect(value - value == Int.zero)
-    }
-
     @Test(
         "Subtraction is not commutative",
         arguments: Self.subtractionArguments
@@ -110,5 +82,52 @@ extension IntSubtractableTests {
         difference _: Int
     ) {
         #expect(minuend - subtrahend != subtrahend - minuend)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension IntSubtractableTests {
+    @Test(
+        "Subtracting negative zero preserves minuend",
+        arguments: [
+            3,
+            5,
+            -3,
+            -5
+        ]
+    )
+    internal func subtractingNegativeZeroPreservesMinuend(minuend: Int) {
+        #expect(minuend - Int.negativeZero == minuend)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension IntSubtractableTests {
+    @Test(
+        "Subtracting positive zero preserves minuend",
+        arguments: [
+            3,
+            5,
+            -3,
+            -5
+        ]
+    )
+    internal func subtractingPositiveZeroPreservesMinuend(minuend: Int) {
+        #expect(minuend - Int.zero == minuend)
+    }
+
+    @Test(
+        "Subtracting self returns positive zero",
+        arguments: [
+            3,
+            5,
+            -3,
+            -5
+        ]
+    )
+    internal func subtractingSelfReturnsPositiveZero(value: Int) {
+        #expect(value - value == Int.zero)
     }
 }

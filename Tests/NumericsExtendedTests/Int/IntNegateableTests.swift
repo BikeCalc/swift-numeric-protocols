@@ -131,8 +131,6 @@ internal struct IntNegateableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension IntNegateableTests {
     @Test(
         "Negating twice returns original value",
@@ -141,41 +139,61 @@ extension IntNegateableTests {
     internal func negatingTwiceReturnsOriginalValue(value: Int) {
         #expect(value.negating().negating() == value)
     }
+}
 
-    @Test(
-        "Negating follows additive inverse rule",
-        arguments: Self.additiveInverseArguments
-    )
-    internal func negatingFollowsAdditiveInverseRule(value: Int) {
-        #expect(value + value.negating() == Int.zero)
+// MARK: - Negative Zero
+
+extension IntNegateableTests {
+    @Test("Negative zero sign predicates follow integer rules")
+    internal func negativeZeroSignPredicatesFollowIntegerRules() {
+        #expect(Int.negativeZero.isNegative == false)
+        #expect(Int.negativeZero.isPositive == false)
+        #expect(Int.negativeZero.isSigned == true)
     }
 
-    @Test("One and negative one are opposites")
-    internal func oneAndNegativeOneAreOpposites() {
-        #expect(1.isOpposite(of: -1) == true)
-        #expect((-1).isOpposite(of: 1) == true)
-        #expect(1.negating() == -1)
-        #expect((-1).negating() == 1)
+    @Test("Negative zero opposite follows integer rules")
+    internal func negativeZeroOppositeFollowsIntegerRules() {
+        #expect(Int.negativeZero.isOpposite(of: .negativeZero) == true)
+    }
+
+    @Test("Negating negative zero returns negative zero")
+    internal func negatingNegativeZeroReturnsNegativeZero() {
+        let operatorNegation: Int = -Int.negativeZero
+        let methodNegation: Int = Int.negativeZero.negating()
+        var mutatingNegation: Int = Int.negativeZero
+        mutatingNegation.negate()
+
+        #expect(operatorNegation == .negativeZero)
+        #expect(methodNegation == .negativeZero)
+        #expect(mutatingNegation == .negativeZero)
     }
 }
 
-// MARK: - Integer Rules
+// MARK: - Positive Zero
 
 extension IntNegateableTests {
-    @Test("Zero sign predicates follow integer rules")
-    internal func zeroSignPredicatesFollowIntegerRules() {
+    @Test(
+        "Adding value and its negation returns positive zero",
+        arguments: Self.additiveInverseArguments
+    )
+    internal func addingValueAndItsNegationReturnsPositiveZero(value: Int) {
+        #expect(value + value.negating() == Int.zero)
+    }
+
+    @Test("Positive zero sign predicates follow integer rules")
+    internal func positiveZeroSignPredicatesFollowIntegerRules() {
         #expect(Int.zero.isNegative == false)
         #expect(Int.zero.isPositive == false)
         #expect(Int.zero.isSigned == true)
     }
 
-    @Test("Zero opposite follows integer rules")
-    internal func zeroOppositeFollowsIntegerRules() {
+    @Test("Positive zero opposite follows integer rules")
+    internal func positiveZeroOppositeFollowsIntegerRules() {
         #expect(Int.zero.isOpposite(of: .zero) == true)
     }
 
-    @Test("Negating zero returns zero")
-    internal func negatingZeroReturnsZero() {
+    @Test("Negating positive zero returns positive zero")
+    internal func negatingPositiveZeroReturnsPositiveZero() {
         let operatorNegation: Int = -Int.zero
         let methodNegation: Int = Int.zero.negating()
         var mutatingNegation: Int = Int.zero
