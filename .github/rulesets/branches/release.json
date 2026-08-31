@@ -41,13 +41,13 @@
         "do_not_enforce_on_create": true,
         "required_status_checks": [
           {
-            "context": "route"
+            "context": "Validate Branch Route"
           },
           {
-            "context": "build"
+            "context": "Build and Test Package"
           },
           {
-            "context": "title"
+            "context": "Validate Pull Request Title"
           }
         ],
         "strict_required_status_checks_policy": true
