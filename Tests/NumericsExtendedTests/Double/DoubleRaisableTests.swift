@@ -63,6 +63,9 @@ internal struct DoubleRaisableTests {
             (6.0, 2.0, false),
             (8.0, 2.0, true),
             (9.0, 2.0, false),
+            (4.0, -2.0, true),
+            (-8.0, -2.0, true),
+            (6.0, -2.0, false),
             (0.25, 2.0, true),
             (4.0, 0.5, true),
             (-0.125, -2.0, true),
@@ -178,177 +181,7 @@ internal struct DoubleRaisableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension DoubleRaisableTests {
-    @Test(
-        "Raising to zero returns one",
-        arguments: [
-            0.0,
-            -0.0,
-            1.0,
-            -1.0,
-            2.0,
-            3.0,
-            -2.0,
-            -3.0,
-            0.5,
-            1.5,
-            -0.5,
-            -1.5
-        ]
-    )
-    internal func raisingToZeroReturnsOne(base: Double) {
-        #expect(base ** Double.Exponent.zero == 1.0)
-    }
-
-    @Test(
-        "Raising to one preserves base",
-        arguments: [
-            0.0,
-            -0.0,
-            1.0,
-            -1.0,
-            2.0,
-            3.0,
-            -2.0,
-            -3.0,
-            0.5,
-            1.5,
-            -0.5,
-            -1.5
-        ]
-    )
-    internal func raisingToOnePreservesBase(base: Double) {
-        #expect(base ** 1 == base)
-    }
-
-    @Test(
-        "One base exponentiation returns one",
-        arguments: [
-            0,
-            1,
-            2,
-            3,
-            -2,
-            -3
-        ]
-    )
-    internal func oneBaseExponentiationReturnsOne(exponent: Double.Exponent) {
-        #expect(1.0 ** exponent == 1.0)
-    }
-
-    @Test(
-        "One base power predicate follows identity rule",
-        arguments: [
-            (1.0, true),
-            (2.0, false)
-        ]
-    )
-    internal func oneBasePowerPredicateFollowsIdentityRule(
-        value: Double,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: 1.0) == result)
-    }
-
-    @Test(
-        "Negative base exponentiation follows parity rule",
-        arguments: [
-            (-2.0, 1, -2.0),
-            (-2.0, 2, 4.0),
-            (-2.0, 3, -8.0)
-        ]
-    )
-    internal func negativeBaseExponentiationFollowsParityRule(
-        base: Double,
-        exponent: Double.Exponent,
-        power: Double
-    ) {
-        #expect(base ** exponent == power)
-    }
-
-    @Test(
-        "Negative one base exponentiation follows parity rule",
-        arguments: [
-            (0, 1.0),
-            (1, -1.0),
-            (2, 1.0),
-            (3, -1.0),
-            (-2, 1.0),
-            (-3, -1.0)
-        ]
-    )
-    internal func negativeOneBaseExponentiationFollowsParityRule(
-        exponent: Double.Exponent,
-        power: Double
-    ) {
-        #expect((-1.0) ** exponent == power)
-    }
-
-    @Test(
-        "Negative base power predicate follows signed rules",
-        arguments: [
-            (4.0, -2.0, true),
-            (-8.0, -2.0, true),
-            (6.0, -2.0, false)
-        ]
-    )
-    internal func negativeBasePowerPredicateFollowsSignedRules(
-        value: Double,
-        other: Double,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: other) == result)
-    }
-
-    @Test(
-        "Negative one base power predicate follows signed rules",
-        arguments: [
-            (1.0, true),
-            (-1.0, true),
-            (2.0, false)
-        ]
-    )
-    internal func negativeOneBasePowerPredicateFollowsSignedRules(
-        value: Double,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: -1.0) == result)
-    }
-
-    @Test(
-        "Negative exponent returns reciprocal power",
-        arguments: [
-            (2.0, -1, 0.5),
-            (2.0, -2, 0.25),
-            (2.0, -3, 0.125)
-        ]
-    )
-    internal func negativeExponentReturnsReciprocalPower(
-        base: Double,
-        exponent: Double.Exponent,
-        power: Double
-    ) {
-        #expect(base ** exponent == power)
-    }
-
-    @Test(
-        "Negative base with negative exponent follows reciprocal parity rule",
-        arguments: [
-            (-2.0, -1, -0.5),
-            (-2.0, -2, 0.25),
-            (-2.0, -3, -0.125)
-        ]
-    )
-    internal func negativeBaseWithNegativeExponentFollowsReciprocalParityRule(
-        base: Double,
-        exponent: Double.Exponent,
-        power: Double
-    ) {
-        #expect(base ** exponent == power)
-    }
-
     @Test(
         "Exponentiation is not commutative",
         arguments: [
@@ -369,61 +202,86 @@ extension DoubleRaisableTests {
     }
 }
 
-// MARK: - Floating-Point Rules
+// MARK: - NaN
 
 extension DoubleRaisableTests {
     @Test(
-        "Zero base power predicate follows floating-point rules",
+        "Raising to negative one returns reciprocal",
         arguments: [
-            (0.0, true),
-            (-0.0, true),
-            (1.0, true),
-            (2.0, false),
-            (Double.infinity, true),
-            (Double.negativeInfinity, false)
+            (1.0, 1.0),
+            (-1.0, -1.0),
+            (2.0, 0.5),
+            (-2.0, -0.5),
+            (0.5, 2.0),
+            (-0.5, -2.0)
         ]
     )
-    internal func zeroBasePowerPredicateFollowsFloatingPointRules(
-        value: Double,
-        result: Bool
+    internal func raisingToNegativeOneReturnsReciprocal(
+        base: Double,
+        power: Double
     ) {
-        #expect(value.isPower(of: Double.zero) == result)
+        #expect(base ** -1 == power)
+    }
+
+    @Test("NaN power predicate follows floating-point rules")
+    internal func nanPowerPredicateFollowsFloatingPointRules() {
+        #expect(1.0.isPower(of: Double.nan) == true)
+        #expect(2.0.isPower(of: Double.nan) == false)
+        #expect(Double.nan.isPower(of: 2.0) == false)
     }
 
     @Test(
-        "Negative zero base power predicate follows floating-point rules",
+        "NaN raised to nonzero exponent returns NaN",
         arguments: [
-            (0.0, true),
-            (-0.0, true),
-            (1.0, true),
-            (2.0, false),
-            (Double.infinity, true),
-            (Double.negativeInfinity, true)
+            (Double.nan, 1),
+            (Double.nan, 2),
+            (Double.nan, -1)
         ]
     )
-    internal func negativeZeroBasePowerPredicateFollowsFloatingPointRules(
-        value: Double,
-        result: Bool
+    internal func nanRaisedToNonzeroExponentReturnsNaN(
+        base: Double,
+        exponent: Double.Exponent
     ) {
-        #expect(value.isPower(of: .negativeZero) == result)
+        #expect((base ** exponent).isNaN == true)
     }
 
+    @Test("NaN raised to positive zero returns one")
+    internal func nanRaisedToPositiveZeroReturnsOne() {
+        let power: Double = Double.nan ** Double.Exponent.zero
+
+        #expect(power == 1.0)
+    }
+
+    @Test("NaN raised to negative zero returns one")
+    internal func nanRaisedToNegativeZeroReturnsOne() {
+        let power: Double = Double.nan ** Double.Exponent.negativeZero
+
+        #expect(power == 1.0)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension DoubleRaisableTests {
     @Test(
-        "Positive infinity base power predicate follows floating-point rules",
+        "Raising to negative zero returns one",
         arguments: [
-            (0.0, true),
-            (-0.0, true),
-            (1.0, true),
-            (2.0, false),
-            (Double.infinity, true),
-            (Double.negativeInfinity, false)
+            0.0,
+            -0.0,
+            1.0,
+            -1.0,
+            2.0,
+            3.0,
+            -2.0,
+            -3.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
         ]
     )
-    internal func positiveInfinityBasePowerPredicateFollowsFloatingPointRules(
-        value: Double,
-        result: Bool
-    ) {
-        #expect(value.isPower(of: Double.infinity) == result)
+    internal func raisingToNegativeZeroReturnsOne(base: Double) {
+        #expect(base ** Double.Exponent.negativeZero == 1.0)
     }
 
     @Test(
@@ -442,103 +300,6 @@ extension DoubleRaisableTests {
         result: Bool
     ) {
         #expect(value.isPower(of: Double.negativeInfinity) == result)
-    }
-
-    @Test("NaN power predicate follows floating-point rules")
-    internal func nanPowerPredicateFollowsFloatingPointRules() {
-        #expect(1.0.isPower(of: Double.nan) == true)
-        #expect(2.0.isPower(of: Double.nan) == false)
-        #expect(Double.nan.isPower(of: 2.0) == false)
-    }
-
-    @Test(
-        "Zero base exponentiation follows floating-point rules",
-        arguments: [
-            (0.0, 0, 1.0),
-            (0.0, 1, 0.0),
-            (0.0, 2, 0.0),
-            (0.0, -1, Double.infinity)
-        ]
-    )
-    internal func zeroBaseExponentiationFollowsFloatingPointRules(
-        base: Double,
-        exponent: Double.Exponent,
-        power: Double
-    ) {
-        #expect(base ** exponent == power)
-    }
-
-    @Test(
-        "Negative zero exponentiation follows parity rule",
-        arguments: [
-            (-0.0, 0, 1.0),
-            (-0.0, 1, -0.0),
-            (-0.0, 2, 0.0),
-            (-0.0, -1, -Double.infinity),
-            (-0.0, -2, Double.infinity)
-        ]
-    )
-    internal func negativeZeroExponentiationFollowsParityRule(
-        base: Double,
-        exponent: Double.Exponent,
-        power: Double
-    ) {
-        #expect(base ** exponent == power)
-    }
-
-    @Test(
-        "Negative zero exponentiation preserves negative zero sign",
-        arguments: [
-            (-0.0, 1),
-            (-0.0, 3)
-        ]
-    )
-    internal func negativeZeroExponentiationPreservesNegativeZeroSign(
-        base: Double,
-        exponent: Double.Exponent
-    ) {
-        let power: Double = base ** exponent
-
-        #expect(power == Double.zero)
-        #expect(power.sign == .minus)
-    }
-
-    @Test(
-        "NaN raised to nonzero exponent returns NaN",
-        arguments: [
-            (Double.nan, 1),
-            (Double.nan, 2),
-            (Double.nan, -1)
-        ]
-    )
-    internal func nanRaisedToNonzeroExponentReturnsNaN(
-        base: Double,
-        exponent: Double.Exponent
-    ) {
-        #expect((base ** exponent).isNaN == true)
-    }
-
-    @Test("NaN raised to zero returns one")
-    internal func nanRaisedToZeroReturnsOne() {
-        let power: Double = Double.nan ** Double.Exponent.zero
-
-        #expect(power == 1.0)
-    }
-
-    @Test(
-        "Positive infinity exponentiation follows reciprocal rules",
-        arguments: [
-            (Double.infinity, 0, 1.0),
-            (Double.infinity, 1, Double.infinity),
-            (Double.infinity, -1, 0.0)
-        ]
-    )
-    internal func positiveInfinityExponentiationFollowsReciprocalRules(
-        base: Double,
-        exponent: Double.Exponent,
-        power: Double
-    ) {
-        #expect(base ** exponent == power)
     }
 
     @Test(
@@ -574,5 +335,251 @@ extension DoubleRaisableTests {
 
         #expect(power == Double.zero)
         #expect(power.sign == .minus)
+    }
+}
+
+// MARK: - Negative One
+
+extension DoubleRaisableTests {
+    @Test(
+        "Negative one base exponentiation follows parity rule",
+        arguments: [
+            (0, 1.0),
+            (1, -1.0),
+            (2, 1.0),
+            (3, -1.0),
+            (-2, 1.0),
+            (-3, -1.0)
+        ]
+    )
+    internal func negativeOneBaseExponentiationFollowsParityRule(
+        exponent: Double.Exponent,
+        power: Double
+    ) {
+        #expect((-1.0) ** exponent == power)
+    }
+
+    @Test(
+        "Negative one base power predicate follows signed rules",
+        arguments: [
+            (1.0, true),
+            (-1.0, true),
+            (2.0, false)
+        ]
+    )
+    internal func negativeOneBasePowerPredicateFollowsSignedRules(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: -1.0) == result)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension DoubleRaisableTests {
+    @Test(
+        "Negative zero base power predicate follows floating-point rules",
+        arguments: [
+            (0.0, true),
+            (-0.0, true),
+            (1.0, true),
+            (2.0, false),
+            (Double.infinity, true),
+            (Double.negativeInfinity, true)
+        ]
+    )
+    internal func negativeZeroBasePowerPredicateFollowsFloatingPointRules(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: .negativeZero) == result)
+    }
+
+    @Test(
+        "Negative zero base exponentiation follows parity rule",
+        arguments: [
+            (-0.0, 0, 1.0),
+            (-0.0, 1, -0.0),
+            (-0.0, 2, 0.0),
+            (-0.0, -1, -Double.infinity),
+            (-0.0, -2, Double.infinity)
+        ]
+    )
+    internal func negativeZeroBaseExponentiationFollowsParityRule(
+        base: Double,
+        exponent: Double.Exponent,
+        power: Double
+    ) {
+        #expect(base ** exponent == power)
+    }
+
+    @Test(
+        "Negative zero base exponentiation preserves negative zero sign",
+        arguments: [
+            (-0.0, 1),
+            (-0.0, 3)
+        ]
+    )
+    internal func negativeZeroBaseExponentiationPreservesNegativeZeroSign(
+        base: Double,
+        exponent: Double.Exponent
+    ) {
+        let power: Double = base ** exponent
+
+        #expect(power == Double.zero)
+        #expect(power.sign == .minus)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension DoubleRaisableTests {
+    @Test(
+        "Positive infinity base power predicate follows floating-point rules",
+        arguments: [
+            (0.0, true),
+            (-0.0, true),
+            (1.0, true),
+            (2.0, false),
+            (Double.infinity, true),
+            (Double.negativeInfinity, false)
+        ]
+    )
+    internal func positiveInfinityBasePowerPredicateFollowsFloatingPointRules(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: Double.infinity) == result)
+    }
+
+    @Test(
+        "Positive infinity exponentiation follows reciprocal rules",
+        arguments: [
+            (Double.infinity, 0, 1.0),
+            (Double.infinity, 1, Double.infinity),
+            (Double.infinity, -1, 0.0)
+        ]
+    )
+    internal func positiveInfinityExponentiationFollowsReciprocalRules(
+        base: Double,
+        exponent: Double.Exponent,
+        power: Double
+    ) {
+        #expect(base ** exponent == power)
+    }
+}
+
+// MARK: - Positive One
+
+extension DoubleRaisableTests {
+    @Test(
+        "Raising to positive one preserves base",
+        arguments: [
+            0.0,
+            -0.0,
+            1.0,
+            -1.0,
+            2.0,
+            3.0,
+            -2.0,
+            -3.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
+        ]
+    )
+    internal func raisingToPositiveOnePreservesBase(base: Double) {
+        #expect(base ** 1 == base)
+    }
+
+    @Test(
+        "Positive one base exponentiation returns positive one",
+        arguments: [
+            0,
+            1,
+            2,
+            3,
+            -2,
+            -3
+        ]
+    )
+    internal func positiveOneBaseExponentiationReturnsPositiveOne(exponent: Double.Exponent) {
+        #expect(1.0 ** exponent == 1.0)
+    }
+
+    @Test(
+        "Positive one base power predicate follows identity rule",
+        arguments: [
+            (1.0, true),
+            (2.0, false)
+        ]
+    )
+    internal func positiveOneBasePowerPredicateFollowsIdentityRule(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: 1.0) == result)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension DoubleRaisableTests {
+    @Test(
+        "Raising to positive zero returns one",
+        arguments: [
+            0.0,
+            -0.0,
+            1.0,
+            -1.0,
+            2.0,
+            3.0,
+            -2.0,
+            -3.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
+        ]
+    )
+    internal func raisingToPositiveZeroReturnsOne(base: Double) {
+        #expect(base ** Double.Exponent.zero == 1.0)
+    }
+
+    @Test(
+        "Positive zero base power predicate follows floating-point rules",
+        arguments: [
+            (0.0, true),
+            (-0.0, true),
+            (1.0, true),
+            (2.0, false),
+            (Double.infinity, true),
+            (Double.negativeInfinity, false)
+        ]
+    )
+    internal func positiveZeroBasePowerPredicateFollowsFloatingPointRules(
+        value: Double,
+        result: Bool
+    ) {
+        #expect(value.isPower(of: Double.zero) == result)
+    }
+
+    @Test(
+        "Positive zero base exponentiation follows floating-point rules",
+        arguments: [
+            (0.0, 0, 1.0),
+            (0.0, 1, 0.0),
+            (0.0, 2, 0.0),
+            (0.0, -1, Double.infinity)
+        ]
+    )
+    internal func positiveZeroBaseExponentiationFollowsFloatingPointRules(
+        base: Double,
+        exponent: Double.Exponent,
+        power: Double
+    ) {
+        #expect(base ** exponent == power)
     }
 }

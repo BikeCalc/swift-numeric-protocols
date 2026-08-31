@@ -53,25 +53,7 @@ internal struct DoubleRoundableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension DoubleRoundableTests {
-    @Test(
-        "Rounding whole value preserves value",
-        arguments: [
-            (1.0, Double.DecimalPlace(0)),
-            (-1.0, Double.DecimalPlace(0)),
-            (1.0, Double.DecimalPlace(2)),
-            (-1.0, Double.DecimalPlace(2))
-        ]
-    )
-    internal func roundingWholeValuePreservesValue(
-        value: Double,
-        decimalPlace: Double.DecimalPlace
-    ) {
-        #expect(value.rounded(to: decimalPlace) == value)
-    }
-
     @Test(
         "Rounding midpoint follows away-from-zero rule",
         arguments: [
@@ -88,28 +70,27 @@ extension DoubleRoundableTests {
     ) {
         #expect(value.rounded(to: decimalPlace) == result)
     }
-}
 
-// MARK: - Floating-Point Rules
-
-extension DoubleRoundableTests {
     @Test(
-        "Rounding infinity follows floating-point rules",
+        "Rounding whole value preserves value",
         arguments: [
-            (Double.infinity, Double.DecimalPlace(0), Double.infinity),
-            (Double.infinity, Double.DecimalPlace(2), Double.infinity),
-            (Double.negativeInfinity, Double.DecimalPlace(0), Double.negativeInfinity),
-            (Double.negativeInfinity, Double.DecimalPlace(2), Double.negativeInfinity)
+            (1.0, Double.DecimalPlace(0)),
+            (-1.0, Double.DecimalPlace(0)),
+            (1.0, Double.DecimalPlace(2)),
+            (-1.0, Double.DecimalPlace(2))
         ]
     )
-    internal func roundingInfinityFollowsFloatingPointRules(
+    internal func roundingWholeValuePreservesValue(
         value: Double,
-        decimalPlace: Double.DecimalPlace,
-        result: Double
+        decimalPlace: Double.DecimalPlace
     ) {
-        #expect(value.rounded(to: decimalPlace) == result)
+        #expect(value.rounded(to: decimalPlace) == value)
     }
+}
 
+// MARK: - NaN
+
+extension DoubleRoundableTests {
     @Test(
         "Rounding NaN returns NaN",
         arguments: [
@@ -123,15 +104,34 @@ extension DoubleRoundableTests {
     ) {
         #expect(value.rounded(to: decimalPlace).isNaN == true)
     }
+}
 
+// MARK: - Negative Infinity
+
+extension DoubleRoundableTests {
     @Test(
-        "Rounding zero preserves negative zero sign",
+        "Rounding negative infinity follows floating-point rules",
+        arguments: [
+            Double.DecimalPlace(0),
+            Double.DecimalPlace(2)
+        ]
+    )
+    internal func roundingNegativeInfinityFollowsFloatingPointRules(decimalPlace: Double.DecimalPlace) {
+        #expect(Double.negativeInfinity.rounded(to: decimalPlace) == .negativeInfinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension DoubleRoundableTests {
+    @Test(
+        "Rounding negative zero preserves its sign",
         arguments: [
             (-0.0, Double.DecimalPlace(0)),
             (-0.0, Double.DecimalPlace(2))
         ]
     )
-    internal func roundingZeroPreservesNegativeZeroSign(
+    internal func roundingNegativeZeroPreservesItsSign(
         value: Double,
         decimalPlace: Double.DecimalPlace
     ) {
@@ -139,5 +139,41 @@ extension DoubleRoundableTests {
 
         #expect(roundedValue == Double.zero)
         #expect(roundedValue.sign == .minus)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension DoubleRoundableTests {
+    @Test(
+        "Rounding positive infinity follows floating-point rules",
+        arguments: [
+            Double.DecimalPlace(0),
+            Double.DecimalPlace(2)
+        ]
+    )
+    internal func roundingPositiveInfinityFollowsFloatingPointRules(decimalPlace: Double.DecimalPlace) {
+        #expect(Double.infinity.rounded(to: decimalPlace) == .infinity)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension DoubleRoundableTests {
+    @Test(
+        "Rounding positive zero preserves its sign",
+        arguments: [
+            (0.0, Double.DecimalPlace(0)),
+            (0.0, Double.DecimalPlace(2))
+        ]
+    )
+    internal func roundingPositiveZeroPreservesItsSign(
+        value: Double,
+        decimalPlace: Double.DecimalPlace
+    ) {
+        let roundedValue: Double = value.rounded(to: decimalPlace)
+
+        #expect(roundedValue == Double.zero)
+        #expect(roundedValue.sign == .plus)
     }
 }

@@ -23,16 +23,24 @@ internal struct DoubleRepresentableByZeroTests {
     internal func nonzeroValuesAreNotZero(value: Double) {
         #expect(value.isZero == false)
     }
+}
 
-    @Test("Positive zero is zero")
-    internal func positiveZeroIsZero() {
-        #expect(Double.zero.isZero == true)
-        #expect(Double.zero.sign == .plus)
-    }
+// MARK: - Negative Zero
 
+extension DoubleRepresentableByZeroTests {
     @Test("Negative zero is zero")
     internal func negativeZeroIsZero() {
         #expect(Double.negativeZero.isZero == true)
         #expect(Double.negativeZero.sign == .minus)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension DoubleRepresentableByZeroTests {
+    @Test("Positive zero is zero")
+    internal func positiveZeroIsZero() {
+        #expect(Double.zero.isZero == true)
+        #expect(Double.zero.sign == .plus)
     }
 }

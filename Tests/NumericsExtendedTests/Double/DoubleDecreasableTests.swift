@@ -34,41 +34,7 @@ internal struct DoubleDecreasableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension DoubleDecreasableTests {
-    @Test(
-        "Decreasing by zero preserves value",
-        arguments: [
-            10.0,
-            20.0,
-            -10.0,
-            -20.0,
-            0.5,
-            1.5,
-            -0.5,
-            -1.5
-        ]
-    )
-    internal func decreasingByZeroPreservesValue(value: Double) {
-        let decreasedValue: Double = value.decreasing(by: Double.zero)
-        #expect(decreasedValue == value)
-    }
-
-    @Test(
-        "Decreasing zero returns zero",
-        arguments: [
-            2.0,
-            3.0,
-            -2.0,
-            -3.0
-        ]
-    )
-    internal func decreasingZeroReturnsZero(percentage: Double) {
-        let decreasedValue: Double = Double.zero.decreasing(by: percentage)
-        #expect(decreasedValue == Double.zero)
-    }
-
     @Test(
         "Decreasing positive value by negative percentage increases value",
         arguments: [
@@ -101,5 +67,83 @@ extension DoubleDecreasableTests {
         let decreasedValue: Double = value.decreasing(by: percentage)
         #expect(decreasedValue == result)
         #expect(decreasedValue < value)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension DoubleDecreasableTests {
+    @Test(
+        "Decreasing by negative zero preserves value",
+        arguments: [
+            10.0,
+            20.0,
+            -10.0,
+            -20.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
+        ]
+    )
+    internal func decreasingByNegativeZeroPreservesValue(value: Double) {
+        let decreasedValue: Double = value.decreasing(by: Double.negativeZero)
+        #expect(decreasedValue == value)
+    }
+
+    @Test(
+        "Decreasing negative zero follows floating-point rules",
+        arguments: [
+            (2.0, FloatingPointSign.plus),
+            (3.0, FloatingPointSign.plus),
+            (-2.0, FloatingPointSign.minus),
+            (-3.0, FloatingPointSign.minus)
+        ]
+    )
+    internal func decreasingNegativeZeroFollowsFloatingPointRules(
+        percentage: Double,
+        sign: FloatingPointSign
+    ) {
+        let decreasedValue: Double = Double.negativeZero.decreasing(by: percentage)
+
+        #expect(decreasedValue == Double.zero)
+        #expect(decreasedValue.sign == sign)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension DoubleDecreasableTests {
+    @Test(
+        "Decreasing by positive zero preserves value",
+        arguments: [
+            10.0,
+            20.0,
+            -10.0,
+            -20.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
+        ]
+    )
+    internal func decreasingByPositiveZeroPreservesValue(value: Double) {
+        let decreasedValue: Double = value.decreasing(by: Double.zero)
+        #expect(decreasedValue == value)
+    }
+
+    @Test(
+        "Decreasing positive zero returns positive zero",
+        arguments: [
+            2.0,
+            3.0,
+            -2.0,
+            -3.0
+        ]
+    )
+    internal func decreasingPositiveZeroReturnsPositiveZero(percentage: Double) {
+        let decreasedValue: Double = Double.zero.decreasing(by: percentage)
+        #expect(decreasedValue == Double.zero)
+        #expect(decreasedValue.sign == .plus)
     }
 }

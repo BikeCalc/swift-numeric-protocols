@@ -34,41 +34,7 @@ internal struct DoubleIncreasableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension DoubleIncreasableTests {
-    @Test(
-        "Increasing by zero preserves value",
-        arguments: [
-            10.0,
-            20.0,
-            -10.0,
-            -20.0,
-            0.5,
-            1.5,
-            -0.5,
-            -1.5
-        ]
-    )
-    internal func increasingByZeroPreservesValue(value: Double) {
-        let increasedValue: Double = value.increasing(by: Double.zero)
-        #expect(increasedValue == value)
-    }
-
-    @Test(
-        "Increasing zero returns zero",
-        arguments: [
-            2.0,
-            3.0,
-            -2.0,
-            -3.0
-        ]
-    )
-    internal func increasingZeroReturnsZero(percentage: Double) {
-        let increasedValue: Double = Double.zero.increasing(by: percentage)
-        #expect(increasedValue == Double.zero)
-    }
-
     @Test(
         "Increasing positive value by negative percentage decreases value",
         arguments: [
@@ -101,5 +67,83 @@ extension DoubleIncreasableTests {
         let increasedValue: Double = value.increasing(by: percentage)
         #expect(increasedValue == result)
         #expect(increasedValue > value)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension DoubleIncreasableTests {
+    @Test(
+        "Increasing by negative zero preserves value",
+        arguments: [
+            10.0,
+            20.0,
+            -10.0,
+            -20.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
+        ]
+    )
+    internal func increasingByNegativeZeroPreservesValue(value: Double) {
+        let increasedValue: Double = value.increasing(by: Double.negativeZero)
+        #expect(increasedValue == value)
+    }
+
+    @Test(
+        "Increasing negative zero follows floating-point rules",
+        arguments: [
+            (2.0, FloatingPointSign.minus),
+            (3.0, FloatingPointSign.minus),
+            (-2.0, FloatingPointSign.plus),
+            (-3.0, FloatingPointSign.plus)
+        ]
+    )
+    internal func increasingNegativeZeroFollowsFloatingPointRules(
+        percentage: Double,
+        sign: FloatingPointSign
+    ) {
+        let increasedValue: Double = Double.negativeZero.increasing(by: percentage)
+
+        #expect(increasedValue == Double.zero)
+        #expect(increasedValue.sign == sign)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension DoubleIncreasableTests {
+    @Test(
+        "Increasing by positive zero preserves value",
+        arguments: [
+            10.0,
+            20.0,
+            -10.0,
+            -20.0,
+            0.5,
+            1.5,
+            -0.5,
+            -1.5
+        ]
+    )
+    internal func increasingByPositiveZeroPreservesValue(value: Double) {
+        let increasedValue: Double = value.increasing(by: Double.zero)
+        #expect(increasedValue == value)
+    }
+
+    @Test(
+        "Increasing positive zero returns positive zero",
+        arguments: [
+            2.0,
+            3.0,
+            -2.0,
+            -3.0
+        ]
+    )
+    internal func increasingPositiveZeroReturnsPositiveZero(percentage: Double) {
+        let increasedValue: Double = Double.zero.increasing(by: percentage)
+        #expect(increasedValue == Double.zero)
+        #expect(increasedValue.sign == .plus)
     }
 }

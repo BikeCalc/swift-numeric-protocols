@@ -75,43 +75,7 @@ internal struct DoubleSubtractableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension DoubleSubtractableTests {
-    @Test(
-        "Subtracting positive zero preserves minuend",
-        arguments: [
-            3.0,
-            5.0,
-            -3.0,
-            -5.0,
-            1.5,
-            3.5,
-            -1.5,
-            -3.5
-        ]
-    )
-    internal func subtractingPositiveZeroPreservesMinuend(minuend: Double) {
-        #expect(minuend - Double.zero == minuend)
-    }
-
-    @Test(
-        "Subtracting self returns zero",
-        arguments: [
-            3.0,
-            5.0,
-            -3.0,
-            -5.0,
-            1.5,
-            3.5,
-            -1.5,
-            -3.5
-        ]
-    )
-    internal func subtractingSelfReturnsZero(value: Double) {
-        #expect(value - value == Double.zero)
-    }
-
     @Test(
         "Subtraction is not commutative",
         arguments: Self.subtractionArguments
@@ -125,79 +89,9 @@ extension DoubleSubtractableTests {
     }
 }
 
-// MARK: - Floating-Point Rules
+// MARK: - NaN
 
 extension DoubleSubtractableTests {
-    @Test(
-        "Subtracting from positive zero follows floating-point rules",
-        arguments: [
-            (Double.zero, Double.zero),
-            (Double.negativeZero, Double.zero),
-            (1.0, -1.0),
-            (-1.0, 1.0)
-        ]
-    )
-    internal func subtractingFromPositiveZeroFollowsFloatingPointRules(
-        subtrahend: Double,
-        difference: Double
-    ) {
-        let result: Double = Double.zero - subtrahend
-
-        #expect(result == difference)
-        #expect(result.sign == difference.sign)
-    }
-
-    @Test(
-        "Subtracting from negative zero follows floating-point rules",
-        arguments: [
-            (Double.zero, Double.negativeZero),
-            (Double.negativeZero, Double.zero),
-            (1.0, -1.0),
-            (-1.0, 1.0)
-        ]
-    )
-    internal func subtractingFromNegativeZeroFollowsFloatingPointRules(
-        subtrahend: Double,
-        difference: Double
-    ) {
-        let result: Double = Double.negativeZero - subtrahend
-
-        #expect(result == difference)
-        #expect(result.sign == difference.sign)
-    }
-
-    @Test(
-        "Subtracting positive infinity follows floating-point rules",
-        arguments: [
-            (Double.infinity, Double.negativeInfinity, Double.infinity),
-            (Double.infinity, 1.0, Double.infinity),
-            (1.0, Double.infinity, Double.negativeInfinity)
-        ]
-    )
-    internal func subtractingPositiveInfinityFollowsFloatingPointRules(
-        minuend: Double,
-        subtrahend: Double,
-        difference: Double
-    ) {
-        #expect(minuend - subtrahend == difference)
-    }
-
-    @Test(
-        "Subtracting negative infinity follows floating-point rules",
-        arguments: [
-            (Double.negativeInfinity, Double.infinity, Double.negativeInfinity),
-            (Double.negativeInfinity, 1.0, Double.negativeInfinity),
-            (1.0, Double.negativeInfinity, Double.infinity)
-        ]
-    )
-    internal func subtractingNegativeInfinityFollowsFloatingPointRules(
-        minuend: Double,
-        subtrahend: Double,
-        difference: Double
-    ) {
-        #expect(minuend - subtrahend == difference)
-    }
-
     @Test("Subtracting positive infinity from itself returns NaN")
     internal func subtractingPositiveInfinityFromItselfReturnsNaN() {
         #expect((Double.infinity - .infinity).isNaN == true)
@@ -236,5 +130,127 @@ extension DoubleSubtractableTests {
     )
     internal func subtractingNaNReturnsNaN(minuend: Double) {
         #expect((minuend - Double.nan).isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension DoubleSubtractableTests {
+    @Test(
+        "Subtracting negative infinity follows floating-point rules",
+        arguments: [
+            (Double.negativeInfinity, Double.infinity, Double.negativeInfinity),
+            (Double.negativeInfinity, 1.0, Double.negativeInfinity),
+            (1.0, Double.negativeInfinity, Double.infinity)
+        ]
+    )
+    internal func subtractingNegativeInfinityFollowsFloatingPointRules(
+        minuend: Double,
+        subtrahend: Double,
+        difference: Double
+    ) {
+        #expect(minuend - subtrahend == difference)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension DoubleSubtractableTests {
+    @Test(
+        "Subtracting from negative zero follows floating-point rules",
+        arguments: [
+            (Double.zero, Double.negativeZero),
+            (Double.negativeZero, Double.zero),
+            (1.0, -1.0),
+            (-1.0, 1.0)
+        ]
+    )
+    internal func subtractingFromNegativeZeroFollowsFloatingPointRules(
+        subtrahend: Double,
+        difference: Double
+    ) {
+        let result: Double = Double.negativeZero - subtrahend
+
+        #expect(result == difference)
+        #expect(result.sign == difference.sign)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension DoubleSubtractableTests {
+    @Test(
+        "Subtracting positive infinity follows floating-point rules",
+        arguments: [
+            (Double.infinity, Double.negativeInfinity, Double.infinity),
+            (Double.infinity, 1.0, Double.infinity),
+            (1.0, Double.infinity, Double.negativeInfinity)
+        ]
+    )
+    internal func subtractingPositiveInfinityFollowsFloatingPointRules(
+        minuend: Double,
+        subtrahend: Double,
+        difference: Double
+    ) {
+        #expect(minuend - subtrahend == difference)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension DoubleSubtractableTests {
+    @Test(
+        "Subtracting positive zero preserves minuend",
+        arguments: [
+            3.0,
+            5.0,
+            -3.0,
+            -5.0,
+            1.5,
+            3.5,
+            -1.5,
+            -3.5
+        ]
+    )
+    internal func subtractingPositiveZeroPreservesMinuend(minuend: Double) {
+        #expect(minuend - Double.zero == minuend)
+    }
+
+    @Test(
+        "Subtracting from positive zero follows floating-point rules",
+        arguments: [
+            (Double.zero, Double.zero),
+            (Double.negativeZero, Double.zero),
+            (1.0, -1.0),
+            (-1.0, 1.0)
+        ]
+    )
+    internal func subtractingFromPositiveZeroFollowsFloatingPointRules(
+        subtrahend: Double,
+        difference: Double
+    ) {
+        let result: Double = Double.zero - subtrahend
+
+        #expect(result == difference)
+        #expect(result.sign == difference.sign)
+    }
+
+    @Test(
+        "Subtracting self returns positive zero",
+        arguments: [
+            3.0,
+            5.0,
+            -3.0,
+            -5.0,
+            1.5,
+            3.5,
+            -1.5,
+            -3.5
+        ]
+    )
+    internal func subtractingSelfReturnsPositiveZero(value: Double) {
+        let difference: Double = value - value
+        #expect(difference == Double.zero)
+        #expect(difference.sign == .plus)
     }
 }

@@ -24,39 +24,59 @@ internal struct DoubleRepresentableByInfinityTests {
         #expect(value.isFinite == true)
         #expect(value.isInfinite == false)
     }
+}
 
-    @Test("Positive zero is finite")
-    internal func positiveZeroIsFinite() {
-        #expect(Double.zero.isFinite == true)
-        #expect(Double.zero.isInfinite == false)
+// MARK: - NaN
+
+extension DoubleRepresentableByInfinityTests {
+    @Test("NaN is neither finite nor infinite")
+    internal func nanIsNeitherFiniteNorInfinite() {
+        #expect(Double.nan.isFinite == false)
+        #expect(Double.nan.isInfinite == false)
     }
+}
 
-    @Test("Negative zero is finite")
-    internal func negativeZeroIsFinite() {
-        #expect(Double.negativeZero.isFinite == true)
-        #expect(Double.negativeZero.isInfinite == false)
-    }
+// MARK: - Negative Infinity
 
-    @Test("Positive infinity is infinite")
-    internal func positiveInfinityIsInfinite() {
-        #expect(Double.infinity.isFinite == false)
-        #expect(Double.infinity.isInfinite == true)
-    }
-
+extension DoubleRepresentableByInfinityTests {
     @Test("Negative infinity is infinite")
     internal func negativeInfinityIsInfinite() {
         #expect(Double.negativeInfinity.isFinite == false)
         #expect(Double.negativeInfinity.isInfinite == true)
     }
 
-    @Test("NaN is neither finite nor infinite")
-    internal func nanIsNeitherFiniteNorInfinite() {
-        #expect(Double.nan.isFinite == false)
-        #expect(Double.nan.isInfinite == false)
-    }
-
     @Test("Negative infinity equals negated infinity")
     internal func negativeInfinityEqualsNegatedInfinity() {
         #expect(Double.negativeInfinity == -Double.infinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension DoubleRepresentableByInfinityTests {
+    @Test("Negative zero is finite")
+    internal func negativeZeroIsFinite() {
+        #expect(Double.negativeZero.isFinite == true)
+        #expect(Double.negativeZero.isInfinite == false)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension DoubleRepresentableByInfinityTests {
+    @Test("Positive infinity is infinite")
+    internal func positiveInfinityIsInfinite() {
+        #expect(Double.infinity.isFinite == false)
+        #expect(Double.infinity.isInfinite == true)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension DoubleRepresentableByInfinityTests {
+    @Test("Positive zero is finite")
+    internal func positiveZeroIsFinite() {
+        #expect(Double.zero.isFinite == true)
+        #expect(Double.zero.isInfinite == false)
     }
 }

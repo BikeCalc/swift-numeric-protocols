@@ -152,8 +152,6 @@ internal struct DoubleNegateableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension DoubleNegateableTests {
     @Test(
         "Negating twice returns original value",
@@ -162,116 +160,16 @@ extension DoubleNegateableTests {
     internal func negatingTwiceReturnsOriginalValue(value: Double) {
         #expect(value.negating().negating() == value)
     }
-
-    @Test(
-        "Negating follows additive inverse rule",
-        arguments: Self.additiveInverseArguments
-    )
-    internal func negatingFollowsAdditiveInverseRule(value: Double) {
-        #expect(value + value.negating() == Double.zero)
-    }
-
-    @Test("One and negative one are opposites")
-    internal func oneAndNegativeOneAreOpposites() {
-        #expect(1.0.isOpposite(of: -1.0) == true)
-        #expect((-1.0).isOpposite(of: 1.0) == true)
-        #expect(1.0.negating() == -1.0)
-        #expect((-1.0).negating() == 1.0)
-    }
 }
 
-// MARK: - Floating-Point Rules
+// MARK: - NaN
 
 extension DoubleNegateableTests {
-    @Test("Positive zero sign predicates follow floating-point rules")
-    internal func positiveZeroSignPredicatesFollowFloatingPointRules() {
-        #expect(Double.zero.isNegative == false)
-        #expect(Double.zero.isPositive == false)
-        #expect(Double.zero.isSigned == true)
-    }
-
-    @Test("Negative zero sign predicates follow floating-point rules")
-    internal func negativeZeroSignPredicatesFollowFloatingPointRules() {
-        #expect(Double.negativeZero.isNegative == false)
-        #expect(Double.negativeZero.isPositive == false)
-        #expect(Double.negativeZero.isSigned == true)
-    }
-
-    @Test("Positive infinity sign predicates follow floating-point rules")
-    internal func positiveInfinitySignPredicatesFollowFloatingPointRules() {
-        #expect(Double.infinity.isNegative == false)
-        #expect(Double.infinity.isPositive == true)
-        #expect(Double.infinity.isSigned == true)
-    }
-
-    @Test("Negative infinity sign predicates follow floating-point rules")
-    internal func negativeInfinitySignPredicatesFollowFloatingPointRules() {
-        #expect(Double.negativeInfinity.isNegative == true)
-        #expect(Double.negativeInfinity.isPositive == false)
-        #expect(Double.negativeInfinity.isSigned == true)
-    }
-
     @Test("NaN sign predicates follow floating-point rules")
     internal func nanSignPredicatesFollowFloatingPointRules() {
         #expect(Double.nan.isNegative == false)
         #expect(Double.nan.isPositive == false)
         #expect(Double.nan.isSigned == true)
-    }
-
-    @Test(
-        "Positive zero opposite follows floating-point rules",
-        arguments: [
-            (Double.zero, true),
-            (Double.negativeZero, true)
-        ]
-    )
-    internal func positiveZeroOppositeFollowsFloatingPointRules(
-        other: Double,
-        result: Bool
-    ) {
-        #expect(Double.zero.isOpposite(of: other) == result)
-    }
-
-    @Test(
-        "Negative zero opposite follows floating-point rules",
-        arguments: [
-            (Double.zero, true),
-            (Double.negativeZero, true)
-        ]
-    )
-    internal func negativeZeroOppositeFollowsFloatingPointRules(
-        other: Double,
-        result: Bool
-    ) {
-        #expect(Double.negativeZero.isOpposite(of: other) == result)
-    }
-
-    @Test(
-        "Positive infinity opposite follows floating-point rules",
-        arguments: [
-            (Double.infinity, false),
-            (Double.negativeInfinity, true)
-        ]
-    )
-    internal func positiveInfinityOppositeFollowsFloatingPointRules(
-        other: Double,
-        result: Bool
-    ) {
-        #expect(Double.infinity.isOpposite(of: other) == result)
-    }
-
-    @Test(
-        "Negative infinity opposite follows floating-point rules",
-        arguments: [
-            (Double.negativeInfinity, false),
-            (Double.infinity, true)
-        ]
-    )
-    internal func negativeInfinityOppositeFollowsFloatingPointRules(
-        other: Double,
-        result: Bool
-    ) {
-        #expect(Double.negativeInfinity.isOpposite(of: other) == result)
     }
 
     @Test(
@@ -289,19 +187,78 @@ extension DoubleNegateableTests {
         #expect(other.isOpposite(of: .nan) == false)
     }
 
-    @Test("Negating positive zero follows floating-point rules")
-    internal func negatingPositiveZeroFollowsFloatingPointRules() {
-        let operatorNegation: Double = -Double.zero
-        let methodNegation: Double = Double.zero.negating()
-        var mutatingNegation: Double = Double.zero
+    @Test("Negating NaN returns NaN")
+    internal func negatingNaNReturnsNaN() {
+        let operatorNegation: Double = -Double.nan
+        let methodNegation: Double = Double.nan.negating()
+        var mutatingNegation: Double = Double.nan
         mutatingNegation.negate()
 
-        #expect(operatorNegation == .zero)
-        #expect(operatorNegation.sign == .minus)
-        #expect(methodNegation == .zero)
-        #expect(methodNegation.sign == .minus)
-        #expect(mutatingNegation == .zero)
-        #expect(mutatingNegation.sign == .minus)
+        #expect(operatorNegation.isNaN == true)
+        #expect(methodNegation.isNaN == true)
+        #expect(mutatingNegation.isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension DoubleNegateableTests {
+    @Test("Negative infinity sign predicates follow floating-point rules")
+    internal func negativeInfinitySignPredicatesFollowFloatingPointRules() {
+        #expect(Double.negativeInfinity.isNegative == true)
+        #expect(Double.negativeInfinity.isPositive == false)
+        #expect(Double.negativeInfinity.isSigned == true)
+    }
+
+    @Test(
+        "Negative infinity opposite follows floating-point rules",
+        arguments: [
+            (Double.negativeInfinity, false),
+            (Double.infinity, true)
+        ]
+    )
+    internal func negativeInfinityOppositeFollowsFloatingPointRules(
+        other: Double,
+        result: Bool
+    ) {
+        #expect(Double.negativeInfinity.isOpposite(of: other) == result)
+    }
+
+    @Test("Negating negative infinity follows floating-point rules")
+    internal func negatingNegativeInfinityFollowsFloatingPointRules() {
+        let operatorNegation: Double = -Double.negativeInfinity
+        let methodNegation: Double = Double.negativeInfinity.negating()
+        var mutatingNegation: Double = Double.negativeInfinity
+        mutatingNegation.negate()
+
+        #expect(operatorNegation == .infinity)
+        #expect(methodNegation == .infinity)
+        #expect(mutatingNegation == .infinity)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension DoubleNegateableTests {
+    @Test("Negative zero sign predicates follow floating-point rules")
+    internal func negativeZeroSignPredicatesFollowFloatingPointRules() {
+        #expect(Double.negativeZero.isNegative == false)
+        #expect(Double.negativeZero.isPositive == false)
+        #expect(Double.negativeZero.isSigned == true)
+    }
+
+    @Test(
+        "Negative zero opposite follows floating-point rules",
+        arguments: [
+            (Double.zero, true),
+            (Double.negativeZero, true)
+        ]
+    )
+    internal func negativeZeroOppositeFollowsFloatingPointRules(
+        other: Double,
+        result: Bool
+    ) {
+        #expect(Double.negativeZero.isOpposite(of: other) == result)
     }
 
     @Test("Negating negative zero follows floating-point rules")
@@ -318,6 +275,31 @@ extension DoubleNegateableTests {
         #expect(mutatingNegation == .zero)
         #expect(mutatingNegation.sign == .plus)
     }
+}
+
+// MARK: - Positive Infinity
+
+extension DoubleNegateableTests {
+    @Test("Positive infinity sign predicates follow floating-point rules")
+    internal func positiveInfinitySignPredicatesFollowFloatingPointRules() {
+        #expect(Double.infinity.isNegative == false)
+        #expect(Double.infinity.isPositive == true)
+        #expect(Double.infinity.isSigned == true)
+    }
+
+    @Test(
+        "Positive infinity opposite follows floating-point rules",
+        arguments: [
+            (Double.infinity, false),
+            (Double.negativeInfinity, true)
+        ]
+    )
+    internal func positiveInfinityOppositeFollowsFloatingPointRules(
+        other: Double,
+        result: Bool
+    ) {
+        #expect(Double.infinity.isOpposite(of: other) == result)
+    }
 
     @Test("Negating positive infinity follows floating-point rules")
     internal func negatingPositiveInfinityFollowsFloatingPointRules() {
@@ -330,28 +312,54 @@ extension DoubleNegateableTests {
         #expect(methodNegation == .negativeInfinity)
         #expect(mutatingNegation == .negativeInfinity)
     }
+}
 
-    @Test("Negating negative infinity follows floating-point rules")
-    internal func negatingNegativeInfinityFollowsFloatingPointRules() {
-        let operatorNegation: Double = -Double.negativeInfinity
-        let methodNegation: Double = Double.negativeInfinity.negating()
-        var mutatingNegation: Double = Double.negativeInfinity
-        mutatingNegation.negate()
+// MARK: - Positive Zero
 
-        #expect(operatorNegation == .infinity)
-        #expect(methodNegation == .infinity)
-        #expect(mutatingNegation == .infinity)
+extension DoubleNegateableTests {
+    @Test(
+        "Adding value and its negation returns positive zero",
+        arguments: Self.additiveInverseArguments
+    )
+    internal func addingValueAndItsNegationReturnsPositiveZero(value: Double) {
+        let sum: Double = value + value.negating()
+        #expect(sum == Double.zero)
+        #expect(sum.sign == .plus)
     }
 
-    @Test("Negating NaN returns NaN")
-    internal func negatingNaNReturnsNaN() {
-        let operatorNegation: Double = -Double.nan
-        let methodNegation: Double = Double.nan.negating()
-        var mutatingNegation: Double = Double.nan
+    @Test("Positive zero sign predicates follow floating-point rules")
+    internal func positiveZeroSignPredicatesFollowFloatingPointRules() {
+        #expect(Double.zero.isNegative == false)
+        #expect(Double.zero.isPositive == false)
+        #expect(Double.zero.isSigned == true)
+    }
+
+    @Test(
+        "Positive zero opposite follows floating-point rules",
+        arguments: [
+            (Double.zero, true),
+            (Double.negativeZero, true)
+        ]
+    )
+    internal func positiveZeroOppositeFollowsFloatingPointRules(
+        other: Double,
+        result: Bool
+    ) {
+        #expect(Double.zero.isOpposite(of: other) == result)
+    }
+
+    @Test("Negating positive zero follows floating-point rules")
+    internal func negatingPositiveZeroFollowsFloatingPointRules() {
+        let operatorNegation: Double = -Double.zero
+        let methodNegation: Double = Double.zero.negating()
+        var mutatingNegation: Double = Double.zero
         mutatingNegation.negate()
 
-        #expect(operatorNegation.isNaN == true)
-        #expect(methodNegation.isNaN == true)
-        #expect(mutatingNegation.isNaN == true)
+        #expect(operatorNegation == .zero)
+        #expect(operatorNegation.sign == .minus)
+        #expect(methodNegation == .zero)
+        #expect(methodNegation.sign == .minus)
+        #expect(mutatingNegation == .zero)
+        #expect(mutatingNegation.sign == .minus)
     }
 }

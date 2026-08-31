@@ -10,29 +10,49 @@ import Testing
 @testable import NumericsExtended
 
 @Suite("Double RepresentableByNaN Tests")
-internal struct DoubleRepresentableByNaNTests {
+internal struct DoubleRepresentableByNaNTests {}
+
+// MARK: - NaN
+
+extension DoubleRepresentableByNaNTests {
     @Test("NaN is NaN")
     internal func nanIsNaN() {
         #expect(Double.nan.isNaN == true)
     }
+}
 
-    @Test("Zero is not NaN")
-    internal func zeroIsNotNaN() {
-        #expect(Double.zero.isNaN == false)
+// MARK: - Negative Infinity
+
+extension DoubleRepresentableByNaNTests {
+    @Test("Negative infinity is not NaN")
+    internal func negativeInfinityIsNotNaN() {
+        #expect(Double.negativeInfinity.isNaN == false)
     }
+}
 
+// MARK: - Negative Zero
+
+extension DoubleRepresentableByNaNTests {
     @Test("Negative zero is not NaN")
     internal func negativeZeroIsNotNaN() {
         #expect(Double.negativeZero.isNaN == false)
     }
+}
 
+// MARK: - Positive Infinity
+
+extension DoubleRepresentableByNaNTests {
     @Test("Positive infinity is not NaN")
     internal func positiveInfinityIsNotNaN() {
         #expect(Double.infinity.isNaN == false)
     }
+}
 
-    @Test("Negative infinity is not NaN")
-    internal func negativeInfinityIsNotNaN() {
-        #expect(Double.negativeInfinity.isNaN == false)
+// MARK: - Positive Zero
+
+extension DoubleRepresentableByNaNTests {
+    @Test("Positive zero is not NaN")
+    internal func positiveZeroIsNotNaN() {
+        #expect(Double.zero.isNaN == false)
     }
 }

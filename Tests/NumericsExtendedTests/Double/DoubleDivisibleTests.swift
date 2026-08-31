@@ -25,6 +25,7 @@ internal struct DoubleDivisibleTests {
     private static let remainderArguments: [(Double, Double, Double)] = [
         (4.0, 2.0, 0.0),
         (5.0, 2.0, 1.0),
+        (5.0, -2.0, 1.0),
         (-5.0, 2.0, -1.0),
         (-5.0, -2.0, -1.0),
         (1.5, 0.5, 0.0),
@@ -226,95 +227,7 @@ internal struct DoubleDivisibleTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension DoubleDivisibleTests {
-    @Test(
-        "Dividing positive zero by nonzero value returns zero",
-        arguments: [
-            2.0,
-            -3.0,
-            3.0,
-            0.5,
-            1.5,
-            -1.5
-        ]
-    )
-    internal func dividingPositiveZeroByNonzeroValueReturnsZero(divisor: Double) {
-        #expect(Double.zero / divisor == Double.zero)
-    }
-
-    @Test(
-        "Dividing by one preserves dividend",
-        arguments: [
-            6.0,
-            4.0,
-            -6.0,
-            -4.0,
-            1.5,
-            3.75,
-            -1.5,
-            -3.75
-        ]
-    )
-    internal func dividingByOnePreservesDividend(dividend: Double) {
-        #expect(dividend / 1.0 == dividend)
-    }
-
-    @Test(
-        "Dividing by negative one returns opposite value",
-        arguments: [
-            (6.0, -6.0),
-            (4.0, -4.0),
-            (-6.0, 6.0),
-            (-4.0, 4.0),
-            (1.5, -1.5),
-            (3.75, -3.75),
-            (-1.5, 1.5),
-            (-3.75, 3.75)
-        ]
-    )
-    internal func dividingByNegativeOneReturnsOppositeValue(
-        dividend: Double,
-        quotient: Double
-    ) {
-        #expect(dividend / -1.0 == quotient)
-    }
-
-    @Test(
-        "Remainder by self returns zero",
-        arguments: [
-            6.0,
-            4.0,
-            -6.0,
-            -4.0,
-            1.5,
-            3.75,
-            -1.5,
-            -3.75
-        ]
-    )
-    internal func remainderBySelfReturnsZero(value: Double) {
-        #expect(value % value == Double.zero)
-    }
-
-    @Test(
-        "Remainder follows dividend sign",
-        arguments: [
-            (5.0, 2.0, 1.0),
-            (-5.0, 2.0, -1.0),
-            (5.0, -2.0, 1.0),
-            (-5.0, -2.0, -1.0)
-        ]
-    )
-    internal func remainderFollowsDividendSign(
-        dividend: Double,
-        divisor: Double,
-        remainder: Double
-    ) {
-        #expect(dividend % divisor == remainder)
-    }
-
     @Test(
         "Division is not commutative",
         arguments: Self.divisionArguments
@@ -328,77 +241,9 @@ extension DoubleDivisibleTests {
     }
 }
 
-// MARK: - Floating-Point Rules
+// MARK: - NaN
 
 extension DoubleDivisibleTests {
-    @Test(
-        "Positive zero divisibility follows floating-point rules",
-        arguments: [
-            (Double.zero, false, false),
-            (Double.negativeZero, false, false),
-            (2.0, true, false),
-            (Double.infinity, false, false),
-            (Double.negativeInfinity, false, false)
-        ]
-    )
-    internal func positiveZeroDivisibilityFollowsFloatingPointRules(
-        other: Double,
-        isDivisible: Bool,
-        isFactor: Bool
-    ) {
-        #expect(Double.zero.isDivisible(by: other) == isDivisible)
-        #expect(Double.zero.isFactor(of: other) == isFactor)
-    }
-
-    @Test(
-        "Negative zero divisibility follows floating-point rules",
-        arguments: [
-            (Double.zero, false, false),
-            (Double.negativeZero, false, false),
-            (2.0, true, false),
-            (Double.infinity, false, false),
-            (Double.negativeInfinity, false, false)
-        ]
-    )
-    internal func negativeZeroDivisibilityFollowsFloatingPointRules(
-        other: Double,
-        isDivisible: Bool,
-        isFactor: Bool
-    ) {
-        #expect(Double.negativeZero.isDivisible(by: other) == isDivisible)
-        #expect(Double.negativeZero.isFactor(of: other) == isFactor)
-    }
-
-    @Test(
-        "Positive infinity divisibility follows floating-point rules",
-        arguments: [
-            Double.zero,
-            Double.negativeZero,
-            2.0,
-            Double.infinity,
-            Double.negativeInfinity
-        ]
-    )
-    internal func positiveInfinityDivisibilityFollowsFloatingPointRules(other: Double) {
-        #expect(Double.infinity.isDivisible(by: other) == false)
-        #expect(Double.infinity.isFactor(of: other) == false)
-    }
-
-    @Test(
-        "Negative infinity divisibility follows floating-point rules",
-        arguments: [
-            Double.zero,
-            Double.negativeZero,
-            2.0,
-            Double.infinity,
-            Double.negativeInfinity
-        ]
-    )
-    internal func negativeInfinityDivisibilityFollowsFloatingPointRules(other: Double) {
-        #expect(Double.negativeInfinity.isDivisible(by: other) == false)
-        #expect(Double.negativeInfinity.isFactor(of: other) == false)
-    }
-
     @Test(
         "NaN divisibility follows floating-point rules",
         arguments: [
@@ -414,55 +259,9 @@ extension DoubleDivisibleTests {
         #expect(Double.nan.isFactor(of: other) == false)
     }
 
-    @Test("Reciprocal of positive zero returns nil")
-    internal func reciprocalOfPositiveZeroReturnsNil() {
-        #expect(Double.zero.reciprocal == nil)
-    }
-
-    @Test("Reciprocal of negative zero returns nil")
-    internal func reciprocalOfNegativeZeroReturnsNil() {
-        #expect(Double.negativeZero.reciprocal == nil)
-    }
-
-    @Test("Reciprocal of positive infinity returns positive zero")
-    internal func reciprocalOfPositiveInfinityReturnsPositiveZero() {
-        let reciprocal: Double? = Double.infinity.reciprocal
-
-        #expect(reciprocal == Double.zero)
-        #expect(reciprocal?.sign == .plus)
-    }
-
-    @Test("Reciprocal of negative infinity returns negative zero")
-    internal func reciprocalOfNegativeInfinityReturnsNegativeZero() {
-        let reciprocal: Double? = Double.negativeInfinity.reciprocal
-
-        #expect(reciprocal == Double.zero)
-        #expect(reciprocal?.sign == .minus)
-    }
-
     @Test("Reciprocal of NaN returns nil")
     internal func reciprocalOfNaNReturnsNil() {
         #expect(Double.nan.reciprocal == nil)
-    }
-
-    @Test("Positive zero is not invertible")
-    internal func positiveZeroIsNotInvertible() {
-        #expect(Double.zero.isInvertible == false)
-    }
-
-    @Test("Negative zero is not invertible")
-    internal func negativeZeroIsNotInvertible() {
-        #expect(Double.negativeZero.isInvertible == false)
-    }
-
-    @Test("Positive infinity is invertible")
-    internal func positiveInfinityIsInvertible() {
-        #expect(Double.infinity.isInvertible == true)
-    }
-
-    @Test("Negative infinity is invertible")
-    internal func negativeInfinityIsInvertible() {
-        #expect(Double.negativeInfinity.isInvertible == true)
     }
 
     @Test("NaN is not invertible")
@@ -471,149 +270,25 @@ extension DoubleDivisibleTests {
     }
 
     @Test(
-        "Dividing positive zero follows floating-point rules",
-        arguments: [
-            (1.0, Double.zero),
-            (-1.0, Double.negativeZero)
-        ]
-    )
-    internal func dividingPositiveZeroFollowsFloatingPointRules(
-        divisor: Double,
-        quotient: Double
-    ) {
-        let result: Double = Double.zero / divisor
-
-        #expect(result == quotient)
-        #expect(result.sign == quotient.sign)
-    }
-
-    @Test(
-        "Dividing negative zero follows floating-point rules",
-        arguments: [
-            (1.0, Double.negativeZero),
-            (-1.0, Double.zero)
-        ]
-    )
-    internal func dividingNegativeZeroFollowsFloatingPointRules(
-        divisor: Double,
-        quotient: Double
-    ) {
-        let result: Double = Double.negativeZero / divisor
-
-        #expect(result == quotient)
-        #expect(result.sign == quotient.sign)
-    }
-
-    @Test(
-        "Dividing by positive zero follows floating-point rules",
-        arguments: [
-            (1.0, Double.infinity),
-            (-1.0, Double.negativeInfinity)
-        ]
-    )
-    internal func dividingByPositiveZeroFollowsFloatingPointRules(
-        dividend: Double,
-        quotient: Double
-    ) {
-        #expect(dividend / Double.zero == quotient)
-    }
-
-    @Test(
-        "Dividing by negative zero follows floating-point rules",
-        arguments: [
-            (1.0, Double.negativeInfinity),
-            (-1.0, Double.infinity)
-        ]
-    )
-    internal func dividingByNegativeZeroFollowsFloatingPointRules(
-        dividend: Double,
-        quotient: Double
-    ) {
-        #expect(dividend / Double.negativeZero == quotient)
-    }
-
-    @Test(
-        "Dividing positive zero by zero returns NaN",
+        "Dividing positive zero by positive or negative zero returns NaN",
         arguments: [
             Double.zero,
             Double.negativeZero
         ]
     )
-    internal func dividingPositiveZeroByZeroReturnsNaN(divisor: Double) {
+    internal func dividingPositiveZeroByPositiveOrNegativeZeroReturnsNaN(divisor: Double) {
         #expect((Double.zero / divisor).isNaN == true)
     }
 
     @Test(
-        "Dividing negative zero by zero returns NaN",
+        "Dividing negative zero by positive or negative zero returns NaN",
         arguments: [
             Double.zero,
             Double.negativeZero
         ]
     )
-    internal func dividingNegativeZeroByZeroReturnsNaN(divisor: Double) {
+    internal func dividingNegativeZeroByPositiveOrNegativeZeroReturnsNaN(divisor: Double) {
         #expect((Double.negativeZero / divisor).isNaN == true)
-    }
-
-    @Test(
-        "Dividing positive infinity follows floating-point rules",
-        arguments: [
-            (1.0, Double.infinity),
-            (-1.0, Double.negativeInfinity)
-        ]
-    )
-    internal func dividingPositiveInfinityFollowsFloatingPointRules(
-        divisor: Double,
-        quotient: Double
-    ) {
-        #expect(Double.infinity / divisor == quotient)
-    }
-
-    @Test(
-        "Dividing negative infinity follows floating-point rules",
-        arguments: [
-            (1.0, Double.negativeInfinity),
-            (-1.0, Double.infinity)
-        ]
-    )
-    internal func dividingNegativeInfinityFollowsFloatingPointRules(
-        divisor: Double,
-        quotient: Double
-    ) {
-        #expect(Double.negativeInfinity / divisor == quotient)
-    }
-
-    @Test(
-        "Dividing by positive infinity follows floating-point rules",
-        arguments: [
-            (1.0, Double.zero),
-            (-1.0, Double.negativeZero)
-        ]
-    )
-    internal func dividingByPositiveInfinityFollowsFloatingPointRules(
-        dividend: Double,
-        quotient: Double
-    ) {
-        let result: Double = dividend / Double.infinity
-
-        #expect(result == quotient)
-        #expect(result.sign == quotient.sign)
-    }
-
-    @Test(
-        "Dividing by negative infinity follows floating-point rules",
-        arguments: [
-            (1.0, Double.negativeZero),
-            (-1.0, Double.zero)
-        ]
-    )
-    internal func dividingByNegativeInfinityFollowsFloatingPointRules(
-        dividend: Double,
-        quotient: Double
-    ) {
-        let result: Double = dividend / Double.negativeInfinity
-
-        #expect(result == quotient)
-        #expect(result.sign == quotient.sign)
     }
 
     @Test(
@@ -667,38 +342,6 @@ extension DoubleDivisibleTests {
     )
     internal func dividingByNaNReturnsNaN(dividend: Double) {
         #expect((dividend / Double.nan).isNaN == true)
-    }
-
-    @Test(
-        "Remainder by positive infinity preserves dividend",
-        arguments: [
-            0.5,
-            -0.5,
-            Double.zero,
-            Double.negativeZero
-        ]
-    )
-    internal func remainderByPositiveInfinityPreservesDividend(dividend: Double) {
-        let remainder: Double = dividend % Double.infinity
-
-        #expect(remainder == dividend)
-        #expect(remainder.sign == dividend.sign)
-    }
-
-    @Test(
-        "Remainder by negative infinity preserves dividend",
-        arguments: [
-            0.5,
-            -0.5,
-            Double.zero,
-            Double.negativeZero
-        ]
-    )
-    internal func remainderByNegativeInfinityPreservesDividend(dividend: Double) {
-        let remainder: Double = dividend % Double.negativeInfinity
-
-        #expect(remainder == dividend)
-        #expect(remainder.sign == dividend.sign)
     }
 
     @Test(
@@ -782,5 +425,381 @@ extension DoubleDivisibleTests {
     )
     internal func remainderByNaNReturnsNaN(dividend: Double) {
         #expect((dividend % Double.nan).isNaN == true)
+    }
+}
+
+// MARK: - Negative Infinity
+
+extension DoubleDivisibleTests {
+    @Test(
+        "Negative infinity divisibility follows floating-point rules",
+        arguments: [
+            Double.zero,
+            Double.negativeZero,
+            2.0,
+            Double.infinity,
+            Double.negativeInfinity
+        ]
+    )
+    internal func negativeInfinityDivisibilityFollowsFloatingPointRules(other: Double) {
+        #expect(Double.negativeInfinity.isDivisible(by: other) == false)
+        #expect(Double.negativeInfinity.isFactor(of: other) == false)
+    }
+
+    @Test("Reciprocal of negative infinity returns negative zero")
+    internal func reciprocalOfNegativeInfinityReturnsNegativeZero() {
+        let reciprocal: Double? = Double.negativeInfinity.reciprocal
+
+        #expect(reciprocal == Double.zero)
+        #expect(reciprocal?.sign == .minus)
+    }
+
+    @Test("Negative infinity is invertible")
+    internal func negativeInfinityIsInvertible() {
+        #expect(Double.negativeInfinity.isInvertible == true)
+    }
+
+    @Test(
+        "Dividing negative infinity follows floating-point rules",
+        arguments: [
+            (1.0, Double.negativeInfinity),
+            (-1.0, Double.infinity)
+        ]
+    )
+    internal func dividingNegativeInfinityFollowsFloatingPointRules(
+        divisor: Double,
+        quotient: Double
+    ) {
+        #expect(Double.negativeInfinity / divisor == quotient)
+    }
+
+    @Test(
+        "Dividing by negative infinity follows floating-point rules",
+        arguments: [
+            (1.0, Double.negativeZero),
+            (-1.0, Double.zero)
+        ]
+    )
+    internal func dividingByNegativeInfinityFollowsFloatingPointRules(
+        dividend: Double,
+        quotient: Double
+    ) {
+        let result: Double = dividend / Double.negativeInfinity
+
+        #expect(result == quotient)
+        #expect(result.sign == quotient.sign)
+    }
+
+    @Test(
+        "Remainder by negative infinity preserves dividend",
+        arguments: [
+            0.5,
+            -0.5,
+            Double.zero,
+            Double.negativeZero
+        ]
+    )
+    internal func remainderByNegativeInfinityPreservesDividend(dividend: Double) {
+        let remainder: Double = dividend % Double.negativeInfinity
+
+        #expect(remainder == dividend)
+        #expect(remainder.sign == dividend.sign)
+    }
+}
+
+// MARK: - Negative One
+
+extension DoubleDivisibleTests {
+    @Test(
+        "Dividing by negative one returns opposite value",
+        arguments: [
+            (6.0, -6.0),
+            (4.0, -4.0),
+            (-6.0, 6.0),
+            (-4.0, 4.0),
+            (1.5, -1.5),
+            (3.75, -3.75),
+            (-1.5, 1.5),
+            (-3.75, 3.75)
+        ]
+    )
+    internal func dividingByNegativeOneReturnsOppositeValue(
+        dividend: Double,
+        quotient: Double
+    ) {
+        #expect(dividend / -1.0 == quotient)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension DoubleDivisibleTests {
+    @Test(
+        "Remainder by self returns negative zero",
+        arguments: [
+            -6.0,
+            -4.0,
+            -1.5,
+            -3.75
+        ]
+    )
+    internal func remainderBySelfReturnsNegativeZero(value: Double) {
+        let remainder: Double = value % value
+        #expect(remainder == Double.zero)
+        #expect(remainder.sign == .minus)
+    }
+
+    @Test(
+        "Negative zero divisibility follows floating-point rules",
+        arguments: [
+            (Double.zero, false, false),
+            (Double.negativeZero, false, false),
+            (2.0, true, false),
+            (Double.infinity, false, false),
+            (Double.negativeInfinity, false, false)
+        ]
+    )
+    internal func negativeZeroDivisibilityFollowsFloatingPointRules(
+        other: Double,
+        isDivisible: Bool,
+        isFactor: Bool
+    ) {
+        #expect(Double.negativeZero.isDivisible(by: other) == isDivisible)
+        #expect(Double.negativeZero.isFactor(of: other) == isFactor)
+    }
+
+    @Test("Reciprocal of negative zero returns nil")
+    internal func reciprocalOfNegativeZeroReturnsNil() {
+        #expect(Double.negativeZero.reciprocal == nil)
+    }
+
+    @Test("Negative zero is not invertible")
+    internal func negativeZeroIsNotInvertible() {
+        #expect(Double.negativeZero.isInvertible == false)
+    }
+
+    @Test(
+        "Dividing negative zero follows floating-point rules",
+        arguments: [
+            (1.0, Double.negativeZero),
+            (-1.0, Double.zero)
+        ]
+    )
+    internal func dividingNegativeZeroFollowsFloatingPointRules(
+        divisor: Double,
+        quotient: Double
+    ) {
+        let result: Double = Double.negativeZero / divisor
+
+        #expect(result == quotient)
+        #expect(result.sign == quotient.sign)
+    }
+
+    @Test(
+        "Dividing by negative zero follows floating-point rules",
+        arguments: [
+            (1.0, Double.negativeInfinity),
+            (-1.0, Double.infinity)
+        ]
+    )
+    internal func dividingByNegativeZeroFollowsFloatingPointRules(
+        dividend: Double,
+        quotient: Double
+    ) {
+        #expect(dividend / Double.negativeZero == quotient)
+    }
+}
+
+// MARK: - Positive Infinity
+
+extension DoubleDivisibleTests {
+    @Test(
+        "Positive infinity divisibility follows floating-point rules",
+        arguments: [
+            Double.zero,
+            Double.negativeZero,
+            2.0,
+            Double.infinity,
+            Double.negativeInfinity
+        ]
+    )
+    internal func positiveInfinityDivisibilityFollowsFloatingPointRules(other: Double) {
+        #expect(Double.infinity.isDivisible(by: other) == false)
+        #expect(Double.infinity.isFactor(of: other) == false)
+    }
+
+    @Test("Reciprocal of positive infinity returns positive zero")
+    internal func reciprocalOfPositiveInfinityReturnsPositiveZero() {
+        let reciprocal: Double? = Double.infinity.reciprocal
+
+        #expect(reciprocal == Double.zero)
+        #expect(reciprocal?.sign == .plus)
+    }
+
+    @Test("Positive infinity is invertible")
+    internal func positiveInfinityIsInvertible() {
+        #expect(Double.infinity.isInvertible == true)
+    }
+
+    @Test(
+        "Dividing positive infinity follows floating-point rules",
+        arguments: [
+            (1.0, Double.infinity),
+            (-1.0, Double.negativeInfinity)
+        ]
+    )
+    internal func dividingPositiveInfinityFollowsFloatingPointRules(
+        divisor: Double,
+        quotient: Double
+    ) {
+        #expect(Double.infinity / divisor == quotient)
+    }
+
+    @Test(
+        "Dividing by positive infinity follows floating-point rules",
+        arguments: [
+            (1.0, Double.zero),
+            (-1.0, Double.negativeZero)
+        ]
+    )
+    internal func dividingByPositiveInfinityFollowsFloatingPointRules(
+        dividend: Double,
+        quotient: Double
+    ) {
+        let result: Double = dividend / Double.infinity
+
+        #expect(result == quotient)
+        #expect(result.sign == quotient.sign)
+    }
+
+    @Test(
+        "Remainder by positive infinity preserves dividend",
+        arguments: [
+            0.5,
+            -0.5,
+            Double.zero,
+            Double.negativeZero
+        ]
+    )
+    internal func remainderByPositiveInfinityPreservesDividend(dividend: Double) {
+        let remainder: Double = dividend % Double.infinity
+
+        #expect(remainder == dividend)
+        #expect(remainder.sign == dividend.sign)
+    }
+}
+
+// MARK: - Positive One
+
+extension DoubleDivisibleTests {
+    @Test(
+        "Dividing by positive one preserves dividend",
+        arguments: [
+            6.0,
+            4.0,
+            -6.0,
+            -4.0,
+            1.5,
+            3.75,
+            -1.5,
+            -3.75
+        ]
+    )
+    internal func dividingByPositiveOnePreservesDividend(dividend: Double) {
+        #expect(dividend / 1.0 == dividend)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension DoubleDivisibleTests {
+    @Test(
+        "Remainder by self returns positive zero",
+        arguments: [
+            6.0,
+            4.0,
+            1.5,
+            3.75
+        ]
+    )
+    internal func remainderBySelfReturnsPositiveZero(value: Double) {
+        let remainder: Double = value % value
+        #expect(remainder == Double.zero)
+        #expect(remainder.sign == .plus)
+    }
+
+    @Test(
+        "Dividing positive zero by nonzero value returns positive or negative zero",
+        arguments: [
+            2.0,
+            -3.0,
+            3.0,
+            0.5,
+            1.5,
+            -1.5
+        ]
+    )
+    internal func dividingPositiveZeroByNonzeroValueReturnsPositiveOrNegativeZero(divisor: Double) {
+        #expect(Double.zero / divisor == Double.zero)
+    }
+
+    @Test(
+        "Positive zero divisibility follows floating-point rules",
+        arguments: [
+            (Double.zero, false, false),
+            (Double.negativeZero, false, false),
+            (2.0, true, false),
+            (Double.infinity, false, false),
+            (Double.negativeInfinity, false, false)
+        ]
+    )
+    internal func positiveZeroDivisibilityFollowsFloatingPointRules(
+        other: Double,
+        isDivisible: Bool,
+        isFactor: Bool
+    ) {
+        #expect(Double.zero.isDivisible(by: other) == isDivisible)
+        #expect(Double.zero.isFactor(of: other) == isFactor)
+    }
+
+    @Test("Reciprocal of positive zero returns nil")
+    internal func reciprocalOfPositiveZeroReturnsNil() {
+        #expect(Double.zero.reciprocal == nil)
+    }
+
+    @Test("Positive zero is not invertible")
+    internal func positiveZeroIsNotInvertible() {
+        #expect(Double.zero.isInvertible == false)
+    }
+
+    @Test(
+        "Dividing positive zero follows floating-point rules",
+        arguments: [
+            (1.0, Double.zero),
+            (-1.0, Double.negativeZero)
+        ]
+    )
+    internal func dividingPositiveZeroFollowsFloatingPointRules(
+        divisor: Double,
+        quotient: Double
+    ) {
+        let result: Double = Double.zero / divisor
+
+        #expect(result == quotient)
+        #expect(result.sign == quotient.sign)
+    }
+
+    @Test(
+        "Dividing by positive zero follows floating-point rules",
+        arguments: [
+            (1.0, Double.infinity),
+            (-1.0, Double.negativeInfinity)
+        ]
+    )
+    internal func dividingByPositiveZeroFollowsFloatingPointRules(
+        dividend: Double,
+        quotient: Double
+    ) {
+        #expect(dividend / Double.zero == quotient)
     }
 }
