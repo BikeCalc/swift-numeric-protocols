@@ -1,9 +1,9 @@
 .DS_Store
 .netrc
-.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
-.swiftpm/xcode/package.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+.swiftpm/
 /*.xcodeproj/
 /.build/
+/Benchmarks/.build/
 /Packages/
 DerivedData/
 xcuserdata/
