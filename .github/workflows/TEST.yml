@@ -15,6 +15,6 @@ jobs:
       - name: Get Swift Version
         run: swift --version
       - name: Build Package
-        run: swift build
+        run: swift build --target NumericsExtended
       - name: Test Package
         run: swift test

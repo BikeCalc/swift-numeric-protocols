@@ -1,0 +1,82 @@
+name: Benchmark
+
+on:
+  push:
+    branches: ["main", "release/**"]
+  pull_request:
+    branches: ["main", "release/**"]
+  workflow_dispatch:
+
+jobs:
+  continuous-clock:
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Get Swift Version
+        run: swift --version
+      - name: Select Comparison Revision
+        id: comparison
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          target_sha=""
+
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            target_sha="$BASE_SHA"
+          elif [ "$EVENT_NAME" = "push" ] && ! printf '%s' "$BEFORE_SHA" | grep -q '^0*$'; then
+            target_sha="$BEFORE_SHA"
+          fi
+
+          echo "target_sha=$target_sha" >> "$GITHUB_OUTPUT"
+      - name: Run Target Benchmarks
+        id: target
+        if: steps.comparison.outputs.target_sha != ''
+        env:
+          TARGET_SHA: ${{ steps.comparison.outputs.target_sha }}
+        run: |
+          target_directory="$RUNNER_TEMP/numerics-extended-target"
+          git worktree add --detach "$target_directory" "$TARGET_SHA"
+
+          if ! grep -q 'name: "NumericsExtendedBenchmarks"' "$target_directory/Package.swift"; then
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          rm -rf "$target_directory/Benchmarks/NumericsExtendedBenchmarks"
+          mkdir -p "$target_directory/Benchmarks"
+          cp -R Benchmarks/NumericsExtendedBenchmarks "$target_directory/Benchmarks/NumericsExtendedBenchmarks"
+
+          swift run \
+            --package-path "$target_directory" \
+            --configuration release \
+            NumericsExtendedBenchmarks \
+            --output "$RUNNER_TEMP/benchmark-target.json"
+          echo "available=true" >> "$GITHUB_OUTPUT"
+      - name: Run Current Benchmarks
+        run: |
+          swift run \
+            --configuration release \
+            NumericsExtendedBenchmarks \
+            --output "$RUNNER_TEMP/benchmark-current.json"
+      - name: Summarize Performance
+        env:
+          TARGET_AVAILABLE: ${{ steps.target.outputs.available }}
+        run: |
+          comparison_arguments=(
+            --current "$RUNNER_TEMP/benchmark-current.json"
+          )
+
+          if [ "$TARGET_AVAILABLE" = "true" ]; then
+            comparison_arguments+=(
+              --target "$RUNNER_TEMP/benchmark-target.json"
+            )
+          fi
+
+          swift Scripts/CompareBenchmarkResults.swift \
+            "${comparison_arguments[@]}" >> "$GITHUB_STEP_SUMMARY"
