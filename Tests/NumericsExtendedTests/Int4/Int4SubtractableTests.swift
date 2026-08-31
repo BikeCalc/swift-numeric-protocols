@@ -71,35 +71,7 @@ internal struct Int4SubtractableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension Int4SubtractableTests {
-    @Test(
-        "Subtracting zero preserves minuend",
-        arguments: [
-            3,
-            5,
-            -3,
-            -5
-        ] as Array<Int4>
-    )
-    internal func subtractingZeroPreservesMinuend(minuend: Int4) {
-        #expect(minuend - Int4.zero == minuend)
-    }
-
-    @Test(
-        "Subtracting self returns zero",
-        arguments: [
-            3,
-            5,
-            -3,
-            -5
-        ] as Array<Int4>
-    )
-    internal func subtractingSelfReturnsZero(value: Int4) {
-        #expect(value - value == Int4.zero)
-    }
-
     @Test(
         "Subtraction is not commutative",
         arguments: Self.subtractionArguments
@@ -110,5 +82,52 @@ extension Int4SubtractableTests {
         difference _: Int4
     ) {
         #expect(minuend - subtrahend != subtrahend - minuend)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension Int4SubtractableTests {
+    @Test(
+        "Subtracting negative zero preserves minuend",
+        arguments: [
+            3,
+            5,
+            -3,
+            -5
+        ] as Array<Int4>
+    )
+    internal func subtractingNegativeZeroPreservesMinuend(minuend: Int4) {
+        #expect(minuend - Int4.negativeZero == minuend)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension Int4SubtractableTests {
+    @Test(
+        "Subtracting positive zero preserves minuend",
+        arguments: [
+            3,
+            5,
+            -3,
+            -5
+        ] as Array<Int4>
+    )
+    internal func subtractingPositiveZeroPreservesMinuend(minuend: Int4) {
+        #expect(minuend - Int4.zero == minuend)
+    }
+
+    @Test(
+        "Subtracting self returns positive zero",
+        arguments: [
+            3,
+            5,
+            -3,
+            -5
+        ] as Array<Int4>
+    )
+    internal func subtractingSelfReturnsPositiveZero(value: Int4) {
+        #expect(value - value == Int4.zero)
     }
 }

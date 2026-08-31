@@ -52,11 +52,11 @@ internal struct Int4StrideableTests {
     }
 }
 
-// MARK: - Stride Rules
+// MARK: - Negative Zero
 
 extension Int4StrideableTests {
     @Test(
-        "Advancing by zero preserves value",
+        "Advancing by negative zero preserves value",
         arguments: [
             1,
             2,
@@ -64,12 +64,29 @@ extension Int4StrideableTests {
             -2
         ] as Array<Int4>
     )
-    internal func advancingByZeroPreservesValue(value: Int4) {
+    internal func advancingByNegativeZeroPreservesValue(value: Int4) {
+        #expect(value.advanced(by: Int.negativeZero) == value)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension Int4StrideableTests {
+    @Test(
+        "Advancing by positive zero preserves value",
+        arguments: [
+            1,
+            2,
+            -1,
+            -2
+        ] as Array<Int4>
+    )
+    internal func advancingByPositiveZeroPreservesValue(value: Int4) {
         #expect(value.advanced(by: Int.zero) == value)
     }
 
     @Test(
-        "Distance to self returns zero",
+        "Distance to self returns positive zero",
         arguments: [
             1,
             2,
@@ -77,7 +94,7 @@ extension Int4StrideableTests {
             -2
         ] as Array<Int4>
     )
-    internal func distanceToSelfReturnsZero(value: Int4) {
+    internal func distanceToSelfReturnsPositiveZero(value: Int4) {
         #expect(value.distance(to: value) == Int.zero)
     }
 }

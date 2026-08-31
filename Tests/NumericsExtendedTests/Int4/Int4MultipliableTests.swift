@@ -117,53 +117,23 @@ internal struct Int4MultipliableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
+extension Int4MultipliableTests {
+    @Test(
+        "Multiplication is commutative",
+        arguments: Self.multiplicationArguments
+    )
+    internal func multiplicationIsCommutative(
+        multiplicand: Int4,
+        multiplier: Int4,
+        product _: Int4
+    ) {
+        #expect(multiplicand * multiplier == multiplier * multiplicand)
+    }
+}
+
+// MARK: - Negative One
 
 extension Int4MultipliableTests {
-    @Test("Zero is multiple of zero")
-    internal func zeroIsMultipleOfZero() {
-        #expect(Int4.zero.isMultiple(of: Int4.zero) == true)
-    }
-
-    @Test(
-        "Is multiple of zero returns false",
-        arguments: [
-            2,
-            3,
-            -2,
-            -3
-        ] as Array<Int4>
-    )
-    internal func isMultipleOfZeroReturnsFalse(multiplicand: Int4) {
-        #expect(multiplicand.isMultiple(of: Int4.zero) == false)
-    }
-
-    @Test(
-        "Multiplying by zero returns zero",
-        arguments: [
-            2,
-            3,
-            -2,
-            -3
-        ] as Array<Int4>
-    )
-    internal func multiplyingByZeroReturnsZero(multiplicand: Int4) {
-        #expect(multiplicand * Int4.zero == Int4.zero)
-    }
-
-    @Test(
-        "Multiplying by one preserves multiplicand",
-        arguments: [
-            2,
-            3,
-            -2,
-            -3
-        ] as Array<Int4>
-    )
-    internal func multiplyingByOnePreservesMultiplicand(multiplicand: Int4) {
-        #expect(multiplicand * 1 == multiplicand)
-    }
-
     @Test(
         "Multiplying by negative one returns opposite value",
         arguments: [
@@ -181,23 +151,7 @@ extension Int4MultipliableTests {
     }
 
     @Test(
-        "Multiplication is commutative",
-        arguments: Self.multiplicationArguments
-    )
-    internal func multiplicationIsCommutative(
-        multiplicand: Int4,
-        multiplier: Int4,
-        product _: Int4
-    ) {
-        #expect(multiplicand * multiplier == multiplier * multiplicand)
-    }
-}
-
-// MARK: - Integer Rules
-
-extension Int4MultipliableTests {
-    @Test(
-        "Is multiple of one returns true",
+        "Is multiple of negative one returns true",
         arguments: [
             2,
             3,
@@ -205,7 +159,107 @@ extension Int4MultipliableTests {
             -3
         ] as Array<Int4>
     )
-    internal func isMultipleOfOneReturnsTrue(multiplicand: Int4) {
+    internal func isMultipleOfNegativeOneReturnsTrue(multiplicand: Int4) {
+        #expect(multiplicand.isMultiple(of: -1) == true)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension Int4MultipliableTests {
+    @Test("Negative zero is multiple of negative zero")
+    internal func negativeZeroIsMultipleOfNegativeZero() {
+        #expect(Int4.negativeZero.isMultiple(of: Int4.negativeZero) == true)
+    }
+
+    @Test(
+        "Is multiple of negative zero returns false",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ] as Array<Int4>
+    )
+    internal func isMultipleOfNegativeZeroReturnsFalse(multiplicand: Int4) {
+        #expect(multiplicand.isMultiple(of: Int4.negativeZero) == false)
+    }
+
+    @Test(
+        "Multiplying by negative zero returns negative zero",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ] as Array<Int4>
+    )
+    internal func multiplyingByNegativeZeroReturnsNegativeZero(multiplicand: Int4) {
+        #expect(multiplicand * Int4.negativeZero == Int4.negativeZero)
+    }
+}
+
+// MARK: - Positive One
+
+extension Int4MultipliableTests {
+    @Test(
+        "Multiplying by positive one preserves multiplicand",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ] as Array<Int4>
+    )
+    internal func multiplyingByPositiveOnePreservesMultiplicand(multiplicand: Int4) {
+        #expect(multiplicand * 1 == multiplicand)
+    }
+
+    @Test(
+        "Is multiple of positive one returns true",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ] as Array<Int4>
+    )
+    internal func isMultipleOfPositiveOneReturnsTrue(multiplicand: Int4) {
         #expect(multiplicand.isMultiple(of: 1) == true)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension Int4MultipliableTests {
+    @Test("Positive zero is multiple of positive zero")
+    internal func positiveZeroIsMultipleOfPositiveZero() {
+        #expect(Int4.zero.isMultiple(of: Int4.zero) == true)
+    }
+
+    @Test(
+        "Is multiple of positive zero returns false",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ] as Array<Int4>
+    )
+    internal func isMultipleOfPositiveZeroReturnsFalse(multiplicand: Int4) {
+        #expect(multiplicand.isMultiple(of: Int4.zero) == false)
+    }
+
+    @Test(
+        "Multiplying by positive zero returns positive zero",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ] as Array<Int4>
+    )
+    internal func multiplyingByPositiveZeroReturnsPositiveZero(multiplicand: Int4) {
+        #expect(multiplicand * Int4.zero == Int4.zero)
     }
 }

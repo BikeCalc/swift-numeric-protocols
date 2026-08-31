@@ -18,7 +18,6 @@ internal struct Int4DecodableTests {
         arguments: [
             ("-8", -8),
             ("-1", -1),
-            ("0", 0),
             ("1", 1),
             ("7", 7)
         ] as Array<(String, Int4)>
@@ -54,6 +53,36 @@ internal struct Int4DecodableTests {
                 from: data
             )
         }
+    }
+}
+
+// MARK: - Negative Zero
+
+extension Int4DecodableTests {
+    @Test("Negative zero decodes from JSON")
+    internal func negativeZeroDecodesFromJSON() throws {
+        let data: Data = try #require("-0".data(using: .utf8))
+        let result: Int4 = try JSONDecoder().decode(
+            Int4.self,
+            from: data
+        )
+
+        #expect(result == .negativeZero)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension Int4DecodableTests {
+    @Test("Positive zero decodes from JSON")
+    internal func positiveZeroDecodesFromJSON() throws {
+        let data: Data = try #require("0".data(using: .utf8))
+        let result: Int4 = try JSONDecoder().decode(
+            Int4.self,
+            from: data
+        )
+
+        #expect(result == .zero)
     }
 }
 #endif

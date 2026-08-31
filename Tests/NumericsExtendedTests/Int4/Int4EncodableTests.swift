@@ -18,7 +18,6 @@ internal struct Int4EncodableTests {
         arguments: [
             (-8, "-8"),
             (-1, "-1"),
-            (0, "0"),
             (1, "1"),
             (7, "7")
         ] as Array<(Int4, String)>
@@ -29,6 +28,18 @@ internal struct Int4EncodableTests {
     ) throws {
         let result: Data = try JSONEncoder().encode(value)
         let expected: Data = try #require(json.data(using: .utf8))
+
+        #expect(result == expected)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension Int4EncodableTests {
+    @Test("Positive zero encodes to JSON")
+    internal func positiveZeroEncodesToJSON() throws {
+        let result: Data = try JSONEncoder().encode(Int4.zero)
+        let expected: Data = try #require("0".data(using: .utf8))
 
         #expect(result == expected)
     }

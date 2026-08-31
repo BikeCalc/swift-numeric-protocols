@@ -71,38 +71,7 @@ internal struct Int4AddableTests {
     }
 }
 
-// MARK: - Arithmetic Rules
-
 extension Int4AddableTests {
-    @Test(
-        "Adding zero preserves augend",
-        arguments: [
-            2,
-            3,
-            -2,
-            -3
-        ] as Array<Int4>
-    )
-    internal func addingZeroPreservesAugend(augend: Int4) {
-        #expect(augend + Int4.zero == augend)
-    }
-
-    @Test(
-        "Adding opposite values returns zero",
-        arguments: [
-            (2, -2),
-            (3, -3),
-            (-2, 2),
-            (-3, 3)
-        ] as Array<(Int4, Int4)>
-    )
-    internal func addingOppositeValuesReturnsZero(
-        augend: Int4,
-        addend: Int4
-    ) {
-        #expect(augend + addend == Int4.zero)
-    }
-
     @Test(
         "Addition is commutative",
         arguments: Self.additionArguments
@@ -113,5 +82,55 @@ extension Int4AddableTests {
         sum _: Int4
     ) {
         #expect(augend + addend == addend + augend)
+    }
+}
+
+// MARK: - Negative Zero
+
+extension Int4AddableTests {
+    @Test(
+        "Adding negative zero preserves augend",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ] as Array<Int4>
+    )
+    internal func addingNegativeZeroPreservesAugend(augend: Int4) {
+        #expect(augend + Int4.negativeZero == augend)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension Int4AddableTests {
+    @Test(
+        "Adding opposite values returns positive zero",
+        arguments: [
+            (2, -2),
+            (3, -3),
+            (-2, 2),
+            (-3, 3)
+        ] as Array<(Int4, Int4)>
+    )
+    internal func addingOppositeValuesReturnsPositiveZero(
+        augend: Int4,
+        addend: Int4
+    ) {
+        #expect(augend + addend == Int4.zero)
+    }
+
+    @Test(
+        "Adding positive zero preserves augend",
+        arguments: [
+            2,
+            3,
+            -2,
+            -3
+        ] as Array<Int4>
+    )
+    internal func addingPositiveZeroPreservesAugend(augend: Int4) {
+        #expect(augend + Int4.zero == augend)
     }
 }

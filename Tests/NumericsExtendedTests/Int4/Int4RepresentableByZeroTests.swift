@@ -21,15 +21,23 @@ internal struct Int4RepresentableByZeroTests {
     internal func nonzeroValuesAreNotZero(value: Int4) {
         #expect(value.isZero == false)
     }
+}
 
-    @Test("Positive zero is zero")
-    internal func positiveZeroIsZero() {
-        #expect(Int4.zero.isZero == true)
-    }
+// MARK: - Negative Zero
 
+extension Int4RepresentableByZeroTests {
     @Test("Negative zero is zero")
     internal func negativeZeroIsZero() {
         #expect(Int4.negativeZero.isZero == true)
         #expect(Int4.negativeZero == .zero)
+    }
+}
+
+// MARK: - Positive Zero
+
+extension Int4RepresentableByZeroTests {
+    @Test("Positive zero is zero")
+    internal func positiveZeroIsZero() {
+        #expect(Int4.zero.isZero == true)
     }
 }
