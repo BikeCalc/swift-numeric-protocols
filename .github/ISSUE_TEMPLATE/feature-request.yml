@@ -1,6 +1,5 @@
 name: Request a feature
 description: Suggest a new capability or improvement for consideration.
-title: ""
 labels: ["enhancement", "triage needed"]
 body:
   - type: textarea

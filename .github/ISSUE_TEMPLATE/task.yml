@@ -1,6 +1,5 @@
 name: Plan a task
 description: Define accepted work that is ready for delivery.
-title: ""
 labels: ["task"]
 body:
   - type: textarea
